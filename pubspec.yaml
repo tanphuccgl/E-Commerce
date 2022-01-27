@@ -53,3 +53,9 @@ flutter:
     - assets/logo/
     - assets/videos/
     - assets/fonts/
+
+  fonts:
+    - family: Metropolis
+      fonts:
+        - asset: assets/fonts/metropolis/Metropolis-Medium.otf
+          weight: 700

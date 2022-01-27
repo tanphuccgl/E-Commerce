@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class XTheme {
   static ThemeData light() => ThemeData(
-      textTheme: XStyle.textTheme(),
+      textTheme: XStyle.textTheme(),fontFamily: "Metropolis",
       snackBarTheme: const SnackBarThemeData(backgroundColor: MyColors.colorPrimary),
       primaryColor: MyColors.colorPrimary,
       elevatedButtonTheme: ElevatedButtonThemeData(
