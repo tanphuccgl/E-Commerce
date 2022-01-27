@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../../ex.dart';
 
+// TODO: Move to dashboard module
 class XBottomNavigationBar extends StatelessWidget {
   final int index;
 
@@ -11,8 +12,6 @@ class XBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-
     void _onItemTapped(int index) {
       switch (index) {
         case 0:
@@ -52,27 +51,26 @@ class XBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
             icon: Icon(Icons.home_outlined, size: size.width * 0.05),
             label: ""),
-         BottomNavigationBarItem(
-            icon: Icon(Icons.qr_code_scanner, size: size.width * 0.05),
-            label: ""),
         BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner, size: size.width * 0.05),
             label: ""),
         BottomNavigationBarItem(
             icon: Icon(Icons.qr_code_scanner, size: size.width * 0.05),
             label: ""),
-
+        BottomNavigationBarItem(
+            icon: Icon(Icons.qr_code_scanner, size: size.width * 0.05),
+            label: ""),
         BottomNavigationBarItem(
             icon: Icon(Icons.person_outline_sharp, size: size.width * 0.05),
             label: ""),
       ],
-      currentIndex: index ,
+      currentIndex: index,
       selectedItemColor: MyColors.colorPrimary,
       onTap: _onItemTapped,
       backgroundColor: Colors.white,
       unselectedItemColor: Colors.black,
-       showSelectedLabels: false,
-          showUnselectedLabels: false,
+      showSelectedLabels: false,
+      showUnselectedLabels: false,
     );
   }
 }

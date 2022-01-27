@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+// TODO: the name should be XElevatedButton or XButton
+
 class XButtonPrimary extends StatelessWidget {
   final String label;
   final double? width;

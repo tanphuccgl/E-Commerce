@@ -5,6 +5,7 @@ import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 
 class DashboardPage extends StatelessWidget {
+  // TODO: Move to PageRoutes
   static const String routeName = "/DashboardPage";
   const DashboardPage({Key? key}) : super(key: key);
 
@@ -26,7 +27,6 @@ class DashboardPage extends StatelessWidget {
                 Prefs.logOut();
                 Navigator.pushNamedAndRemoveUntil(context, PageRoutes.loginPage,
                     (Route<dynamic> route) => false);
-           
               },
             ),
           ],

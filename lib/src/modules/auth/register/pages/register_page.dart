@@ -4,6 +4,7 @@ import 'package:e_commerce/src/widgets/dialogs/dialogs.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatelessWidget {
+  // TODO: Move to PageRoutes
   static const String routeName = "/RegisterPage";
   const RegisterPage({Key? key}) : super(key: key);
 

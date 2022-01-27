@@ -5,6 +5,7 @@ import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  // TODO: Move to PageRoutes
   static const String routeName = "/LoginPage";
   const LoginPage({Key? key}) : super(key: key);
 
@@ -23,7 +24,6 @@ class LoginPage extends StatelessWidget {
                 Prefs.saveLogin();
                 XNavigation.showDashboardPage(context);
                 XSnackBar.show(msg: "Logged in successfully");
-                
               },
             ),
             XButtonPrimary(
