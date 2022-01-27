@@ -19,6 +19,7 @@ dependencies:
 
   # WIDGET
   fluttertoast: ^8.0.8
+  flutter_dialogs: ^2.1.1
 
   # STATE MANAGEMENT
   flutter_bloc: ^8.0.0
