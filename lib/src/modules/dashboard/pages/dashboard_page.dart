@@ -1,12 +1,12 @@
-import 'package:e_commerce/src/config/routes/page_routers.dart';
-import 'package:e_commerce/src/models/prefs.dart';
-import 'package:e_commerce/src/widgets/button/bottom_bar.dart';
+import 'package:e_commerce/src/config/routes/navigation.dart';
+import 'package:e_commerce/src/modules/dashboard/widgets/bottom_bar.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../auth/login/logic/login_bloc.dart';
 
 class DashboardPage extends StatelessWidget {
-  // TODO: Move to PageRoutes
-  static const String routeName = "/DashboardPage";
   const DashboardPage({Key? key}) : super(key: key);
 
   @override
@@ -21,12 +21,10 @@ class DashboardPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("DashboardPage"),
-            XButtonPrimary(
+            XElevatedButton(
               label: "Logout ",
               onPressed: () {
-                Prefs.logOut();
-                Navigator.pushNamedAndRemoveUntil(context, PageRoutes.loginPage,
-                    (Route<dynamic> route) => false);
+                context.read<LoginBloc>().logout(context);
               },
             ),
           ],

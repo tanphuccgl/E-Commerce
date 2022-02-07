@@ -1,11 +1,10 @@
-import 'package:e_commerce/src/config/routes/navigation.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/dialogs/dialogs.dart';
 import 'package:flutter/material.dart';
 
+import '../../../../config/routes/navigation.dart';
+
 class RegisterPage extends StatelessWidget {
-  // TODO: Move to PageRoutes
-  static const String routeName = "/RegisterPage";
   const RegisterPage({Key? key}) : super(key: key);
 
   @override
@@ -17,17 +16,16 @@ class RegisterPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("RegisterPage"),
-            XButtonPrimary(
+            XElevatedButton(
               label: "Navigation LoginPage ",
               onPressed: () {
-                XNavigation.pop(context);
+                XNavigation.pop();
               },
             ),
-            XButtonPrimary(
+            XElevatedButton(
               label: "Register Account ",
               onPressed: () {
-                XDialog.showAlertSuccess(context,
-                    content: "Successful register ");
+                XDialog.showAlertSuccess(content: "Successful register ");
               },
             ),
           ],

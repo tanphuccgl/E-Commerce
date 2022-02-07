@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dialogs/flutter_dialogs.dart';
 
+
+import 'package:flutter/cupertino.dart';
+
+import '../../config/routes/coordinator.dart';
+
 class XDialog {
-  // TODO: setup show alert with out context
-  static showAlertSuccess(BuildContext context, {required String content}) =>
-      showPlatformDialog(
+  static get context => XCoordinator.context;
+
+  static showAlertSuccess({required String content}) => showPlatformDialog(
         context: context,
         builder: (context) => BasicDialogAlert(
           title: const Text("Success"),

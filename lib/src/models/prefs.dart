@@ -8,16 +8,15 @@ class Prefs {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static void logOut() {
-    _prefs.setString(SAVE_LOGIN_RESPONSE, '');
+ 
+  static void saveLoginLocal(String response) {
+    _prefs.setString(AppConstrants.SAVE_LOGIN_RESPONSE,response );
   }
 
-  static void saveLogin() {
-    _prefs.setString(SAVE_LOGIN_RESPONSE, 'SAVE_LOGIN_RESPONSE');
-  }
+
 
   static bool isLogin() {
-    final result = _prefs.getString(SAVE_LOGIN_RESPONSE);
+    final result = _prefs.getString(AppConstrants.SAVE_LOGIN_RESPONSE);
     if (result != null && result != '') {
       return true;
     }

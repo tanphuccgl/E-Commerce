@@ -2,9 +2,6 @@ import 'package:e_commerce/src/config/routes/navigation.dart';
 import 'package:e_commerce/src/constants/my_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../ex.dart';
-
-// TODO: Move to dashboard module
 class XBottomNavigationBar extends StatelessWidget {
   final int index;
 
@@ -15,32 +12,16 @@ class XBottomNavigationBar extends StatelessWidget {
     void _onItemTapped(int index) {
       switch (index) {
         case 0:
-          XNavigation.showDashboardPage(context);
+          XNavigation.showDashboardPage();
           break;
 
         case 1:
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Screen1()),
-          );
           break;
         case 2:
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Screen2()),
-          );
           break;
         case 3:
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Screen3()),
-          );
           break;
         case 4:
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Screen4()),
-          );
           break;
       }
     }
