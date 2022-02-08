@@ -1,8 +1,7 @@
-class XRouteNames {
-  static const String dashboard = "/DashboardPage";
-  static const String loading = "/LoadingPage";
-  static const String opening = "/OpeningPage";
+class XRoutes {
+  static const String dashboard = "/dashboard";
+  static const String loading = "/loading";
+  static const String sign = "/sign";
 
-  static const String login = "LoginPage";
-  static const String register = "RegisterPage";
+
 }

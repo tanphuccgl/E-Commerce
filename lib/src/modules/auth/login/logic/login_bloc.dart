@@ -23,7 +23,7 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   void onDashboard(BuildContext context) {
-    context.pushRoute(const DashboardRoute());
+    context.router.popUntilRouteWithName(LoadingRoute.name );
     XSnackBar.show(msg: "Logged in successfully");
     emit(state.copyWith(true));
     domain.login.saveLogin('SAVE_LOGIN_RESPONSE');

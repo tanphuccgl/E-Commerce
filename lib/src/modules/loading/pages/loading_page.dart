@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../auth/login/logic/login_bloc.dart';
 import '../../auth/login/pages/login_page.dart';
+import '../../auth/login/router/sign_wrapper_router.dart';
 import '../../dashboard/pages/dashboard_page.dart';
 
 class LoadingPage extends StatelessWidget {
@@ -10,13 +11,8 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: need refactor
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-      if (state.isLogin == true) {
-        return const DashboardPage();
-      } else {
-        return const LoginPage();
-      }
+      return state.isLogin == true ? const DashboardPage() : const LoginPage();
     });
   }
 }

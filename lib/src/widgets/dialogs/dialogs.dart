@@ -1,27 +1,25 @@
+import 'package:e_commerce/src/widgets/dialogs/x_alert_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dialogs/flutter_dialogs.dart';
-
-import 'package:flutter/cupertino.dart';
 
 import '../../config/routes/coordinator.dart';
 
 class XDialog {
   static get context => XCoordinator.context;
 
-  // TODO: add a function show Alert
-  static showAlertSuccess({required String content}) => showPlatformDialog(
-        context: context,
-        builder: (context) => BasicDialogAlert(
-          title: const Text("Success"),
-          content: Text(content),
-          actions: <Widget>[
-            BasicDialogAction(
-              title: const Text("OK"),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
-          ],
-        ),
-      );
+  static Future<String?> show({
+    String? title,
+    String? body,
+    List<XAlertButton> actions = const [],
+  }) async {
+    return showDialog<String>(
+      context: context,
+      builder: (context) {
+        return XAlertDialog(
+          title: title,
+          content: body,
+          actions: actions,
+        );
+      },
+    );
+  }
 }

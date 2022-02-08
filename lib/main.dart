@@ -7,11 +7,11 @@ import 'package:e_commerce/src/modules/auth/login/logic/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 
 import 'src/config/routes/auto_router.gr.dart';
+import 'src/localization/localization_util.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,15 +34,15 @@ class MyApp extends StatelessWidget {
         providers: [
           // TODO: Tạo stack navigation cho các màn hình liên quan tới Login
           // Tham khảo: https://github.com/j1mmyto9/flutter-boilerplate/tree/main/lib/src/features/order/router
-          BlocProvider(create: (_) => LoginBloc()),
+           BlocProvider(create: (_) => LoginBloc()),
         ],
         child: MaterialApp.router(
             theme: XTheme.light(),
             debugShowCheckedModeBanner: false,
             darkTheme: XTheme.dark(),
             restorationScopeId: 'app',
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
+            localizationsDelegates: [
+              S.delegate,
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
@@ -50,10 +50,7 @@ class MyApp extends StatelessWidget {
             supportedLocales: const [
               Locale('en', ''),
             ],
-            // TODO: S.of(context)
-            // Tham khảo https://github.com/j1mmyto9/flutter-boilerplate/blob/main/lib/src/localization/localization_utils.dart
-            onGenerateTitle: (BuildContext context) =>
-                AppLocalizations.of(context)!.appTitle,
+            onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
             routeInformationParser: appRouter.defaultRouteParser(),
             routerDelegate: AutoRouterDelegate(
               appRouter,
