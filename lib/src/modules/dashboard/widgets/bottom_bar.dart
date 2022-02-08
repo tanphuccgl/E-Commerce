@@ -1,8 +1,6 @@
 import 'package:e_commerce/src/constants/my_colors.dart';
 import 'package:flutter/material.dart';
 
-import '../../../config/routes/coordinator.dart';
-
 class XBottomNavigationBar extends StatelessWidget {
   final int index;
 
@@ -14,9 +12,7 @@ class XBottomNavigationBar extends StatelessWidget {
       switch (index) {
         case 0:
           // TODO: Cái gì đây ?? =))
-          XCoordinator.showDashboardPage();
           break;
-
         case 1:
           break;
         case 2:

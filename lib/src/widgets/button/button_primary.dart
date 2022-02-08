@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class XElevatedButton extends StatelessWidget {
+class XButton extends StatelessWidget {
   final String label;
   final double? width;
   final double height;
   final VoidCallback onPressed;
-  const XElevatedButton(
+  const XButton(
       {Key? key,
       required this.label,
       this.width,

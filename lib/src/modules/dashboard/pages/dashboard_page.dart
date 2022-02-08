@@ -22,7 +22,7 @@ class DashboardPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text("DashboardPage"),
-            XElevatedButton(
+            XButton(
               label: "Logout ",
               onPressed: () {
                 context.read<LoginBloc>().logout(context);

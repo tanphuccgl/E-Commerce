@@ -12,16 +12,11 @@ class XCoordinator {
     rootRouter.pop();
   }
 
-  static showLoadingPage() {
-    rootRouter.pushNamed(XRoutes.loading);
+  static showDashboard() {
+    rootRouter.replace(const DashboardRoute());
   }
 
-  static showDashboardPage() {
-    rootRouter.pushNamed(XRoutes.dashboard);
-  }
-
-  static logout() {
-    rootRouter.removeUntil((route) => false);
-    rootRouter.pushNamed(XRoutes.sign);
+  static showLogin() {
+    rootRouter.replaceNamed(XRoutes.sign);
   }
 }

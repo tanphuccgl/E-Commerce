@@ -1,18 +1,26 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
+import 'package:e_commerce/src/modules/auth/login/logic/login_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../auth/login/logic/login_bloc.dart';
-import '../../auth/login/pages/login_page.dart';
-import '../../auth/login/router/sign_wrapper_router.dart';
-import '../../dashboard/pages/dashboard_page.dart';
 
 class LoadingPage extends StatelessWidget {
   const LoadingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
-      return state.isLogin == true ? const DashboardPage() : const LoginPage();
-    });
+    return BlocListener<LoginBloc, LoginState>(
+      listener: (BuildContext context, state) {
+        if (state.isLogin != null) {
+          if (state.isLogin == true) {
+            XCoordinator.showDashboard();
+          } else {
+            XCoordinator.showLogin();
+          }
+        }
+      },
+      child: const Scaffold(
+        body: Center(child: Text('Loading....')),
+      ),
+    );
   }
 }

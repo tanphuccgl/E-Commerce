@@ -1,6 +1,8 @@
-import 'package:e_commerce/src/constants/app_constrants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+class _Key {
+  static const String SAVE_LOGIN_RESPONSE = "SAVE_LOGIN_RESPONSE";
+}
 
 class Prefs {
   static late SharedPreferences _prefs;
@@ -10,11 +12,11 @@ class Prefs {
   }
 
   static void saveLoginLocal(String response) {
-    _prefs.setString(AppConstrants.SAVE_LOGIN_RESPONSE, response);
+    _prefs.setString(_Key.SAVE_LOGIN_RESPONSE, response);
   }
 
   static bool isLogin() {
-    final result = _prefs.getString(AppConstrants.SAVE_LOGIN_RESPONSE);
+    final result = _prefs.getString(_Key.SAVE_LOGIN_RESPONSE);
     if (result != null && result != '') {
       return true;
     }

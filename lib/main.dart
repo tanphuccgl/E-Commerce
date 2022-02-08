@@ -31,29 +31,27 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appRouter = GetIt.I<XRouter>();
     return MultiBlocProvider(
-        providers: [
-          // TODO: Tạo stack navigation cho các màn hình liên quan tới Login
-          // Tham khảo: https://github.com/j1mmyto9/flutter-boilerplate/tree/main/lib/src/features/order/router
-           BlocProvider(create: (_) => LoginBloc()),
+      providers: [
+        BlocProvider(create: (_) => LoginBloc()),
+      ],
+      child: MaterialApp.router(
+        theme: XTheme.light(),
+        debugShowCheckedModeBanner: false,
+        darkTheme: XTheme.dark(),
+        restorationScopeId: 'app',
+        localizationsDelegates: [
+          S.delegate,
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
         ],
-        child: MaterialApp.router(
-            theme: XTheme.light(),
-            debugShowCheckedModeBanner: false,
-            darkTheme: XTheme.dark(),
-            restorationScopeId: 'app',
-            localizationsDelegates: [
-              S.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            supportedLocales: const [
-              Locale('en', ''),
-            ],
-            onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
-            routeInformationParser: appRouter.defaultRouteParser(),
-            routerDelegate: AutoRouterDelegate(
-              appRouter,
-            )));
+        supportedLocales: const [
+          Locale('en', ''),
+        ],
+        onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
+        routeInformationParser: appRouter.defaultRouteParser(),
+        routerDelegate: AutoRouterDelegate(appRouter),
+      ),
+    );
   }
 }

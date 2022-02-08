@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 
 import 'package:e_commerce/src/modules/loading/pages/loading_page.dart';
 
-
 class LoadingRouters {
   static const String loading = '';
 }
