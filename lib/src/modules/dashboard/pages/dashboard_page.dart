@@ -8,12 +8,14 @@ import '../../auth/login/logic/login_bloc.dart';
 class DashboardPage extends StatelessWidget {
   const DashboardPage({Key? key}) : super(key: key);
 
+  // TODO: https://blog.logrocket.com/how-to-build-a-bottom-navigation-bar-in-flutter/
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: const XBottomNavigationBar(
         index: 0,
       ),
+      // Body
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

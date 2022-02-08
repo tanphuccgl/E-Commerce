@@ -32,6 +32,8 @@ class MyApp extends StatelessWidget {
     final appRouter = GetIt.I<XRouter>();
     return MultiBlocProvider(
         providers: [
+          // TODO: Tạo stack navigation cho các màn hình liên quan tới Login
+          // Tham khảo: https://github.com/j1mmyto9/flutter-boilerplate/tree/main/lib/src/features/order/router
           BlocProvider(create: (_) => LoginBloc()),
         ],
         child: MaterialApp.router(
@@ -48,6 +50,8 @@ class MyApp extends StatelessWidget {
             supportedLocales: const [
               Locale('en', ''),
             ],
+            // TODO: S.of(context)
+            // Tham khảo https://github.com/j1mmyto9/flutter-boilerplate/blob/main/lib/src/localization/localization_utils.dart
             onGenerateTitle: (BuildContext context) =>
                 AppLocalizations.of(context)!.appTitle,
             routeInformationParser: appRouter.defaultRouteParser(),

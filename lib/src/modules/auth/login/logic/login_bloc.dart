@@ -8,6 +8,8 @@ import '../../../../widgets/snackbar/snackbar.dart';
 
 part 'login_state.dart';
 
+// TODO: Bloc này chỉ nên handle các login liên quan tới login và register.
+// Nên tạo 1 bloc để quản lý user, và các trạng thái login, no login
 class LoginBloc extends Cubit<LoginState> {
   LoginBloc() : super(const LoginState()) {
     getLoginLocal();

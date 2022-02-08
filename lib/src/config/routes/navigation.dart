@@ -2,6 +2,7 @@ import 'package:e_commerce/src/config/routes/page_routers.dart';
 
 import 'coordinator.dart';
 
+// TODO: Ko cần thiết. di chuyển các function này vào file coordinator.dart
 class XNavigation {
   static get appRouter => XCoordinator.rootRouter;
 

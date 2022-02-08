@@ -8,10 +8,13 @@ import 'package:e_commerce/src/modules/loading/pages/loading_page.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
+    // TODO: có 3 stack chính là: loading, dashboard, và sign. Em refactor lại đoạn này
+    // Tham khảo: https://github.com/j1mmyto9/flutter-boilerplate/tree/main/lib/src/features/order/router
+
     AutoRoute(
-        path: XRouteNames.dashboard,
-        page: DashboardPage,
-       ),
+      path: XRouteNames.dashboard,
+      page: DashboardPage,
+    ),
     // AutoRoute(
     //   path: XRouteNames.loading,
     //   page: LoadingPage,

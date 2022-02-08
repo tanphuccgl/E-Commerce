@@ -10,6 +10,7 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO: need refactor
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       if (state.isLogin == true) {
         return const DashboardPage();

@@ -12,6 +12,7 @@ class XBottomNavigationBar extends StatelessWidget {
     void _onItemTapped(int index) {
       switch (index) {
         case 0:
+          // TODO: Cái gì đây ?? =))
           XNavigation.showDashboardPage();
           break;
 
