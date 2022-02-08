@@ -1,15 +1,14 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
+import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
+import 'package:e_commerce/src/repositories/domain.dart';
+import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../repositories/domain.dart';
-import '../../../../widgets/snackbar/snackbar.dart';
+part 'account_state.dart';
 
-part 'login_state.dart';
-
-// TODO: Rename and move to account folder
-class LoginBloc extends Cubit<LoginState> {
-  LoginBloc() : super(const LoginState()) {
+class AccountBloc extends Cubit<AccountState> {
+  AccountBloc() : super(const AccountState()) {
     getLoginLocal();
   }
 
@@ -22,23 +21,22 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   void onLogin(BuildContext context) {
-    //
     emit(state.copyWith(true));
     XSnackBar.show(msg: "Logged in successfully");
     domain.login.saveLogin('SAVE_LOGIN_RESPONSE');
-    XCoordinator.showDashboard();
+    XCoordinator.showHome();
   }
 
   void onRegister(BuildContext context) {
     emit(state.copyWith(true));
     XSnackBar.show(msg: "Logged in successfully");
     domain.login.saveLogin('SAVE_LOGIN_RESPONSE');
-    XCoordinator.showDashboard();
+    XCoordinator.showHome();
   }
 
   void logout(BuildContext context) {
     emit(state.copyWith(false));
     domain.login.saveLogin("");
-    XCoordinator.showLogin();
+    SignCoordinator.showLogin(context);
   }
 }

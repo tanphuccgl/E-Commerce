@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
-import 'package:e_commerce/src/modules/auth/login/logic/login_bloc.dart';
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
+import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,13 +9,13 @@ class LoadingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginBloc, LoginState>(
+    return BlocListener<AccountBloc, AccountState>(
       listener: (BuildContext context, state) {
         if (state.isLogin != null) {
           if (state.isLogin == true) {
-            XCoordinator.showDashboard();
+            XCoordinator.showHome();
           } else {
-            XCoordinator.showLogin();
+            SignCoordinator.showLogin(context);
           }
         }
       },

@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/modules/auth/login/logic/login_bloc.dart';
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +20,7 @@ class RegisterPage extends StatelessWidget {
             XButton(
               label: "Register Account ",
               onPressed: () {
-                context.read<LoginBloc>().onRegister(context);
+                context.read<AccountBloc>().onRegister(context);
               },
             ),
           ],
