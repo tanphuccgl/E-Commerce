@@ -17,15 +17,19 @@ class DashboardPage extends StatelessWidget {
       bottomNavigationBar: const XBottomNavigationBar(),
       body: BlocBuilder<BottomBarBloc, BottomBarState>(
         builder: (context, state) {
-          if (state.index == 0) {
+          // Pageview, IndexedStack
+          //
+          // TODO refactor to switch case
+
+          if (state.index == PageIndex.home) {
             return const HomePage();
-          } else if (state.index == 1) {
+          } else if (state.index == PageIndex.shop) {
             return const ShopPage();
-          } else if (state.index == 2) {
+          } else if (state.index == PageIndex.bag) {
             return const BagPage();
-          } else if (state.index == 3) {
+          } else if (state.index == PageIndex.favorite) {
             return const FavoritesPage();
-          } else if (state.index == 4) {
+          } else if (state.index == PageIndex.profile) {
             return const ProfilePage();
           }
           return Container();

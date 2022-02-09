@@ -3,7 +3,6 @@ import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
 import 'package:e_commerce/src/models/prefs.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-import 'package:e_commerce/src/modules/dashboard/logic/bottom_bar_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,7 +33,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => AccountBloc()),
-        BlocProvider(create: (_) => BottomBarBloc()),
       ],
       child: MaterialApp.router(
         theme: XTheme.light(),

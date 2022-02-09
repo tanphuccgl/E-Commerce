@@ -1,7 +1,5 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
-import 'package:e_commerce/src/modules/dashboard/logic/bottom_bar_bloc.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,6 +38,5 @@ class AccountBloc extends Cubit<AccountState> {
     emit(state.copyWith(false));
     domain.login.saveLogin("");
     SignCoordinator.showLogin(context);
-    context.read<BottomBarBloc>().getPage(DashboardRouters.home);
   }
 }
