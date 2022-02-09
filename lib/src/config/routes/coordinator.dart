@@ -11,7 +11,7 @@ class XCoordinator {
     rootRouter.pop();
   }
 
-  static showHome() {
-    rootRouter.replace( const HomeWrapperRoute());
+  static showDashboard() {
+    rootRouter.replace( const DashboardWrapperRoute());
   }
 }

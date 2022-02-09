@@ -13,18 +13,24 @@ class XBottomNavigationBar extends StatelessWidget {
     void _onItemTapped(int index) {
       switch (index) {
         case 0:
-          context.read<BottomBarBloc>().getPage(HomeRouters.dashboard);
+          context.read<BottomBarBloc>().getPage(DashboardRouters.home);
 
           break;
         case 1:
-          context.read<BottomBarBloc>().getPage(HomeRouters.a);
+          context.read<BottomBarBloc>().getPage(DashboardRouters.shop);
 
           break;
         case 2:
+          context.read<BottomBarBloc>().getPage(DashboardRouters.bag);
+
           break;
         case 3:
+          context.read<BottomBarBloc>().getPage(DashboardRouters.favorites);
+
           break;
         case 4:
+          context.read<BottomBarBloc>().getPage(DashboardRouters.profile);
+
           break;
       }
     }
@@ -38,13 +44,15 @@ class XBottomNavigationBar extends StatelessWidget {
                 icon: Icon(Icons.home_outlined, size: size.width * 0.05),
                 label: ""),
             BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_scanner, size: size.width * 0.05),
+                icon:
+                    Icon(Icons.shopping_cart_outlined, size: size.width * 0.05),
                 label: ""),
             BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_scanner, size: size.width * 0.05),
+                icon:
+                    Icon(Icons.shopping_bag_outlined, size: size.width * 0.05),
                 label: ""),
             BottomNavigationBarItem(
-                icon: Icon(Icons.qr_code_scanner, size: size.width * 0.05),
+                icon: Icon(Icons.favorite_border, size: size.width * 0.05),
                 label: ""),
             BottomNavigationBarItem(
                 icon: Icon(Icons.person_outline_sharp, size: size.width * 0.05),

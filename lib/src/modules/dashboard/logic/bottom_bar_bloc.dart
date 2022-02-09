@@ -5,16 +5,26 @@ import 'package:equatable/equatable.dart';
 part 'bottom_bar_state.dart';
 
 class BottomBarBloc extends Cubit<BottomBarState> {
-  BottomBarBloc() : super(const BottomBarState(HomeRouters.dashboard, 0));
+  BottomBarBloc() : super(const BottomBarState(DashboardRouters.home, 0));
 
   void getPage(String item) {
     switch (item) {
-      case HomeRouters.dashboard:
-        emit(const BottomBarState(HomeRouters.dashboard, 0));
+      case DashboardRouters.home:
+        emit(const BottomBarState(DashboardRouters.home, 0));
         break;
-      case HomeRouters.a:
-        emit(const BottomBarState(HomeRouters.a, 1));
+      case DashboardRouters.shop:
+        emit(const BottomBarState(DashboardRouters.shop, 1));
+        break;
+      case DashboardRouters.bag:
+        emit(const BottomBarState(DashboardRouters.bag, 2));
+        break;
+      case DashboardRouters.favorites:
+        emit(const BottomBarState(DashboardRouters.favorites, 3));
+        break;
+      case DashboardRouters.profile:
+        emit(const BottomBarState(DashboardRouters.profile, 4));
         break;
     }
   }
+  
 }
