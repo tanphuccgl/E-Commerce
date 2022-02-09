@@ -42,9 +42,7 @@ class DashboardCoordinator {
     ],
   );
   static showDashboard(BuildContext context) {
-    // context.router.pushNamed(DashboardRouters.dashboard);
-    context.router.popUntilRouteWithName(DashboardRoute.name);
-   // context.router.replace(const DashboardWrapperRoute());
+    context.router.replace(const DashboardWrapperRoute());
   }
 
   static showShop(BuildContext context) {
