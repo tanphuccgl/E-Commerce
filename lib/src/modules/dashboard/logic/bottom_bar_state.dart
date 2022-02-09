@@ -27,15 +27,84 @@ enum PageIndex {
 
 extension PageIndexExt on PageIndex {
   String lableOf() {
-    // TODO
-    return 'TODO';
+    switch (this) {
+      case PageIndex.home:
+        return "Home";
+      case PageIndex.shop:
+        return "Shop";
+      case PageIndex.bag:
+        return "Bag";
+      case PageIndex.favorite:
+        return "Favorites";
+      case PageIndex.profile:
+        return "Profile";
+
+      default:
+        return "N/A";
+    }
   }
 
   Widget iconOf() {
     switch (this) {
       case PageIndex.home:
-        return const Icon(Icons.home_outlined);
-      // TODO
+        return const ImageIcon(
+          AssetImage(MyIcons.homeIcon),
+          size: 30,
+        );
+      case PageIndex.shop:
+        return const ImageIcon(
+          AssetImage(MyIcons.shopIcon),
+          size: 30,
+        );
+      case PageIndex.bag:
+        return const ImageIcon(
+          AssetImage(MyIcons.bagIcon),
+          size: 30,
+        );
+      case PageIndex.favorite:
+        return const ImageIcon(
+          AssetImage(MyIcons.favoriteIcon),
+          size: 30,
+        );
+      case PageIndex.profile:
+        return const ImageIcon(
+          AssetImage(MyIcons.profileIcon),
+          size: 30,
+        );
+
+      default:
+        return const Icon(Icons.abc);
+    }
+  }
+
+  Widget activeIconOf() {
+    switch (this) {
+      case PageIndex.home:
+        return const ImageIcon(
+          AssetImage(MyIcons.activeHomeIcon),
+          size: 30,
+        );
+      case PageIndex.shop:
+        return const ImageIcon(
+          AssetImage(MyIcons.activeShopIcon),
+          size: 30,
+        );
+      case PageIndex.bag:
+        return const ImageIcon(
+          AssetImage(MyIcons.activeBagIcon),
+          size: 30,
+        );
+      case PageIndex.favorite:
+        return const ImageIcon(
+          AssetImage(MyIcons.activeFavoriteIcon),
+          size: 30,
+        );
+      case PageIndex.profile:
+        return const ImageIcon(
+          AssetImage(MyIcons.activeProfileIcon),
+          size: 30,
+        );
+
       default:
         return const Icon(Icons.abc);
     }

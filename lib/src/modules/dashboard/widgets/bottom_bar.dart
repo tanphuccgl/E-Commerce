@@ -9,22 +9,25 @@ class XBottomNavigationBar extends StatelessWidget {
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return BlocBuilder<BottomBarBloc, BottomBarState>(
       builder: (context, state) {
         return BottomNavigationBar(
           items: <BottomNavigationBarItem>[
             for (final item in PageIndex.values)
               BottomNavigationBarItem(
-                  icon: item.iconOf(), label: item.lableOf()),
+                  activeIcon: item.activeIconOf(),
+                  icon: item.iconOf(),
+                  label: item.lableOf()),
           ],
           currentIndex: state.index.index,
+          selectedLabelStyle: const TextStyle(fontSize: 10),
+          unselectedLabelStyle:
+              const TextStyle(fontSize: 10, color: MyColors.colorGray),
           selectedItemColor: MyColors.colorPrimary,
           onTap: context.read<BottomBarBloc>().onItemTapped,
           backgroundColor: Colors.white,
-          unselectedItemColor: Colors.black,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          showUnselectedLabels: true,
         );
       },
     );
