@@ -24,14 +24,14 @@ class AccountBloc extends Cubit<AccountState> {
     emit(state.copyWith(true));
     XSnackBar.show(msg: "Logged in successfully");
     domain.login.saveLogin('SAVE_LOGIN_RESPONSE');
-    XCoordinator.showHome();
+    XCoordinator.showDashboard();
   }
 
   void onRegister(BuildContext context) {
     emit(state.copyWith(true));
     XSnackBar.show(msg: "Logged in successfully");
     domain.login.saveLogin('SAVE_LOGIN_RESPONSE');
-    XCoordinator.showHome();
+    XCoordinator.showDashboard();
   }
 
   void logout(BuildContext context) {

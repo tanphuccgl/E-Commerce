@@ -7,7 +7,7 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.14.0 <3.0.0"
 
 dependencies:
   # HELPER
@@ -51,6 +51,8 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/images/2.0x/
+    - assets/images/3.0x/
     - assets/fonts/
 
   fonts:

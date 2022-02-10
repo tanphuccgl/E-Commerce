@@ -7,7 +7,7 @@ import 'package:e_commerce/src/modules/loading/pages/loading_page.dart';
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
-    HomeCoordinator.autoRoute,
+    DashboardCoordinator.autoRoute,
 
     SignCoordinator.autoRoute,
     AutoRoute(
