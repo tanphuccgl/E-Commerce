@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
 import 'package:e_commerce/src/models/prefs.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,14 +13,11 @@ import 'package:get_it/get_it.dart';
 
 import 'src/config/routes/auto_router.gr.dart';
 import 'src/localization/localization_util.dart';
-import 'firebase_options.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GetIt.I.registerLazySingleton(() => XRouter());
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
   await Prefs.init();
 
   runApp(const MyApp());
