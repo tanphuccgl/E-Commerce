@@ -21,11 +21,11 @@ class SignCoordinator {
       RedirectRoute(path: '*', redirectTo: ''),
     ],
   );
-  static showRegister(BuildContext context) {
+  static showSignUp(BuildContext context) {
     context.router.pushNamed(SignRouters.register);
   }
 
-  static showLogin(BuildContext context) {
+  static showSignIn(BuildContext context) {
     context.router.replace(const SignRouter());
   }
 

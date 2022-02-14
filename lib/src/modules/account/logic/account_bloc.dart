@@ -37,6 +37,6 @@ class AccountBloc extends Cubit<AccountState> {
   void logout(BuildContext context) {
     emit(state.copyWith(false));
     domain.login.saveLogin("");
-    SignCoordinator.showLogin(context);
+    SignCoordinator.showSignIn(context);
   }
 }

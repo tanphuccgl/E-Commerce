@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:flutter/material.dart';
 
 class XButton extends StatelessWidget {
@@ -22,6 +23,7 @@ class XButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           label,
+          style: XStyle.textTheme().labelMedium,
         ),
       ),
     );
