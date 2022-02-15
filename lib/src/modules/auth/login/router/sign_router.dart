@@ -12,6 +12,7 @@ class SignRouters {
 
 class SignCoordinator {
   static const autoRoute = AutoRoute(
+    // TODO: path
     path: "/sign",
     name: "SignRouter",
     page: SignWrapperPage,
@@ -21,10 +22,12 @@ class SignCoordinator {
       RedirectRoute(path: '*', redirectTo: ''),
     ],
   );
+
   static showSignUp(BuildContext context) {
     context.router.pushNamed(SignRouters.register);
   }
 
+  // TODO name
   static showSignIn(BuildContext context) {
     context.router.replace(const SignRouter());
   }

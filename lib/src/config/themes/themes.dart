@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class XTheme {
   static ThemeData light() => ThemeData(
+        scaffoldBackgroundColor: const Color(0xFFF9F9F9),
         textTheme: XStyle.textTheme(),
         fontFamily: XFonts.metropolis,
         snackBarTheme:

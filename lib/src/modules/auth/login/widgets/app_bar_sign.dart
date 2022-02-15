@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
+// TODO: FOlder
 class AppBarSign extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  // TODO: name
   final List<Widget>? action;
   final Function()? onPressed;
   final Widget? leading;
-  const AppBarSign(
-      {Key? key, this.onPressed, this.title = '', this.action, this.leading})
-      : super(key: key);
+  const AppBarSign({
+    Key? key,
+    this.onPressed,
+    this.title = '',
+    this.action,
+    this.leading,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,17 +21,16 @@ class AppBarSign extends StatelessWidget implements PreferredSizeWidget {
       title: Text(title),
       centerTitle: true,
       actions: action,
-      // leading: IconButton(
-      //     icon: Image.asset(
-      //       MyIcons.arrowBackIcon,
-      //       color: MyColors.colorBlack,
-      //     ),
-      //     onPressed: onPressed ?? () => Navigator.pop(context)),
+      // TODO
+      leading: leading,
+      // automaticallyImplyLeading: true,
+      iconTheme: const IconThemeData(color: Color(0xFF222222)),
       backgroundColor: Colors.transparent,
       elevation: 0,
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(AppBar().preferredSize.height);
+  // TODO height
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
