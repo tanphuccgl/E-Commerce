@@ -27,7 +27,7 @@ class RegisterPage extends StatelessWidget {
         MediaQuery.of(context).padding.top;
 
     return Scaffold(
-        backgroundColor: Colors.white54,
+        extendBodyBehindAppBar: true,
         appBar: const AppBarSign(),
         body: SingleChildScrollView(
           child: SizedBox(
@@ -37,11 +37,9 @@ class RegisterPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Expanded(
-                      flex: 2,
-                      child: HeaderSign(
-                        title: titleHeader,
-                      )),
+                  const HeaderSign(
+                    title: titleHeader,
+                  ),
                   Expanded(
                     flex: 6,
                     child: Form(

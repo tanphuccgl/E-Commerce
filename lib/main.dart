@@ -39,6 +39,7 @@ class MyApp extends StatelessWidget {
         theme: XTheme.light(),
         debugShowCheckedModeBanner: false,
         darkTheme: XTheme.dark(),
+        themeMode: ThemeMode.light,
         restorationScopeId: 'app',
         localizationsDelegates: [
           S.delegate,
