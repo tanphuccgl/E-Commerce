@@ -1,14 +1,18 @@
-import 'login_repository.dart';
+import 'package:e_commerce/src/repositories/sign_repository.dart';
+
+import 'account_repository.dart';
 
 class Domain {
   static Domain? _internal;
   Domain._() {
-    login = LoginRepositoryImpl();
+    account = AccountRepositoryImpl();
+    sign = SignrepositoryImpl();
   }
   factory Domain() {
     _internal ??= Domain._();
     return _internal!;
   }
 
-  late final LoginRepository login;
+  late final AccountRepository account;
+  late final SignRepository sign;
 }

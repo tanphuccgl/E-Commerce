@@ -1,11 +1,12 @@
-import '../models/prefs.dart';
 
-abstract class LoginRepository {
+import 'package:e_commerce/src/models/prefs.dart';
+
+abstract class AccountRepository {
   Future<bool> isLogin();
   Future<void> saveLogin(String response);
 }
 
-class LoginRepositoryImpl implements LoginRepository {
+class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<bool> isLogin() async {
     return Prefs.isLogin();

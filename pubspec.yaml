@@ -39,6 +39,7 @@ dependencies:
   firebase_storage: ^10.2.7
   hexcolor: ^2.0.6
   firebase_auth: ^3.3.7
+  google_sign_in: ^5.2.3
 
 dev_dependencies:
   flutter_test:
