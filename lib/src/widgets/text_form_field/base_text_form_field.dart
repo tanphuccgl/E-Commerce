@@ -1,18 +1,18 @@
+import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
-import 'package:e_commerce/src/constants/my_colors.dart';
 import 'package:flutter/material.dart';
 
 class XTextFormField extends StatelessWidget {
-  final TextEditingController controller;
   final String label;
   final TextInputType textInputType;
   final bool obscureText;
-  final String Function(String?) validator;
+  final Function(String) onChanged;
+  final String errorText;
   const XTextFormField(
       {Key? key,
-      required this.controller,
       required this.label,
-      required this.validator,
+      required this.onChanged,
+      required this.errorText,
       this.obscureText = false,
       this.textInputType = TextInputType.text})
       : super(key: key);
@@ -20,38 +20,35 @@ class XTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Container(
-        decoration: BoxDecoration(boxShadow: [
+        height: 64,
+        decoration: const BoxDecoration(boxShadow: [
           BoxShadow(
-              color: MyColors.colorShadowTextFormField.withOpacity(0.1),
-              offset: const Offset(0, 0),
+              color: MyColors.colorShadowTextFormField,
+              offset: Offset(0, 1),
               spreadRadius: 1,
-              blurRadius: 10)
+              blurRadius: 8)
         ]),
         child: TextFormField(
-          controller: controller,
-          style: const TextStyle(
-              fontFamily: "Metropolis",
-              color: MyColors.colorBlack,
-              fontSize: 18,
-              fontWeight: FontWeight.w600),
+          style: XStyleSign.textTheme().headline5,
+          onChanged: onChanged,
           decoration: InputDecoration(
-              labelText: label,
+              labelText: label,   errorText: errorText,
               border: InputBorder.none,
               hintText: label,
-              labelStyle: XStyle.textTheme().titleSmall,
-              hintStyle: XStyle.textTheme().headlineSmall,
-              fillColor: Colors.white,
+              labelStyle: XStyleSign.textTheme().headline4,
+              hintStyle: XStyleSign.textTheme().headline5,
+              fillColor: MyColors.colorWhite,
               filled: true,
               contentPadding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 15)),
+                  const EdgeInsets.symmetric(horizontal: 20, vertical: 22)),
           keyboardType: textInputType,
           maxLines: 1,
           minLines: 1,
           textInputAction: TextInputAction.next,
           obscureText: obscureText,
-          validator: validator,
+       
         ),
       ),
     );

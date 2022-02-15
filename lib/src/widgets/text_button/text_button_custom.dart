@@ -1,4 +1,5 @@
-import 'package:e_commerce/src/constants/my_colors.dart';
+import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:flutter/material.dart';
 
@@ -10,25 +11,26 @@ class XTextButtonCus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        TextButton(
-            onPressed: onPressed,
-            child: Text(
-              title,
-              style: const TextStyle(
-                  color: MyColors.colorBlack,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 13),
-            )),
-        IconButton(
-            onPressed: onPressed,
-            icon: Image.asset(
-              MyIcons.arrowIcon,
-            ))
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 12, bottom: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          TextButton(
+              onPressed: onPressed,
+              child: Text(
+                title,
+                style: XStyleSign.textTheme().bodyText1,
+              )),
+          IconButton(
+              onPressed: onPressed,
+              icon: Image.asset(
+                MyIcons.arrowIcon,fit: BoxFit.cover,
+                color: MyColors.colorPrimary,
+              ))
+        ],
+      ),
     );
   }
 }

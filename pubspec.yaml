@@ -34,11 +34,10 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-    
+
   firebase_core: ^1.12.0
   cloud_firestore: ^3.1.8
   firebase_storage: ^10.2.7
-  hexcolor: ^2.0.6
   firebase_auth: ^3.3.7
   google_sign_in: ^5.2.3
 
@@ -67,5 +66,21 @@ flutter:
   fonts:
     - family: Metropolis
       fonts:
+        - asset: assets/fonts/metropolis/Metropolis-Thin.otf
+          weight: 100
+        - asset: assets/fonts/metropolis/Metropolis-ExtraLight.otf
+          weight: 200
+        - asset: assets/fonts/metropolis/Metropolis-Light.otf
+          weight: 300
+        - asset: assets/fonts/metropolis/Metropolis-Regular.otf
+          weight: 400
         - asset: assets/fonts/metropolis/Metropolis-Medium.otf
+          weight: 500
+        - asset: assets/fonts/metropolis/Metropolis-SemiBold.otf
+          weight: 600
+        - asset: assets/fonts/metropolis/Metropolis-Bold.otf
           weight: 700
+        - asset: assets/fonts/metropolis/Metropolis-ExtraBold.otf
+          weight: 800
+        - asset: assets/fonts/metropolis/Metropolis-Black.otf
+          weight: 900

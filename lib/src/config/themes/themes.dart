@@ -1,11 +1,11 @@
+import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/constants/fonts.dart';
-import 'package:e_commerce/src/constants/my_colors.dart';
 import 'package:flutter/material.dart';
 
 class XTheme {
   static ThemeData light() => ThemeData(
-        scaffoldBackgroundColor: const Color(0xFFF9F9F9),
+        scaffoldBackgroundColor: MyColors.colorBackground,
         textTheme: XStyle.textTheme(),
         fontFamily: XFonts.metropolis,
         snackBarTheme:

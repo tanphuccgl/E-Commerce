@@ -15,7 +15,7 @@ class LoadingPage extends StatelessWidget {
           if (state.isLogin == true) {
             DashboardCoordinator.showDashboard(context);
           } else {
-            SignCoordinator.showSignIn(context);
+            SignCoordinator.showSignUp(context);
           }
         }
       },

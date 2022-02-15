@@ -1,17 +1,16 @@
+import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:flutter/material.dart';
 
-// TODO: FOlder
 class AppBarSign extends StatelessWidget implements PreferredSizeWidget {
   final String title;
-  // TODO: name
-  final List<Widget>? action;
+  final List<Widget>? actions;
   final Function()? onPressed;
   final Widget? leading;
   const AppBarSign({
     Key? key,
     this.onPressed,
     this.title = '',
-    this.action,
+    this.actions,
     this.leading,
   }) : super(key: key);
 
@@ -20,17 +19,14 @@ class AppBarSign extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: Text(title),
       centerTitle: true,
-      actions: action,
-      // TODO
+      actions: actions,
       leading: leading,
-      // automaticallyImplyLeading: true,
-      iconTheme: const IconThemeData(color: Color(0xFF222222)),
+      iconTheme: const IconThemeData(color: MyColors.colorBlack),
       backgroundColor: Colors.transparent,
       elevation: 0,
     );
   }
 
   @override
-  // TODO height
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

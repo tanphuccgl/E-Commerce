@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/constants/my_colors.dart';
+import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/dashboard/logic/bottom_bar_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +25,7 @@ class XBottomNavigationBar extends StatelessWidget {
               const TextStyle(fontSize: 10, color: MyColors.colorGray),
           selectedItemColor: MyColors.colorPrimary,
           onTap: context.read<BottomBarBloc>().onItemTapped,
-          backgroundColor: Colors.white,
+          backgroundColor: MyColors.colorWhite,
           type: BottomNavigationBarType.fixed,
           showUnselectedLabels: true,
         );

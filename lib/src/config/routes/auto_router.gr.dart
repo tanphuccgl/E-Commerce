@@ -15,7 +15,7 @@ import 'package:flutter/material.dart' as _i13;
 
 import '../../modules/auth/login/pages/login_page.dart' as _i10;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
-import '../../modules/auth/register/pages/register_page.dart' as _i11;
+import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i11;
 import '../../modules/bag/pages/bag_page.dart' as _i7;
 import '../../modules/dashboard/pages/dashboard_page.dart' as _i4;
 import '../../modules/dashboard/router/dashboard_wrapper_router.dart' as _i1;
@@ -71,9 +71,9 @@ class XRouter extends _i12.RootStackRouter {
       return _i12.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i10.LoginPage());
     },
-    RegisterRoute.name: (routeData) {
+    SignUpRoute.name: (routeData) {
       return _i12.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i11.RegisterPage());
+          routeData: routeData, child: const _i11.SignUpPage());
     }
   };
 
@@ -106,11 +106,11 @@ class XRouter extends _i12.RootStackRouter {
           _i12.RouteConfig('#redirect',
               path: '',
               parent: SignRouter.name,
-              redirectTo: 'login',
+              redirectTo: 'register',
               fullMatch: true),
           _i12.RouteConfig(LoginRoute.name,
               path: 'login', parent: SignRouter.name),
-          _i12.RouteConfig(RegisterRoute.name,
+          _i12.RouteConfig(SignUpRoute.name,
               path: 'register', parent: SignRouter.name),
           _i12.RouteConfig('*#redirect',
               path: '*',
@@ -208,9 +208,9 @@ class LoginRoute extends _i12.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.RegisterPage]
-class RegisterRoute extends _i12.PageRouteInfo<void> {
-  const RegisterRoute() : super(RegisterRoute.name, path: 'register');
+/// [_i11.SignUpPage]
+class SignUpRoute extends _i12.PageRouteInfo<void> {
+  const SignUpRoute() : super(SignUpRoute.name, path: 'register');
 
-  static const String name = 'RegisterRoute';
+  static const String name = 'SignUpRoute';
 }

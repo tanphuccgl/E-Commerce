@@ -1,8 +1,8 @@
-import 'package:e_commerce/src/constants/my_colors.dart';
+import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:flutter/material.dart';
 
-// TODO: folder
 class BottomSign extends StatelessWidget {
   final String title;
   const BottomSign({Key? key, required this.title}) : super(key: key);
@@ -14,10 +14,7 @@ class BottomSign extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(
-              color: MyColors.colorBlack,
-              fontSize: 15,
-              fontWeight: FontWeight.w500),
+          style: XStyleSign.textTheme().bodyText1,
         ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,9 +32,16 @@ class BottomSign extends StatelessWidget {
 Widget _socialButton(String image, {required Function() onPressed}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
-    child: SizedBox(
+    child: Container(
       width: 80,
       height: 60,
+      decoration: BoxDecoration(boxShadow: const [
+        BoxShadow(
+            offset: Offset(0, 1),
+            color: MyColors.colorShadowTextFormField,
+            blurRadius: 8,
+            spreadRadius: 1)
+      ], borderRadius: BorderRadius.circular(20)),
       child: ElevatedButton(
         onPressed: onPressed,
         child: Image.asset(image),
