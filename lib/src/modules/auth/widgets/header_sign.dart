@@ -1,4 +1,3 @@
-import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:flutter/material.dart';
 
 class HeaderSign extends StatelessWidget {
@@ -13,7 +12,7 @@ class HeaderSign extends StatelessWidget {
         alignment: Alignment.topLeft,
         child: Text(
           title,
-          style: XStyleSign.textTheme().headline1,
+          style: Theme.of(context).textTheme.headline1,
         ),
       ),
     );

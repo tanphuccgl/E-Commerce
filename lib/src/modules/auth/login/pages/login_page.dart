@@ -46,19 +46,15 @@ class LoginPage extends StatelessWidget {
                               XTextFormField(
                                 label: "Email",
                                 textInputType: TextInputType.emailAddress,
-                                errorText:  state.isValidEmail
-                                    ? ""
-                                    : "invalid email",
-                                onChanged: (value) => context
-                                    .read<LoginBloc>()
-                                    .changedEmail(value),
+                                errorText:
+                                    state.isValidEmail ? "" : "invalid email",
+                                onChanged: (value) =>
+                                    context.read<LoginBloc>().changedEmail(''),
                               ),
                               XTextFormField(
                                 label: "Password",
                                 obscureText: true,
-                                errorText:  state.isValidPassword
-                                    ? ""
-                                    : "invalid password",
+                                errorText: state.isValidPassword,
                                 onChanged: (value) => context
                                     .read<LoginBloc>()
                                     .changePassword(value),
@@ -75,9 +71,7 @@ class LoginPage extends StatelessWidget {
                                 label: "LOGIN",
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    context
-                                        .read<LoginBloc>()
-                                        .login();
+                                    context.read<LoginBloc>().login();
                                   }
                                 },
                                 height: 48,

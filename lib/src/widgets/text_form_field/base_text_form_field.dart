@@ -2,6 +2,9 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:flutter/material.dart';
 
+// TODO: add value field
+// add action (clear button)
+// add show/hide password
 class XTextFormField extends StatelessWidget {
   final String label;
   final TextInputType textInputType;
@@ -34,7 +37,8 @@ class XTextFormField extends StatelessWidget {
           style: XStyleSign.textTheme().headline5,
           onChanged: onChanged,
           decoration: InputDecoration(
-              labelText: label,   errorText: errorText,
+              labelText: label,
+              errorText: errorText,
               border: InputBorder.none,
               hintText: label,
               labelStyle: XStyleSign.textTheme().headline4,
@@ -48,7 +52,6 @@ class XTextFormField extends StatelessWidget {
           minLines: 1,
           textInputAction: TextInputAction.next,
           obscureText: obscureText,
-       
         ),
       ),
     );
