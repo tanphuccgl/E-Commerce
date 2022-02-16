@@ -12,7 +12,7 @@ class XTextButtonCus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 12, bottom: 20),
+      padding: const EdgeInsets.only(top: 5, bottom: 20),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
@@ -21,7 +21,7 @@ class XTextButtonCus extends StatelessWidget {
               onPressed: onPressed,
               child: Text(
                 title,
-                style: XStyleSign.textTheme().bodyText1,
+                style: XStyle.textTheme().titleMedium,
               )),
           IconButton(
               onPressed: onPressed,

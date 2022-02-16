@@ -3,14 +3,60 @@ import 'package:flutter/material.dart';
 
 class XStyle {
   static TextTheme textTheme() => const TextTheme(
-      headlineSmall: TextStyle(
-          color: MyColors.colorGray, fontSize: 18, fontWeight: FontWeight.w600),
-      titleSmall: TextStyle(color: MyColors.colorGray, fontSize: 18),
-      labelMedium: TextStyle(
-          fontFamily: "Metropolis", color: MyColors.colorWhite, fontSize: 14),
-      headlineMedium: TextStyle(
-          fontFamily: "Metropolis",
-          color: MyColors.colorBlack,
-          fontSize: 34,
-          fontWeight: FontWeight.w700));
+        //headline
+        headlineLarge: TextStyle(
+            fontSize: 34,
+            height: 1,
+            color: MyColors.colorBlack,
+            fontWeight: FontWeight.bold),
+        //11px
+        labelSmall: TextStyle(
+            fontSize: 11,
+            height: 1,
+            color: MyColors.colorBlack,
+            fontWeight: FontWeight.normal),
+        //14px
+        labelLarge: TextStyle(
+            fontSize: 14,
+            height: 0.1,
+            color: MyColors.colorGray,
+            fontWeight: FontWeight.w500),
+        titleSmall: TextStyle(
+            fontSize: 14,
+            height: 0.1,
+            color: MyColors.colorInputTextFormField,
+            fontWeight: FontWeight.w500),
+        titleMedium: TextStyle(
+            fontSize: 14,
+            height: 1.4286,
+            color: MyColors.colorBlack,
+            fontWeight: FontWeight.w500),
+        //16px
+        //16px regular
+        // bodyLarge: TextStyle(
+        //     fontSize: 16,
+        //     height: 1,
+        //     color: MyColors.colorBlack,
+        //     fontWeight: FontWeight.normal),
+        //description
+        bodyMedium: TextStyle(
+            fontSize: 14,
+            height: 1.5,
+            letterSpacing: -0.15,
+            color: MyColors.colorBlack,
+            fontWeight: FontWeight.normal),
+        //headline 2
+        headlineMedium: TextStyle(
+            fontSize: 24,
+            height: 1.2,
+            color: MyColors.colorBlack,
+            fontWeight: FontWeight.w600),
+
+        //headline 3
+        headlineSmall: TextStyle(
+            fontSize: 18,
+            height: 1.2222,
+            color: MyColors.colorBlack,
+            fontWeight: FontWeight.w600),
+      );
 }

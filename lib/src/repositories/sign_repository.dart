@@ -1,6 +1,7 @@
-import 'dart:developer';
+import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/src/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
@@ -17,9 +18,13 @@ abstract class SignRepository {
 
 class SignrepositoryImpl implements SignRepository {
   @override
-  Future<void> loginWithEmail(
+  Future<UserModel> loginWithEmail(
       {required String email, required String password}) async {
-    await auth.signInWithEmailAndPassword(email: email, password: password);
+    UserCredential userCredential =
+        await auth.signInWithEmailAndPassword(email: email, password: password);
+    var value = await ref.doc(userCredential.user?.uid).get();
+    var success = UserModel.fromJson(value.data()!);
+    return success;
   }
 
   @override
@@ -30,11 +35,10 @@ class SignrepositoryImpl implements SignRepository {
       {required String email,
       required String password,
       required String name}) async {
-    await auth.createUserWithEmailAndPassword(email: email, password: password);
-
+    UserCredential userCredential = await auth.createUserWithEmailAndPassword(
+        email: email, password: password);
     ref
-        .add({"name": name, "email": email})
-        .then((value) => log("User Added"))
-        .catchError((error) => log(error));
+        .doc(userCredential.user?.uid)
+        .set(UserModel(email: email, name: name).toJson());
   }
 }

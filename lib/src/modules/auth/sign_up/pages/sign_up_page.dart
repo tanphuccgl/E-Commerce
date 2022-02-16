@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/modules/auth/sign_up/logic/sign_up_bloc.dart';
 
@@ -10,8 +11,20 @@ import 'package:e_commerce/src/widgets/text_form_field/base_text_form_field.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({Key? key}) : super(key: key);
+
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  late bool obscureText;
+  @override
+  void initState() {
+    obscureText = true;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,28 +58,63 @@ class SignUpPage extends StatelessWidget {
                             children: [
                               XTextFormField(
                                 label: "Name",
+                                suffixIcon: state.name.isNotEmpty
+                                    ? IconButton(
+                                        icon: const Icon(
+                                          Icons.cancel,
+                                          color: MyColors.colorGray,
+                                        ),
+                                        onPressed: () {
+                                          context
+                                              .read<SignUpBloc>()
+                                              .clear(SignUpParam.name);
+                                        },
+                                      )
+                                    : null,
                                 textInputType: TextInputType.name,
-                                errorText: 
-                                    state.isValidName ? "" : "invalid name",
+                                errorText: state.isValidName,
                                 onChanged: (value) => context
                                     .read<SignUpBloc>()
                                     .changedName(value),
                               ),
                               XTextFormField(
                                 label: "Email",
+                                suffixIcon: state.email.isNotEmpty
+                                    ? IconButton(
+                                        icon: const Icon(
+                                          Icons.cancel,
+                                          color: MyColors.colorGray,
+                                        ),
+                                        onPressed: () {
+                                          context
+                                              .read<SignUpBloc>()
+                                              .clear(SignUpParam.email);
+                                        },
+                                      )
+                                    : null,
                                 textInputType: TextInputType.emailAddress,
-                                errorText: 
-                                    state.isValidEmail ? "" : "invalid email",
+                                errorText: state.isValidEmail,
                                 onChanged: (value) => context
                                     .read<SignUpBloc>()
                                     .changedEmail(value),
                               ),
                               XTextFormField(
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    obscureText
+                                        ? Icons.visibility
+                                        : Icons.visibility_off,
+                                    color: MyColors.colorGray,
+                                  ),
+                                  onPressed: () {
+                                    setState(() {
+                                      obscureText = !obscureText;
+                                    });
+                                  },
+                                ),
                                 label: "Password",
-                                obscureText: true,
-                                errorText: state.isValidPassword
-                                    ? ""
-                                    : "invalid password",
+                                obscureText: obscureText,
+                                errorText: state.isValidPassword,
                                 onChanged: (value) => context
                                     .read<SignUpBloc>()
                                     .changePassword(value),
@@ -80,14 +128,26 @@ class SignUpPage extends StatelessWidget {
                                   },
                                 ),
                               ),
-                              XButton(
-                                width: size.width,
-                                label: "SIGN UP",
-                                onPressed: () {
-                                  context.read<SignUpBloc>().createAccount();
-                                },
-                                height: 48,
-                              ),
+                              state.isLoading
+                                  ? const CircularProgressIndicator()
+                                  : XButton(
+                                      width: size.width,
+                                      label: "SIGN UP",
+                                      onPressed: () {
+                                        context
+                                            .read<SignUpBloc>()
+                                            .createAccount(context);
+                                      },
+                                      height: 48,
+                                    ),
+                              state.messageError.isEmpty
+                                  ? const SizedBox.shrink()
+                                  : Center(
+                                      child: Text(
+                                      state.messageError,textAlign: TextAlign.center, 
+                                      style: const TextStyle(
+                                          color: MyColors.colorPrimary,fontWeight: FontWeight.w500),
+                                    ))
                             ],
                           ),
                           const Spacer(),

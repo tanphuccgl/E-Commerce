@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/auth/login/logic/login_bloc.dart';
 import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
 import 'package:e_commerce/src/modules/auth/widgets/bottom_sign.dart';
@@ -9,14 +10,25 @@ import 'package:e_commerce/src/widgets/text_form_field/base_text_form_field.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  late bool obscureText;
+  @override
+  void initState() {
+    obscureText = true;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final paddingHori = size.width / 20;
-    final _formKey = GlobalKey<FormState>();
 
     final height = size.height -
         MediaQuery.of(context).padding.bottom -
@@ -39,45 +51,78 @@ class LoginPage extends StatelessWidget {
                         height: MediaQuery.of(context).padding.top,
                       ),
                       const HeaderSign(title: "Login"),
-                      Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              XTextFormField(
-                                label: "Email",
-                                textInputType: TextInputType.emailAddress,
-                                errorText:
-                                    state.isValidEmail ? "" : "invalid email",
-                                onChanged: (value) =>
-                                    context.read<LoginBloc>().changedEmail(''),
+                      Column(
+                        children: [
+                          XTextFormField(
+                            label: "Email",
+                            suffixIcon: state.email.isNotEmpty
+                                ? IconButton(
+                                    icon: const Icon(
+                                      Icons.cancel,
+                                      color: MyColors.colorGray,
+                                    ),
+                                    onPressed: () {
+                                      context
+                                          .read<LoginBloc>()
+                                          .clear(param: LoginParam.email);
+                                    },
+                                  )
+                                : null,
+                            textInputType: TextInputType.emailAddress,
+                            errorText: state.isValidEmail,
+                            onChanged: (value) =>
+                                context.read<LoginBloc>().changedEmail(value),
+                          ),
+                          XTextFormField(
+                            label: "Password",
+                            obscureText: obscureText,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                obscureText
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: MyColors.colorGray,
                               ),
-                              XTextFormField(
-                                label: "Password",
-                                obscureText: true,
-                                errorText: state.isValidPassword,
-                                onChanged: (value) => context
-                                    .read<LoginBloc>()
-                                    .changePassword(value),
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: XTextButtonCus(
-                                  title: "Forgot your password?",
-                                  onPressed: () {},
+                              onPressed: () {
+                                setState(() {
+                                  obscureText = !obscureText;
+                                });
+                              },
+                            ),
+                            errorText: state.isValidPassword,
+                            onChanged: (value) => context
+                                .read<LoginBloc>()
+                                .changedPassword(value),
+                          ),
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: XTextButtonCus(
+                              title: "Forgot your password?",
+                              onPressed: () {},
+                            ),
+                          ),
+                          state.isLoading
+                              ? const CircularProgressIndicator()
+                              : XButton(
+                                  width: size.width,
+                                  label: "LOGIN",
+                                  onPressed: () {
+                                    context.read<LoginBloc>().login(context);
+                                  },
+                                  height: 48,
                                 ),
-                              ),
-                              XButton(
-                                width: size.width,
-                                label: "LOGIN",
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    context.read<LoginBloc>().login();
-                                  }
-                                },
-                                height: 48,
-                              ),
-                            ],
-                          )),
+                          state.messageError.isEmpty
+                              ? const SizedBox.shrink()
+                              : Center(
+                                  child: Text(
+                                  state.messageError,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      color: MyColors.colorPrimary,
+                                      fontWeight: FontWeight.w500),
+                                ))
+                        ],
+                      ),
                       const Spacer(),
                       const BottomSign(title: "Or login with social account"),
                       const SizedBox(height: 15),

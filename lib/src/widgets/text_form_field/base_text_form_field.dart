@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 
 // TODO: add value field
 // add action (clear button)
-// add show/hide password
+// add show/hide password - done
 class XTextFormField extends StatelessWidget {
   final String label;
   final TextInputType textInputType;
   final bool obscureText;
   final Function(String) onChanged;
   final String errorText;
+  final Widget? suffixIcon;
+  final String? value;
   const XTextFormField(
       {Key? key,
+      this.value,
       required this.label,
+      this.suffixIcon,
       required this.onChanged,
       required this.errorText,
       this.obscureText = false,
@@ -25,24 +29,28 @@ class XTextFormField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Container(
-        height: 64,
+        height: 80,
         decoration: const BoxDecoration(boxShadow: [
           BoxShadow(
               color: MyColors.colorShadowTextFormField,
               offset: Offset(0, 1),
-              spreadRadius: 1,
+              spreadRadius: -25,
               blurRadius: 8)
         ]),
         child: TextFormField(
-          style: XStyleSign.textTheme().headline5,
+          style: XStyle.textTheme().titleSmall,
           onChanged: onChanged,
           decoration: InputDecoration(
               labelText: label,
+              suffixIcon: suffixIcon,
               errorText: errorText,
+              errorStyle: const TextStyle(
+                fontWeight: FontWeight.w500,
+              ),
               border: InputBorder.none,
               hintText: label,
-              labelStyle: XStyleSign.textTheme().headline4,
-              hintStyle: XStyleSign.textTheme().headline5,
+              labelStyle: XStyle.textTheme().labelLarge,
+              hintStyle: XStyle.textTheme().titleSmall,
               fillColor: MyColors.colorWhite,
               filled: true,
               contentPadding:
