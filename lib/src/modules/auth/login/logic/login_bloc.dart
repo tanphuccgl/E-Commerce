@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
@@ -40,21 +41,39 @@ class LoginBloc extends Cubit<LoginState> {
     emit(state.copyWith(pureEmail: true, purePassword: true));
 
     if (state.isValidEmail == "" || state.isValidPassword == "") {
-      emit(state.copyWithLoading(
-        isLoading: true,
-      ));
-      await domain.sign
-          .loginWithEmail(email: state.email, password: state.password)
-          .then((value) {
-        DashboardCoordinator.showDashboard(context);
+      emit(state.copyWithLoading(isLoading: true, messageError: ""));
+      try {
+        var result = await domain.sign
+            .loginWithEmail(email: state.email, password: state.password);
 
-        XSnackBar.show(msg: "Logged in successfully");
-      }).onError((error, stackTrace) {
+        await domain.account.saveLogin(result).then((value) {
+          context.read<AccountBloc>().getLoginLocal().then((value) {
+            DashboardCoordinator.showDashboard(context);
+            XSnackBar.show(msg: "Logged in successfully");
+          });
+        });
+      } catch (e) {
         emit(state.copyWithLoading(
-            isLoading: false, messageError: error.toString()));
-      });
+            isLoading: false, messageError: e.toString()));
+      }
 
       emit(state.copyWithLoading(isLoading: false));
     }
+  }
+
+  void loginWithGoogle(BuildContext context) async {
+    emit(state.copyWithLoading(isLoading: true, messageError: ""));
+    try {
+      var result = await domain.sign.loginWithGoogle();
+      await domain.account.saveLogin(result).then((value) {
+        context.read<AccountBloc>().getLoginLocal().then((value) {
+          DashboardCoordinator.showDashboard(context);
+          XSnackBar.show(msg: "Logged in successfully");
+        });
+      });
+    } catch (e) {
+      emit(state.copyWithLoading(isLoading: false, messageError: e.toString()));
+    }
+    emit(state.copyWithLoading(isLoading: false));
   }
 }

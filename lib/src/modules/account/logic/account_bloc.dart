@@ -1,8 +1,7 @@
-import 'package:e_commerce/src/config/routes/coordinator.dart';
+import 'package:e_commerce/src/models/user_model.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
-import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'account_state.dart';
@@ -15,28 +14,18 @@ class AccountBloc extends Cubit<AccountState> {
   final Domain domain = Domain();
 
   Future<void> getLoginLocal() async {
-    await Future.delayed(const Duration(seconds: 2));
-    final islogin = await domain.account.isLogin();
-    emit(state.copyWith(islogin));
-  }
-
-  void onLogin(BuildContext context) {
-    emit(state.copyWith(true));
-    XSnackBar.show(msg: "Logged in successfully");
-    domain.account.saveLogin('SAVE_LOGIN_RESPONSE');
-    XCoordinator.showDashboard();
-  }
-
-  void onRegister(BuildContext context) {
-    emit(state.copyWith(true));
-    XSnackBar.show(msg: "Logged in successfully");
-    domain.account.saveLogin('SAVE_LOGIN_RESPONSE');
-    XCoordinator.showDashboard();
+    try {
+      var value = await domain.account.isLogin();
+      emit(state.copyWith(data: value, isLoading: false));
+    } catch (e) {
+      emit(state.copyWith(isLoading: false, data: null));
+    }
   }
 
   void logout(BuildContext context) {
-    emit(state.copyWith(false));
-    domain.account.saveLogin("");
+    domain.account.logout();
+    emit(state.copyWith(isLoading: true, data: null));  
+
     SignCoordinator.showSignUp(context);
   }
 }

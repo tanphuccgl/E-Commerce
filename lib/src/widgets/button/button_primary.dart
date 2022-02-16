@@ -22,7 +22,7 @@ class XButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         child: Text(
-          label,
+          label,textAlign: TextAlign.center,
           style: XStyle.textTheme().labelMedium,
         ),
       ),

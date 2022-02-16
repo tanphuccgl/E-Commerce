@@ -6,7 +6,7 @@ class Domain {
   static Domain? _internal;
   Domain._() {
     account = AccountRepositoryImpl();
-    sign = SignrepositoryImpl();
+    sign = SignRepositoryImpl();
   }
   factory Domain() {
     _internal ??= Domain._();

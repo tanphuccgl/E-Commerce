@@ -11,8 +11,8 @@ class LoadingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<AccountBloc, AccountState>(
       listener: (BuildContext context, state) {
-        if (state.isLogin != null) {
-          if (state.isLogin == true) {
+        if (state.isLoading == false) {
+          if (state.data != null) {
             DashboardCoordinator.showDashboard(context);
           } else {
             SignCoordinator.showSignUp(context);

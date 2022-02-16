@@ -20,9 +20,12 @@ class XBottomNavigationBar extends StatelessWidget {
                   label: item.lableOf()),
           ],
           currentIndex: state.index.index,
-          selectedLabelStyle: const TextStyle(fontSize: 10),
-          unselectedLabelStyle:
-              const TextStyle(fontSize: 10, color: MyColors.colorGray),
+          selectedLabelStyle:
+              const TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+          unselectedLabelStyle: const TextStyle(
+              fontSize: 10,
+              color: MyColors.colorGray,
+              fontWeight: FontWeight.w500),
           selectedItemColor: MyColors.colorPrimary,
           onTap: context.read<BottomBarBloc>().onItemTapped,
           backgroundColor: MyColors.colorWhite,

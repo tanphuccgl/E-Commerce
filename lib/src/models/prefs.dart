@@ -1,5 +1,8 @@
 // ignore_for_file: constant_identifier_names
 
+import 'dart:convert';
+
+import 'package:e_commerce/src/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class _Key {
@@ -13,15 +16,21 @@ class Prefs {
     _prefs = await SharedPreferences.getInstance();
   }
 
-  static void saveLoginLocal(String response) {
-    _prefs.setString(_Key.SAVE_LOGIN_RESPONSE, response);
+  static Future<void> saveLoginLocal(UserModel response) async {
+    await _prefs.setString(
+        _Key.SAVE_LOGIN_RESPONSE, json.encode(response.toJson()));
   }
 
-  static bool isLogin() {
+  static Future<void> logout() async {
+    await _prefs.setString(_Key.SAVE_LOGIN_RESPONSE, "");
+  }
+
+  static Future<UserModel> isLogin() async {
     final result = _prefs.getString(_Key.SAVE_LOGIN_RESPONSE);
     if (result != null && result != '') {
-      return true;
+      return Future.value(UserModel.fromJson(json.decode(result)));
+    } else {
+      throw Exception();
     }
-    return false;
   }
 }

@@ -1,22 +1,20 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 final ref = FirebaseFirestore.instance.collection('User');
 
 abstract class SignRepository {
-  Future<void> loginWithEmail(
+  Future<UserModel> loginWithEmail(
       {required String email, required String password});
   Future<void> signUp(
       {required String email, required String password, required String name});
-  Future<void> loginWithGoogle();
-  // forgot password
+  Future<UserModel> loginWithGoogle();
 }
 
-class SignrepositoryImpl implements SignRepository {
+class SignRepositoryImpl implements SignRepository {
   @override
   Future<UserModel> loginWithEmail(
       {required String email, required String password}) async {
@@ -24,11 +22,32 @@ class SignrepositoryImpl implements SignRepository {
         await auth.signInWithEmailAndPassword(email: email, password: password);
     var value = await ref.doc(userCredential.user?.uid).get();
     var success = UserModel.fromJson(value.data()!);
+
     return success;
   }
 
   @override
-  Future<void> loginWithGoogle() async {}
+  Future<UserModel> loginWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    UserCredential userCredential = await auth.signInWithCredential(credential);
+
+    var success = UserModel.fromJson(
+        {"name": googleUser!.displayName, "email": googleUser.email});
+    ref.doc(userCredential.user?.uid).set(
+        UserModel(email: googleUser.displayName, name: googleUser.email)
+            .toJson());
+
+    return success;
+  }
 
   @override
   Future<void> signUp(

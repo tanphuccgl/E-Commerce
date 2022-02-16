@@ -124,7 +124,11 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       const Spacer(),
-                      const BottomSign(title: "Or login with social account"),
+                      BottomSign(
+                          title: "Or login with social account",
+                          onClickGoogle: () {
+                            context.read<LoginBloc>().loginWithGoogle(context);
+                          }),
                       const SizedBox(height: 15),
                     ],
                   ),

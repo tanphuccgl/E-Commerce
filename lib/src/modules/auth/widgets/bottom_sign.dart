@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 class BottomSign extends StatelessWidget {
   final String title;
-  const BottomSign({Key? key, required this.title}) : super(key: key);
+  final Function()? onClickGoogle;
+  const BottomSign({Key? key, required this.title, this.onClickGoogle})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,7 @@ class BottomSign extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _socialButton(MyIcons.ggIcon, onPressed: () {}),
+            _socialButton(MyIcons.ggIcon, onPressed: onClickGoogle ?? () {}),
             _socialButton(MyIcons.fbIcon, onPressed: () {})
           ],
         ),

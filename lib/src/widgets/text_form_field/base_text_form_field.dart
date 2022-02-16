@@ -3,8 +3,7 @@ import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:flutter/material.dart';
 
 // TODO: add value field
-// add action (clear button)
-// add show/hide password - done
+
 class XTextFormField extends StatelessWidget {
   final String label;
   final TextInputType textInputType;

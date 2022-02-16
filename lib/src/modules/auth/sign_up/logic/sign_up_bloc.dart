@@ -2,7 +2,7 @@ import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'sign_up_state.dart';
@@ -44,6 +44,7 @@ class SignUpBloc extends Cubit<SignUpState> {
   }
 
   void createAccount(BuildContext context) async {
+    FocusScope.of(context).requestFocus(FocusNode());
     emit(state.copyWith(
       pureEmail: true,
       pureName: true,
@@ -54,7 +55,7 @@ class SignUpBloc extends Cubit<SignUpState> {
         state.isValidName == "" &&
         state.isValidPassword == "") {
       emit(state.copyWithLoading(
-        isLoading: true,
+        isLoading: true,messageError: ""
       ));
       await domain.sign
           .signUp(

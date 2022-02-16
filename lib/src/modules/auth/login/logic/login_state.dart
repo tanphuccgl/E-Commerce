@@ -7,8 +7,7 @@ class LoginState extends Equatable {
   final bool purePassword;
   final bool isLoading;
   final String messageError;
-  //  using regex
-  // learn regex
+
   String get isValidEmail {
     // check email
     bool emailValid = RegExp(
