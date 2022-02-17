@@ -5,13 +5,13 @@ class XButton extends StatelessWidget {
   final String label;
   final double? width;
   final double height;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   const XButton(
       {Key? key,
       required this.label,
       this.width,
       this.height = 36,
-      required this.onPressed})
+       this.onPressed})
       : super(key: key);
 
   @override

@@ -7,24 +7,12 @@ import 'package:e_commerce/src/modules/auth/widgets/bottom_sign.dart';
 import 'package:e_commerce/src/modules/auth/widgets/header_sign.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/text_button/text_button_custom.dart';
-import 'package:e_commerce/src/widgets/text_form_field/base_text_form_field.dart';
+import 'package:e_commerce/src/widgets/text_field/base_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SignUpPage extends StatefulWidget {
+class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);
-
-  @override
-  State<SignUpPage> createState() => _SignUpPageState();
-}
-
-class _SignUpPageState extends State<SignUpPage> {
-  late bool obscureText;
-  @override
-  void initState() {
-    obscureText = true;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +22,7 @@ class _SignUpPageState extends State<SignUpPage> {
     final sizeHeightBody = size.height -
         MediaQuery.of(context).padding.bottom -
         MediaQuery.of(context).padding.top;
+    final paddingAppbar = MediaQuery.of(context).padding.top;
 
     return BlocProvider(
         create: (context) => SignUpBloc(),
@@ -46,8 +35,8 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: SizedBox(
                     height: sizeHeightBody,
                     child: Padding(
-                      padding:
-                          const EdgeInsets.symmetric(horizontal: paddingHori),
+                      padding: EdgeInsets.fromLTRB(
+                          paddingHori, paddingAppbar, paddingHori, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -56,64 +45,28 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           Column(
                             children: [
-                              XTextFormField(
+                              XTextField(
                                 label: "Name",
-                                suffixIcon: state.name.isNotEmpty
-                                    ? IconButton(
-                                        icon: const Icon(
-                                          Icons.cancel,
-                                          color: MyColors.colorGray,
-                                        ),
-                                        onPressed: () {
-                                          context
-                                              .read<SignUpBloc>()
-                                              .clear(SignUpParam.name);
-                                        },
-                                      )
-                                    : null,
+                                value: state.name,
                                 textInputType: TextInputType.name,
                                 errorText: state.isValidName,
                                 onChanged: (value) => context
                                     .read<SignUpBloc>()
                                     .changedName(value),
                               ),
-                              XTextFormField(
+                              XTextField(
                                 label: "Email",
-                                suffixIcon: state.email.isNotEmpty
-                                    ? IconButton(
-                                        icon: const Icon(
-                                          Icons.cancel,
-                                          color: MyColors.colorGray,
-                                        ),
-                                        onPressed: () {
-                                          context
-                                              .read<SignUpBloc>()
-                                              .clear(SignUpParam.email);
-                                        },
-                                      )
-                                    : null,
+                                value: state.email,
                                 textInputType: TextInputType.emailAddress,
                                 errorText: state.isValidEmail,
                                 onChanged: (value) => context
                                     .read<SignUpBloc>()
                                     .changedEmail(value),
                               ),
-                              XTextFormField(
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    obscureText
-                                        ? Icons.visibility
-                                        : Icons.visibility_off,
-                                    color: MyColors.colorGray,
-                                  ),
-                                  onPressed: () {
-                                    setState(() {
-                                      obscureText = !obscureText;
-                                    });
-                                  },
-                                ),
+                              XTextField(
+                                value: state.password,
                                 label: "Password",
-                                obscureText: obscureText,
+                                obscureText: true,
                                 errorText: state.isValidPassword,
                                 onChanged: (value) => context
                                     .read<SignUpBloc>()
@@ -133,20 +86,26 @@ class _SignUpPageState extends State<SignUpPage> {
                                   : XButton(
                                       width: size.width,
                                       label: "SIGN UP",
-                                      onPressed: () {
-                                        context
-                                            .read<SignUpBloc>()
-                                            .createAccount(context);
-                                      },
+                                      onPressed: (state.isValidEmail == "" &&
+                                              state.isValidName == "" &&
+                                              state.isValidPassword == "")
+                                          ? () {
+                                              context
+                                                  .read<SignUpBloc>()
+                                                  .createAccount(context);
+                                            }
+                                          : null,
                                       height: 48,
                                     ),
                               state.messageError.isEmpty
                                   ? const SizedBox.shrink()
                                   : Center(
                                       child: Text(
-                                      state.messageError,textAlign: TextAlign.center, 
+                                      state.messageError,
+                                      textAlign: TextAlign.center,
                                       style: const TextStyle(
-                                          color: MyColors.colorPrimary,fontWeight: FontWeight.w500),
+                                          color: MyColors.colorPrimary,
+                                          fontWeight: FontWeight.w500),
                                     ))
                             ],
                           ),

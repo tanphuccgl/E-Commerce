@@ -6,24 +6,12 @@ import 'package:e_commerce/src/modules/auth/widgets/header_sign.dart';
 
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/text_button/text_button_custom.dart';
-import 'package:e_commerce/src/widgets/text_form_field/base_text_form_field.dart';
+import 'package:e_commerce/src/widgets/text_field/base_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatefulWidget {
+class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
-
-  @override
-  State<LoginPage> createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage> {
-  late bool obscureText;
-  @override
-  void initState() {
-    obscureText = true;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,42 +41,18 @@ class _LoginPageState extends State<LoginPage> {
                       const HeaderSign(title: "Login"),
                       Column(
                         children: [
-                          XTextFormField(
+                          XTextField(
                             label: "Email",
-                            suffixIcon: state.email.isNotEmpty
-                                ? IconButton(
-                                    icon: const Icon(
-                                      Icons.cancel,
-                                      color: MyColors.colorGray,
-                                    ),
-                                    onPressed: () {
-                                      context
-                                          .read<LoginBloc>()
-                                          .clear(param: LoginParam.email);
-                                    },
-                                  )
-                                : null,
+                            value: state.email,
                             textInputType: TextInputType.emailAddress,
                             errorText: state.isValidEmail,
                             onChanged: (value) =>
                                 context.read<LoginBloc>().changedEmail(value),
                           ),
-                          XTextFormField(
+                          XTextField(
                             label: "Password",
-                            obscureText: obscureText,
-                            suffixIcon: IconButton(
-                              icon: Icon(
-                                obscureText
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                                color: MyColors.colorGray,
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  obscureText = !obscureText;
-                                });
-                              },
-                            ),
+                            value: state.password,
+                            obscureText: true,
                             errorText: state.isValidPassword,
                             onChanged: (value) => context
                                 .read<LoginBloc>()
@@ -106,9 +70,14 @@ class _LoginPageState extends State<LoginPage> {
                               : XButton(
                                   width: size.width,
                                   label: "LOGIN",
-                                  onPressed: () {
-                                    context.read<LoginBloc>().login(context);
-                                  },
+                                  onPressed: (state.isValidEmail == "" ||
+                                          state.isValidPassword == "")
+                                      ? () {
+                                          context
+                                              .read<LoginBloc>()
+                                              .login(context);
+                                        }
+                                      : null,
                                   height: 48,
                                 ),
                           state.messageError.isEmpty
