@@ -70,8 +70,7 @@ class LoginPage extends StatelessWidget {
                               : XButton(
                                   width: size.width,
                                   label: "LOGIN",
-                                  onPressed: (state.isValidEmail == "" ||
-                                          state.isValidPassword == "")
+                                  onPressed: state.isValid
                                       ? () {
                                           context
                                               .read<LoginBloc>()

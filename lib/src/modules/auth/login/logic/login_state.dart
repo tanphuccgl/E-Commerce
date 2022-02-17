@@ -1,13 +1,14 @@
 part of 'login_bloc.dart';
 
-class LoginState extends Equatable {
+class LoginState extends SignState {
+  // TODO: move to Sign State
   final String email;
   final String password;
   final bool pureEmail;
   final bool purePassword;
-  final bool isLoading;
-  final String messageError;
 
+  // TODO to utils.dart
+  // add Unit test
   String get isValidEmail {
     // check email
     bool emailValid = RegExp(
@@ -20,6 +21,8 @@ class LoginState extends Equatable {
     return (email.length > 5 && emailValid) ? "" : "Invalid Email";
   }
 
+  // TODO to utils.dart
+  // add Unit test
   String get isValidPassword {
     if (purePassword == false) {
       return '';
@@ -32,32 +35,30 @@ class LoginState extends Equatable {
       this.password = "",
       this.pureEmail = false,
       this.purePassword = false,
-      this.isLoading = false,
-      this.messageError = ""});
+      bool isLoading = false,
+      String messageError = ""})
+      : super(
+          isLoading: isLoading,
+          messageError: messageError,
+        );
 
   @override
   List<Object?> get props =>
       [email, password, pureEmail, purePassword, isLoading, messageError];
 
-  LoginState copyWith(
-      {String? email, String? password, bool? pureEmail, bool? purePassword}) {
-    return LoginState(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      pureEmail: pureEmail ?? this.pureEmail,
-      purePassword: purePassword ?? this.purePassword,
-    );
-  }
-
-  LoginState copyWithLoading({
+  LoginState copyWith({
     String? email,
     String? password,
+    bool? pureEmail,
+    bool? purePassword,
     bool? isLoading,
     String? messageError,
   }) {
     return LoginState(
       email: email ?? this.email,
       password: password ?? this.password,
+      pureEmail: pureEmail ?? this.pureEmail,
+      purePassword: purePassword ?? this.purePassword,
       isLoading: isLoading ?? this.isLoading,
       messageError: messageError ?? this.messageError,
     );

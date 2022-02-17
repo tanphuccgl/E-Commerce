@@ -1,4 +1,3 @@
-import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'sign_up_state.dart';
 
+// TODO extends SignState
 class SignUpBloc extends Cubit<SignUpState> {
   SignUpBloc() : super(const SignUpState());
   final Domain domain = Domain();

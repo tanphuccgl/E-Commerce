@@ -18,22 +18,11 @@ class SignUpState extends Equatable {
   }
 
   String get isValidEmail {
-    // check email
-    bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
-
-    if (pureEmail == false) {
-      return "";
-    }
-    return (email.length > 5 && emailValid) ? "" : "Invalid Email";
+    return Utils.isValidLoginEmail(email);
   }
 
   String get isValidPassword {
-    if (purePassword == false) {
-      return '';
-    }
-    return password.length > 5 ? '' : 'Invalid Password';
+    return Utils.isValidPassword(email);
   }
 
   const SignUpState(
@@ -58,6 +47,7 @@ class SignUpState extends Equatable {
         messageError
       ];
 
+  // TODO
   SignUpState copyWith({
     String? name,
     String? email,
@@ -75,17 +65,12 @@ class SignUpState extends Equatable {
         purePassword: purePassword ?? this.purePassword);
   }
 
+  // TODO
   SignUpState copyWithLoading({
-    String? name,
-    String? email,
-    String? password,
     bool? isLoading,
     String? messageError,
   }) {
-    return SignUpState(
-      name: name ?? this.name,
-      email: email ?? this.email,
-      password: password ?? this.password,
+    return copyWith(
       isLoading: isLoading ?? this.isLoading,
       messageError: messageError ?? this.messageError,
     );
