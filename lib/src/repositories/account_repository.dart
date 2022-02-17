@@ -1,29 +1,21 @@
-import 'package:e_commerce/src/models/prefs.dart';
 import 'package:e_commerce/src/models/user_model.dart';
+import 'package:e_commerce/src/repositories/sign_repository.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
 
 abstract class AccountRepository {
-  Future<UserModel> isLogin();
-  Future<void> saveLogin(UserModel response);
-  Future<void> logout();
+  Future<UserModel> getCurrentUser();
 }
 
 class AccountRepositoryImpl implements AccountRepository {
   @override
-  Future<UserModel> isLogin() async {
-    // TODO
-    return Prefs.isLogin();
-  }
+  Future<UserModel> getCurrentUser() async {
+    User? user = FirebaseAuth.instance.currentUser;
 
-  @override
-  Future<void> saveLogin(UserModel response) async {
-    // TODO
-    return Prefs.saveLoginLocal(response);
-  }
+    var value = await ref.doc(user?.uid).get();
 
-  @override
-  Future<void> logout() async {
-    // TODO
-    return Prefs.logout();
+    return UserModel.fromJson(value.data()!.toJson());
   }
 }
 

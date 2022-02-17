@@ -1,3 +1,5 @@
+// ignore_for_file: no_duplicate_case_values
+
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
@@ -24,7 +26,7 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   void login(BuildContext context) async {
-    String errorMessage;
+    String errorMessage = "";
     FocusScope.of(context).requestFocus(FocusNode());
 
     emit(state.copyWith(pureEmail: true, purePassword: true));
@@ -32,51 +34,15 @@ class LoginBloc extends Cubit<LoginState> {
     if (state.isValidEmail == "" || state.isValidPassword == "") {
       emit(state.copyWithLoading(isLoading: true, messageError: ""));
       try {
-        var result = await domain.sign
+        await domain.sign
             .loginWithEmail(email: state.email, password: state.password);
 
-        await domain.account.saveLogin(result).then((value) {
-          context.read<AccountBloc>().getLoginLocal().then((value) {
-            DashboardCoordinator.showDashboard(context);
-            XSnackBar.show(msg: "Logged in successfully");
-          });
-        });
+        context.read<AccountBloc>().getLoginLocal();
+        DashboardCoordinator.showDashboard(context);
+        XSnackBar.show(msg: "Logged in successfully");
       } on FirebaseAuthException catch (error) {
-        switch (error.code) {
-          case "ERROR_EMAIL_ALREADY_IN_USE":
-          case "account-exists-with-different-credential":
-          case "email-already-in-use":
-            errorMessage = "Email already used. Go to login page.";
-            break;
-          case "ERROR_WRONG_PASSWORD":
-          case "wrong-password":
-            errorMessage = "Wrong email/password combination.";
-            break;
-          case "ERROR_USER_NOT_FOUND":
-          case "user-not-found":
-            errorMessage = "No user found with this email.";
-            break;
-          case "ERROR_USER_DISABLED":
-          case "user-disabled":
-            errorMessage = "User disabled.";
-            break;
-          case "ERROR_TOO_MANY_REQUESTS":
-          case "operation-not-allowed":
-            errorMessage = "Too many requests to log into this account.";
-            break;
-          case "ERROR_OPERATION_NOT_ALLOWED":
-          // ignore: no_duplicate_case_values
-          case "operation-not-allowed":
-            errorMessage = "Server error, please try again later.";
-            break;
-          case "ERROR_INVALID_EMAIL":
-          case "invalid-email":
-            errorMessage = "Email address is invalid.";
-            break;
-          default:
-            errorMessage = "Login failed. Please try again.";
-            break;
-        }
+        errorMessage = await domain.sign.handleError(codeError: error.code);
+
         emit(state.copyWithLoading(
             isLoading: false, messageError: errorMessage));
       }
@@ -86,17 +52,18 @@ class LoginBloc extends Cubit<LoginState> {
   }
 
   void loginWithGoogle(BuildContext context) async {
+    String errorMessage;
     emit(state.copyWithLoading(isLoading: true, messageError: ""));
     try {
-      var result = await domain.sign.loginWithGoogle();
-      await domain.account.saveLogin(result).then((value) {
-        context.read<AccountBloc>().getLoginLocal().then((value) {
-          DashboardCoordinator.showDashboard(context);
-          XSnackBar.show(msg: "Logged in successfully");
-        });
-      });
-    } catch (e) {
-      emit(state.copyWithLoading(isLoading: false, messageError: e.toString()));
+      await domain.sign.loginWithGoogle();
+
+      context.read<AccountBloc>().getLoginLocal();
+      DashboardCoordinator.showDashboard(context);
+      XSnackBar.show(msg: "Logged in successfully");
+    } on FirebaseAuthException catch (error) {
+      errorMessage = await domain.sign.handleError(codeError: error.code);
+
+      emit(state.copyWithLoading(isLoading: false, messageError: errorMessage));
     }
     emit(state.copyWithLoading(isLoading: false));
   }

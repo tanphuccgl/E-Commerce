@@ -1,35 +1,40 @@
+// ignore_for_file: no_duplicate_case_values
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
-// TODO: sử dụng withConverter -> https://firebase.flutter.dev/docs/firestore/usage/#typing-collectionreference-and-documentreference
-final ref = FirebaseFirestore.instance.collection('User');
+GoogleSignIn googleSignIn = GoogleSignIn();
+final ref =
+    FirebaseFirestore.instance.collection('User').withConverter<UserModel>(
+          fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
+          toFirestore: (userModel, _) => userModel.toJson(),
+        );
 
 abstract class SignRepository {
-  Future<UserModel> loginWithEmail(
+  Future<void> loginWithEmail(
       {required String email, required String password});
   Future<void> signUp(
       {required String email, required String password, required String name});
-  Future<UserModel> loginWithGoogle();
+  Future<void> loginWithGoogle();
+  Future<void> logout();
+  Future<String> handleError({required String codeError});
 }
 
 class SignRepositoryImpl implements SignRepository {
-  @override
-  Future<UserModel> loginWithEmail(
-      {required String email, required String password}) async {
-    UserCredential userCredential =
-        await auth.signInWithEmailAndPassword(email: email, password: password);
-    // TODO: Check trường hợp chưa có user. thì add thông tin này lên firebase
-    var value = await ref.doc(userCredential.user?.uid).get();
-    var success = UserModel.fromJson(value.data()!);
+  Future<bool> userReadlyExists(String email) async =>
+      (await ref.where("email", isEqualTo: email).get()).docs.isEmpty;
 
-    return success;
+  @override
+  Future<void> loginWithEmail(
+      {required String email, required String password}) async {
+    await auth.signInWithEmailAndPassword(email: email, password: password);
   }
 
   @override
-  Future<UserModel> loginWithGoogle() async {
+  Future<void> loginWithGoogle() async {
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
     final GoogleSignInAuthentication? googleAuth =
@@ -42,14 +47,10 @@ class SignRepositoryImpl implements SignRepository {
 
     UserCredential userCredential = await auth.signInWithCredential(credential);
 
-    var success = UserModel.fromJson(
-        {"name": googleUser!.displayName, "email": googleUser.email});
-    // TODO: kiểm tra thông tin trên firestore trước. nếu ko có thì mới thêm.
-    ref.doc(userCredential.user?.uid).set(
-        UserModel(email: googleUser.displayName, name: googleUser.email)
-            .toJson());
-
-    return success;
+    if (await userReadlyExists(googleUser!.email)) {
+      ref.doc(userCredential.user?.uid).set(
+          UserModel(email: googleUser.email, name: googleUser.displayName));
+    }
   }
 
   @override
@@ -59,9 +60,52 @@ class SignRepositoryImpl implements SignRepository {
       required String name}) async {
     UserCredential userCredential = await auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    // TODO: Handle eror. nếu thành công thì mới thêm
-    ref
-        .doc(userCredential.user?.uid)
-        .set(UserModel(email: email, name: name).toJson());
+    if (userCredential.user != null) {
+      ref
+          .doc(userCredential.user?.uid)
+          .set(UserModel(email: email, name: name));
+    }
+  }
+
+  @override
+  Future<void> logout() async {
+    await auth.signOut();
+    await googleSignIn.signOut();
+  }
+
+  @override
+  Future<String> handleError({required String codeError}) {
+    switch (codeError) {
+      case "ERROR_EMAIL_ALREADY_IN_USE":
+      case "account-exists-with-different-credential":
+      case "email-already-in-use":
+        return Future.value("Email already used. Go to login page.");
+
+      case "ERROR_WRONG_PASSWORD":
+      case "wrong-password":
+        return Future.value("Wrong email/password combination.");
+
+      case "ERROR_USER_NOT_FOUND":
+      case "user-not-found":
+        return Future.value("No user found with this email.");
+
+      case "ERROR_USER_DISABLED":
+      case "user-disabled":
+        return Future.value("User disabled.");
+      case "ERROR_TOO_MANY_REQUESTS":
+      case "operation-not-allowed":
+        return Future.value("Too many requests to log into this account.");
+
+      case "ERROR_OPERATION_NOT_ALLOWED":
+      case "operation-not-allowed":
+        return Future.value("Server error, please try again later.");
+
+      case "ERROR_INVALID_EMAIL":
+      case "invalid-email":
+        return Future.value("Email address is invalid.");
+
+      default:
+        return Future.value("Login failed. Please try again.");
+    }
   }
 }

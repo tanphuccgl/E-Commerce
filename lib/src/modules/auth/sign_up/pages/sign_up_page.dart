@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/auth/login/logic/login_bloc.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/modules/auth/sign_up/logic/sign_up_bloc.dart';
 
@@ -24,8 +25,11 @@ class SignUpPage extends StatelessWidget {
         MediaQuery.of(context).padding.top;
     final paddingAppbar = MediaQuery.of(context).padding.top;
 
-    return BlocProvider(
-        create: (context) => SignUpBloc(),
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => SignUpBloc()),
+          BlocProvider(create: (context) => LoginBloc()),
+        ],
         child: BlocBuilder<SignUpBloc, SignUpState>(
           builder: (context, state) {
             return Scaffold(
@@ -110,8 +114,13 @@ class SignUpPage extends StatelessWidget {
                             ],
                           ),
                           const Spacer(),
-                          const BottomSign(
+                          BottomSign(
                             title: "Or sign up with social account",
+                            onClickGoogle: () {
+                              context
+                                  .read<LoginBloc>()
+                                  .loginWithGoogle(context);
+                            },
                           ),
                           const SizedBox(
                             height: 15,

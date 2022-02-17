@@ -15,16 +15,18 @@ class AccountBloc extends Cubit<AccountState> {
 
   Future<void> getLoginLocal() async {
     try {
-      var value = await domain.account.isLogin();
-      emit(state.copyWith(data: value, isLoading: false));
+      dynamic value = await domain.account.getCurrentUser();
+      value != null
+          ? emit(state.copyWith(data: value, isLoading: false))
+          : emit(state.copyWith(data: null, isLoading: false));
     } catch (e) {
       emit(state.copyWith(isLoading: false, data: null));
     }
   }
 
   void logout(BuildContext context) {
-    domain.account.logout();
-    emit(state.copyWith(isLoading: true, data: null));  
+    domain.sign.logout();
+    emit(state.copyWith(isLoading: true, data: null));
 
     SignCoordinator.showSignUp(context);
   }
