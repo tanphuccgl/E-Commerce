@@ -10,16 +10,19 @@ abstract class AccountRepository {
 class AccountRepositoryImpl implements AccountRepository {
   @override
   Future<UserModel> isLogin() async {
+    // TODO
     return Prefs.isLogin();
   }
 
   @override
   Future<void> saveLogin(UserModel response) async {
+    // TODO
     return Prefs.saveLoginLocal(response);
   }
 
   @override
   Future<void> logout() async {
+    // TODO
     return Prefs.logout();
   }
 }
