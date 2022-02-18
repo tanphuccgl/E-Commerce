@@ -74,7 +74,7 @@ class SignUpPage extends StatelessWidget {
                                 errorText: state.isValidPassword,
                                 onChanged: (value) => context
                                     .read<SignUpBloc>()
-                                    .changePassword(value),
+                                    .changedPassword(value),
                               ),
                               Align(
                                 alignment: Alignment.centerRight,
@@ -90,9 +90,7 @@ class SignUpPage extends StatelessWidget {
                                   : XButton(
                                       width: size.width,
                                       label: "SIGN UP",
-                                      onPressed: (state.isValidEmail == "" &&
-                                              state.isValidName == "" &&
-                                              state.isValidPassword == "")
+                                      onPressed: state.isValidSignUp
                                           ? () {
                                               context
                                                   .read<SignUpBloc>()
@@ -117,9 +115,7 @@ class SignUpPage extends StatelessWidget {
                           BottomSign(
                             title: "Or sign up with social account",
                             onClickGoogle: () {
-                              context
-                                  .read<LoginBloc>()
-                                  .loginWithGoogle(context);
+                              context.read<SignUpBloc>().withGoogle(context);
                             },
                           ),
                           const SizedBox(

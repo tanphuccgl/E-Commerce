@@ -1,71 +1,77 @@
 part of 'sign_up_bloc.dart';
 
-class SignUpState extends Equatable {
+class SignUpState extends SignState {
   final String name;
-  final String email;
-  final String password;
   final bool pureName;
-  final bool pureEmail;
-  final bool purePassword;
-  final bool isLoading;
-  final String messageError;
 
   String get isValidName {
-    if (pureName == false) {
-      return "";
-    }
-    return name.isNotEmpty ? "" : "Invalid Name";
+    return XUtils.isValidName(name, pureName);
   }
 
-  String get isValidEmail {
-    return Utils.isValidLoginEmail(email);
+  bool get isValidSignUp {
+    return XUtils.isValidSignUp(
+      email: email,
+      pureEmail: pureEmail,
+      password: password,
+      purePassword: purePassword,
+      name: name,
+      pureName: pureName,
+    );
   }
 
-  String get isValidPassword {
-    return Utils.isValidPassword(email);
-  }
-
-  const SignUpState(
-      {this.name = "",
-      this.email = "",
-      this.password = "",
-      this.pureName = false,
-      this.pureEmail = false,
-      this.purePassword = false,
-      this.isLoading = false,
-      this.messageError = ""});
+  const SignUpState({
+    this.name = "",
+    this.pureName = false,
+    bool isLoading = false,
+    String email = "",
+    String password = "",
+    String messageError = "",
+    bool pureEmail = false,
+    bool purePassword = false,
+  }) : super(
+          email: email,
+          password: password,
+          isLoading: isLoading,
+          messageError: messageError,
+          pureEmail: pureEmail,
+          purePassword: purePassword,
+        );
 
   @override
   List<Object?> get props => [
         name,
+        pureName,
+        isLoading,
+        messageError,
         email,
         password,
-        pureName,
         pureEmail,
         purePassword,
-        isLoading,
-        messageError
       ];
 
-  // TODO
+  @override
   SignUpState copyWith({
     String? name,
+    bool? pureName,
+    bool? isLoading,
     String? email,
     String? password,
-    bool? pureName,
+    String? messageError,
     bool? pureEmail,
     bool? purePassword,
   }) {
     return SignUpState(
-        name: name ?? this.name,
-        email: email ?? this.email,
-        password: password ?? this.password,
-        pureName: pureName ?? this.pureName,
-        pureEmail: pureEmail ?? this.pureEmail,
-        purePassword: purePassword ?? this.purePassword);
+      name: name ?? this.name,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      pureName: pureName ?? this.pureName,
+      pureEmail: pureEmail ?? this.pureEmail,
+      purePassword: purePassword ?? this.purePassword,
+      isLoading: isLoading ?? this.isLoading,
+      messageError: messageError ?? this.messageError,
+    );
   }
 
-  // TODO
   SignUpState copyWithLoading({
     bool? isLoading,
     String? messageError,

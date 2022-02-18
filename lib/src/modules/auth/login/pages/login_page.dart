@@ -70,11 +70,13 @@ class LoginPage extends StatelessWidget {
                               : XButton(
                                   width: size.width,
                                   label: "LOGIN",
-                                  onPressed: state.isValid
+                                  onPressed: state.isValidLogin
                                       ? () {
                                           context
                                               .read<LoginBloc>()
-                                              .login(context);
+                                              .loginWithEmailAndPassword(
+                                                context,
+                                              );
                                         }
                                       : null,
                                   height: 48,
@@ -95,7 +97,7 @@ class LoginPage extends StatelessWidget {
                       BottomSign(
                           title: "Or login with social account",
                           onClickGoogle: () {
-                            context.read<LoginBloc>().loginWithGoogle(context);
+                            context.read<LoginBloc>().withGoogle(context);
                           }),
                       const SizedBox(height: 15),
                     ],

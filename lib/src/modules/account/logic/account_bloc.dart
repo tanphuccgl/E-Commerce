@@ -8,12 +8,12 @@ part 'account_state.dart';
 
 class AccountBloc extends Cubit<AccountState> {
   AccountBloc() : super(const AccountState()) {
-    getLoginLocal();
+    getDataLogin();
   }
 
   final Domain domain = Domain();
 
-  Future<void> getLoginLocal() async {
+  Future<void> getDataLogin() async {
     try {
       dynamic value = await domain.account.getCurrentUser();
       value != null
