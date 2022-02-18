@@ -1,3 +1,5 @@
+import 'package:e_commerce/src/models/result.dart';
+import 'package:e_commerce/src/models/user_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
@@ -26,7 +28,7 @@ class SignBloc<T extends SignState> extends Cubit<T> {
     String messageError = "";
     emit(state.copyWith(isLoading: true, messageError: messageError) as T);
     try {
-      await domain.sign.loginWithGoogle();
+      final XResult<UserModel> result = await domain.sign.loginWithGoogle();
       await context.read<AccountBloc>().getDataLogin();
       DashboardCoordinator.showDashboard(context);
       XSnackBar.show(msg: "Logged in successfully");
@@ -37,7 +39,7 @@ class SignBloc<T extends SignState> extends Cubit<T> {
   }
 
   void handleError(String errorCode, String errorMessage) async {
-    errorMessage = await domain.sign.handleError(codeError: errorCode);
+    // errorMessage = await domain.sign.handleError(codeError: errorCode);
 
     emit(state.copyWith(messageError: errorMessage) as T);
   }

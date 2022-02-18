@@ -1,12 +1,16 @@
-class UserModel {
+import 'package:e_commerce/src/models/firestore_model.dart';
+
+class UserModel extends BaseModel {
   String? name;
   String? email;
 
-  UserModel({this.name, this.email});
+  UserModel({this.name, this.email}) : super(id: '');
 
-  UserModel.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    email = json['email'];
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      name: json['name'],
+      email: json['email'],
+    );
   }
 
   Map<String, dynamic> toJson() {

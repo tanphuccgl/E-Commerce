@@ -1,6 +1,7 @@
 // ignore_for_file: no_duplicate_case_values
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/models/user_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -14,13 +15,16 @@ final ref =
         );
 
 abstract class SignRepository {
-  Future<void> loginWithEmail(
+  // TODO
+  Future<XResult<UserModel>> loginWithEmail(
       {required String email, required String password});
-  Future<void> signUp(
+  // TODO
+  Future<XResult<UserModel>> signUp(
       {required String email, required String password, required String name});
-  Future<void> loginWithGoogle();
-  Future<void> logout();
-  Future<String> handleError({required String codeError});
+  // TODO
+  Future<XResult<UserModel>> loginWithGoogle();
+  // TODO
+  Future<XResult> logout();
 }
 
 class SignRepositoryImpl implements SignRepository {

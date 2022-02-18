@@ -71,14 +71,4 @@ class SignUpState extends SignState {
       messageError: messageError ?? this.messageError,
     );
   }
-
-  SignUpState copyWithLoading({
-    bool? isLoading,
-    String? messageError,
-  }) {
-    return copyWith(
-      isLoading: isLoading ?? this.isLoading,
-      messageError: messageError ?? this.messageError,
-    );
-  }
 }
