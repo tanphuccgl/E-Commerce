@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
           ),
           body: Center(
             child: Text(
-              "Name: ${state.data?.name}\nEmail: ${state.data?.email}",
+              "Name: ${state.data.name}\nEmail: ${state.data.email}",
               style: const TextStyle(fontWeight: FontWeight.w500),
             ),
           ));

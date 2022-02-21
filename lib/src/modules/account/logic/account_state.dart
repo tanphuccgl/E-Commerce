@@ -1,13 +1,14 @@
 part of 'account_bloc.dart';
 
-class AccountState {
-  final UserModel? data;
-  final bool? isLoading;
-  const AccountState({this.isLoading = true, this.data});
-
+class AccountState extends Equatable {
+  final XUser data;
+  final bool isLoading;
+  const AccountState({this.isLoading = true, required this.data});
+  @override
+  List<Object?> get props => [isLoading, data];
   AccountState copyWith({
     bool? isLoading,
-    UserModel? data,
+    XUser? data,
   }) {
     return AccountState(
       isLoading: isLoading ?? this.isLoading,

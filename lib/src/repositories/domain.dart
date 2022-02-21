@@ -1,6 +1,7 @@
-import 'package:e_commerce/src/repositories/sign_repository.dart';
-
-import 'account_repository.dart';
+import 'package:e_commerce/src/repositories/features/account/repo.dart';
+import 'package:e_commerce/src/repositories/features/account/repo_impl.dart';
+import 'package:e_commerce/src/repositories/features/sign/repo.dart';
+import 'package:e_commerce/src/repositories/features/sign/repo_impl.dart';
 
 class Domain {
   static Domain? _internal;

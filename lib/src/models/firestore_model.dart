@@ -1,5 +1,3 @@
-// TODO implement
-
 class BaseModel {
   String id;
   BaseModel({

@@ -1,12 +1,9 @@
-import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/models/user_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,19 +25,17 @@ class SignBloc<T extends SignState> extends Cubit<T> {
     String messageError = "";
     emit(state.copyWith(isLoading: true, messageError: messageError) as T);
     try {
-      final XResult<UserModel> result = await domain.sign.loginWithGoogle();
-      await context.read<AccountBloc>().getDataLogin();
-      DashboardCoordinator.showDashboard(context);
-      XSnackBar.show(msg: "Logged in successfully");
-    } on FirebaseAuthException catch (error) {
-      handleError(error.code, messageError);
+      var value = await domain.sign.loginWithGoogle();
+      if (value.error == null) {
+        await context.read<AccountBloc>().getUser();
+        DashboardCoordinator.showDashboard(context);
+        XSnackBar.show(msg: "Logged in successfully");
+      } else {
+        emit(state.copyWith(messageError: value.error) as T);
+      }
+    } catch (error) {
+      emit(state.copyWith(messageError: error.toString()) as T);
     }
     emit(state.copyWith(isLoading: false) as T);
-  }
-
-  void handleError(String errorCode, String errorMessage) async {
-    // errorMessage = await domain.sign.handleError(codeError: errorCode);
-
-    emit(state.copyWith(messageError: errorMessage) as T);
   }
 }

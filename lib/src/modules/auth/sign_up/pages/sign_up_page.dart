@@ -1,5 +1,4 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/auth/login/logic/login_bloc.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/modules/auth/sign_up/logic/sign_up_bloc.dart';
 
@@ -25,11 +24,8 @@ class SignUpPage extends StatelessWidget {
         MediaQuery.of(context).padding.top;
     final paddingAppbar = MediaQuery.of(context).padding.top;
 
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => SignUpBloc()),
-          BlocProvider(create: (context) => LoginBloc()),
-        ],
+    return BlocProvider(
+        create: (context) => SignUpBloc(),
         child: BlocBuilder<SignUpBloc, SignUpState>(
           builder: (context, state) {
             return Scaffold(

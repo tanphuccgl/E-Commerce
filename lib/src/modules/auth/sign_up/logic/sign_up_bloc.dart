@@ -1,9 +1,10 @@
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/auth/logic/sign_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'sign_up_state.dart';
 
@@ -27,18 +28,22 @@ class SignUpBloc extends SignBloc<SignUpState> {
     ));
 
     if (state.isValidSignUp) {
-      emit(state.copyWithLoading(isLoading: true, messageError: messageError));
+      emit(state.copyWith(isLoading: true, messageError: messageError));
       try {
-        await domain.sign.signUp(
+        var value = await domain.sign.signUp(
             email: state.email, password: state.password, name: state.name);
-
-        DashboardCoordinator.showDashboard(context);
-        XSnackBar.show(msg: "Account successfully created");
-      } on FirebaseAuthException catch (error) {
-        handleError(error.code, messageError);
+        if (value.error == null) {
+          await context.read<AccountBloc>().setDataLogin(user: value.data);
+          DashboardCoordinator.showDashboard(context);
+          XSnackBar.show(msg: "Account successfully created");
+        } else {
+          emit(state.copyWith(messageError: value.error));
+        }
+      } catch (error) {
+        emit(state.copyWith(messageError: error.toString()));
       }
 
-      emit(state.copyWithLoading(isLoading: false));
+      emit(state.copyWith(isLoading: false));
     }
   }
 }

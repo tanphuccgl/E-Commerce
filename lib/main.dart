@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
-import 'package:e_commerce/src/models/prefs.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +17,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   GetIt.I.registerLazySingleton(() => XRouter());
   await Firebase.initializeApp();
-  await Prefs.init();
-
-  runApp(const MyApp());
+  BlocOverrides.runZoned(
+    () => runApp(const MyApp()),
+    //  blocObserver: XBlocObserver()
+  );
 }
 
 class MyApp extends StatelessWidget {

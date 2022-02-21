@@ -1,22 +1,28 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
 
-class UserModel extends BaseModel {
+class XUser extends BaseModel {
   String? name;
   String? email;
 
-  UserModel({this.name, this.email}) : super(id: '');
+  XUser({this.name, this.email, String id = ""}) : super(id: id);
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
-      name: json['name'],
-      email: json['email'],
-    );
+  factory XUser.fromJson(Map<String, dynamic> json, {String? id}) {
+    return XUser(
+        name: json['name'], email: json['email'], id: id ?? json['id']);
+  }
+  factory XUser.empty() {
+    return XUser();
+  }
+  factory XUser.formDocument(DocumentSnapshot doc) {
+    return XUser.fromJson(doc.data() as Map<String, dynamic>);
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['email'] = email;
+    data['id'] = id;
     return data;
   }
 }
