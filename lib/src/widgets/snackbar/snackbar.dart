@@ -1,21 +1,11 @@
-import 'package:e_commerce/src/constants/my_colors.dart';
-import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-enum ToastType {
-  info,
-  error,
-  success,
-  warn,
-}
+import 'package:bot_toast/bot_toast.dart';
 
 class XSnackBar {
-  static show({required String msg}) => Fluttertoast.showToast(
-      msg: msg,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: MyColors.colorPrimary,
-      textColor: Colors.white,
-      fontSize: 16.0);
+  static late CancelFunc cancel;
+
+  static show({required String msg}) => BotToast.showText(text: msg);
+  static showLoading() => cancel = BotToast.showLoading();
+  static hideLoading() {
+    cancel();
+  }
 }

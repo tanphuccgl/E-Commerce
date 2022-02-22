@@ -1,42 +1,44 @@
-import 'package:e_commerce/src/config/routes/coordinator.dart';
+import 'package:e_commerce/src/models/user_model.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
-import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/user_collection_reference.dart';
+import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'account_state.dart';
 
 class AccountBloc extends Cubit<AccountState> {
-  AccountBloc() : super(const AccountState()) {
-    getLoginLocal();
+  AccountBloc() : super(AccountState(data: XUser.empty())) {
+    _getUser();
   }
-
   final Domain domain = Domain();
+  Future<void> _getUser() async {
+    await Future.delayed(Duration.zero);
 
-  Future<void> getLoginLocal() async {
-    await Future.delayed(const Duration(seconds: 2));
-    final islogin = await domain.login.isLogin();
-    emit(state.copyWith(islogin));
+    User? currentUser = AuthService().currentUser;
+
+    if (currentUser == null) {
+      emit(state.copyWith(isLoading: false, data: XUser.empty()));
+    } else {
+      var result = await UserCollectionReference().getUserOrAddNew(currentUser);
+      var data = result.data ?? XUser.empty();
+
+      emit(state.copyWith(data: data, isLoading: false));
+    }
   }
 
-  void onLogin(BuildContext context) {
-    emit(state.copyWith(true));
-    XSnackBar.show(msg: "Logged in successfully");
-    domain.login.saveLogin('SAVE_LOGIN_RESPONSE');
-    XCoordinator.showDashboard();
+  void setDataLogin({XUser? user}) {
+    emit(state.copyWith(data: user, isLoading: false));
   }
 
-  void onRegister(BuildContext context) {
-    emit(state.copyWith(true));
-    XSnackBar.show(msg: "Logged in successfully");
-    domain.login.saveLogin('SAVE_LOGIN_RESPONSE');
-    XCoordinator.showDashboard();
-  }
+  Future<void> logout(BuildContext context) async {
+    await Future.delayed(Duration.zero);
 
-  void logout(BuildContext context) {
-    emit(state.copyWith(false));
-    domain.login.saveLogin("");
-    SignCoordinator.showLogin(context);
+    emit(state.copyWith(isLoading: true, data: XUser.empty()));
+    domain.sign.logout();
+    SignCoordinator.showSignUp(context);
   }
 }

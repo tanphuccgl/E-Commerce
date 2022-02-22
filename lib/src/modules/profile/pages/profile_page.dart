@@ -16,7 +16,7 @@ class ProfilePage extends StatelessWidget {
       ),
       body: Center(
         child: XButton(
-          label: "Logout ",
+          label: "Logout",
           onPressed: () {
             context.read<AccountBloc>().logout(context);
           },

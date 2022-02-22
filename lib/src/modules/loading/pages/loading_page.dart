@@ -10,17 +10,24 @@ class LoadingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AccountBloc, AccountState>(
-      listener: (BuildContext context, state) {
-        if (state.isLogin != null) {
-          if (state.isLogin == true) {
-            DashboardCoordinator.showDashboard(context);
+      listener: (context, state) {
+        if (state.isLoading == false) {
+          if (state.data.id == "") {
+            SignCoordinator.showSignUp(context);
           } else {
-            SignCoordinator.showLogin(context);
+            DashboardCoordinator.showDashboard(context);
           }
         }
       },
-      child: const Scaffold(
-        body: Center(child: Text('Loading....')),
+      child: Scaffold(
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text('Loading....'),
+            CircularProgressIndicator(),
+          ],
+        )),
       ),
     );
   }

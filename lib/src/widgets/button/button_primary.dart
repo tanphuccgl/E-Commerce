@@ -1,16 +1,17 @@
+import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:flutter/material.dart';
 
 class XButton extends StatelessWidget {
   final String label;
   final double? width;
   final double height;
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   const XButton(
       {Key? key,
       required this.label,
       this.width,
       this.height = 36,
-      required this.onPressed})
+       this.onPressed})
       : super(key: key);
 
   @override
@@ -21,7 +22,8 @@ class XButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         child: Text(
-          label,
+          label,textAlign: TextAlign.center,
+          style: XStyle.textTheme().labelMedium,
         ),
       ),
     );
