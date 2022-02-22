@@ -12,12 +12,10 @@ part 'account_state.dart';
 
 class AccountBloc extends Cubit<AccountState> {
   AccountBloc() : super(AccountState(data: XUser.empty())) {
-    getUser();
+    _getUser();
   }
   final Domain domain = Domain();
-  Future<void> getUser() async {
-    await Future.delayed(Duration.zero);
-
+  Future<void> _getUser() async {
     User? currentUser = AuthService().currentUser;
 
     if (currentUser == null) {
@@ -30,7 +28,7 @@ class AccountBloc extends Cubit<AccountState> {
     }
   }
 
-  Future<void> setDataLogin({XUser? user}) async {
+  void setDataLogin({XUser? user}) {
     emit(state.copyWith(data: user, isLoading: false));
   }
 
