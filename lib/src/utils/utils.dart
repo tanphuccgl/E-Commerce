@@ -1,95 +1,47 @@
 class XUtils {
-  // TODO
-  static String isValidEmail(String email, bool pureEmail) {
+  static String isValidEmail(String email) {
     email = email.trim();
     String message = "";
-    if (pureEmail == false) {
-      message = "";
-    } else {
-      bool emailValid = RegExp(
-              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-          .hasMatch(email);
-      if (emailValid == false) {
-        message = "Invalid email";
-      }
-      if (email.isEmpty) {
-        message = "Please enter valid email";
-      }
+
+    bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);
+    if (emailValid == false) {
+      message = "Invalid email";
+    }
+    if (email.isEmpty) {
+      message = "Please enter valid email";
     }
 
     return message;
   }
 
-  // TODO
-  static String isValidPassword(String password, bool purePassword) {
+  static String isValidPassword(String password) {
     password = password.trim();
     String message = "";
-    if (purePassword == false) {
-      message = "";
-    } else {
-      if (password.length < 6 || password.length > 10) {
-        message = "Password from 6 - 10 characters";
-      }
-      if (password.isEmpty) {
-        message = "Please enter vaild password";
-      }
+
+    if (password.length < 6 || password.length > 10) {
+      message = "Password from 6 - 10 characters";
+    }
+    if (password.isEmpty) {
+      message = "Please enter vaild password";
     }
 
     return message;
   }
 
-  // TODO
-  static String isValidName(String name, bool pureName) {
+  static String isValidName(String name) {
     String message = "";
-    if (pureName == false) {
+
+    if (name.contains(RegExp(r'^[a-z A-Z,.\-]+$'))) {
       message = "";
     } else {
-      if (name.contains(RegExp(r'^[a-z A-Z,.\-]+$'))) {
-        message = "";
-      } else {
-        message = "Name cannot contain special characters or numbers";
-      }
-      if (name.isEmpty) {
-        message = 'Please enter valid name';
-      }
+      message = "Name cannot contain special characters or numbers";
+    }
+    if (name.isEmpty) {
+      message = 'Please enter valid name';
     }
 
     return message;
-  }
-
-  // TODO: move to signin
-  static bool isValidLogin(
-      {required String email,
-      required bool pureEmail,
-      required String password,
-      required purePassword}) {
-    if (isValidEmail(email, pureEmail) == "" &&
-        isValidPassword(password, purePassword) == "" &&
-        purePassword == true &&
-        pureEmail == true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // TODO: move to signup
-  static bool isValidSignUp(
-      {required String email,
-      required bool pureEmail,
-      required String password,
-      required bool purePassword,
-      required String name,
-      required bool pureName}) {
-    if (isValidEmail(email, pureEmail) == "" &&
-        pureEmail == true &&
-        isValidPassword(password, purePassword) == "" &&
-        purePassword == true &&
-        pureName == true &&
-        isValidName(name, pureName) == "") {
-      return true;
-    } else {
-      return false;
-    }
   }
 }

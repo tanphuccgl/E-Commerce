@@ -5,18 +5,15 @@ class SignUpState extends SignState {
   final bool pureName;
 
   String get isValidName {
-    return XUtils.isValidName(name, pureName);
+    return pureName ? XUtils.isValidName(name) : "";
   }
 
   bool get isValidSignUp {
-    return XUtils.isValidSignUp(
-      email: email,
-      pureEmail: pureEmail,
-      password: password,
-      purePassword: purePassword,
-      name: name,
-      pureName: pureName,
-    );
+    return (XUtils.isValidEmail(email) == "" &&
+            XUtils.isValidPassword(password) == "" &&
+            XUtils.isValidName(name) == "")
+        ? true
+        : false;
   }
 
   const SignUpState({

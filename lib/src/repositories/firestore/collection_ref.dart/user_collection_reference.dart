@@ -12,31 +12,18 @@ class UserCollectionReference extends BaseCollectionReference<XUser> {
                   toFirestore: (userModel, _) => userModel.toJson(),
                 ));
 
-  Future<XResult<XUser>> getUserOrAddNew(
-    User user, {
-    // Remove: if register with pass, Khi đó thì gọi hàm thêm mới
-    String name = "",
-  }) async {
+  Future<XResult<XUser>> getUserOrAddNew(User user) async {
     try {
       late final XUser data;
-      // TODO: refactor
-      // final result = get(user.uid);
-      final bool result =
-          (await ref.where("id", isEqualTo: user.uid).get()).docs.isNotEmpty;
 
-      if (result == false) {
-        if (name == "") {
-          name = (user.displayName ?? "N/A");
-        }
-        // TODO add one more function XUser.fromFirebaseUser
-        data = XUser(email: user.email, name: name, id: user.uid);
-        add(data);
+      var result = await get(user.uid);
+      if (result.data == null) {
+        data = XUser.fromFirebaseUser(user);
+        set(data);
       } else {
-        // TODO use Get
-        var value = await ref.where("id", isEqualTo: user.uid).get();
-        name = value.docs.first.get("name");
-
-        data = XUser(email: user.email, name: name, id: user.uid);
+        var name = result.data?.name;
+        data = XUser(
+            email: user.email, name: name ?? user.displayName, id: user.uid);
       }
       return XResult.success(data);
     } catch (e) {

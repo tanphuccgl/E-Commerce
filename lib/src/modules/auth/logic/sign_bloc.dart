@@ -23,7 +23,7 @@ class SignBloc<T extends SignState> extends Cubit<T> {
 
   void withGoogle(BuildContext context) async {
     String messageError = "";
-    emit(state.copyWith(isLoading: true, messageError: messageError) as T);
+    emit(state.copyWith(messageError: messageError) as T);
     try {
       var value = await domain.sign.loginWithGoogle();
       if (value.error == null) {
@@ -34,8 +34,7 @@ class SignBloc<T extends SignState> extends Cubit<T> {
         emit(state.copyWith(messageError: value.error) as T);
       }
     } catch (error) {
-      emit(state.copyWith(messageError: error.toString()) as T);
+      emit(state.copyWith(messageError: "Please try again") as T);
     }
-    emit(state.copyWith(isLoading: false) as T);
   }
 }

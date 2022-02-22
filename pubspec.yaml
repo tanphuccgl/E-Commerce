@@ -19,7 +19,7 @@ dependencies:
   image_picker: ^0.8.4+8
 
   # WIDGET
-  fluttertoast: ^8.0.8
+  bot_toast: ^4.0.1
   flutter_dialogs: ^2.1.1
 
   # STATE MANAGEMENT

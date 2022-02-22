@@ -7,14 +7,12 @@ class SignState extends Equatable {
   final String password;
   final bool pureEmail;
   final bool purePassword;
-  // todo add Unit test
   String get isValidEmail {
-    return XUtils.isValidEmail(email, pureEmail);
+    return pureEmail ? XUtils.isValidEmail(email) : "";
   }
 
-  // todo add Unit test
   String get isValidPassword {
-    return XUtils.isValidPassword(password, purePassword);
+    return purePassword ? XUtils.isValidPassword(password) : "";
   }
 
   const SignState({

@@ -2,11 +2,10 @@ part of 'login_bloc.dart';
 
 class LoginState extends SignState {
   bool get isValidLogin {
-    return XUtils.isValidLogin(
-        email: email,
-        pureEmail: pureEmail,
-        password: password,
-        purePassword: purePassword);
+    return (XUtils.isValidEmail(email) == "" &&
+            XUtils.isValidPassword(password) == "")
+        ? true
+        : false;
   }
 
   const LoginState({

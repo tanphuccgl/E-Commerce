@@ -54,10 +54,10 @@ class SignRepositoryImpl implements SignRepository {
     try {
       var user = await AuthService()
           .createUserWithEmailAndPassword(email: email, password: password);
-      // TODO: add new user
-      var data =
-          UserCollectionReference().getUserOrAddNew(user.user!, name: name);
-      return data;
+      var data = XUser(email: email, name: name, id: user.user?.uid ?? "");
+      UserCollectionReference().set(data);
+
+      return XResult.success(data);
     } on FirebaseAuthException catch (error) {
       String message = handleError(codeError: error.code);
 

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bot_toast/bot_toast.dart';
 
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => AccountBloc()),
       ],
       child: MaterialApp.router(
-        theme: XTheme.light(),
+        theme: XTheme.light(),builder: BotToastInit(),
         debugShowCheckedModeBanner: false,
         darkTheme: XTheme.dark(),
         themeMode: ThemeMode.light,

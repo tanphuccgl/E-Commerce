@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class XUser extends BaseModel {
   String? name;
@@ -12,9 +13,9 @@ class XUser extends BaseModel {
         name: json['name'], email: json['email'], id: id ?? json['id']);
   }
 
-  // factory XUser.fromFirebaseUser(User user) {
-  // TODO
-  // }
+  factory XUser.fromFirebaseUser(User user) {
+    return XUser(email:user.email ,id:user.uid ,name:user.displayName );
+  }
   factory XUser.empty() {
     return XUser();
   }

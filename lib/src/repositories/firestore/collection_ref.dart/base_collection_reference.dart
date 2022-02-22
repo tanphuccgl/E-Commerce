@@ -14,7 +14,7 @@ class BaseCollectionReference<T extends BaseModel> {
       if (doc.exists) {
         return XResult.success(doc.data());
       } else {
-        return XResult.error('Item does not exist');
+        return XResult.error('Document does not exist');
       }
     } catch (e) {
       return XResult.exception(e);
