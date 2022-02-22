@@ -6,7 +6,6 @@ import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
 import 'package:e_commerce/src/modules/auth/widgets/bottom_sign.dart';
 import 'package:e_commerce/src/modules/auth/widgets/header_sign.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
-import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:e_commerce/src/widgets/text_button/text_button_custom.dart';
 import 'package:e_commerce/src/widgets/text_field/base_text_field.dart';
 import 'package:flutter/material.dart';
