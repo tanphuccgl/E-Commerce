@@ -16,6 +16,8 @@ class AccountBloc extends Cubit<AccountState> {
   }
   final Domain domain = Domain();
   Future<void> _getUser() async {
+    await Future.delayed(Duration.zero);
+
     User? currentUser = AuthService().currentUser;
 
     if (currentUser == null) {

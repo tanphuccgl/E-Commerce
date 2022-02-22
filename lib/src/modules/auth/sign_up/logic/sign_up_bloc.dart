@@ -31,18 +31,15 @@ class SignUpBloc extends SignBloc<SignUpState> {
 
     if (state.isValidSignUp) {
       emit(state.copyWith(isLoading: true, messageError: messageError));
-      try {
-        var value = await domain.sign.signUp(
-            email: state.email, password: state.password, name: state.name);
-        if (value.error == null) {
-          await context.read<AccountBloc>().setDataLogin(user: value.data);
-          DashboardCoordinator.showDashboard(context);
-          XSnackBar.show(msg: "Account successfully created");
-        } else {
-          emit(state.copyWith(messageError: value.error));
-        }
-      } catch (error) {
-        emit(state.copyWith(messageError: error.toString()));
+
+      var value = await domain.sign.signUp(
+          email: state.email, password: state.password, name: state.name);
+      if (value.isSuccess) {
+        context.read<AccountBloc>().setDataLogin(user: value.data);
+        DashboardCoordinator.showDashboard(context);
+        XSnackBar.show(msg: "Account successfully created");
+      } else {
+        emit(state.copyWith(messageError: value.error));
       }
 
       emit(state.copyWith(isLoading: false));

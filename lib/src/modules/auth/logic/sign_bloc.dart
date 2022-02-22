@@ -25,16 +25,23 @@ class SignBloc<T extends SignState> extends Cubit<T> {
     String messageError = "";
     emit(state.copyWith(messageError: messageError) as T);
     XSnackBar.showLoading();
-    var value = await domain.sign.loginWithGoogle();
-    // TODO
-    // XSnackBar.hideLoading();
 
-    if (value.isSuccess) {
-      context.read<AccountBloc>().setDataLogin(user: value.data!);
-      DashboardCoordinator.showDashboard(context);
-      XSnackBar.show(msg: "Logged in successfully");
-    } else {
-      emit(state.copyWith(messageError: value.error) as T);
+    try {
+      var value = await domain.sign.loginWithGoogle();
+      // TODO
+
+      if (value.isSuccess) {
+        context.read<AccountBloc>().setDataLogin(user: value.data!);
+        DashboardCoordinator.showDashboard(context);
+        XSnackBar.show(msg: "Logged in successfully");
+      } else {
+        emit(state.copyWith(messageError: value.error) as T);
+      }
+    } catch (e) {
+      XSnackBar.hideLoading();
+
+      emit(state.copyWith(messageError: "Please try again.") as T);
     }
+    XSnackBar.hideLoading();
   }
 }

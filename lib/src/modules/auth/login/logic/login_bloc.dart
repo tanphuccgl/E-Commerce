@@ -17,23 +17,19 @@ class LoginBloc extends SignBloc<LoginState> {
     String messageError = "";
 
     emit(state.copyWith(isLoading: true, messageError: messageError));
-    try {
-      emit(state.copyWith(pureEmail: true, purePassword: true));
 
-      if (state.isValidLogin) {
-        var value = await domain.sign
-            .loginWithEmail(email: state.email, password: state.password);
-        if (value.error == null) {
-          // TODO
-          await context.read<AccountBloc>().getUser();
-          DashboardCoordinator.showDashboard(context);
-          XSnackBar.show(msg: "Logged in successfully");
-        } else {
-          emit(state.copyWith(messageError: value.error));
-        }
+    emit(state.copyWith(pureEmail: true, purePassword: true));
+
+    if (state.isValidLogin) {
+      var value = await domain.sign
+          .loginWithEmail(email: state.email, password: state.password);
+      if (value.isSuccess) {
+        context.read<AccountBloc>().setDataLogin(user: value.data);
+        DashboardCoordinator.showDashboard(context);
+        XSnackBar.show(msg: "Logged in successfully");
+      } else {
+        emit(state.copyWith(messageError: value.error));
       }
-    } catch (error) {
-      emit(state.copyWith(messageError: error.toString()));
     }
     emit(state.copyWith(isLoading: false));
   }
