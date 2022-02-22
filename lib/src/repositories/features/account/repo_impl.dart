@@ -6,14 +6,18 @@ import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AccountRepositoryImpl implements AccountRepository {
+  final UserCollectionReference ref = UserCollectionReference();
   @override
   Future<XResult<XUser>> getCurrentUser() async {
     final User? user = AuthService().currentUser;
-    try {
-      var data = UserCollectionReference().getUserOrAddNew(user!);
-      return data;
-    } catch (e) {
-      return XResult.exception(e);
+    if (user != null) {
+      return getUserByID(user.uid);
+    } else {
+      return XResult.error('Not login yet');
     }
+  }
+
+  Future<XResult<XUser>> getUserByID(String id) async {
+    return ref.get(id);
   }
 }

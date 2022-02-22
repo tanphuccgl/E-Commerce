@@ -18,7 +18,9 @@ class SignUpBloc extends SignBloc<SignUpState> {
   }
 
   void createAccount(BuildContext context) async {
-    // TODO: check isLoading
+    if (state.isLoading) {
+      return;
+    }
     String messageError = "";
     FocusScope.of(context).requestFocus(FocusNode());
     emit(state.copyWith(

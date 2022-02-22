@@ -1,4 +1,5 @@
 class XUtils {
+  // TODO
   static String isValidEmail(String email, bool pureEmail) {
     email = email.trim();
     String message = "";
@@ -19,6 +20,7 @@ class XUtils {
     return message;
   }
 
+  // TODO
   static String isValidPassword(String password, bool purePassword) {
     password = password.trim();
     String message = "";
@@ -36,6 +38,7 @@ class XUtils {
     return message;
   }
 
+  // TODO
   static String isValidName(String name, bool pureName) {
     String message = "";
     if (pureName == false) {
@@ -54,6 +57,7 @@ class XUtils {
     return message;
   }
 
+  // TODO: move to signin
   static bool isValidLogin(
       {required String email,
       required bool pureEmail,
@@ -69,6 +73,7 @@ class XUtils {
     }
   }
 
+  // TODO: move to signup
   static bool isValidSignUp(
       {required String email,
       required bool pureEmail,

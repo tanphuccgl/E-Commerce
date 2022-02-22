@@ -35,6 +35,7 @@ class SignState extends Equatable {
         pureEmail,
         purePassword,
       ];
+
   SignState copyWith({
     String? email,
     String? password,

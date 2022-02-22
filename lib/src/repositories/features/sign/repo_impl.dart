@@ -54,6 +54,7 @@ class SignRepositoryImpl implements SignRepository {
     try {
       var user = await AuthService()
           .createUserWithEmailAndPassword(email: email, password: password);
+      // TODO: add new user
       var data =
           UserCollectionReference().getUserOrAddNew(user.user!, name: name);
       return data;

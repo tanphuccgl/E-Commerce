@@ -1,14 +1,9 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-enum ToastType {
-  info,
-  error,
-  success,
-  warn,
-}
+// TODO replace to https://pub.dev/packages/bot_toast
 
 class XSnackBar {
+// TODO replace to https://pub.dev/packages/bot_toast
   static show({required String msg}) => Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_SHORT,
@@ -17,4 +12,6 @@ class XSnackBar {
       backgroundColor: MyColors.colorPrimary,
       textColor: MyColors.colorWhite,
       fontSize: 16.0);
+  // TODO: show full screen loading
+  // TODO: hide full screen loading
 }

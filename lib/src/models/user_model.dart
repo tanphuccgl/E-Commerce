@@ -11,6 +11,10 @@ class XUser extends BaseModel {
     return XUser(
         name: json['name'], email: json['email'], id: id ?? json['id']);
   }
+
+  // factory XUser.fromFirebaseUser(User user) {
+  // TODO
+  // }
   factory XUser.empty() {
     return XUser();
   }
