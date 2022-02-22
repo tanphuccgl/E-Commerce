@@ -38,7 +38,6 @@ class SignBloc<T extends SignState> extends Cubit<T> {
       }
     } catch (e) {
       XSnackBar.hideLoading();
-
       emit(state.copyWith(messageError: "Please try again.") as T);
     }
     XSnackBar.hideLoading();
