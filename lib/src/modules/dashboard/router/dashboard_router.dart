@@ -7,6 +7,7 @@ import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router
 import 'package:e_commerce/src/modules/favorites/pages/favorites_page.dart';
 import 'package:e_commerce/src/modules/home/pages/home_page.dart';
 import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
+
 import 'package:e_commerce/src/modules/shop/pages/shop_page.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -44,24 +45,4 @@ class DashboardCoordinator {
   static showDashboard(BuildContext context) {
     context.router.replace(const DashboardWrapperRoute());
   }
-
-  static showShop(BuildContext context) {
-    context.router.pushNamed(DashboardRouters.shop);
-  }
-
-  static showBag(BuildContext context) {
-    context.router.pushNamed(DashboardRouters.bag);
-  }
-
-  static showFavorites(BuildContext context) {
-    context.router.pushNamed(DashboardRouters.favorites);
-  }
-
-  static showProfile(BuildContext context) {
-    context.router.pushNamed(DashboardRouters.profile);
-  }
-
-  // static showHome(BuildContext context) {
-  //   context.router.pushNamed(DashboardRouters.home);
-  // }
 }

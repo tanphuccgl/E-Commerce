@@ -13,4 +13,5 @@ class MyColors {
   static const Color colorSaleHot = Color(0xFFDB3022);
   static const Color colorInputTextFormField = Color(0xFF2D2D2D);
   static const Color colorBackgroundAvatar = Color(0xFFC4C4C4);
+  static const Color colorSwitch=Color(0xFF2AA952);
 }

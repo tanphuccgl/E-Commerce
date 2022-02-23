@@ -21,19 +21,20 @@ class InfoProfile extends StatelessWidget {
       padding: padding,
       child: SizedBox(
         width: size.width,
+        height: size.height * 0.124,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 2,
+            Align(
+              alignment: Alignment.topCenter,
               child: CircleAvatar(
                 backgroundImage: NetworkImage(imageUrl),
-                radius: size.width * 0.17,
+                radius: 34,
                 backgroundColor: MyColors.colorBackgroundAvatar,
               ),
             ),
-            Expanded(flex: 8, child: _nameAndEmailUser())
+            Expanded(child: _nameAndEmailUser())
           ],
         ),
       ),
