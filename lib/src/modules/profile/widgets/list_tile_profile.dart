@@ -4,16 +4,25 @@ import 'package:flutter/material.dart';
 class XFunctionProfile {
   final String title;
   final String subtitle;
+  final Function()? onTap;
 
-  XFunctionProfile({required this.title, required this.subtitle});
+  XFunctionProfile(
+      {required this.title, required this.subtitle, required this.onTap});
   static List<XFunctionProfile> items = [
-    XFunctionProfile(subtitle: 'Already have 12 orders', title: 'My orders'),
-    XFunctionProfile(subtitle: '3 addresses', title: 'Shipping addresses'),
-    XFunctionProfile(subtitle: 'Visa **34', title: 'Payment methods'),
     XFunctionProfile(
-        subtitle: 'You have special promocodes', title: 'Promocodes'),
-    XFunctionProfile(subtitle: 'Reviews for 4 items', title: 'My reviews'),
-    XFunctionProfile(subtitle: 'Notifications, password', title: 'Settings'),
+        subtitle: 'Already have 12 orders', title: 'My orders', onTap: () {}),
+    XFunctionProfile(
+        subtitle: '3 addresses', title: 'Shipping addresses', onTap: () {}),
+    XFunctionProfile(
+        subtitle: 'Visa **34', title: 'Payment methods', onTap: () {}),
+    XFunctionProfile(
+        subtitle: 'You have special promocodes',
+        title: 'Promocodes',
+        onTap: () {}),
+    XFunctionProfile(
+        subtitle: 'Reviews for 4 items', title: 'My reviews', onTap: () {}),
+    XFunctionProfile(
+        subtitle: 'Notifications, password', title: 'Settings', onTap: () {}),
   ];
 }
 
@@ -23,8 +32,8 @@ class ListTileProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final paddingContent =
-        EdgeInsets.fromLTRB(size.width * 0.037, 0, size.width * 0.037, 0);
+    final padding = size.width * 0.037;
+    final paddingContent = EdgeInsets.fromLTRB(padding, 0, padding, 0);
 
     return Column(
         children: ListTile.divideTiles(
@@ -32,7 +41,7 @@ class ListTileProfile extends StatelessWidget {
             tiles: XFunctionProfile.items.map((item) => ListTile(
                   dense: true,
                   contentPadding: paddingContent,
-                  onTap: () {},
+                  onTap: () => item.onTap!(),
                   title: Text(item.title,
                       style: const TextStyle(
                           fontSize: 16,
