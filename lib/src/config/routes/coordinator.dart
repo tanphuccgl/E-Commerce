@@ -12,6 +12,6 @@ class XCoordinator {
   }
 
   static showDashboard() {
-    rootRouter.replace( const DashboardWrapperRoute());
+    rootRouter.replace(const DashboardWrapperRoute());
   }
 }

@@ -7,6 +7,7 @@ import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router
 import 'package:e_commerce/src/modules/favorites/pages/favorites_page.dart';
 import 'package:e_commerce/src/modules/home/pages/home_page.dart';
 import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
+import 'package:e_commerce/src/modules/settings/pages/setting_page.dart';
 
 import 'package:e_commerce/src/modules/shop/pages/shop_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,6 +19,7 @@ class DashboardRouters {
   static const String bag = 'bag';
   static const String favorites = 'favorites';
   static const String profile = 'profile';
+  static const String setting = 'setting';
 }
 
 class DashboardCoordinator {
@@ -25,24 +27,36 @@ class DashboardCoordinator {
     path: XRoutes.dashboard,
     name: "DashboardWrapperRoute",
     page: DashboardWrapperPage,
-    //initial: true,
     children: [
       AutoRoute(
-        path: DashboardRouters.dashboard,
-        page: DashboardPage,
-      ),
-      AutoRoute(
-        path: DashboardRouters.home,
-        page: HomePage,
-      ),
-      AutoRoute(path: DashboardRouters.shop, page: ShopPage),
-      AutoRoute(path: DashboardRouters.bag, page: BagPage),
-      AutoRoute(path: DashboardRouters.favorites, page: FavoritesPage),
-      AutoRoute(path: DashboardRouters.profile, page: ProfilePage),
+          path: DashboardRouters.dashboard,
+          name: "DashboardRoute",
+          page: DashboardPage,
+          initial: true,
+          children: [
+            AutoRoute(path: DashboardRouters.home, page: HomePage),
+            AutoRoute(path: DashboardRouters.shop, page: ShopPage),
+            AutoRoute(path: DashboardRouters.bag, page: BagPage),
+            AutoRoute(path: DashboardRouters.favorites, page: FavoritesPage),
+            AutoRoute(
+                name: "ProfileTab",
+                page: EmptyRouterPage,
+                path: DashboardRouters.profile,
+                children: [
+                  AutoRoute(path: "", page: ProfilePage, name: "ProfileRoute"),
+                  AutoRoute(
+                      path: DashboardRouters.setting,
+                      page: SettingPage,
+                      name: "SettingRoute"),
+                  RedirectRoute(path: '*', redirectTo: ''),
+                ]),
+            RedirectRoute(path: '*', redirectTo: ''),
+          ]),
       RedirectRoute(path: '*', redirectTo: ''),
     ],
   );
-  static showDashboard(BuildContext context) {
-    context.router.replace(const DashboardWrapperRoute());
+
+  static showSetting(BuildContext context) {
+    context.router.push(const SettingRoute());
   }
 }

@@ -1,5 +1,5 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
@@ -31,7 +31,7 @@ class SignBloc<T extends SignState> extends Cubit<T> {
 
       if (value.isSuccess) {
         context.read<AccountBloc>().setDataLogin(user: value.data!);
-        DashboardCoordinator.showDashboard(context);
+        XCoordinator.showDashboard();
         XSnackBar.show(msg: "Logged in successfully");
       } else {
         emit(state.copyWith(messageError: value.error) as T);
