@@ -1,6 +1,8 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XFunctionProfile {
   final String title;
@@ -21,7 +23,11 @@ class ListTileProfile extends StatelessWidget {
     final paddingContent = EdgeInsets.fromLTRB(padding, 0, padding, 0);
     final List<XFunctionProfile> _items = [
       XFunctionProfile(
-          subtitle: 'Already have 12 orders', title: 'My orders', onTap: () {}),
+          subtitle: 'Already have 12 orders',
+          title: 'My orders',
+          onTap: () {
+            context.read<AccountBloc>().logout(context);
+          }),
       XFunctionProfile(
           subtitle: '3 addresses', title: 'Shipping addresses', onTap: () {}),
       XFunctionProfile(

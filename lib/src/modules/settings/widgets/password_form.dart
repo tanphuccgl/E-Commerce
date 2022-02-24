@@ -13,7 +13,6 @@ class PasswordForm extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     return BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
-      var name = state.data.name ?? 'N/A';
       return Column(
         children: [
           Row(
@@ -57,10 +56,12 @@ class PasswordForm extends StatelessWidget {
           ),
           XTextField(
               label: "Password",
-              value: name,
+              value: "1234567890",
               textInputType: TextInputType.visiblePassword,
               obscureText: true,
-              errorText: "Error",
+              errorText: "",
+              readOnly: true,
+              isAction: false,
               onChanged: (value) {}),
         ],
       );

@@ -1,6 +1,9 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
+import 'package:e_commerce/src/modules/profile/logic/profile_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class InfoProfile extends StatelessWidget {
   final String name;
@@ -28,10 +31,13 @@ class InfoProfile extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.topCenter,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(imageUrl),
-                radius: 34,
-                backgroundColor: MyColors.colorBackgroundAvatar,
+              child: GestureDetector(
+                onTap: () => _uploadAvatar(context),
+                child: CircleAvatar(
+                  backgroundImage: NetworkImage(imageUrl),
+                  radius: 34,
+                  backgroundColor: MyColors.colorBackgroundAvatar,
+                ),
               ),
             ),
             Expanded(child: _nameAndEmailUser())
@@ -59,5 +65,13 @@ class InfoProfile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _uploadAvatar(BuildContext context) async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    context.read<ProfileBloc>().uploadAvatar(context, image!);
   }
 }

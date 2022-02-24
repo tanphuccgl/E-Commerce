@@ -22,8 +22,13 @@ class UserCollectionReference extends BaseCollectionReference<XUser> {
         set(data);
       } else {
         var name = result.data?.name;
+        var url = result.data?.urlAvatar;
+
         data = XUser(
-            email: user.email, name: name ?? user.displayName, id: user.uid);
+            email: user.email,
+            name: name ?? user.displayName,
+            id: user.uid,
+            urlAvatar: url);
       }
       return XResult.success(data);
     } catch (e) {

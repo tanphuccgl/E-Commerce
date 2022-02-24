@@ -44,4 +44,13 @@ class XUtils {
 
     return message;
   }
+
+  static String isValidBirthDay(String day) {
+    String message = "";
+    if (day.isEmpty) {
+      message = 'Please enter valid birth day';
+    }
+
+    return message;
+  }
 }
