@@ -21,7 +21,7 @@ class SettingPage extends StatelessWidget {
       return BlocProvider(
           create: ((_) => SettingBloc(SettingState(
               name: state.data.name ?? "N/A",
-              birthDay: state.data.birthDay ?? "N/A"))),
+              birthDay: state.data.birthDay ?? ""))),
           child:
               BlocBuilder<SettingBloc, SettingState>(builder: (context, state) {
             return Scaffold(

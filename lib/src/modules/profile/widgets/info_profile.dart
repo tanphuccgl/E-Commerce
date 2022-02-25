@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
+import 'package:e_commerce/src/constants/assets_path.dart';
 import 'package:e_commerce/src/modules/profile/logic/profile_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,6 +21,7 @@ class InfoProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final padding = EdgeInsets.symmetric(horizontal: size.width * 0.037);
+    bool isImageEmpty = (imageUrl == "N/A" || imageUrl.isEmpty) ? true : false;
     return Padding(
       padding: padding,
       child: SizedBox(
@@ -34,7 +36,8 @@ class InfoProfile extends StatelessWidget {
               child: GestureDetector(
                 onTap: () => _uploadAvatar(context),
                 child: CircleAvatar(
-                  backgroundImage: NetworkImage(imageUrl),
+                  backgroundImage:
+                      NetworkImage(isImageEmpty ? MyPath.avatarUrl : imageUrl),
                   radius: 34,
                   backgroundColor: MyColors.colorBackgroundAvatar,
                 ),

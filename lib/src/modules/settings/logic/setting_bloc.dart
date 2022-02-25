@@ -19,6 +19,60 @@ class SettingBloc extends AccountBloc<SettingState> {
     emit(state.copyWith(birthDay: day.trimLeft(), pureBirthDay: true));
   }
 
+  void changedCurrentPassword(String password) {
+    emit(state.copyWith(
+        currentPassword: password.trimLeft(), pureCurrentPassword: true));
+  }
+
+  void changedNewPassword(String password) {
+    emit(state.copyWith(
+        newPassword: password.trimLeft(), pureNewPassword: true));
+  }
+
+  void changedRepeatNewPassword(String password) {
+    emit(state.copyWith(
+        repeatNewPassword: password.trimLeft(), pureRepeatNewPassword: true));
+  }
+
+  void saveChangePassword(BuildContext context) async {
+    if (state.isValidChangePassword) {
+      var value = await domain.profile.changePassword(
+          currentPassword: state.currentPassword,
+          newPassword: state.newPassword);
+
+      if (value.isSuccess) {
+        XCoordinator.pop(context);
+        XSnackBar.show(msg: "Successfully changed password");
+      } else {
+        XSnackBar.show(msg: "Change password failed");
+      }
+    } else if (state.newPassword != state.repeatNewPassword) {
+      XSnackBar.show(msg: "Password incorrect");
+    } else {
+      XSnackBar.show(msg: "Please enter information");
+    }
+  }
+
+  void resetPassword(BuildContext context) async {
+    if (state.isValidResetPassword) {
+      var value =
+          await domain.profile.resetPassword(newPassword: state.newPassword);
+
+      if (value.isSuccess) {
+        XCoordinator.pop(context);
+        XCoordinator.pop(context);
+
+        XSnackBar.show(msg: "Successfully reset password");
+      } else {
+        XSnackBar.show(msg: "Reset password failed");
+      }
+    } else if (state.newPassword != state.repeatNewPassword) {
+      XSnackBar.show(msg: "Password incorrect");
+    } else {
+      XSnackBar.show(msg: "Please enter information");
+    }
+  }
+
   void saveInformation(BuildContext context) async {
     if (state.isValidChangeInfo) {
       var value = await domain.profile
@@ -29,8 +83,10 @@ class SettingBloc extends AccountBloc<SettingState> {
 
         XSnackBar.show(msg: "Successfully changed information");
       } else {
-        XSnackBar.show(msg: "change information failed");
+        XSnackBar.show(msg: "Change information failed");
       }
+    } else {
+      XSnackBar.show(msg: "Please enter information");
     }
   }
 }

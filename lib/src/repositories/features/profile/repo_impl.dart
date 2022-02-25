@@ -36,17 +36,18 @@ class ProfileRepositoryImpl implements ProfileRepository {
   }
 
   @override
-  Future<XResult<XUser>> updateInfo({String? name, String? birthDay}) async {
+  Future<XResult<XUser>> updateInfo(
+      {required String name, required String birthDay}) async {
     User? currentUser = AuthService().currentUser;
 
     try {
       var value =
           await UserCollectionReference().get(currentUser?.uid ?? "N/A");
-      var newName = name ?? value.data?.name;
+      var newName = name;
       var email = value.data?.email;
       var id = value.data?.id ?? "N/A";
       var url = value.data?.urlAvatar;
-      var newBirthDay = birthDay ?? value.data?.birthDay;
+      var newBirthDay = birthDay;
       var data = XUser(
           email: email,
           name: newName,
@@ -55,6 +56,34 @@ class ProfileRepositoryImpl implements ProfileRepository {
           birthDay: newBirthDay);
       UserCollectionReference().set(data);
       return XResult.success(data);
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
+
+  @override
+  Future<XResult<bool>> changePassword(
+      {required String newPassword, required String currentPassword}) async {
+    try {
+      final user = AuthService().currentUser;
+      final cred = EmailAuthProvider.credential(
+          email: user?.email ?? "N/A", password: currentPassword);
+      await user?.reauthenticateWithCredential(cred);
+      await user?.updatePassword(newPassword);
+
+      return XResult.success(true);
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
+
+  @override
+  Future<XResult<bool>> resetPassword({required String newPassword}) async {
+    try {
+      final user = AuthService().currentUser;
+      await user?.updatePassword(newPassword);
+
+      return XResult.success(true);
     } catch (e) {
       return XResult.error(e.toString());
     }

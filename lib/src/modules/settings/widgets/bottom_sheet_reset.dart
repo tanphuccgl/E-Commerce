@@ -1,14 +1,12 @@
-import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/modules/settings/logic/setting_bloc.dart';
-import 'package:e_commerce/src/modules/settings/widgets/bottom_sheet_reset.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/text_field/base_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class XBottomSheet extends StatelessWidget {
-  const XBottomSheet({Key? key}) : super(key: key);
+class XBottomSheetResetPassword extends StatelessWidget {
+  const XBottomSheetResetPassword({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,46 +24,11 @@ class XBottomSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Text(
-                    'Password Change',
+                    'Reset Password',
                     style: XStyle.textTheme().headlineSmall,
                   ),
                   const SizedBox(
                     height: 5,
-                  ),
-                  XTextField(
-                      label: "Old Password",
-                      value: state.currentPassword,
-                      textInputType: TextInputType.visiblePassword,
-                      obscureText: true,
-                      errorText: state.isValidCurrentPassword,
-                      onChanged: (value) => context
-                          .read<SettingBloc>()
-                          .changedCurrentPassword(value)),
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: SizedBox(
-                      height: 25,
-                      child: TextButton(
-                          onPressed: () {
-                            const radius = Radius.circular(34);
-                            showModalBottomSheet<void>(
-                                isScrollControlled: true,
-                                context: context,
-                                shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        topLeft: radius, topRight: radius)),
-                                backgroundColor: MyColors.colorBackground,
-                                builder: (BuildContext context) {
-                                  return const XBottomSheetResetPassword();
-                                });
-                          },
-                          child: const Text("Forgot Password",
-                              style: TextStyle(
-                                  color: MyColors.colorGray,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                  height: 0.5))),
-                    ),
                   ),
                   XTextField(
                       label: "New Password",
@@ -89,11 +52,11 @@ class XBottomSheet extends StatelessWidget {
                     height: 5,
                   ),
                   XButton(
-                    label: 'SAVE PASSWORD',
+                    label: 'RESET PASSWORD',
                     width: size.width,
                     height: size.height * 0.059,
                     onPressed: () =>
-                        context.read<SettingBloc>().saveChangePassword(context),
+                        context.read<SettingBloc>().resetPassword(context),
                   )
                 ],
               ),

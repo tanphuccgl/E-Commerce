@@ -7,17 +7,26 @@ class XUser extends BaseModel {
   String? email;
   String? urlAvatar;
   String? birthDay;
+  String? accountType;
 
-  XUser({this.name, this.email, String id = "", this.urlAvatar, this.birthDay})
+  XUser(
+      {this.name,
+      this.email,
+      String id = "",
+      this.urlAvatar,
+      this.birthDay,
+      this.accountType})
       : super(id: id);
 
   factory XUser.fromJson(Map<String, dynamic> json, {String? id}) {
     return XUser(
-        name: json['name'],
-        email: json['email'],
-        id: id ?? json['id'],
-        urlAvatar: json['urlAvatar'],
-        birthDay: json['birthDay']);
+      name: json['name'],
+      email: json['email'],
+      id: id ?? json['id'],
+      urlAvatar: json['urlAvatar'],
+      birthDay: json['birthDay'],
+      accountType: json['accountType'],
+    );
   }
 
   factory XUser.fromFirebaseUser(User user) {
@@ -41,6 +50,7 @@ class XUser extends BaseModel {
     data['id'] = id;
     data['urlAvatar'] = urlAvatar;
     data['birthDay'] = birthDay;
+    data['accountType'] = accountType;
 
     return data;
   }

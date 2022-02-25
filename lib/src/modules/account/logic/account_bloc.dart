@@ -21,23 +21,23 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
     User? currentUser = AuthService().currentUser;
 
     if (currentUser == null) {
-      emit(state.copyWith(isLoading: false, data: XUser.empty())as T);
+      emit(state.copyWith(isLoading: false, data: XUser.empty()) as T);
     } else {
       var result = await UserCollectionReference().getUserOrAddNew(currentUser);
       var data = result.data ?? XUser.empty();
 
-      emit(state.copyWith(data: data, isLoading: false)as T);
+      emit(state.copyWith(data: data, isLoading: false) as T);
     }
   }
 
   void setDataLogin({XUser? user}) {
-    emit(state.copyWith(data: user, isLoading: false)as T);
+    emit(state.copyWith(data: user, isLoading: false) as T);
   }
 
   Future<void> logout(BuildContext context) async {
     await Future.delayed(Duration.zero);
 
-    emit(state.copyWith(isLoading: true, data: XUser.empty())as T);
+    emit(state.copyWith(isLoading: true, data: XUser.empty()) as T);
     domain.sign.logout();
     SignCoordinator.showSignUp(context);
   }

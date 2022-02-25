@@ -53,4 +53,6 @@ class XUtils {
 
     return message;
   }
+
+  static isValidCurrentPassword(String newPassword) {}
 }
