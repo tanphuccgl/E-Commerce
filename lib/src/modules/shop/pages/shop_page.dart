@@ -1,7 +1,7 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
-import 'package:e_commerce/src/modules/shop/widgets/category_listTile.dart';
+import 'package:e_commerce/src/modules/shop/widgets/category_list_tile.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
