@@ -8,8 +8,9 @@ import 'package:e_commerce/src/modules/favorites/pages/favorites_page.dart';
 import 'package:e_commerce/src/modules/home/pages/home_page.dart';
 import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
 import 'package:e_commerce/src/modules/settings/pages/setting_page.dart';
-
 import 'package:e_commerce/src/modules/shop/pages/shop_page.dart';
+
+import 'package:e_commerce/src/modules/tops/pages/tops_page.dart';
 import 'package:flutter/cupertino.dart';
 
 class DashboardRouters {
@@ -20,6 +21,7 @@ class DashboardRouters {
   static const String favorites = 'favorites';
   static const String profile = 'profile';
   static const String setting = 'setting';
+  static const String top = 'tops';
 }
 
 class DashboardCoordinator {
@@ -35,7 +37,18 @@ class DashboardCoordinator {
           initial: true,
           children: [
             AutoRoute(path: DashboardRouters.home, page: HomePage),
-            AutoRoute(path: DashboardRouters.shop, page: ShopPage),
+            AutoRoute(
+                path: DashboardRouters.shop,
+                page: EmptyRouterPage,
+                name: 'ShopTab',
+                children: [
+                  AutoRoute(path: "", page: ShopPage, name: "ShopRoute"),
+                  AutoRoute(
+                      path: DashboardRouters.top,
+                      page: TopsPage,
+                      name: "TopsRoute"),
+                  RedirectRoute(path: '*', redirectTo: ''),
+                ]),
             AutoRoute(path: DashboardRouters.bag, page: BagPage),
             AutoRoute(path: DashboardRouters.favorites, page: FavoritesPage),
             AutoRoute(
@@ -58,5 +71,8 @@ class DashboardCoordinator {
 
   static showSetting(BuildContext context) {
     context.router.push(const SettingRoute());
+  }
+   static showTops(BuildContext context) {
+    context.router.push(const TopsRoute());
   }
 }

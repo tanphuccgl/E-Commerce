@@ -11,6 +11,8 @@ class SaleProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+        
+
       final data = state.items ?? [];
       List<XProduct> items = data.where((e) => e.discount != 0).toList();
       return SizedBox(

@@ -2,11 +2,13 @@ part of 'product_bloc.dart';
 
 class ProductState extends Equatable {
   final List<XProduct>? items;
-  const ProductState([this.items]);
+  final bool isLoading;
+  const ProductState({this.items, this.isLoading = true});
 
   @override
-  List<Object?> get props => [items];
-  ProductState copyWithItem(List<XProduct> items) {
-    return ProductState(items);
+  List<Object?> get props => [items, isLoading];
+  ProductState copyWithItem({List<XProduct>? items, bool? isLoading}) {
+    return ProductState(
+        items: items ?? this.items, isLoading: isLoading ?? this.isLoading);
   }
 }
