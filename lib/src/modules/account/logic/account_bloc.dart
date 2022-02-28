@@ -1,7 +1,7 @@
-import 'package:e_commerce/src/models/user_model.dart';
+import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
-import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/user_collection_reference.dart';
+import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/users_collection_reference.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

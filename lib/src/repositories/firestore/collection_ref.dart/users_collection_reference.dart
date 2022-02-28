@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/models/user_model.dart';
+import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/base_collection_reference.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
