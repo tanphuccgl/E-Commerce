@@ -1,4 +1,11 @@
 class XUtils {
+  static String formatPrice(double price) {
+    RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
+
+    String value = price.toString().replaceAll(regex, '');
+    return value;
+  }
+
   static String isValidEmail(String email) {
     email = email.trim();
     String message = "";

@@ -6,8 +6,13 @@ class AppBarSign extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final Function()? onPressed;
   final Widget? leading;
+  final double elevation;
+  final Color? backgroundColor;
+  final TextStyle? style;
   const AppBarSign({
-    Key? key,
+    Key? key,this.style,
+    this.elevation = 0,
+    this.backgroundColor,
     this.onPressed,
     this.title = '',
     this.actions,
@@ -17,13 +22,13 @@ class AppBarSign extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
-      centerTitle: true,
-      actions: actions,
+      title: Text(title, style: style),
+      centerTitle: true,bottomOpacity: 8,
+      actions: actions,shadowColor: MyColors.colorWhite,
       leading: leading,
       iconTheme: const IconThemeData(color: MyColors.colorBlack),
-      backgroundColor: Colors.transparent,
-      elevation: 0,
+      backgroundColor: backgroundColor ?? Colors.transparent,
+      elevation: elevation,
     );
   }
 

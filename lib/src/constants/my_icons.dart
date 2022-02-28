@@ -16,4 +16,9 @@ class MyIcons {
   static const String fbIcon = "assets/images/ic_fb.png";
   static const String ggIcon = "assets/images/ic_gg.png";
   static const String avatarIcon = "assets/images/ic_avatar.png";
+
+  static const String starIcon = "assets/images/ic_star.png";
+
+  static const String activeStarIcon = "assets/images/ic_active_star.png";
+  static const String cancelIcon = "assets/images/ic_cancel.png";
 }
