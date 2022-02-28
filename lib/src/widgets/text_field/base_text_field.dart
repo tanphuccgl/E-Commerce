@@ -9,12 +9,18 @@ class XTextField extends StatefulWidget {
   final Function(String) onChanged;
   final String errorText;
   final String value;
+  final bool readOnly;
+  final bool isAction;
+  final Function()? onTap;
   const XTextField(
       {Key? key,
       required this.value,
       required this.label,
       required this.onChanged,
       required this.errorText,
+      this.onTap,
+      this.isAction = true,
+      this.readOnly = false,
       this.obscureText = false,
       this.textInputType = TextInputType.text})
       : super(key: key);
@@ -50,7 +56,7 @@ class _XTextFieldState extends State<XTextField> {
 
   Widget? _buildAction() {
     final List<Widget> actions = [];
-    if (value.isNotEmpty) {
+    if (value.isNotEmpty && widget.isAction) {
       actions.add(IconButton(
         icon: const Icon(
           Icons.cancel,
@@ -61,7 +67,7 @@ class _XTextFieldState extends State<XTextField> {
         },
       ));
     }
-    if (widget.obscureText) {
+    if (widget.obscureText && widget.isAction) {
       actions.add(
         IconButton(
           icon: Icon(
@@ -103,6 +109,7 @@ class _XTextFieldState extends State<XTextField> {
         ]),
         child: TextField(
           style: XStyle.textTheme().titleSmall,
+          readOnly: widget.readOnly,
           controller: _controller,
           onChanged: widget.onChanged,
           decoration: InputDecoration(
@@ -123,6 +130,7 @@ class _XTextFieldState extends State<XTextField> {
           keyboardType: widget.textInputType,
           maxLines: 1,
           minLines: 1,
+          onTap: widget.onTap,
           textInputAction: TextInputAction.next,
           obscureText: obscureText,
         ),

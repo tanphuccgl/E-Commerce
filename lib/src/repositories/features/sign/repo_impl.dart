@@ -8,6 +8,8 @@ import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+enum AccountType { google, emailAndPassword }
+
 class SignRepositoryImpl implements SignRepository {
   @override
   Future<XResult<XUser>> loginWithEmail(
@@ -35,8 +37,9 @@ class SignRepositoryImpl implements SignRepository {
         idToken: googleAuth?.idToken,
       );
       var userCredential = await AuthService().userCredential(credential);
-      var data =
-          UserCollectionReference().getUserOrAddNew(userCredential.user!);
+      var data = UserCollectionReference().getUserOrAddNew(
+        userCredential.user!,
+      );
 
       return data;
     } on FirebaseAuthException catch (error) {
@@ -54,7 +57,11 @@ class SignRepositoryImpl implements SignRepository {
     try {
       var user = await AuthService()
           .createUserWithEmailAndPassword(email: email, password: password);
-      var data = XUser(email: email, name: name, id: user.user?.uid ?? "");
+      var data = XUser(
+          email: email,
+          name: name,
+          id: user.user?.uid ?? "",
+          accountType: AccountType.emailAndPassword.name);
       UserCollectionReference().set(data);
 
       return XResult.success(data);

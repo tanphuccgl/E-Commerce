@@ -1,0 +1,4 @@
+class MyPath {
+  static const String avatarUrl =
+      "https://s3-alpha-sig.figma.com/img/581b/273d/1a360f84cfd9a99708fc889ab7d86e6c?Expires=1646611200&Signature=Ne8pJX9wERO1GL~IkYqLRYpHBEWcjqgKvgCfL1xkKPYbDPst5aclfwa6BSFxAdsFyuPRsbF4gl7yLdVxeJk6T2~vf6YAVGFresS2ppDx2BnJ~yjeWy1a6ondhN6z2Z8cFxxtzLk8GhEmSpZOT3RyAff6HXcLEw2dIDftNXYowjAj4Fg49vNLjRtwyn8KjEGvIV9jv7rKxG7Hb98M4OhcD0~O1uiyY10gJSIXFwBzH2vgOihgHaTz2qzNL4ufZqHAoggm81KYRs5R2kxLauIVQ0c7CLHt68X9l6w3l6fTWcmaAjxI7bR1CwiCsE0KdBAfqF~Q-DdJFAwFMxyT1Ta74A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA";
+}

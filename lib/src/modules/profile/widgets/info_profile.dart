@@ -1,6 +1,10 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
+import 'package:e_commerce/src/constants/assets_path.dart';
+import 'package:e_commerce/src/modules/profile/logic/profile_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class InfoProfile extends StatelessWidget {
   final String name;
@@ -17,23 +21,29 @@ class InfoProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final padding = EdgeInsets.symmetric(horizontal: size.width * 0.037);
+    bool isImageEmpty = (imageUrl == "N/A" || imageUrl.isEmpty) ? true : false;
     return Padding(
       padding: padding,
       child: SizedBox(
         width: size.width,
+        height: size.height * 0.124,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(
-              flex: 2,
-              child: CircleAvatar(
-                backgroundImage: NetworkImage(imageUrl),
-                radius: size.width * 0.17,
-                backgroundColor: MyColors.colorBackgroundAvatar,
+            Align(
+              alignment: Alignment.topCenter,
+              child: GestureDetector(
+                onTap: () => _uploadAvatar(context),
+                child: CircleAvatar(
+                  backgroundImage:
+                      NetworkImage(isImageEmpty ? MyPath.avatarUrl : imageUrl),
+                  radius: 34,
+                  backgroundColor: MyColors.colorBackgroundAvatar,
+                ),
               ),
             ),
-            Expanded(flex: 8, child: _nameAndEmailUser())
+            Expanded(child: _nameAndEmailUser())
           ],
         ),
       ),
@@ -58,5 +68,13 @@ class InfoProfile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  void _uploadAvatar(BuildContext context) async {
+    final ImagePicker _picker = ImagePicker();
+    XFile? image = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    context.read<ProfileBloc>().uploadAvatar(context, image!);
   }
 }

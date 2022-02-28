@@ -8,7 +8,6 @@ import 'package:e_commerce/src/modules/loading/pages/loading_page.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     DashboardCoordinator.autoRoute,
-
     SignCoordinator.autoRoute,
     AutoRoute(
       path: XRoutes.loading,

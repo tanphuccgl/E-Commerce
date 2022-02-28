@@ -12,7 +12,8 @@ class MyIcons {
       "assets/images/ic_active_favorite.png";
   static const String activeProfileIcon = "assets/images/ic_active_profile.png";
   static const String arrowBackIcon = "assets/images/ic_arrow_back.png";
-  static const String arrowIcon = "assets/images/ic_arrrow.png";
+  static const String arrowIcon = "assets/images/ic_arrow.png";
   static const String fbIcon = "assets/images/ic_fb.png";
   static const String ggIcon = "assets/images/ic_gg.png";
+  static const String avatarIcon = "assets/images/ic_avatar.png";
 }

@@ -10,8 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 part 'account_state.dart';
 
-class AccountBloc extends Cubit<AccountState> {
-  AccountBloc() : super(AccountState(data: XUser.empty())) {
+class AccountBloc<T extends AccountState> extends Cubit<T> {
+  AccountBloc(T initialState) : super(initialState) {
     _getUser();
   }
   final Domain domain = Domain();
@@ -21,23 +21,23 @@ class AccountBloc extends Cubit<AccountState> {
     User? currentUser = AuthService().currentUser;
 
     if (currentUser == null) {
-      emit(state.copyWith(isLoading: false, data: XUser.empty()));
+      emit(state.copyWith(isLoading: false, data: XUser.empty()) as T);
     } else {
       var result = await UserCollectionReference().getUserOrAddNew(currentUser);
       var data = result.data ?? XUser.empty();
 
-      emit(state.copyWith(data: data, isLoading: false));
+      emit(state.copyWith(data: data, isLoading: false) as T);
     }
   }
 
   void setDataLogin({XUser? user}) {
-    emit(state.copyWith(data: user, isLoading: false));
+    emit(state.copyWith(data: user, isLoading: false) as T);
   }
 
   Future<void> logout(BuildContext context) async {
     await Future.delayed(Duration.zero);
 
-    emit(state.copyWith(isLoading: true, data: XUser.empty()));
+    emit(state.copyWith(isLoading: true, data: XUser.empty()) as T);
     domain.sign.logout();
     SignCoordinator.showSignUp(context);
   }

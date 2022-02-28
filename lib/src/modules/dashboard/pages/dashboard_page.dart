@@ -1,41 +1,44 @@
-import 'package:e_commerce/src/modules/bag/pages/bag_page.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
+import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/dashboard/logic/bottom_bar_bloc.dart';
-import 'package:e_commerce/src/modules/dashboard/widgets/bottom_bar.dart';
-import 'package:e_commerce/src/modules/favorites/pages/favorites_page.dart';
-import 'package:e_commerce/src/modules/home/pages/home_page.dart';
-import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
-import 'package:e_commerce/src/modules/shop/pages/shop_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardPage extends StatelessWidget {
   const DashboardPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const XBottomNavigationBar(),
-      body: BlocBuilder<BottomBarBloc, BottomBarState>(
-        builder: (context, state) {
-          // Pageview, IndexedStack
-
-          switch (state.index) {
-            case PageIndex.home:
-              return const HomePage();
-            case PageIndex.shop:
-              return const ShopPage();
-            case PageIndex.bag:
-              return const BagPage();
-            case PageIndex.favorite:
-              return const FavoritesPage();
-            case PageIndex.profile:
-              return const ProfilePage();
-
-            default:
-              return Container();
-          }
-        },
-      ),
-    );
+    return AutoTabsScaffold(
+        routes: const [
+          HomeRoute(),
+          ShopRoute(),
+          BagRoute(),
+          FavoritesRoute(),
+          ProfileTab(),
+        ],
+        bottomNavigationBuilder: (_, tabsRouter) {
+          return BottomNavigationBar(
+            currentIndex: tabsRouter.activeIndex,
+            selectedLabelStyle:
+                const TextStyle(fontSize: 10, fontWeight: FontWeight.w600),
+            unselectedLabelStyle: const TextStyle(
+                fontSize: 10,
+                color: MyColors.colorGray,
+                fontWeight: FontWeight.w500),
+            selectedItemColor: MyColors.colorPrimary,
+            backgroundColor: MyColors.colorWhite,
+            type: BottomNavigationBarType.fixed,
+            showUnselectedLabels: true,
+            onTap: tabsRouter.setActiveIndex,
+            items: [
+              for (final item in PageIndex.values)
+                BottomNavigationBarItem(
+                    activeIcon: item.activeIconOf(),
+                    icon: item.iconOf(),
+                    label: item.lableOf()),
+            ],
+          );
+        });
   }
 }

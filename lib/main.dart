@@ -3,6 +3,7 @@ import 'package:bot_toast/bot_toast.dart';
 
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
+import 'package:e_commerce/src/models/user_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -34,10 +35,12 @@ class MyApp extends StatelessWidget {
     final appRouter = GetIt.I<XRouter>();
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => AccountBloc()),
+        BlocProvider(create: (_) => AccountBloc(AccountState(data: XUser.empty()))),
+
       ],
       child: MaterialApp.router(
-        theme: XTheme.light(),builder: BotToastInit(),
+        theme: XTheme.light(),
+        builder: BotToastInit(),
         debugShowCheckedModeBanner: false,
         darkTheme: XTheme.dark(),
         themeMode: ThemeMode.light,
