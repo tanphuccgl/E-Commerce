@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
-import 'package:e_commerce/src/models/user_model.dart';
+import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';

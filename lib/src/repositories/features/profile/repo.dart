@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/models/user_model.dart';
+
+import 'package:e_commerce/src/models/users_model.dart';
 import 'package:image_picker/image_picker.dart';
 
 abstract class ProfileRepository {

@@ -1,9 +1,11 @@
 import 'dart:io';
 
-import 'package:e_commerce/src/models/user_model.dart';
+
 import 'package:e_commerce/src/models/result.dart';
+import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/repositories/features/profile/repo.dart';
-import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/user_collection_reference.dart';
+
+import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/users_collection_reference.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
