@@ -8,16 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
   final String nameCategory;
-  final Function() onTapFilter;
-  final Function() onTapSort;
 
-  final Function() onTapViewType;
-
-  const MyHeaderDelegate(
-      {required this.nameCategory,
-      required this.onTapFilter,
-      required this.onTapSort,
-      required this.onTapViewType});
+  const MyHeaderDelegate({
+    required this.nameCategory,
+  });
 
   @override
   Widget build(
@@ -40,7 +34,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
               ),
             ),
             AppBar(
-              backgroundColor: Colors.transparent,
+              backgroundColor: MyColors.colorWhite,
               actions: [
                 IconButton(
                   icon: const Icon(Icons.search),
@@ -48,7 +42,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                   onPressed: () {},
                 )
               ],
-              elevation: 0,
+              elevation: 3,
             ),
             Container(
               padding: EdgeInsets.lerp(
@@ -107,13 +101,9 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                         ),
                       );
                     }),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(14, 5, 14, 0),
-                      child: FilerBar(
-                        onTapFilter: onTapFilter,
-                        onTapSort: onTapSort,
-                        onTapViewType: onTapViewType,
-                      ),
+                    const Padding(
+                      padding:  EdgeInsets.fromLTRB(14, 5, 14, 0),
+                      child: FilerBar(),
                     ),
                   ],
                 ),
