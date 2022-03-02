@@ -1,16 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
+
 import 'package:e_commerce/src/config/routes/page_routers.dart';
 import 'package:e_commerce/src/modules/bag/pages/bag_page.dart';
 import 'package:e_commerce/src/modules/dashboard/pages/dashboard_page.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router.dart';
 import 'package:e_commerce/src/modules/favorites/pages/favorites_page.dart';
 import 'package:e_commerce/src/modules/home/pages/home_page.dart';
+import 'package:e_commerce/src/modules/product_by_category/pages/product_by_category_page.dart';
 import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
 import 'package:e_commerce/src/modules/settings/pages/setting_page.dart';
 import 'package:e_commerce/src/modules/shop/pages/shop_page.dart';
 
-import 'package:e_commerce/src/modules/tops/pages/tops_page.dart';
+
 import 'package:flutter/cupertino.dart';
 
 class DashboardRouters {
@@ -21,7 +23,7 @@ class DashboardRouters {
   static const String favorites = 'favorites';
   static const String profile = 'profile';
   static const String setting = 'setting';
-  static const String top = 'tops';
+  static const String productByCategoryPage = 'productByCategory';
 }
 
 class DashboardCoordinator {
@@ -44,9 +46,9 @@ class DashboardCoordinator {
                 children: [
                   AutoRoute(path: "", page: ShopPage, name: "ShopRoute"),
                   AutoRoute(
-                      path: DashboardRouters.top,
-                      page: TopsPage,
-                      name: "TopsRoute"),
+                      path: DashboardRouters.productByCategoryPage,
+                      page: ProductByCategoryPage,
+                      name: "ProductByCategoryRoute"),
                   RedirectRoute(path: '*', redirectTo: ''),
                 ]),
             AutoRoute(path: DashboardRouters.bag, page: BagPage),
@@ -72,7 +74,10 @@ class DashboardCoordinator {
   static showSetting(BuildContext context) {
     context.router.push(const SettingRoute());
   }
-   static showTops(BuildContext context) {
-    context.router.push(const TopsRoute());
+
+  static showTops(BuildContext context,
+      {required String idCategory, required String nameCategory}) {
+    context.router
+        .push(ProductByCategoryRoute(idCategory: idCategory, nameCategory: nameCategory));
   }
 }

@@ -9,21 +9,29 @@ class TagChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(3.5),
-      child: Container(
+      child: SizedBox(
         height: 30,
         width: 100,
-        decoration:const BoxDecoration(
-            color: MyColors.colorBlack,
-            borderRadius: BorderRadius.all(Radius.circular(29))),
-        child: Center(
-          child: Text(
-            label,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-                color: MyColors.colorWhite,
-                fontSize: 14,
-                height: 1,
-                fontWeight: FontWeight.w500),
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+              primary: MyColors.colorBlack,
+              elevation: 0,
+              onPrimary: MyColors.colorWhite,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(29),
+              )),
+          onPressed: () {},
+          child: Center(
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: const TextStyle(
+                  color: MyColors.colorWhite,
+                  fontSize: 14,
+                  height: 1,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         ),
       ),

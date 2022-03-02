@@ -8,17 +8,18 @@ class XProduct extends BaseModel {
   String? type;
   String? color;
   String? size;
-  // to do
   double? originalPrice;
   double? discount;
   double? currentPrice;
   bool? newProduct;
-  int? idProduct;
+  String? idCategory;
+  String? nameCategory;
 
   XProduct(
       {this.name,
-      int id = 0,
-      this.idProduct,
+      this.idCategory,
+      this.nameCategory,
+      String id = '',
       this.image,
       this.star,
       this.type,
@@ -28,7 +29,7 @@ class XProduct extends BaseModel {
       this.discount,
       this.currentPrice,
       this.newProduct})
-      : super(id: id.toString());
+      : super(id: id);
 
   factory XProduct.fromJson(Map<String, dynamic> json) {
     return XProduct(
@@ -42,7 +43,9 @@ class XProduct extends BaseModel {
       discount: json['discount'].toDouble(),
       currentPrice: json['currentPrice'].toDouble(),
       newProduct: json['newProduct'],
-      idProduct: json['id'],
+      id: json['id'],
+      idCategory: json['idCategory'],
+      nameCategory: json['nameCategory'],
     );
   }
   factory XProduct.empty() {
@@ -54,7 +57,7 @@ class XProduct extends BaseModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = idProduct;
+    data['id'] = id;
     data['name'] = name;
     data['image'] = image;
     data['star'] = star;
@@ -65,6 +68,10 @@ class XProduct extends BaseModel {
     data['discount'] = discount;
     data['currentPrice'] = currentPrice;
     data['newProduct'] = newProduct;
+    data['idCategory'] = idCategory;
+
+    data['nameCategory'] = nameCategory;
+
     return data;
   }
 }

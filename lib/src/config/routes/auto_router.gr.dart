@@ -11,6 +11,7 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i6;
+import 'package:flutter/cupertino.dart' as _i16;
 import 'package:flutter/material.dart' as _i15;
 
 import '../../modules/auth/login/pages/login_page.dart' as _i13;
@@ -22,10 +23,11 @@ import '../../modules/dashboard/router/dashboard_wrapper_router.dart' as _i1;
 import '../../modules/favorites/pages/favorites_page.dart' as _i8;
 import '../../modules/home/pages/home_page.dart' as _i5;
 import '../../modules/loading/pages/loading_page.dart' as _i3;
+import '../../modules/product_by_category/pages/product_by_category_page.dart'
+    as _i10;
 import '../../modules/profile/pages/profile_page.dart' as _i11;
 import '../../modules/settings/pages/setting_page.dart' as _i12;
 import '../../modules/shop/pages/shop_page.dart' as _i9;
-import '../../modules/tops/pages/tops_page.dart' as _i10;
 
 class XRouter extends _i6.RootStackRouter {
   XRouter([_i15.GlobalKey<_i15.NavigatorState>? navigatorKey])
@@ -73,9 +75,14 @@ class XRouter extends _i6.RootStackRouter {
       return _i6.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i9.ShopPage());
     },
-    TopsRoute.name: (routeData) {
+    ProductByCategoryRoute.name: (routeData) {
+      final args = routeData.argsAs<ProductByCategoryRouteArgs>();
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i10.TopsPage());
+          routeData: routeData,
+          child: _i10.ProductByCategoryPage(
+              key: args.key,
+              idCategory: args.idCategory,
+              nameCategory: args.nameCategory));
     },
     ProfileRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
@@ -114,8 +121,8 @@ class XRouter extends _i6.RootStackRouter {
                         children: [
                           _i6.RouteConfig(ShopRoute.name,
                               path: '', parent: ShopTab.name),
-                          _i6.RouteConfig(TopsRoute.name,
-                              path: 'tops', parent: ShopTab.name),
+                          _i6.RouteConfig(ProductByCategoryRoute.name,
+                              path: 'productByCategory', parent: ShopTab.name),
                           _i6.RouteConfig('*#redirect',
                               path: '*',
                               parent: ShopTab.name,
@@ -261,11 +268,33 @@ class ShopRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.TopsPage]
-class TopsRoute extends _i6.PageRouteInfo<void> {
-  const TopsRoute() : super(TopsRoute.name, path: 'tops');
+/// [_i10.ProductByCategoryPage]
+class ProductByCategoryRoute
+    extends _i6.PageRouteInfo<ProductByCategoryRouteArgs> {
+  ProductByCategoryRoute(
+      {_i16.Key? key, required String idCategory, required String nameCategory})
+      : super(ProductByCategoryRoute.name,
+            path: 'productByCategory',
+            args: ProductByCategoryRouteArgs(
+                key: key, idCategory: idCategory, nameCategory: nameCategory));
 
-  static const String name = 'TopsRoute';
+  static const String name = 'ProductByCategoryRoute';
+}
+
+class ProductByCategoryRouteArgs {
+  const ProductByCategoryRouteArgs(
+      {this.key, required this.idCategory, required this.nameCategory});
+
+  final _i16.Key? key;
+
+  final String idCategory;
+
+  final String nameCategory;
+
+  @override
+  String toString() {
+    return 'ProductByCategoryRouteArgs{key: $key, idCategory: $idCategory, nameCategory: $nameCategory}';
+  }
 }
 
 /// generated route for

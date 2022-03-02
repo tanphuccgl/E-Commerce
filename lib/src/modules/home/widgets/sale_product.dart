@@ -1,3 +1,4 @@
+
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
@@ -11,8 +12,6 @@ class SaleProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
-        
-
       final data = state.items ?? [];
       List<XProduct> items = data.where((e) => e.discount != 0).toList();
       return SizedBox(
@@ -74,8 +73,7 @@ class SaleProduct extends StatelessWidget {
               ],
             ),
             TextButton(
-                onPressed: () {
-                },
+                onPressed: () {},
                 child: const Text(
                   "View all",
                   style: TextStyle(
