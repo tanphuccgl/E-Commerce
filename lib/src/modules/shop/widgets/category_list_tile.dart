@@ -20,7 +20,7 @@ class CategoryListTile extends StatelessWidget {
               tiles: items.map((item) => ListTile(
                     dense: true,
                     contentPadding: const EdgeInsets.symmetric(horizontal: 40),
-                    onTap: () => DashboardCoordinator.showTops(context,
+                    onTap: () => DashboardCoordinator.showProductByCategory(context,
                         idCategory: item.id, nameCategory: item.name ?? 'N/A'),
                     title: Text(item.name ?? "N/A",
                         style: const TextStyle(

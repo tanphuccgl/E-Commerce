@@ -12,7 +12,6 @@ import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
 import 'package:e_commerce/src/modules/settings/pages/setting_page.dart';
 import 'package:e_commerce/src/modules/shop/pages/shop_page.dart';
 
-
 import 'package:flutter/cupertino.dart';
 
 class DashboardRouters {
@@ -75,9 +74,15 @@ class DashboardCoordinator {
     context.router.push(const SettingRoute());
   }
 
-  static showTops(BuildContext context,
+  static showProductByCategory(BuildContext context,
       {required String idCategory, required String nameCategory}) {
-    context.router
-        .push(ProductByCategoryRoute(idCategory: idCategory, nameCategory: nameCategory));
+    context.router.push(ProductByCategoryRoute(
+        idCategory: idCategory, nameCategory: nameCategory));
+  }
+
+  static switchCategory(BuildContext context,
+      {required String idCategory, required String nameCategory}) {
+    context.router.replace(ProductByCategoryRoute(
+        idCategory: idCategory, nameCategory: nameCategory));
   }
 }
