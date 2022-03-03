@@ -88,7 +88,7 @@ class FilerBar extends StatelessWidget {
               width: 11,
             ),
             Text(
-              state.label,
+              state.sortBy.value(),
               style: const TextStyle(
                   color: MyColors.colorBlack,
                   fontSize: 11,

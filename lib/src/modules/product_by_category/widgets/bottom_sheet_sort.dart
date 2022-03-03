@@ -10,13 +10,6 @@ class XBottomSheetSort extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> list = [
-      "Popular",
-      'Newest',
-      'Customer review',
-      'Price: lowest to high',
-      'Price: highest to low'
-    ];
     return BlocBuilder<ProductByCategoryBloc, ProductByCategoryState>(
       builder: (context, state) {
         return SizedBox(
@@ -35,7 +28,7 @@ class XBottomSheetSort extends StatelessWidget {
                 Column(
                   children: ListTile.divideTiles(
                       color: MyColors.colorWhite,
-                      tiles: list.map((item) => ListTile(
+                      tiles: SortBy.values.map((item) => ListTile(
                             dense: true,
                             selectedColor: MyColors.colorPrimary,
                             selectedTileColor: MyColors.colorWhite,
@@ -43,10 +36,10 @@ class XBottomSheetSort extends StatelessWidget {
                             onTap: () {
                               context
                                   .read<ProductByCategoryBloc>()
-                                  .sortBy(label: item);
+                                  .sortBy(item.index);
                               XCoordinator.pop(context);
                             },
-                            title: Text(item,
+                            title: Text(item.value(),
                                 style: const TextStyle(
                                     fontSize: 16,
                                     height: 1,

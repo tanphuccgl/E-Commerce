@@ -20,12 +20,10 @@ class ProductByCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late final bool lowestToHigh;
-    late final bool highestToLow;
+    var index = 3;
     return BlocBuilder<ProductByCategoryBloc, ProductByCategoryState>(
         builder: (context, state) {
-      lowestToHigh = state.lowestToHigh;
-      highestToLow = state.highestToLow;
+      index = state.sortBy.index;
       return Scaffold(
           backgroundColor: state.isListViewType
               ? MyColors.colorBackground2
@@ -52,12 +50,53 @@ class ProductByCategoryPage extends StatelessWidget {
                 final data = state.items ?? [];
                 List<XProduct> items =
                     data.where((e) => e.idCategory == idCategory).toList();
-                    lowestToHigh==true ?  items.sort((a, b) {
-      double item1 = a.originalPrice??-1;
-      double item2 =  a.originalPrice??-1;
+                switch (index) {
+                  case 0:
+                    break;
+                  case 1:
+                    items.sort((a, b) {
+                      int item1 = (a.newProduct ?? true) ? 1 : 0;
+                      int item2 = (b.newProduct ?? true) ? 1 : 0;
 
-      return item1.compareTo(item2);
-    });
+                      return item2.compareTo(item1);
+                    });
+                    break;
+                  case 2:
+                    items.sort((a, b) {
+                      int item1 = a.star ?? -1;
+                      int item2 = b.star ?? -1;
+
+                      return item2.compareTo(item1);
+                    });
+
+                    break;
+                  case 3:
+                    items.sort((a, b) {
+                      double item1 = (a.currentPrice ?? -1) > 0
+                          ? (a.currentPrice ?? -1)
+                          : (a.originalPrice ?? -1);
+                      double item2 = (b.currentPrice ?? -1) > 0
+                          ? (b.currentPrice ?? -1)
+                          : (b.originalPrice ?? -1);
+
+                      return item1.compareTo(item2);
+                    });
+                    break;
+                  case 4:
+                    items.sort((a, b) {
+                      double item1 = (a.currentPrice ?? -1) > 0
+                          ? (a.currentPrice ?? -1)
+                          : (a.originalPrice ?? -1);
+                      double item2 = (b.currentPrice ?? -1) > 0
+                          ? (b.currentPrice ?? -1)
+                          : (b.originalPrice ?? -1);
+
+                      return item2.compareTo(item1);
+                    });
+                    break;
+                  default:
+                }
+
                 return BlocBuilder<ProductByCategoryBloc,
                     ProductByCategoryState>(builder: (context, state) {
                   return state.isListViewType

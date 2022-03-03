@@ -1,29 +1,45 @@
 part of 'product_by_category_bloc.dart';
 
 class ProductByCategoryState extends Equatable {
-  final String label;
   final bool isListViewType;
-  final bool lowestToHigh;
-  final bool highestToLow;
+  final SortBy sortBy;
   const ProductByCategoryState(
-      {this.label = 'Price: lowest to high',
-      this.isListViewType = true,
-      this.lowestToHigh = true,
-      this.highestToLow = false});
+      {this.isListViewType = true, this.sortBy = SortBy.lowToHigh});
 
   @override
-  List<Object?> get props =>
-      [label, isListViewType, lowestToHigh, highestToLow];
+  List<Object?> get props => [isListViewType, sortBy];
   ProductByCategoryState copyWith(
-      {String? label,
-      bool? isListViewType,
-      bool? lowestToHigh,
-      bool? highestToLow}) {
-        
+      {String? label, bool? isListViewType, SortBy? sortBy}) {
     return ProductByCategoryState(
-        label: label ?? this.label,
         isListViewType: isListViewType ?? this.isListViewType,
-        lowestToHigh: lowestToHigh ?? this.lowestToHigh,
-        highestToLow: highestToLow ?? this.highestToLow);
+        sortBy: sortBy ?? this.sortBy);
+  }
+}
+
+enum SortBy {
+  popular,
+  newest,
+  review,
+  lowToHigh,
+  highToLow,
+}
+
+extension SortByExt on SortBy {
+  String value() {
+    switch (this) {
+      case SortBy.popular:
+        return "Popular";
+      case SortBy.newest:
+        return "Newest";
+      case SortBy.review:
+        return "Customer review";
+      case SortBy.lowToHigh:
+        return "Price: lowest to high";
+      case SortBy.highToLow:
+        return "Price: highest to low";
+
+      default:
+        return "N/A";
+    }
   }
 }
