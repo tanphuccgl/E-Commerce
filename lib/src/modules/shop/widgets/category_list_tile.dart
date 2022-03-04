@@ -23,7 +23,6 @@ class CategoryListTile extends StatelessWidget {
         return Column(
 
           children: [
-            ElevatedButton(onPressed: ()=>context.read<CategoriesBloc>().addCategory(), child:const Text('fsdf')),
             Column(
                 children: ListTile.divideTiles(
                     color: MyColors.colorGray,

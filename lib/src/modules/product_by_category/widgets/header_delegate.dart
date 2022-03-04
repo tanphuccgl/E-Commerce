@@ -52,13 +52,16 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                 Alignment.topCenter,
                 progress,
               ),
-              child: Text(
-                nameCategory,
-                textAlign: TextAlign.center,
-                style: TextStyle.lerp(
-                  Theme.of(context).textTheme.headlineLarge,
-                  Theme.of(context).textTheme.headlineSmall,
-                  progress,
+              child: Opacity(
+                opacity: shrinkOffset > 1 && shrinkOffset < 100 ? progress : 1,
+                child: Text(
+                  nameCategory,
+                  textAlign: TextAlign.center,
+                  style: TextStyle.lerp(
+                    Theme.of(context).textTheme.headlineLarge,
+                    Theme.of(context).textTheme.headlineSmall,
+                    progress,
+                  ),
                 ),
               ),
             ),
