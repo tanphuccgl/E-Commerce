@@ -56,7 +56,7 @@ class XProductCardHorizontal extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${data.type}",
+                      data.type,
                       style: const TextStyle(
                           fontSize: 16,
                           color: MyColors.colorBlack,
@@ -64,7 +64,7 @@ class XProductCardHorizontal extends StatelessWidget {
                           fontWeight: FontWeight.w600),
                     ),
                     Text(
-                      "${data.name}",
+                      data.name,
                       style: const TextStyle(
                           fontSize: 11,
                           color: MyColors.colorGray,

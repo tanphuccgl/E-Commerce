@@ -76,14 +76,14 @@ class XProductCardSale extends StatelessWidget {
                 ],
               ),
               Text(
-                "${data.name}",
+                data.name,
                 style: const TextStyle(
                     fontSize: 11,
                     color: MyColors.colorGray,
                     fontWeight: FontWeight.normal),
               ),
               Text(
-                "${data.type}",
+                data.type,
                 style: const TextStyle(
                     fontSize: 16,
                     color: MyColors.colorBlack,
