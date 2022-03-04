@@ -12,7 +12,7 @@ class XProductCardSale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var numberStarActive = ((data.star ?? -1).toInt() ~/ 5);
+    var numberStarActive = ((data.star).toInt() ~/ 5);
     var numberStarNoActive = 5 - numberStarActive;
     return SizedBox(
       height: 260,
@@ -76,14 +76,14 @@ class XProductCardSale extends StatelessWidget {
                 ],
               ),
               Text(
-                "${data.name}",
+                data.name,
                 style: const TextStyle(
                     fontSize: 11,
                     color: MyColors.colorGray,
                     fontWeight: FontWeight.normal),
               ),
               Text(
-                "${data.type}",
+                data.type,
                 style: const TextStyle(
                     fontSize: 16,
                     color: MyColors.colorBlack,
@@ -92,7 +92,7 @@ class XProductCardSale extends StatelessWidget {
               ),
               RichText(
                 text: TextSpan(
-                  text: "${XUtils.formatPrice(data.originalPrice ?? -1)}\$ ",
+                  text: "${XUtils.formatPrice(data.originalPrice)}\$ ",
                   style: const TextStyle(
                       fontSize: 14,
                       height: 1.42,

@@ -41,7 +41,7 @@ class ProductByCategoryPage extends StatelessWidget {
                 child: SliverPersistentHeader(
                   pinned: true,
                   floating: true,
-                  delegate: MyHeaderDelegate(
+                  delegate: HeaderDetailCategory(
                     nameCategory: nameCategory,
                   ),
                 ),
@@ -63,8 +63,8 @@ class ProductByCategoryPage extends StatelessWidget {
                     break;
                   case 2:
                     items.sort((a, b) {
-                      int item1 = a.star ?? -1;
-                      int item2 = b.star ?? -1;
+                      int item1 = a.star;
+                      int item2 = b.star;
 
                       return item2.compareTo(item1);
                     });
@@ -74,10 +74,10 @@ class ProductByCategoryPage extends StatelessWidget {
                     items.sort((a, b) {
                       double item1 = (a.currentPrice ?? -1) > 0
                           ? (a.currentPrice ?? -1)
-                          : (a.originalPrice ?? -1);
+                          : (a.originalPrice);
                       double item2 = (b.currentPrice ?? -1) > 0
                           ? (b.currentPrice ?? -1)
-                          : (b.originalPrice ?? -1);
+                          : (b.originalPrice);
 
                       return item1.compareTo(item2);
                     });
@@ -86,10 +86,10 @@ class ProductByCategoryPage extends StatelessWidget {
                     items.sort((a, b) {
                       double item1 = (a.currentPrice ?? -1) > 0
                           ? (a.currentPrice ?? -1)
-                          : (a.originalPrice ?? -1);
+                          : (a.originalPrice);
                       double item2 = (b.currentPrice ?? -1) > 0
                           ? (b.currentPrice ?? -1)
-                          : (b.originalPrice ?? -1);
+                          : (b.originalPrice);
 
                       return item2.compareTo(item1);
                     });

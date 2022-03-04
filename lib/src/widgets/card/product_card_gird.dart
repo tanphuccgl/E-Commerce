@@ -13,7 +13,7 @@ class XProductCardGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var numberStarActive = ((data.star ?? -1).toInt() ~/ 5);
+    var numberStarActive = ((data.star).toInt() ~/ 5);
     var numberStarNoActive = 5 - numberStarActive;
 
     return SizedBox(
@@ -78,14 +78,14 @@ class XProductCardGrid extends StatelessWidget {
                 ],
               ),
               Text(
-                "${data.name}",
+                data.name,
                 style: const TextStyle(
                     fontSize: 11,
                     color: MyColors.colorGray,
                     fontWeight: FontWeight.normal),
               ),
               Text(
-                "${data.type}",
+                data.type,
                 maxLines: 1,
                 style: const TextStyle(
                     fontSize: 16,
@@ -96,7 +96,7 @@ class XProductCardGrid extends StatelessWidget {
               ),
               data.discount == 0.0
                   ? Text(
-                      "${XUtils.formatPrice(data.originalPrice ?? -1)}\$ ",
+                      "${XUtils.formatPrice(data.originalPrice)}\$ ",
                       style: const TextStyle(
                           fontSize: 14,
                           height: 1.42,
@@ -106,7 +106,7 @@ class XProductCardGrid extends StatelessWidget {
                   : RichText(
                       text: TextSpan(
                         text:
-                            "${XUtils.formatPrice(data.originalPrice ?? -1)}\$ ",
+                            "${XUtils.formatPrice(data.originalPrice)}\$ ",
                         style: const TextStyle(
                             fontSize: 14,
                             height: 1.42,

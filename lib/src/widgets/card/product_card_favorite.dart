@@ -39,14 +39,14 @@ class XProductCardFavorite extends StatelessWidget {
                 ],
               ),
               Text(
-                "${data.name }",
+                data.name,
                 style: const TextStyle(
                     fontSize: 11,
                     color: MyColors.colorGray,
                     fontWeight: FontWeight.normal),
               ),
               Text(
-                "${data.type}",
+                data.type,
                 style: const TextStyle(
                     fontSize: 16,
                     color: MyColors.colorBlack,height: 1,
@@ -85,7 +85,7 @@ class XProductCardFavorite extends StatelessWidget {
                 ],
               ),
               Text(
-                "${data.originalPrice??46}\$",
+                "${data.originalPrice}\$",
                 style: const TextStyle(
                     fontSize: 16,
                     color: MyColors.colorBlack,

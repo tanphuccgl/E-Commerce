@@ -13,4 +13,14 @@ class ProductRepositoryImpl implements ProductRepository {
       return XResult.error(e.toString());
     }
   }
+
+  @override
+  Future<XResult<List<XProduct>>> addProduct() async {
+    try {
+      var data = ProductCollectionReference().addProduct();
+      return data;
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
 }

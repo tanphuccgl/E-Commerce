@@ -14,7 +14,6 @@ class TagChip extends StatelessWidget {
       padding: const EdgeInsets.all(3.5),
       child: SizedBox(
         height: 30,
-        width: 100,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
               primary: MyColors.colorBlack,
