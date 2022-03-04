@@ -2,30 +2,30 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
 
 class XProduct extends BaseModel {
-  String? name;
+  String name;
   String? image;
-  int? star;
-  String? type;
+  int star;
+  String type;
   String? color;
   String? size;
-  double? originalPrice;
+  double originalPrice;
   double? discount;
   double? currentPrice;
   bool? newProduct;
-  String? idCategory;
-  String? nameCategory;
+  String idCategory;
+  String nameCategory;
 
   XProduct(
-      {this.name,
-      this.idCategory,
-      this.nameCategory,
+      {this.name = '',
+      this.idCategory = '',
+      this.nameCategory = '',
       String id = '',
       this.image,
-      this.star,
-      this.type,
+      this.star = 0,
+      this.type = '',
       this.color,
       this.size,
-      this.originalPrice,
+      this.originalPrice = 0,
       this.discount,
       this.currentPrice,
       this.newProduct})

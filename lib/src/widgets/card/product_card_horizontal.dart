@@ -12,7 +12,7 @@ class XProductCardHorizontal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var numberStarActive = ((data.star ?? -1).toInt() ~/ 5);
+    var numberStarActive = ((data.star).toInt() ~/ 5);
     var numberStarNoActive = 5 - numberStarActive;
 
     return SizedBox(
@@ -113,7 +113,7 @@ class XProductCardHorizontal extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "${XUtils.formatPrice(data.originalPrice ?? -1)}\$ ",
+                      "${XUtils.formatPrice(data.originalPrice)}\$ ",
                       style: const TextStyle(
                           fontSize: 14,
                           height: 1.42,

@@ -6,9 +6,9 @@ import 'package:e_commerce/src/widgets/chip/tag_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
+class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
   final String nameCategory;
-  const MyHeaderDelegate({required this.nameCategory});
+  const HeaderDetailCategory({required this.nameCategory});
 
   @override
   Widget build(
@@ -80,7 +80,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                   children: [
                     BlocBuilder<CategoriesBloc, CategoriesState>(
                         builder: (context, state) {
-                      var items = state.items ?? [];
+                      var items = state.items.data ?? [];
 
                       return SizedBox(
                         height: 40,

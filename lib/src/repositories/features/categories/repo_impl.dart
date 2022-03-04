@@ -13,4 +13,13 @@ class CategoryRepositoryImpl extends CategoryRepository {
       return XResult.error(e.toString());
     }
   }
+   @override
+  Future<XResult<List<XCategories>>> addCategory() async {
+    try {
+      var data = CategoriesCollectionReference().addCategories();
+      return data;
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
 }

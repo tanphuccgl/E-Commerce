@@ -30,8 +30,9 @@ class ProductByCategoryPage extends StatelessWidget {
                 textTheme: Theme.of(context).textTheme,
               ),
               child: SliverPersistentHeader(
-                pinned: true,floating: true,
-                delegate: MyHeaderDelegate(nameCategory: nameCategory),
+                pinned: true,
+                floating: true,
+                delegate: HeaderDetailCategory(nameCategory: nameCategory),
               ),
             ),
             BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
