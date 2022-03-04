@@ -24,7 +24,15 @@ class CategoriesCollectionReference
 
   Future<XResult<List<XCategories>>> addCategories() async {
     try {
-      listCategories.map((e) => set(e)).toList();
+      var batch = ref.firestore.batch();
+      for (int i = 0; i < listCategories.length; i++) {
+        {
+          batch.set(ref.doc(listCategories[i].id), listCategories[i],
+              SetOptions(merge: true));
+        }
+      }
+
+      batch.commit();
       return XResult.success(listCategories);
     } catch (e) {
       return XResult.exception(e);

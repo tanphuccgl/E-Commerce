@@ -19,4 +19,10 @@ class ProductBloc extends Cubit<ProductState> {
       emit(state.copyWithItem(items: product.data ?? [], isLoading: false));
     }
   }
+
+  Future<void> addProduct() async {
+    final product = await domain.product.addProduct();
+
+    emit(state.copyWithItem(items: product.data ?? [], isLoading: false));
+  }
 }

@@ -1,5 +1,3 @@
-
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/_dev/data_firebase.dart';
 import 'package:e_commerce/src/models/products_model.dart';
@@ -23,9 +21,19 @@ class ProductCollectionReference extends BaseCollectionReference<XProduct> {
     }
   }
 
-  Future<void> setProduct() async {
-    for (int i = 0; i < listProduct.length; i++) {
-      set(listProduct[i], merge: true);
+  Future<XResult<List<XProduct>>> addProduct() async {
+    try {
+      var batch = ref.firestore.batch();
+      for (int i = 0; i < listProduct.length; i++) {
+        {
+          batch.set(ref.doc(listProduct[i].id), listProduct[i],
+              SetOptions(merge: true));
+        }
+      }
+      batch.commit();
+      return XResult.success(listProduct);
+    } catch (e) {
+      return XResult.exception(e);
     }
   }
 }
