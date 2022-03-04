@@ -45,15 +45,9 @@ class _ProductByCategoryPageState extends State<ProductByCategoryPage> {
               child: SliverPersistentHeader(
                 pinned: true,
                 floating: true,
-                delegate: MyHeaderDelegate(
-                    nameCategory: widget.nameCategory,
-                    onTapFilter: () {},
-                    onTapSort: () {},
-                    onTapViewType: () {
-                      setState(() {
-                        isListView = !isListView;
-                      });
-                    }),
+
+
+                delegate: HeaderDetailCategory(nameCategory: widget.nameCategory),
               ),
             ),
             BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {

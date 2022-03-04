@@ -6,18 +6,10 @@ import 'package:e_commerce/src/widgets/chip/tag_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
+class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
   final String nameCategory;
-  final Function() onTapFilter;
-  final Function() onTapSort;
 
-  final Function() onTapViewType;
-
-  const MyHeaderDelegate(
-      {required this.nameCategory,
-      required this.onTapFilter,
-      required this.onTapSort,
-      required this.onTapViewType});
+  const HeaderDetailCategory({required this.nameCategory});
 
   @override
   Widget build(
@@ -61,13 +53,16 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                 Alignment.topCenter,
                 progress,
               ),
-              child: Text(
-                nameCategory,
-                textAlign: TextAlign.center,
-                style: TextStyle.lerp(
-                  Theme.of(context).textTheme.headlineLarge,
-                  Theme.of(context).textTheme.headlineSmall,
-                  progress,
+              child: Opacity(
+                opacity: shrinkOffset > 1 && shrinkOffset < 100 ? progress : 1,
+                child: Text(
+                  nameCategory,
+                  textAlign: TextAlign.center,
+                  style: TextStyle.lerp(
+                    Theme.of(context).textTheme.headlineLarge,
+                    Theme.of(context).textTheme.headlineSmall,
+                    progress,
+                  ),
                 ),
               ),
             ),
@@ -89,7 +84,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                   children: [
                     BlocBuilder<CategoriesBloc, CategoriesState>(
                         builder: (context, state) {
-                      var items = state.items ?? [];
+                      var items = state.items.data ?? [];
 
                       return SizedBox(
                         height: 40,
@@ -110,9 +105,9 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
                     Padding(
                       padding: const EdgeInsets.fromLTRB(14, 5, 14, 0),
                       child: FilerBar(
-                        onTapFilter: onTapFilter,
-                        onTapSort: onTapSort,
-                        onTapViewType: onTapViewType,
+                        onTapFilter: () {},
+                        onTapSort: () {},
+                        onTapViewType: () {},
                       ),
                     ),
                   ],
