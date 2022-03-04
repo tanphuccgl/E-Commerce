@@ -46,8 +46,16 @@ class _ProductByCategoryPageState extends State<ProductByCategoryPage> {
                 pinned: true,
                 floating: true,
 
+                delegate: HeaderDetailCategory(
+                    nameCategory: widget.nameCategory,
+                    onTapFilter: () {},
+                    onTapSort: () {},
+                    onTapViewType: () {
+                      setState(() {
+                        isListView = !isListView;
+                      });
+                    }),
 
-                delegate: HeaderDetailCategory(nameCategory: widget.nameCategory),
               ),
             ),
             BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
