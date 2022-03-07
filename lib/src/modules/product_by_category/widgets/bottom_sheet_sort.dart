@@ -31,8 +31,8 @@ class XBottomSheetSort extends StatelessWidget {
                       tiles: SortBy.values.map((item) => ListTile(
                             dense: true,
                             selectedColor: MyColors.colorPrimary,
-                            selectedTileColor: MyColors.colorWhite,
-                            selected: true,
+                            selectedTileColor: MyColors.colorPrimary,
+                            selected: state.isSelectedList[item.index],
                             onTap: () {
                               context
                                   .read<ProductByCategoryBloc>()
@@ -40,11 +40,17 @@ class XBottomSheetSort extends StatelessWidget {
                               XCoordinator.pop(context);
                             },
                             title: Text(item.value(),
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    height: 1,
-                                    color: MyColors.colorBlack,
-                                    fontWeight: FontWeight.normal)),
+                                style: state.isSelectedList[item.index]
+                                    ? const TextStyle(
+                                        fontSize: 16,
+                                        height: 1,
+                                        color: MyColors.colorWhite,
+                                        fontWeight: FontWeight.w600)
+                                    : const TextStyle(
+                                        fontSize: 16,
+                                        height: 1,
+                                        color: MyColors.colorBlack,
+                                        fontWeight: FontWeight.normal)),
                           ))).toList(),
                 )
               ],

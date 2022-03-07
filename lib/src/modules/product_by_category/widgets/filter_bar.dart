@@ -67,7 +67,7 @@ class FilerBar extends StatelessWidget {
               shape: const RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.only(topLeft: radius, topRight: radius)),
-              backgroundColor: MyColors.colorBackground,
+              backgroundColor: MyColors.colorWhite,
               builder: (BuildContext context) {
                 return const XBottomSheetSort();
               });

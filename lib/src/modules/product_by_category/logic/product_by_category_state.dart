@@ -3,14 +3,21 @@ part of 'product_by_category_bloc.dart';
 class ProductByCategoryState extends Equatable {
   final bool isListViewType;
   final SortBy sortBy;
+  final List<bool> isSelectedList;
   const ProductByCategoryState(
-      {this.isListViewType = true, this.sortBy = SortBy.lowToHigh});
+      {this.isListViewType = true,
+      this.sortBy = SortBy.lowToHigh,
+      required this.isSelectedList});
 
   @override
-  List<Object?> get props => [isListViewType, sortBy];
+  List<Object?> get props => [isListViewType, sortBy, isSelectedList];
   ProductByCategoryState copyWith(
-      {String? label, bool? isListViewType, SortBy? sortBy}) {
+      {String? label,
+      bool? isListViewType,
+      SortBy? sortBy,
+      List<bool>? isSelectedList}) {
     return ProductByCategoryState(
+        isSelectedList: isSelectedList ?? this.isSelectedList,
         isListViewType: isListViewType ?? this.isListViewType,
         sortBy: sortBy ?? this.sortBy);
   }
