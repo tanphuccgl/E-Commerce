@@ -69,7 +69,7 @@ class XProductCardNew extends StatelessWidget {
                   const SizedBox(width: 3),
                   Text(
                     "${data.star}",
-                    style:const TextStyle(
+                    style: const TextStyle(
                         fontSize: 10,
                         color: MyColors.colorGray,
                         fontWeight: FontWeight.normal),
@@ -84,10 +84,10 @@ class XProductCardNew extends StatelessWidget {
                     fontWeight: FontWeight.normal),
               ),
               Text(
-
                 data.type,
                 style: const TextStyle(
-                    fontSize: 16,overflow: TextOverflow.clip,
+                    fontSize: 16,
+                    overflow: TextOverflow.clip,
                     color: MyColors.colorBlack,
                     height: 1,
                     fontWeight: FontWeight.w600),
@@ -106,8 +106,8 @@ class XProductCardNew extends StatelessWidget {
             height: 200,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Align(
+                children: const [
+                  Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
@@ -118,7 +118,6 @@ class XProductCardNew extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
                       isActive: false,
-                      onPressed: () {},
                     ),
                   )
                 ]),

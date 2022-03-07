@@ -126,11 +126,10 @@ class XProductCardSale extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Align(
+                  const Align(
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
                       isActive: false,
-                      onPressed: () {},
                     ),
                   )
                 ]),

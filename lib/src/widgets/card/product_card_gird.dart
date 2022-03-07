@@ -105,8 +105,7 @@ class XProductCardGrid extends StatelessWidget {
                     )
                   : RichText(
                       text: TextSpan(
-                        text:
-                            "${XUtils.formatPrice(data.originalPrice)}\$ ",
+                        text: "${XUtils.formatPrice(data.originalPrice)}\$ ",
                         style: const TextStyle(
                             fontSize: 14,
                             height: 1.42,
@@ -142,11 +141,10 @@ class XProductCardGrid extends StatelessWidget {
                               : const SizedBox.shrink()),
                     ),
                   ),
-                  Align(
+                 const Align(
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
                       isActive: false,
-                      onPressed: () {},
                     ),
                   )
                 ]),

@@ -1,11 +1,11 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
+import 'package:e_commerce/src/modules/favorites/widgets/bottom_sheet_favorite.dart';
 import 'package:flutter/material.dart';
 
 class XButtonAddToFavorite extends StatelessWidget {
   final bool isActive;
-  final VoidCallback? onPressed;
-  const XButtonAddToFavorite({Key? key, this.onPressed, required this.isActive})
+  const XButtonAddToFavorite({Key? key, required this.isActive})
       : super(key: key);
 
   @override
@@ -22,7 +22,7 @@ class XButtonAddToFavorite extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   minimumSize: Size.zero,
                   shape: const CircleBorder()),
-              onPressed: onPressed,
+              onPressed: () {},
               child: const Image(
                 image: AssetImage(MyIcons.favoriteIcon),
               ))
@@ -35,7 +35,19 @@ class XButtonAddToFavorite extends StatelessWidget {
                   minimumSize: Size.zero,
                   onPrimary: MyColors.colorPrimary,
                   shape: const CircleBorder()),
-              onPressed: onPressed,
+              onPressed: () {
+                const radius = Radius.circular(34);
+                showModalBottomSheet<void>(
+                    isScrollControlled: true,
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.only(
+                            topLeft: radius, topRight: radius)),
+                    backgroundColor: MyColors.colorWhite,
+                    builder: (BuildContext context) {
+                      return const XBottomSheetFavorite();
+                    });
+              },
               child: const Image(
                 image: AssetImage(MyIcons.favoriteIcon),
                 height: 9,
