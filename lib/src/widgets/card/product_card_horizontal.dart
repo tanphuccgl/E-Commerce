@@ -3,6 +3,8 @@ import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/button/button_add_favorite.dart';
+import 'package:e_commerce/src/widgets/label/discount_label.dart';
+import 'package:e_commerce/src/widgets/label/new_label.dart';
 import 'package:flutter/material.dart';
 
 class XProductCardHorizontal extends StatelessWidget {
@@ -112,14 +114,37 @@ class XProductCardHorizontal extends StatelessWidget {
                         )
                       ],
                     ),
-                    Text(
-                      "${XUtils.formatPrice(data.originalPrice)}\$ ",
-                      style: const TextStyle(
-                          fontSize: 14,
-                          height: 1.42,
-                          color: MyColors.colorBlack,
-                          fontWeight: FontWeight.w600),
-                    ),
+
+                    data.discount == 0.0
+                        ? Text(
+                            "${XUtils.formatPrice(data.originalPrice)}\$ ",
+                            style: const TextStyle(
+                                fontSize: 14,
+                                height: 1.42,
+                                color: MyColors.colorBlack,
+                                fontWeight: FontWeight.w600),
+                          )
+                        : RichText(
+                            text: TextSpan(
+                              text:
+                                  "${XUtils.formatPrice(data.originalPrice)}\$ ",
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  height: 1.42,
+                                  decoration: TextDecoration.lineThrough,
+                                  color: MyColors.colorGray,
+                                  fontWeight: FontWeight.w600),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text:
+                                        "${XUtils.formatPrice(data.currentPrice ?? -1)}\$",
+                                    style: const TextStyle(
+                                      color: MyColors.colorSaleHot,
+                                      decoration: TextDecoration.none,
+                                    )),
+                              ],
+                            ),
+                          ),
                   ],
                 ),
               ],
@@ -127,15 +152,28 @@ class XProductCardHorizontal extends StatelessWidget {
           ),
           SizedBox(
             height: 114,
-            child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-              Align(
-                alignment: Alignment.bottomRight,
-                child: XButtonAddToFavorite(
-                  isActive: false,
-                  onPressed: () {},
-                ),
-              )
-            ]),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: data.newProduct == true
+                          ? const NewLabel()
+                          : (data.discount != 0
+                              ? DisCountLabel(number: data.discount.toString())
+                              : const SizedBox.shrink()),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: XButtonAddToFavorite(
+                      isActive: false,
+                      onPressed: () {},
+                    ),
+                  )
+                ]),
           )
         ],
       ),

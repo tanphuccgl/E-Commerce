@@ -21,27 +21,22 @@ class CategoryListTile extends StatelessWidget {
       XHandle handle = XHandle.result(XResult.success(items));
       if (handle.isCompleted) {
         return Column(
-
-          children: [
-            Column(
-                children: ListTile.divideTiles(
-                    color: MyColors.colorGray,
-                    tiles: items.map((item) => ListTile(
-                          dense: true,
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 40),
-                          onTap: () => DashboardCoordinator.showTops(context,
-                              idCategory: item.id,
-                              nameCategory: item.name ?? 'N/A'),
-                          title: Text(item.name ?? "N/A",
-                              style: const TextStyle(
-                                  fontSize: 16,
-                                  height: 1,
-                                  color: MyColors.colorBlack,
-                                  fontWeight: FontWeight.normal)),
-                        ))).toList()),
-          ],
-        );
+            children: ListTile.divideTiles(
+                color: MyColors.colorGray,
+                tiles: items.map((item) => ListTile(
+                      dense: true,
+                      contentPadding:
+                          const EdgeInsets.symmetric(horizontal: 40),
+                      onTap: () => DashboardCoordinator.showProductByCategory(context,
+                          idCategory: item.id,
+                          nameCategory: item.name ?? 'N/A'),
+                      title: Text(item.name ?? "N/A",
+                          style: const TextStyle(
+                              fontSize: 16,
+                              height: 1,
+                              color: MyColors.colorBlack,
+                              fontWeight: FontWeight.normal)),
+                    ))).toList());
       } else if (handle.isLoading) {
         return const XStateLoadingWidget();
       } else {

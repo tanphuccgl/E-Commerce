@@ -8,7 +8,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
   final String nameCategory;
-  const HeaderDetailCategory({required this.nameCategory});
+
+  final Function() onTapFilter;
+  final Function() onTapSort;
+
+  final Function() onTapViewType;
+
+  const HeaderDetailCategory(
+      {required this.nameCategory,
+      required this.onTapFilter,
+      required this.onTapSort,
+      required this.onTapViewType});
+
+
 
   @override
   Widget build(
@@ -95,14 +107,19 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                           itemBuilder: (context, index) {
                             return TagChip(
                               label: items[index].name ?? 'N/A',
+                              idCategory: items[index].id,
                             );
                           },
                         ),
                       );
                     }),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(14, 5, 14, 0),
-                      child: FilerBar(),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(14, 5, 14, 0),
+                      child: FilerBar(
+                        onTapFilter: onTapFilter,
+                        onTapSort: onTapSort,
+                        onTapViewType: onTapViewType,
+                      ),
                     ),
                   ],
                 ),

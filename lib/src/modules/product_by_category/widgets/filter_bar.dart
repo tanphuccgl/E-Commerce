@@ -3,7 +3,17 @@ import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:flutter/material.dart';
 
 class FilerBar extends StatelessWidget {
-  const FilerBar({Key? key}) : super(key: key);
+  final Function() onTapFilter;
+  final Function() onTapSort;
+
+  final Function() onTapViewType;
+
+  const FilerBar(
+      {Key? key,
+      required this.onTapFilter,
+      required this.onTapSort,
+      required this.onTapViewType})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +29,7 @@ class FilerBar extends StatelessWidget {
 
   Widget _filter() {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onTapFilter,
       style: ElevatedButton.styleFrom(
           primary: MyColors.colorBackground,
           onPrimary: MyColors.colorBackground,
@@ -48,7 +58,7 @@ class FilerBar extends StatelessWidget {
 
   Widget _sort() {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onTapSort,
       style: ElevatedButton.styleFrom(
           primary: MyColors.colorBackground,
           onPrimary: MyColors.colorBackground,
@@ -82,7 +92,7 @@ class FilerBar extends StatelessWidget {
           onPrimary: MyColors.colorBackground,
           shadowColor: MyColors.colorWhite,
           elevation: 0),
-      onPressed: () {},
+      onPressed: onTapViewType,
       child: Row(
         children: [
           Image.asset(

@@ -1,9 +1,12 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:flutter/material.dart';
 
 class TagChip extends StatelessWidget {
   final String label;
-  const TagChip({Key? key, this.label = ""}) : super(key: key);
+  final String idCategory;
+  const TagChip({Key? key, required this.label, required this.idCategory})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,8 @@ class TagChip extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(29),
               )),
-          onPressed: () {},
+          onPressed: () => DashboardCoordinator.switchCategory(context,
+              idCategory: idCategory, nameCategory: label),
           child: Center(
             child: Text(
               label,
