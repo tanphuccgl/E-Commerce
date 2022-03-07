@@ -28,30 +28,23 @@ class XBottomSheetSort extends StatelessWidget {
                 Column(
                   children: ListTile.divideTiles(
                       color: MyColors.colorWhite,
-                      tiles: SortBy.values.map((item) => ListTile(
-                            dense: true,
-                            selectedColor: MyColors.colorPrimary,
-                            selectedTileColor: MyColors.colorPrimary,
-                            selected: state.isSelectedList[item.index],
-                            onTap: () {
-                              context
-                                  .read<ProductByCategoryBloc>()
-                                  .sortBy(item.index);
-                              XCoordinator.pop(context);
-                            },
-                            title: Text(item.value(),
-                                style: state.isSelectedList[item.index]
-                                    ? const TextStyle(
-                                        fontSize: 16,
-                                        height: 1,
-                                        color: MyColors.colorWhite,
-                                        fontWeight: FontWeight.w600)
-                                    : const TextStyle(
-                                        fontSize: 16,
-                                        height: 1,
-                                        color: MyColors.colorBlack,
-                                        fontWeight: FontWeight.normal)),
-                          ))).toList(),
+                      tiles: SortBy.values.map((item) {
+                        return ListTile(
+                          dense: true,
+                          selectedColor: MyColors.colorPrimary,
+                          selectedTileColor: MyColors.colorPrimary,
+                          selected: item.sortProductBy(state.sortBy),
+                          onTap: () {
+                            context
+                                .read<ProductByCategoryBloc>()
+                                .sortBy(item.index);
+                            XCoordinator.pop(context);
+                          },
+                          title: Text(item.value(),
+                              style: state.sortBy
+                                  .styleOf(item.sortProductBy(state.sortBy))),
+                        );
+                      })).toList(),
                 )
               ],
             ),
