@@ -113,7 +113,7 @@ class FilerBar extends StatelessWidget {
         child: Row(
           children: [
             Image.asset(
-              state.isListViewType ? MyIcons.gridIcon : MyIcons.listIcon,
+              state.viewType.iconOf(),
               color: MyColors.colorBlack,
             ),
           ],
