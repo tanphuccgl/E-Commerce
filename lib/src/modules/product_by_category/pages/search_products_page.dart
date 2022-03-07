@@ -35,7 +35,7 @@ class SearchProductsPage extends StatelessWidget {
               return ListTile(
                 leading: Image.network(
                   item.image ?? '',
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   width: 50,
                   height: 50,
                 ),
