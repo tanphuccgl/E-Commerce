@@ -15,9 +15,9 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<XResult<List<XProduct>>> addProduct() async {
+  Future<XResult<List<XProduct>>> updateProduct() async {
     try {
-      var data = ProductCollectionReference().addProduct();
+      var data = ProductCollectionReference().updateProduct();
       return data;
     } catch (e) {
       return XResult.error(e.toString());
