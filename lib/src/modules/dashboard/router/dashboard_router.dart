@@ -8,6 +8,7 @@ import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router
 import 'package:e_commerce/src/modules/favorites/pages/favorites_page.dart';
 import 'package:e_commerce/src/modules/home/pages/home_page.dart';
 import 'package:e_commerce/src/modules/product_by_category/pages/product_by_category_page.dart';
+import 'package:e_commerce/src/modules/product_by_category/pages/search_products_page.dart';
 import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
 import 'package:e_commerce/src/modules/settings/pages/setting_page.dart';
 import 'package:e_commerce/src/modules/shop/pages/shop_page.dart';
@@ -23,6 +24,7 @@ class DashboardRouters {
   static const String profile = 'profile';
   static const String setting = 'setting';
   static const String productByCategoryPage = 'productByCategory';
+  static const String searchProducts = 'searchProducts';
 }
 
 class DashboardCoordinator {
@@ -48,6 +50,10 @@ class DashboardCoordinator {
                       path: DashboardRouters.productByCategoryPage,
                       page: ProductByCategoryPage,
                       name: "ProductByCategoryRoute"),
+                  AutoRoute(
+                      path: DashboardRouters.searchProducts,
+                      page: SearchProductsPage,
+                      name: "SearchProductsRoute"),
                   RedirectRoute(path: '*', redirectTo: ''),
                 ]),
             AutoRoute(path: DashboardRouters.bag, page: BagPage),
@@ -78,6 +84,11 @@ class DashboardCoordinator {
       {required String idCategory, required String nameCategory}) {
     context.router.push(ProductByCategoryRoute(
         idCategory: idCategory, nameCategory: nameCategory));
+  }
+  static showSearchProduct(BuildContext context,
+  ) {
+    context.router.push(const SearchProductsRoute(
+     ));
   }
 
   static switchCategory(BuildContext context,

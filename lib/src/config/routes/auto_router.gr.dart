@@ -11,12 +11,12 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:flutter/cupertino.dart' as _i16;
-import 'package:flutter/material.dart' as _i15;
+import 'package:flutter/cupertino.dart' as _i17;
+import 'package:flutter/material.dart' as _i16;
 
-import '../../modules/auth/login/pages/login_page.dart' as _i13;
+import '../../modules/auth/login/pages/login_page.dart' as _i14;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
-import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i14;
+import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i15;
 import '../../modules/bag/pages/bag_page.dart' as _i7;
 import '../../modules/dashboard/pages/dashboard_page.dart' as _i4;
 import '../../modules/dashboard/router/dashboard_wrapper_router.dart' as _i1;
@@ -25,12 +25,14 @@ import '../../modules/home/pages/home_page.dart' as _i5;
 import '../../modules/loading/pages/loading_page.dart' as _i3;
 import '../../modules/product_by_category/pages/product_by_category_page.dart'
     as _i10;
-import '../../modules/profile/pages/profile_page.dart' as _i11;
-import '../../modules/settings/pages/setting_page.dart' as _i12;
+import '../../modules/product_by_category/pages/search_products_page.dart'
+    as _i11;
+import '../../modules/profile/pages/profile_page.dart' as _i12;
+import '../../modules/settings/pages/setting_page.dart' as _i13;
 import '../../modules/shop/pages/shop_page.dart' as _i9;
 
 class XRouter extends _i6.RootStackRouter {
-  XRouter([_i15.GlobalKey<_i15.NavigatorState>? navigatorKey])
+  XRouter([_i16.GlobalKey<_i16.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -84,21 +86,25 @@ class XRouter extends _i6.RootStackRouter {
               idCategory: args.idCategory,
               nameCategory: args.nameCategory));
     },
+    SearchProductsRoute.name: (routeData) {
+      return _i6.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i11.SearchProductsPage());
+    },
     ProfileRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i11.ProfilePage());
+          routeData: routeData, child: const _i12.ProfilePage());
     },
     SettingRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i12.SettingPage());
+          routeData: routeData, child: const _i13.SettingPage());
     },
     LoginRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i13.LoginPage());
+          routeData: routeData, child: const _i14.LoginPage());
     },
     SignUpRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i14.SignUpPage());
+          routeData: routeData, child: const _i15.SignUpPage());
     }
   };
 
@@ -123,6 +129,8 @@ class XRouter extends _i6.RootStackRouter {
                               path: '', parent: ShopTab.name),
                           _i6.RouteConfig(ProductByCategoryRoute.name,
                               path: 'productByCategory', parent: ShopTab.name),
+                          _i6.RouteConfig(SearchProductsRoute.name,
+                              path: 'searchProducts', parent: ShopTab.name),
                           _i6.RouteConfig('*#redirect',
                               path: '*',
                               parent: ShopTab.name,
@@ -272,7 +280,7 @@ class ShopRoute extends _i6.PageRouteInfo<void> {
 class ProductByCategoryRoute
     extends _i6.PageRouteInfo<ProductByCategoryRouteArgs> {
   ProductByCategoryRoute(
-      {_i16.Key? key, required String idCategory, required String nameCategory})
+      {_i17.Key? key, required String idCategory, required String nameCategory})
       : super(ProductByCategoryRoute.name,
             path: 'productByCategory',
             args: ProductByCategoryRouteArgs(
@@ -285,7 +293,7 @@ class ProductByCategoryRouteArgs {
   const ProductByCategoryRouteArgs(
       {this.key, required this.idCategory, required this.nameCategory});
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   final String idCategory;
 
@@ -298,7 +306,16 @@ class ProductByCategoryRouteArgs {
 }
 
 /// generated route for
-/// [_i11.ProfilePage]
+/// [_i11.SearchProductsPage]
+class SearchProductsRoute extends _i6.PageRouteInfo<void> {
+  const SearchProductsRoute()
+      : super(SearchProductsRoute.name, path: 'searchProducts');
+
+  static const String name = 'SearchProductsRoute';
+}
+
+/// generated route for
+/// [_i12.ProfilePage]
 class ProfileRoute extends _i6.PageRouteInfo<void> {
   const ProfileRoute() : super(ProfileRoute.name, path: '');
 
@@ -306,7 +323,7 @@ class ProfileRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i12.SettingPage]
+/// [_i13.SettingPage]
 class SettingRoute extends _i6.PageRouteInfo<void> {
   const SettingRoute() : super(SettingRoute.name, path: 'setting');
 
@@ -314,7 +331,7 @@ class SettingRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.LoginPage]
+/// [_i14.LoginPage]
 class LoginRoute extends _i6.PageRouteInfo<void> {
   const LoginRoute() : super(LoginRoute.name, path: 'login');
 
@@ -322,7 +339,7 @@ class LoginRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.SignUpPage]
+/// [_i15.SignUpPage]
 class SignUpRoute extends _i6.PageRouteInfo<void> {
   const SignUpRoute() : super(SignUpRoute.name, path: 'register');
 

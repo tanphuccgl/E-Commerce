@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/product_by_category/widgets/filter_bar.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 
@@ -9,13 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
   final String nameCategory;
 
-
   const HeaderDetailCategory({
     required this.nameCategory,
   });
-
-
-
 
   @override
   Widget build(
@@ -43,7 +40,8 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                 IconButton(
                   icon: const Icon(Icons.search),
                   color: MyColors.colorBlack,
-                  onPressed: () {},
+                  onPressed: () =>
+                      DashboardCoordinator.showSearchProduct(context),
                 )
               ],
               elevation: 3,
@@ -109,7 +107,7 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                       );
                     }),
                     const Padding(
-                      padding:  EdgeInsets.fromLTRB(14, 5, 14, 0),
+                      padding: EdgeInsets.fromLTRB(14, 5, 14, 0),
                       child: FilerBar(),
                     ),
                   ],
