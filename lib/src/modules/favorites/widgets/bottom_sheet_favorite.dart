@@ -1,10 +1,15 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
+import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XBottomSheetFavorite extends StatelessWidget {
-  const XBottomSheetFavorite({Key? key}) : super(key: key);
+  final XProduct data;
+  const XBottomSheetFavorite({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,15 +30,18 @@ class XBottomSheetFavorite extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              SizedBox(
-                height: 100,
-                child: GridView.count(
-                  crossAxisCount: 3,
-                  shrinkWrap: true,
-                  childAspectRatio: 100 / 40,
-                  crossAxisSpacing: 22,
-                  mainAxisSpacing: 16,
-                  children: sizeList.map((e) => _boxSize(e)).toList(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 15),
+                child: SizedBox(
+                  height: 100,
+                  child: GridView.count(
+                    crossAxisCount: 3,
+                    shrinkWrap: true,
+                    childAspectRatio: 100 / 40,
+                    crossAxisSpacing: 22,
+                    mainAxisSpacing: 16,
+                    children: sizeList.map((e) => _boxSize(e)).toList(),
+                  ),
                 ),
               ),
               ListTile(
@@ -48,12 +56,17 @@ class XBottomSheetFavorite extends StatelessWidget {
                 onTap: () {},
                 trailing: const Icon(Icons.keyboard_arrow_right),
               ),
-              XButton(
-                label: 'ADD TO FAVORITES',
-                height: 47,
-                width: double.infinity,
-                onPressed: () {},
-              )
+              BlocBuilder<FavoriteBloc, FavoriteState>(
+                  builder: (context, state) {
+                return XButton(
+                    label: 'ADD TO FAVORITES',
+                    height: 47,
+                    width: double.infinity,
+                    onPressed: () {
+                      context.read<FavoriteBloc>().addProduct(data);
+                      XCoordinator.pop(context);
+                    });
+              })
             ],
           ),
         ),
@@ -63,21 +76,26 @@ class XBottomSheetFavorite extends StatelessWidget {
 }
 
 Widget _boxSize(String size) {
-  return Container(
+  return SizedBox(
     height: 40,
     width: 100,
-    decoration: BoxDecoration(
-        color: MyColors.colorWhite,
-        border: Border.all(color: MyColors.colorGray, width: 0.4),
-        borderRadius: const BorderRadius.all(Radius.circular(8))),
-    child: Center(
-      child: Text(size,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-              height: 1.42,
-              fontSize: 14,
-              color: MyColors.colorBlack,
-              fontWeight: FontWeight.w500)),
+    child: ElevatedButton(
+      onPressed: () {},
+      style: ElevatedButton.styleFrom(
+          primary: MyColors.colorWhite,
+          onPrimary: MyColors.colorPrimary,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+              side: const BorderSide(color: MyColors.colorGray, width: 0.4))),
+      child: Center(
+        child: Text(size,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+                height: 1.42,
+                fontSize: 14,
+                color: MyColors.colorBlack,
+                fontWeight: FontWeight.w500)),
+      ),
     ),
   );
 }

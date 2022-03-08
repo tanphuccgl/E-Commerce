@@ -106,8 +106,8 @@ class XProductCardNew extends StatelessWidget {
             height: 200,
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Align(
+                children: [
+                  const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
                       padding: EdgeInsets.all(8.0),
@@ -118,6 +118,7 @@ class XProductCardNew extends StatelessWidget {
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
                       isActive: false,
+                      data: data,
                     ),
                   )
                 ]),

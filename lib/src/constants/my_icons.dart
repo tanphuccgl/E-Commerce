@@ -4,6 +4,7 @@ class MyIcons {
   static const String bagIcon = "assets/images/ic_bag.png";
   static const String favoriteIcon = "assets/images/ic_favorite.png";
   static const String profileIcon = "assets/images/ic_profile.png";
+  static const String bagWhiteIcon = "assets/images/ic_bag_white.png";
 
   static const String activeHomeIcon = "assets/images/ic_active_home.png";
   static const String activeShopIcon = "assets/images/ic_active_shop.png";

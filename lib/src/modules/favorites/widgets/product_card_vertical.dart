@@ -2,22 +2,22 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/utils/utils.dart';
-import 'package:e_commerce/src/widgets/button/button_add_favorite.dart';
+import 'package:e_commerce/src/widgets/button/button_add_bag.dart';
 import 'package:e_commerce/src/widgets/label/discount_label.dart';
 import 'package:e_commerce/src/widgets/label/new_label.dart';
 import 'package:flutter/material.dart';
 
-class XProductCardGrid extends StatelessWidget {
+class XProductCardFavoriteVertical extends StatelessWidget {
   final XProduct data;
-  const XProductCardGrid({Key? key, required this.data}) : super(key: key);
+  const XProductCardFavoriteVertical({Key? key, required this.data})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var numberStarActive = ((data.star).toInt() ~/ 5);
     var numberStarNoActive = 5 - numberStarActive;
-
     return SizedBox(
-      height: 260,
+      height: 280,
       width: 164,
       child: Stack(
         children: [
@@ -94,6 +94,43 @@ class XProductCardGrid extends StatelessWidget {
                     height: 1,
                     fontWeight: FontWeight.w600),
               ),
+              Row(
+                children: [
+                  RichText(
+                    text: TextSpan(
+                      text: 'Color: ',
+                      style: const TextStyle(
+                          fontSize: 11,
+                          height: 1,
+                          fontWeight: FontWeight.normal,
+                          color: MyColors.colorGray),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: '${data.color}',
+                            style: const TextStyle(color: MyColors.colorBlack)),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 30,
+                  ),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Size: ',
+                      style: const TextStyle(
+                          fontSize: 11,
+                          height: 1,
+                          fontWeight: FontWeight.normal,
+                          color: MyColors.colorGray),
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: '${data.size}',
+                            style: const TextStyle(color: MyColors.colorBlack)),
+                      ],
+                    ),
+                  )
+                ],
+              ),
               data.discount == 0.0
                   ? Text(
                       "${XUtils.formatPrice(data.originalPrice)}\$ ",
@@ -130,22 +167,32 @@ class XProductCardGrid extends StatelessWidget {
             child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: data.newProduct == true
-                          ? const NewLabel()
-                          : (data.discount != 0
-                              ? DisCountLabel(number: data.discount.toString())
-                              : const SizedBox.shrink()),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: data.newProduct == true
+                            ? const NewLabel()
+                            : (data.discount != 0
+                                ? DisCountLabel(
+                                    number: data.discount.toString())
+                                : const SizedBox.shrink()),
+                      ),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: InkWell(
+                            child: const Icon(Icons.clear,
+                                color: MyColors.colorGray),
+                            onTap: () {},
+                          )),
+                    ],
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
-                    child: XButtonAddToFavorite(
-                      isActive: false,
-                      data: data,
+                    child: XButtonAddToBag(
+                      isActive: true,
+                      onPressed: () {},
                     ),
                   )
                 ]),

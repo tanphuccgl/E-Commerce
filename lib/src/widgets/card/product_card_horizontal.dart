@@ -165,10 +165,11 @@ class XProductCardHorizontal extends StatelessWidget {
                               : const SizedBox.shrink()),
                     ),
                   ),
-                  const Align(
+                  Align(
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
                       isActive: false,
+                      data: data,
                     ),
                   )
                 ]),

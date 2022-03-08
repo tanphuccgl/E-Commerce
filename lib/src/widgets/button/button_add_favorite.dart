@@ -1,11 +1,13 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
+import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/bottom_sheet_favorite.dart';
 import 'package:flutter/material.dart';
 
 class XButtonAddToFavorite extends StatelessWidget {
+  final XProduct data;
   final bool isActive;
-  const XButtonAddToFavorite({Key? key, required this.isActive})
+  const XButtonAddToFavorite({Key? key, required this.isActive,required this.data})
       : super(key: key);
 
   @override
@@ -45,7 +47,7 @@ class XButtonAddToFavorite extends StatelessWidget {
                             topLeft: radius, topRight: radius)),
                     backgroundColor: MyColors.colorWhite,
                     builder: (BuildContext context) {
-                      return const XBottomSheetFavorite();
+                      return  XBottomSheetFavorite(data: data,);
                     });
               },
               child: const Image(
