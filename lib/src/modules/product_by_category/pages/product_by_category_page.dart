@@ -20,14 +20,12 @@ class ProductByCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var index = 3;
+    late int index;
     return BlocBuilder<ProductByCategoryBloc, ProductByCategoryState>(
         builder: (context, state) {
       index = state.sortBy.index;
       return Scaffold(
-          backgroundColor: state.isListViewType
-              ? MyColors.colorBackground2
-              : MyColors.colorWhite,
+          backgroundColor: state.viewType.backgroundColor(),
           body: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
@@ -50,63 +48,16 @@ class ProductByCategoryPage extends StatelessWidget {
                 final data = state.items ?? [];
                 List<XProduct> items =
                     data.where((e) => e.idCategory == idCategory).toList();
-                switch (index) {
-                  case 0:
-                    break;
-                  case 1:
-                    items.sort((a, b) {
-                      int item1 = (a.newProduct ?? true) ? 1 : 0;
-                      int item2 = (b.newProduct ?? true) ? 1 : 0;
-
-                      return item2.compareTo(item1);
-                    });
-                    break;
-                  case 2:
-                    items.sort((a, b) {
-                      int item1 = a.star;
-                      int item2 = b.star;
-
-                      return item2.compareTo(item1);
-                    });
-
-                    break;
-                  case 3:
-                    items.sort((a, b) {
-                      double item1 = (a.currentPrice ?? -1) > 0
-                          ? (a.currentPrice ?? -1)
-                          : (a.originalPrice);
-                      double item2 = (b.currentPrice ?? -1) > 0
-                          ? (b.currentPrice ?? -1)
-                          : (b.originalPrice);
-
-                      return item1.compareTo(item2);
-                    });
-                    break;
-                  case 4:
-                    items.sort((a, b) {
-                      double item1 = (a.currentPrice ?? -1) > 0
-                          ? (a.currentPrice ?? -1)
-                          : (a.originalPrice);
-                      double item2 = (b.currentPrice ?? -1) > 0
-                          ? (b.currentPrice ?? -1)
-                          : (b.originalPrice);
-
-                      return item2.compareTo(item1);
-                    });
-                    break;
-                  default:
-                }
+                state.sortList(items: items, index: index);
 
                 return BlocBuilder<ProductByCategoryBloc,
                     ProductByCategoryState>(builder: (context, state) {
-                  return state.isListViewType
+                  return state.viewType.index == 0
                       ? SliverList(
                           delegate:
                               SliverChildBuilderDelegate((context, index) {
                             return Padding(
-                              padding: const EdgeInsets.only(
-                                top: 10,
-                              ),
+                              padding: const EdgeInsets.only(top: 10),
                               child: Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 16),
@@ -118,11 +69,10 @@ class ProductByCategoryPage extends StatelessWidget {
                       : SliverGrid(
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 0,
-                            childAspectRatio: 0.73,
-                          ),
+                                  crossAxisCount: 2,
+                                  mainAxisSpacing: 10,
+                                  crossAxisSpacing: 0,
+                                  childAspectRatio: 0.73),
                           delegate:
                               SliverChildBuilderDelegate((context, index) {
                             return Padding(

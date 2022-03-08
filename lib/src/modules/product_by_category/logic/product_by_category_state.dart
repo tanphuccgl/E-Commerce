@@ -1,25 +1,50 @@
 part of 'product_by_category_bloc.dart';
 
 class ProductByCategoryState extends Equatable {
-  final bool isListViewType;
+  final ViewType viewType;
   final SortBy sortBy;
-  final List<bool> isSelectedList;
-  const ProductByCategoryState(
-      {this.isListViewType = true,
-      this.sortBy = SortBy.lowToHigh,
-      required this.isSelectedList});
+
+  const ProductByCategoryState({
+    this.viewType = ViewType.listView,
+    this.sortBy = SortBy.lowToHigh,
+  });
 
   @override
-  List<Object?> get props => [isListViewType, sortBy, isSelectedList];
+  List<Object?> get props => [viewType, sortBy];
   ProductByCategoryState copyWith(
       {String? label,
-      bool? isListViewType,
+      ViewType? viewType,
       SortBy? sortBy,
       List<bool>? isSelectedList}) {
     return ProductByCategoryState(
-        isSelectedList: isSelectedList ?? this.isSelectedList,
-        isListViewType: isListViewType ?? this.isListViewType,
-        sortBy: sortBy ?? this.sortBy);
+        viewType: viewType ?? this.viewType, sortBy: sortBy ?? this.sortBy);
+  }
+}
+
+enum ViewType { listView, gridView }
+
+extension ViewTypeExt on ViewType {
+  String iconOf() {
+    switch (this) {
+      case ViewType.listView:
+        return MyIcons.listIcon;
+      case ViewType.gridView:
+        return MyIcons.gridIcon;
+
+      default:
+        return "N/A";
+    }
+  }
+
+  Color backgroundColor() {
+    switch (this) {
+      case ViewType.gridView:
+        return MyColors.colorWhite;
+      case ViewType.listView:
+        return MyColors.colorBackground2;
+      default:
+        return MyColors.colorPrimary;
+    }
   }
 }
 
