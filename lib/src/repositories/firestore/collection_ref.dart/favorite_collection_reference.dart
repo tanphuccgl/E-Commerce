@@ -18,7 +18,40 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
     try {
       final User? user = AuthService().currentUser;
       if (user != null) {
-        ref.doc(user.uid).set(product);
+        XProduct value = XProduct(
+          color: product.color,
+          currentPrice: product.currentPrice,
+          discount: product.discount,
+          id: product.id,
+          idCategory: product.idCategory,
+          idUser: user.uid,
+          image: product.image,
+          name: product.name,
+          nameCategory: product.nameCategory,
+          newProduct: product.newProduct,
+          originalPrice: product.originalPrice,
+          size: product.size,
+          star: product.star,
+          type: product.type,
+        );
+// TODO: error - nếu có item cũ sẽ bị ghi đè lại field uid
+
+        ref.doc(product.id).set(value);
+
+        return XResult.success(product);
+      } else {
+        return XResult.error('Not login yet');
+      }
+    } catch (e) {
+      return XResult.exception(e);
+    }
+  }
+
+  Future<XResult<XProduct>> deleteProductToFavorite(XProduct product) async {
+    try {
+      final User? user = AuthService().currentUser;
+      if (user != null) {
+        remove(product.id);
         return XResult.success(product);
       } else {
         return XResult.error('Not login yet');

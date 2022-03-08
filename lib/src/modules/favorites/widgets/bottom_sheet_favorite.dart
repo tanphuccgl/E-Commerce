@@ -58,14 +58,17 @@ class XBottomSheetFavorite extends StatelessWidget {
               ),
               BlocBuilder<FavoriteBloc, FavoriteState>(
                   builder: (context, state) {
+                    // TODO: select size, color then add firestore
                 return XButton(
                     label: 'ADD TO FAVORITES',
                     height: 47,
                     width: double.infinity,
-                    onPressed: () {
-                      context.read<FavoriteBloc>().addProduct(data);
-                      XCoordinator.pop(context);
-                    });
+                    onPressed: state.hadFavorites(data)
+                        ? null
+                        : () {
+                            context.read<FavoriteBloc>().addProduct(data);
+                            XCoordinator.pop(context);
+                          });
               })
             ],
           ),

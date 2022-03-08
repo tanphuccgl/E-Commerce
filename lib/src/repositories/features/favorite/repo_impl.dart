@@ -23,4 +23,14 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
       return XResult.error(e.toString());
     }
   }
+
+  @override
+  Future<XResult> deleteProductToFavorite(XProduct product) async {
+    try {
+      FavoriteCollectionReference().deleteProductToFavorite(product);
+      return XResult.success('success');
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
 }

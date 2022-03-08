@@ -1,11 +1,13 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/button/button_add_bag.dart';
 import 'package:e_commerce/src/widgets/label/discount_label.dart';
 import 'package:e_commerce/src/widgets/label/new_label.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XProductCardFavoriteHorizontal extends StatelessWidget {
   final XProduct data;
@@ -216,13 +218,17 @@ class XProductCardFavoriteHorizontal extends StatelessWidget {
                                     number: data.discount.toString())
                                 : const SizedBox.shrink()),
                       ),
-                      Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: InkWell(
-                            child: const Icon(Icons.clear,
-                                color: MyColors.colorGray),
-                            onTap: () {},
-                          )),
+                      BlocBuilder<FavoriteBloc, FavoriteState>(
+                        builder: (context, state) => Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: InkWell(
+                              child: const Icon(Icons.clear,
+                                  color: MyColors.colorGray),
+                              onTap: () => context
+                                  .read<FavoriteBloc>()
+                                  .removeProduct(data),
+                            )),
+                      )
                     ],
                   ),
                   Align(

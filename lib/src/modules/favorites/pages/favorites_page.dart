@@ -54,6 +54,7 @@ class FavoritesPage extends StatelessWidget {
                           ),
                         ),
                       )
+                      // TODO: Catch state item sold out
                     : (state.viewType.index == 0
                         ? SliverList(
                             delegate:
@@ -76,7 +77,7 @@ class FavoritesPage extends StatelessWidget {
                               crossAxisCount: 2,
                               mainAxisSpacing: 10,
                               crossAxisSpacing: 0,
-                              childAspectRatio: 164 / 280,
+                              childAspectRatio: 164 / 280 + 0.1,
                             ),
                             delegate:
                                 SliverChildBuilderDelegate((context, index) {

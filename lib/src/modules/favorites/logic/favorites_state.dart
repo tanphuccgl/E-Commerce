@@ -3,8 +3,21 @@ part of 'favorites_bloc.dart';
 class FavoriteState extends Equatable {
   final ViewType viewType;
   final SortBy sortBy;
-
   final XHandle<List<XProduct>> favoriteList;
+  bool hadFavorites(XProduct product,) {
+    late bool value = false;
+    for (var item in favoriteList.data??[]) {
+  
+      if (item.id == product.id) {
+        value = true;
+        break;
+      } else {
+        value = false;
+      }
+    }
+    return value;
+  }
+
   void sortList({List<XProduct>? items, int index = 3}) {
     switch (index) {
       case 0:
