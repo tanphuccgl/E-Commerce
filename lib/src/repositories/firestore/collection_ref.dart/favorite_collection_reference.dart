@@ -18,6 +18,8 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
     try {
       final User? user = AuthService().currentUser;
       if (user != null) {
+        String idDocs = product.id + user.uid;
+
         XProduct value = XProduct(
           color: product.color,
           currentPrice: product.currentPrice,
@@ -34,9 +36,7 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
           star: product.star,
           type: product.type,
         );
-// TODO: error - nếu có item cũ sẽ bị ghi đè lại field uid
-
-        ref.doc(product.id).set(value);
+        ref.doc(idDocs).set(value);
 
         return XResult.success(product);
       } else {
@@ -51,7 +51,8 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
     try {
       final User? user = AuthService().currentUser;
       if (user != null) {
-        remove(product.id);
+        String idDocs = product.id + user.uid;
+        remove(idDocs);
         return XResult.success(product);
       } else {
         return XResult.error('Not login yet');
