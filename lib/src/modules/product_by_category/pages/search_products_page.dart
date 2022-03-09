@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
 import 'package:e_commerce/src/modules/product_by_category/widgets/search_text_filed.dart';
@@ -39,6 +40,8 @@ class SearchProductsByCategoryPage extends StatelessWidget {
                   width: 50,
                   height: 50,
                 ),
+                onTap: () =>
+                    XCoordinator.showDetailProduct(context, data: item),
                 title: Text(item.name),
                 subtitle: Text(item.type),
               );

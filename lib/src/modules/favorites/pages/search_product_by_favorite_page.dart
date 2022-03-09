@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
@@ -39,6 +40,8 @@ class SearchProductsByFavoritePage extends StatelessWidget {
                 final item = items[index];
 
                 return ListTile(
+                  onTap: () =>
+                      XCoordinator.showDetailProduct(context, data: item),
                   leading: Image.network(
                     item.image ?? '',
                     fit: BoxFit.fill,

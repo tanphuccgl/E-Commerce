@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
+import 'package:e_commerce/src/models/products_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -14,5 +15,8 @@ class XCoordinator {
 
   static showDashboard() {
     rootRouter.replace(const DashboardWrapperRoute());
+  }
+   static showDetailProduct(BuildContext context,{required XProduct data}) {
+    context.router.push( ProductDetailsRoute(data:data ));
   }
 }
