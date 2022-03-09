@@ -168,7 +168,6 @@ class XProductCardHorizontal extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
-                      isActive: false,
                       data: data,
                     ),
                   )

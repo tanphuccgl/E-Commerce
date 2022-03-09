@@ -144,7 +144,6 @@ class XProductCardGrid extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
-                      isActive: false,
                       data: data,
                     ),
                   )
