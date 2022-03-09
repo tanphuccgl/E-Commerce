@@ -11,7 +11,7 @@ class TopImages extends StatelessWidget {
       child: ListView.builder(
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.only(left: 4),
+              padding: const EdgeInsets.only(right: 4),
               child: Image(
                 image: NetworkImage(urlImage),
               ),
