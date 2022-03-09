@@ -35,6 +35,7 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
           size: product.size,
           star: product.star,
           type: product.type,
+          soldOut: product.soldOut,
         );
         ref.doc(idDocs).set(value);
 

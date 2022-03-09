@@ -49,6 +49,7 @@ class FavoriteBloc extends Cubit<FavoriteState> {
       size: sizeType.value(),
       star: product.star,
       type: product.type,
+      soldOut: product.soldOut,
     );
     final value = await domain.favorite.addProductToFavorite(xProduct);
     if (value.isSuccess) {
