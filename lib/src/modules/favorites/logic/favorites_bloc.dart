@@ -14,7 +14,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'favorites_state.dart';
 
 class FavoriteBloc extends Cubit<FavoriteState> {
-  FavoriteBloc() : super(FavoriteState(favoriteList: XHandle.completed([]))) {
+  FavoriteBloc()
+      : super(FavoriteState(
+            favoriteList: XHandle.completed([]),
+            searchList: XHandle.completed([]))) {
     getProduct();
   }
   final Domain domain = Domain();
@@ -99,5 +102,22 @@ class FavoriteBloc extends Cubit<FavoriteState> {
   void initSizeType() async {
     await Future.delayed(const Duration(seconds: 2));
     emit(state.copyWithItem(sizeType: SizeType.xs));
+  }
+
+  Future<void> searchProduct(String query) async {
+    late List<XProduct> items;
+    if (query.isEmpty || query == '') {
+      items = [];
+    } else {
+      items = (state.favoriteList.data ?? []).where((e) {
+        final titleLower = e.name.toLowerCase();
+        final searchLower = query.toLowerCase();
+
+        return titleLower.contains(searchLower);
+      }).toList();
+    }
+
+    emit(state.copyWithItem(
+        searchList: XHandle.completed(items), searchText: query));
   }
 }

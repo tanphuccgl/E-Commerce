@@ -36,7 +36,7 @@ class HeaderFavorite extends SliverPersistentHeaderDelegate {
                   icon: const Icon(Icons.search),
                   color: MyColors.colorBlack,
                   onPressed: () =>
-                      DashboardCoordinator.showSearchProduct(context),
+                      DashboardCoordinator.showSearchProductByFavorite(context),
                 )
               ],
               elevation: 3,

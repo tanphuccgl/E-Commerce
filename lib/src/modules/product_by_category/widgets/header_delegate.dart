@@ -41,7 +41,7 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                   icon: const Icon(Icons.search),
                   color: MyColors.colorBlack,
                   onPressed: () =>
-                      DashboardCoordinator.showSearchProduct(context),
+                      DashboardCoordinator.showSearchProductByCategory(context),
                 )
               ],
               elevation: 3,

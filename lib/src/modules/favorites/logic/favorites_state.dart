@@ -4,6 +4,9 @@ class FavoriteState extends Equatable {
   final ViewType viewType;
   final SortBy sortBy;
   final SizeType sizeType;
+  final XHandle<List<XProduct>> searchList;
+  final String searchText;
+
   final XHandle<List<XProduct>> favoriteList;
   bool hadFavorites(
     XProduct product,
@@ -71,18 +74,25 @@ class FavoriteState extends Equatable {
 
   const FavoriteState(
       {required this.favoriteList,
+      this.searchText = '',
+      required this.searchList,
       this.sortBy = SortBy.lowToHigh,
       this.sizeType = SizeType.xs,
       this.viewType = ViewType.listView});
 
   @override
-  List<Object?> get props => [favoriteList.data, sortBy, viewType, sizeType];
+  List<Object?> get props =>
+      [favoriteList.data, sortBy, viewType, sizeType, searchList, searchText];
   FavoriteState copyWithItem(
       {XHandle<List<XProduct>>? favoriteList,
+      XHandle<List<XProduct>>? searchList,
+      String? searchText,
       ViewType? viewType,
       SizeType? sizeType,
       SortBy? sortBy}) {
     return FavoriteState(
+        searchList: searchList ?? this.searchList,
+        searchText: searchText ?? this.searchText,
         favoriteList: favoriteList ?? this.favoriteList,
         sizeType: sizeType ?? this.sizeType,
         sortBy: sortBy ?? this.sortBy,

@@ -14,7 +14,7 @@ class DashboardPage extends StatelessWidget {
           HomeRoute(),
           ShopTab(),
           BagRoute(),
-          FavoritesRoute(),
+          FavoritesTab(),
           ProfileTab(),
         ],
         bottomNavigationBuilder: (_, tabsRouter) {

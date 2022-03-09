@@ -29,7 +29,8 @@ class ShopPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.search),
             color: MyColors.colorBlack,
-            onPressed: () => DashboardCoordinator.showSearchProduct(context),
+            onPressed: () =>
+                DashboardCoordinator.showSearchProductByCategory(context),
           )
         ],
       ),
