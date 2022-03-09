@@ -35,7 +35,7 @@ class SignUpBloc extends SignBloc<SignUpState> {
       var value = await domain.sign.signUp(
           email: state.email, password: state.password, name: state.name);
       if (value.isSuccess) {
-        context.read<AccountBloc>().setDataLogin(user: value.data);
+        context.read<AccountBloc>().setDataLogin(context, user: value.data);
         XCoordinator.showDashboard();
         XSnackBar.show(msg: "Account successfully created");
       } else {

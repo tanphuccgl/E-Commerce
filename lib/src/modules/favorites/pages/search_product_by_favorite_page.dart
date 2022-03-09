@@ -2,7 +2,6 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
 import 'package:e_commerce/src/modules/product_by_category/widgets/search_text_filed.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';

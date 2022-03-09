@@ -14,7 +14,7 @@ class ProfileBloc extends Cubit<ProfileState> {
   final Domain domain = Domain();
   void uploadAvatar(BuildContext context, XFile image) async {
     var value = await domain.profile.uploadAvatar(image);
-    context.read<AccountBloc>().setDataLogin(user: value.data);
+    context.read<AccountBloc>().setDataLogin(context, user: value.data);
     emit(state.copyWith(data: value.data));
     if (value.isSuccess) {
       XSnackBar.show(msg: "Upload photo successfully");

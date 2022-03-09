@@ -30,7 +30,7 @@ class SignBloc<T extends SignState> extends Cubit<T> {
       var value = await domain.sign.loginWithGoogle();
 
       if (value.isSuccess) {
-        context.read<AccountBloc>().setDataLogin(user: value.data!);
+        context.read<AccountBloc>().setDataLogin(context, user: value.data!);
         XCoordinator.showDashboard();
         XSnackBar.show(msg: "Logged in successfully");
       } else {

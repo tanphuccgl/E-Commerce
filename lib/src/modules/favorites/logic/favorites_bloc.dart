@@ -24,7 +24,6 @@ class FavoriteBloc extends Cubit<FavoriteState> {
 
   Future<void> getProduct() async {
     User? currentUser = AuthService().currentUser;
-    // TODO:  error - khi logout vẫn giữ list hiện tại, reload mới mất
     final value = await domain.favorite.getProductToFavorite();
     if (value.isSuccess) {
       List<XProduct> items = [...(state.favoriteList.data ?? [])];
