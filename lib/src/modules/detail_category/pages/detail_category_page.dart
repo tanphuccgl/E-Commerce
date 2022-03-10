@@ -1,29 +1,29 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
-import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
-import 'package:e_commerce/src/modules/product_by_category/logic/product_by_category_bloc.dart';
-
-import 'package:e_commerce/src/modules/product_by_category/widgets/header_delegate.dart';
-import 'package:e_commerce/src/widgets/card/product_card_gird.dart';
-
-import 'package:e_commerce/src/widgets/card/product_card_horizontal.dart';
+import 'package:e_commerce/src/models/result.dart';
+import 'package:e_commerce/src/modules/detail_category/widgets/header_detail_category_delegate.dart';
+import 'package:e_commerce/src/modules/detail_category/widgets/product_card_horizontal.dart';
+import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
+import 'package:e_commerce/src/utils/enum/sort_by.dart';
+import 'package:e_commerce/src/utils/enum/view_type.dart';
+import 'package:e_commerce/src/widgets/card/product_card_vertical.dart';
+import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
+import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ProductByCategoryPage extends StatelessWidget {
+class DetailCategoryPage extends StatelessWidget {
   final String idCategory;
   final String nameCategory;
-  const ProductByCategoryPage(
+  const DetailCategoryPage(
       {Key? key, required this.idCategory, required this.nameCategory})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    late int index;
-    return BlocBuilder<ProductByCategoryBloc, ProductByCategoryState>(
-        builder: (context, state) {
-      index = state.sortBy.index;
+    return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
       return Scaffold(
           backgroundColor: state.viewType.backgroundColor(),
           body: CustomScrollView(
@@ -45,13 +45,12 @@ class ProductByCategoryPage extends StatelessWidget {
                 ),
               ),
               BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
-                final data = state.items ?? [];
+                final data = state.items.data ?? [];
                 List<XProduct> items =
                     data.where((e) => e.idCategory == idCategory).toList();
-                state.sortList(items: items, index: index);
-
-                return BlocBuilder<ProductByCategoryBloc,
-                    ProductByCategoryState>(builder: (context, state) {
+                state.sortBy.sortList(items: items);
+                XHandle handle = XHandle.result(XResult.success(items));
+                if (handle.isCompleted) {
                   return state.viewType.index == 0
                       ? SliverList(
                           delegate:
@@ -77,11 +76,15 @@ class ProductByCategoryPage extends StatelessWidget {
                               SliverChildBuilderDelegate((context, index) {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                              child: XProductCardGrid(data: items[index]),
+                              child: XProductCardVertical(data: items[index]),
                             );
                           }, childCount: items.length),
                         );
-                });
+                } else if (handle.isLoading) {
+                  return const XStateLoadingWidget();
+                } else {
+                  return const XStateErrorWidget();
+                }
               })
             ],
           ));

@@ -2,7 +2,7 @@ import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/modules/product_by_category/logic/product_by_category_bloc.dart';
+import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

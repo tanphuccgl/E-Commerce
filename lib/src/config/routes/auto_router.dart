@@ -15,8 +15,12 @@ import 'package:e_commerce/src/modules/product_details/pages/product_details_pag
       page: LoadingPage,
       initial: true,
     ),
+
     AutoRoute(
-        path: 'detail', page: ProductDetailsPage, name: 'ProductDetailsRoute'),
+      path: XRoutes.detailProduct,
+      page: ProductDetailsPage,
+      name: 'ProductDetailsRoute',
+    ),
 
     // redirect all other paths
     RedirectRoute(path: '*', redirectTo: ''),

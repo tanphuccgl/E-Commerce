@@ -40,7 +40,7 @@ class PasswordForm extends StatelessWidget {
                                 topLeft: radius, topRight: radius)),
                         backgroundColor: MyColors.colorBackground,
                         builder: (BuildContext context) {
-                          return const XBottomSheet();
+                          return const XBottomSheetA();
                         });
                   },
                   child: const Text(

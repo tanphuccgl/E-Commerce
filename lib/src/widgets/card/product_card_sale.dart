@@ -13,8 +13,6 @@ class XProductCardSale extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var numberStarActive = ((data.star).toInt() ~/ 5);
-    var numberStarNoActive = 5 - numberStarActive;
     return GestureDetector(
       onTap: () => XCoordinator.showDetailProduct(context, data: data),
       child: SizedBox(
@@ -22,99 +20,7 @@ class XProductCardSale extends StatelessWidget {
         width: 150,
         child: Stack(
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(
-                  height: 184,
-                  width: 148,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: Image(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(data.image ?? "N/A"),
-                    ),
-                  ),
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return SizedBox(
-                              width: 13,
-                              height: 12,
-                              child: Image.asset(MyIcons.activeStarIcon,
-                                  fit: BoxFit.scaleDown),
-                            );
-                          },
-                          itemCount: numberStarActive),
-                    ),
-                    SizedBox(
-                      height: 20,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return SizedBox(
-                              width: 13,
-                              height: 12,
-                              child: Image.asset(MyIcons.starIcon,
-                                  fit: BoxFit.scaleDown),
-                            );
-                          },
-                          itemCount: numberStarNoActive),
-                    ),
-                    const SizedBox(width: 3),
-                    Text(
-                      "${data.star}",
-                      style: const TextStyle(
-                          fontSize: 10,
-                          color: MyColors.colorGray,
-                          fontWeight: FontWeight.normal),
-                    )
-                  ],
-                ),
-                Text(
-                  data.name,
-                  style: const TextStyle(
-                      fontSize: 11,
-                      color: MyColors.colorGray,
-                      fontWeight: FontWeight.normal),
-                ),
-                Text(
-                  data.type,
-                  style: const TextStyle(
-                      fontSize: 16,
-                      color: MyColors.colorBlack,
-                      height: 1,
-                      fontWeight: FontWeight.w600),
-                ),
-                RichText(
-                  text: TextSpan(
-                    text: "${XUtils.formatPrice(data.originalPrice)}\$ ",
-                    style: const TextStyle(
-                        fontSize: 14,
-                        height: 1.42,
-                        decoration: TextDecoration.lineThrough,
-                        color: MyColors.colorGray,
-                        fontWeight: FontWeight.w600),
-                    children: <TextSpan>[
-                      TextSpan(
-                          text:
-                              "${XUtils.formatPrice(data.currentPrice ?? -1)}\$",
-                          style: const TextStyle(
-                            color: MyColors.colorSaleHot,
-                            decoration: TextDecoration.none,
-                          )),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+            _belowCard(),
             SizedBox(
               height: 200,
               child: Column(
@@ -140,6 +46,103 @@ class XProductCardSale extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Widget _belowCard() {
+    var numberStarActive = ((data.star).toInt() ~/ 5);
+    var numberStarNoActive = 5 - numberStarActive;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 184,
+          width: 148,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image(
+              fit: BoxFit.fill,
+              image: NetworkImage(data.image ?? "N/A"),
+            ),
+          ),
+        ),
+        Row(
+          children: [
+            SizedBox(
+              height: 20,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      width: 13,
+                      height: 12,
+                      child: Image.asset(MyIcons.activeStarIcon,
+                          fit: BoxFit.scaleDown),
+                    );
+                  },
+                  itemCount: numberStarActive),
+            ),
+            SizedBox(
+              height: 20,
+              child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      width: 13,
+                      height: 12,
+                      child:
+                          Image.asset(MyIcons.starIcon, fit: BoxFit.scaleDown),
+                    );
+                  },
+                  itemCount: numberStarNoActive),
+            ),
+            const SizedBox(width: 3),
+            Text(
+              "${data.star}",
+              style: const TextStyle(
+                  fontSize: 10,
+                  color: MyColors.colorGray,
+                  fontWeight: FontWeight.normal),
+            )
+          ],
+        ),
+        Text(
+          data.name,
+          style: const TextStyle(
+              fontSize: 11,
+              color: MyColors.colorGray,
+              fontWeight: FontWeight.normal),
+        ),
+        Text(
+          data.type,
+          style: const TextStyle(
+              fontSize: 16,
+              color: MyColors.colorBlack,
+              height: 1,
+              fontWeight: FontWeight.w600),
+        ),
+        RichText(
+          text: TextSpan(
+            text: "${XUtils.formatPrice(data.originalPrice)}\$ ",
+            style: const TextStyle(
+                fontSize: 14,
+                height: 1.42,
+                decoration: TextDecoration.lineThrough,
+                color: MyColors.colorGray,
+                fontWeight: FontWeight.w600),
+            children: <TextSpan>[
+              TextSpan(
+                  text: "${XUtils.formatPrice(data.currentPrice ?? -1)}\$",
+                  style: const TextStyle(
+                    color: MyColors.colorSaleHot,
+                    decoration: TextDecoration.none,
+                  )),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

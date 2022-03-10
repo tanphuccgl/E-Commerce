@@ -20,15 +20,12 @@ import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i17;
 import '../../modules/bag/pages/bag_page.dart' as _i8;
 import '../../modules/dashboard/pages/dashboard_page.dart' as _i5;
 import '../../modules/dashboard/router/dashboard_wrapper_router.dart' as _i1;
+import '../../modules/detail_category/pages/detail_category_page.dart' as _i10;
+import '../../modules/detail_category/pages/search_products_page.dart' as _i11;
 import '../../modules/favorites/pages/favorites_page.dart' as _i12;
-import '../../modules/favorites/pages/search_product_by_favorite_page.dart'
-    as _i13;
+import '../../modules/favorites/pages/search_favorite_page.dart' as _i13;
 import '../../modules/home/pages/home_page.dart' as _i6;
 import '../../modules/loading/pages/loading_page.dart' as _i3;
-import '../../modules/product_by_category/pages/product_by_category_page.dart'
-    as _i10;
-import '../../modules/product_by_category/pages/search_products_page.dart'
-    as _i11;
 import '../../modules/product_details/pages/product_details_page.dart' as _i4;
 import '../../modules/profile/pages/profile_page.dart' as _i14;
 import '../../modules/settings/pages/setting_page.dart' as _i15;
@@ -53,10 +50,14 @@ class XRouter extends _i7.RootStackRouter {
           routeData: routeData, child: const _i3.LoadingPage());
     },
     ProductDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<ProductDetailsRouteArgs>();
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<ProductDetailsRouteArgs>(
+          orElse: () =>
+              ProductDetailsRouteArgs(id: pathParams.getString('id')));
       return _i7.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i4.ProductDetailsPage(key: args.key, data: args.data));
+          child: _i4.ProductDetailsPage(
+              id: args.id, key: args.key, data: args.data));
     },
     DashboardRoute.name: (routeData) {
       return _i7.MaterialPageX<dynamic>(
@@ -86,11 +87,11 @@ class XRouter extends _i7.RootStackRouter {
       return _i7.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i9.ShopPage());
     },
-    ProductByCategoryRoute.name: (routeData) {
-      final args = routeData.argsAs<ProductByCategoryRouteArgs>();
+    DetailCategoryRoute.name: (routeData) {
+      final args = routeData.argsAs<DetailCategoryRouteArgs>();
       return _i7.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i10.ProductByCategoryPage(
+          child: _i10.DetailCategoryPage(
               key: args.key,
               idCategory: args.idCategory,
               nameCategory: args.nameCategory));
@@ -104,10 +105,9 @@ class XRouter extends _i7.RootStackRouter {
       return _i7.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i12.FavoritesPage());
     },
-    SearchProductsByFavoriteRoute.name: (routeData) {
+    SearchFavoriteRoute.name: (routeData) {
       return _i7.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: const _i13.SearchProductsByFavoritePage());
+          routeData: routeData, child: const _i13.SearchFavoritePage());
     },
     ProfileRoute.name: (routeData) {
       return _i7.MaterialPageX<dynamic>(
@@ -146,7 +146,7 @@ class XRouter extends _i7.RootStackRouter {
                         children: [
                           _i7.RouteConfig(ShopRoute.name,
                               path: '', parent: ShopTab.name),
-                          _i7.RouteConfig(ProductByCategoryRoute.name,
+                          _i7.RouteConfig(DetailCategoryRoute.name,
                               path: 'productByCategory', parent: ShopTab.name),
                           _i7.RouteConfig(SearchProductsByCategoryRoute.name,
                               path: 'searchProductsByCategoryPage',
@@ -165,7 +165,7 @@ class XRouter extends _i7.RootStackRouter {
                         children: [
                           _i7.RouteConfig(FavoritesRoute.name,
                               path: '', parent: FavoritesTab.name),
-                          _i7.RouteConfig(SearchProductsByFavoriteRoute.name,
+                          _i7.RouteConfig(SearchFavoriteRoute.name,
                               path: 'searchProductsByFavoritePage',
                               parent: FavoritesTab.name),
                           _i7.RouteConfig('*#redirect',
@@ -217,7 +217,7 @@ class XRouter extends _i7.RootStackRouter {
               fullMatch: true)
         ]),
         _i7.RouteConfig(LoadingRoute.name, path: ''),
-        _i7.RouteConfig(ProductDetailsRoute.name, path: 'detail'),
+        _i7.RouteConfig(ProductDetailsRoute.name, path: '/detail/:id'),
         _i7.RouteConfig('*#redirect',
             path: '*', redirectTo: '', fullMatch: true)
       ];
@@ -253,24 +253,27 @@ class LoadingRoute extends _i7.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.ProductDetailsPage]
 class ProductDetailsRoute extends _i7.PageRouteInfo<ProductDetailsRouteArgs> {
-  ProductDetailsRoute({_i18.Key? key, required _i19.XProduct data})
+  ProductDetailsRoute({required String id, _i18.Key? key, _i19.XProduct? data})
       : super(ProductDetailsRoute.name,
-            path: 'detail',
-            args: ProductDetailsRouteArgs(key: key, data: data));
+            path: '/detail/:id',
+            args: ProductDetailsRouteArgs(id: id, key: key, data: data),
+            rawPathParams: {'id': id});
 
   static const String name = 'ProductDetailsRoute';
 }
 
 class ProductDetailsRouteArgs {
-  const ProductDetailsRouteArgs({this.key, required this.data});
+  const ProductDetailsRouteArgs({required this.id, this.key, this.data});
+
+  final String id;
 
   final _i18.Key? key;
 
-  final _i19.XProduct data;
+  final _i19.XProduct? data;
 
   @override
   String toString() {
-    return 'ProductDetailsRouteArgs{key: $key, data: $data}';
+    return 'ProductDetailsRouteArgs{id: $id, key: $key, data: $data}';
   }
 }
 
@@ -335,21 +338,20 @@ class ShopRoute extends _i7.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.ProductByCategoryPage]
-class ProductByCategoryRoute
-    extends _i7.PageRouteInfo<ProductByCategoryRouteArgs> {
-  ProductByCategoryRoute(
+/// [_i10.DetailCategoryPage]
+class DetailCategoryRoute extends _i7.PageRouteInfo<DetailCategoryRouteArgs> {
+  DetailCategoryRoute(
       {_i18.Key? key, required String idCategory, required String nameCategory})
-      : super(ProductByCategoryRoute.name,
+      : super(DetailCategoryRoute.name,
             path: 'productByCategory',
-            args: ProductByCategoryRouteArgs(
+            args: DetailCategoryRouteArgs(
                 key: key, idCategory: idCategory, nameCategory: nameCategory));
 
-  static const String name = 'ProductByCategoryRoute';
+  static const String name = 'DetailCategoryRoute';
 }
 
-class ProductByCategoryRouteArgs {
-  const ProductByCategoryRouteArgs(
+class DetailCategoryRouteArgs {
+  const DetailCategoryRouteArgs(
       {this.key, required this.idCategory, required this.nameCategory});
 
   final _i18.Key? key;
@@ -360,7 +362,7 @@ class ProductByCategoryRouteArgs {
 
   @override
   String toString() {
-    return 'ProductByCategoryRouteArgs{key: $key, idCategory: $idCategory, nameCategory: $nameCategory}';
+    return 'DetailCategoryRouteArgs{key: $key, idCategory: $idCategory, nameCategory: $nameCategory}';
   }
 }
 
@@ -383,13 +385,12 @@ class FavoritesRoute extends _i7.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.SearchProductsByFavoritePage]
-class SearchProductsByFavoriteRoute extends _i7.PageRouteInfo<void> {
-  const SearchProductsByFavoriteRoute()
-      : super(SearchProductsByFavoriteRoute.name,
-            path: 'searchProductsByFavoritePage');
+/// [_i13.SearchFavoritePage]
+class SearchFavoriteRoute extends _i7.PageRouteInfo<void> {
+  const SearchFavoriteRoute()
+      : super(SearchFavoriteRoute.name, path: 'searchProductsByFavoritePage');
 
-  static const String name = 'SearchProductsByFavoriteRoute';
+  static const String name = 'SearchFavoriteRoute';
 }
 
 /// generated route for

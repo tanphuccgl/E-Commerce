@@ -2,7 +2,7 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/modules/favorites/widgets/bottom_sheet_favorite.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

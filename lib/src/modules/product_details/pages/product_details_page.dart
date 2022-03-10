@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
@@ -11,15 +12,21 @@ import 'package:e_commerce/src/widgets/button/button_add_favorite.dart';
 import 'package:flutter/material.dart';
 
 class ProductDetailsPage extends StatelessWidget {
-  final XProduct data;
-  const ProductDetailsPage({Key? key, required this.data}) : super(key: key);
+  final XProduct? data;
+  final String id;
+  const ProductDetailsPage({
+    @PathParam('id') required this.id,
+    Key? key,
+    this.data,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var value = data ?? XProduct();
     return Scaffold(
       backgroundColor: MyColors.colorBackground,
       appBar: AppBarSign(
-        title: data.type,
+        title: value.type,
         style: const TextStyle(
             color: MyColors.colorBlack,
             fontSize: 18,
@@ -27,26 +34,24 @@ class ProductDetailsPage extends StatelessWidget {
             fontWeight: FontWeight.w600),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.share))],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TopImages(urlImage: data.image ?? 'N/A'),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
-                child: Column(
-                  children: [
-                    _topButton(),
-                    const SizedBox(height: 20),
-                    XDetails(data: data)
-                  ],
-                )),
-            const ListTileDetailProduct(),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(0, 12, 0, 30),
-              child: RelatedProducts(),
-            ),
-          ],
-        ),
+      body: ListView(
+        children: [
+          TopImages(urlImage: value.image ?? 'N/A'),
+          Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 20),
+              child: Column(
+                children: [
+                  _topButton(),
+                  const SizedBox(height: 20),
+                  XDetails(data: data ?? XProduct())
+                ],
+              )),
+          const ListTileDetailProduct(),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(0, 12, 0, 30),
+            child: RelatedProducts(),
+          ),
+        ],
       ),
     );
   }
@@ -57,7 +62,7 @@ class ProductDetailsPage extends StatelessWidget {
       children: [
         const XDropdownSize(),
         const XDropdownColor(),
-        XButtonAddToFavorite(data: data),
+        XButtonAddToFavorite(data: data ?? XProduct()),
       ],
     );
   }

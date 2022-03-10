@@ -4,12 +4,13 @@ import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/button/button_add_favorite.dart';
+import 'package:e_commerce/src/widgets/label/discount_label.dart';
 import 'package:e_commerce/src/widgets/label/new_label.dart';
 import 'package:flutter/material.dart';
 
-class XProductCardNew extends StatelessWidget {
+class XProductCardVertical extends StatelessWidget {
   final XProduct data;
-  const XProductCardNew({Key? key, required this.data}) : super(key: key);
+  const XProductCardVertical({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class XProductCardNew extends StatelessWidget {
       onTap: () => XCoordinator.showDetailProduct(context, data: data),
       child: SizedBox(
         height: 260,
-        width: 150,
+        width: 164,
         child: Stack(
           children: [
             _belowCard(),
@@ -26,11 +27,16 @@ class XProductCardNew extends StatelessWidget {
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Align(
+                    Align(
                       alignment: Alignment.topLeft,
                       child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: NewLabel(),
+                        padding: const EdgeInsets.all(8.0),
+                        child: data.newProduct == true
+                            ? const NewLabel()
+                            : (data.discount != 0
+                                ? DisCountLabel(
+                                    number: data.discount.toString())
+                                : const SizedBox.shrink()),
                       ),
                     ),
                     Align(
@@ -55,7 +61,7 @@ class XProductCardNew extends StatelessWidget {
       children: [
         SizedBox(
           height: 184,
-          width: 148,
+          width: 162,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image(
@@ -115,6 +121,7 @@ class XProductCardNew extends StatelessWidget {
         ),
         Text(
           data.type,
+          maxLines: 1,
           style: const TextStyle(
               fontSize: 16,
               overflow: TextOverflow.clip,
@@ -122,14 +129,35 @@ class XProductCardNew extends StatelessWidget {
               height: 1,
               fontWeight: FontWeight.w600),
         ),
-        Text(
-          "${XUtils.formatPrice(data.originalPrice)}\$ ",
-          style: const TextStyle(
-              fontSize: 14,
-              height: 1.42,
-              color: MyColors.colorBlack,
-              fontWeight: FontWeight.w600),
-        ),
+        data.discount == 0.0
+            ? Text(
+                "${XUtils.formatPrice(data.originalPrice)}\$ ",
+                style: const TextStyle(
+                    fontSize: 14,
+                    height: 1.42,
+                    color: MyColors.colorBlack,
+                    fontWeight: FontWeight.w600),
+              )
+            : RichText(
+                text: TextSpan(
+                  text: "${XUtils.formatPrice(data.originalPrice)}\$ ",
+                  style: const TextStyle(
+                      fontSize: 14,
+                      height: 1.42,
+                      decoration: TextDecoration.lineThrough,
+                      color: MyColors.colorGray,
+                      fontWeight: FontWeight.w600),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text:
+                            "${XUtils.formatPrice(data.currentPrice ?? -1)}\$",
+                        style: const TextStyle(
+                          color: MyColors.colorSaleHot,
+                          decoration: TextDecoration.none,
+                        )),
+                  ],
+                ),
+              ),
       ],
     );
   }

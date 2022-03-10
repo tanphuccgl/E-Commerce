@@ -2,6 +2,7 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
+import 'package:e_commerce/src/utils/enum/size_type.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -70,8 +71,10 @@ class XBottomSheetFavorite extends StatelessWidget {
                     onPressed: state.hadFavorites(data)
                         ? null
                         : () {
-                            context.read<FavoriteBloc>().addProduct(context,
-                                product: data, sizeType: state.sizeType);
+                            context.read<FavoriteBloc>().addProductToFavorite(
+                                context,
+                                product: data,
+                                sizeType: state.sizeType);
                           })
               ],
             ),
