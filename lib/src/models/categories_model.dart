@@ -3,12 +3,11 @@ import 'package:e_commerce/src/models/firestore_model.dart';
 
 class XCategories extends BaseModel {
   String? name;
-  int? idCategory;
 
-  XCategories({int? id, this.name, this.idCategory}) : super(id: id.toString());
+  XCategories({String id='', this.name, }) : super(id: id);
 
   factory XCategories.fromJson(Map<String, dynamic> json) {
-    return XCategories(name: json['name'], idCategory: json['id']);
+    return XCategories(name: json['name'], id: json['id']);
   }
   factory XCategories.empty() {
     return XCategories();
@@ -19,7 +18,7 @@ class XCategories extends BaseModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['id'] = idCategory;
+    data['id'] = id;
     data['name'] = name;
     return data;
   }

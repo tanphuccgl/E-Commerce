@@ -10,30 +10,46 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocProvider(
       create: (_) => ProductBloc(),
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(children: [
-            const BannerHome(),
-            Padding(
-              padding: const EdgeInsets.only(left: 18),
-              child: Column(
-                children: const [
-                  SaleProduct(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  NewProduct(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                ],
-              ),
+          body: CustomScrollView(
+        physics: const BouncingScrollPhysics(),
+        slivers: [
+          SliverAppBar(
+            backgroundColor: Colors.transparent,
+            stretch: true,
+            expandedHeight: size.height * 0.24,
+            flexibleSpace: const FlexibleSpaceBar(
+              stretchModes: [
+                StretchMode.blurBackground,
+                StretchMode.zoomBackground
+              ],
+              background: BannerHome(),
             ),
-          ]),
-        ),
-      ),
+          ),
+          SliverList(
+            delegate: SliverChildBuilderDelegate((context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(left: 18, top: 37),
+                child: Column(
+                  children: const [
+                    SaleProduct(),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    NewProduct(),
+                    SizedBox(
+                      height: 30,
+                    ),
+                  ],
+                ),
+              );
+            }, childCount: 1),
+          )
+        ],
+      )),
     );
   }
 }

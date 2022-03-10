@@ -6,6 +6,8 @@ import 'package:e_commerce/src/config/themes/themes.dart';
 
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
+import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
+import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,8 +38,10 @@ class MyApp extends StatelessWidget {
     final appRouter = GetIt.I<XRouter>();
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (_) => AccountBloc(AccountState(data: XUser.empty()))),
-
+        BlocProvider(
+            create: (_) => AccountBloc(AccountState(data: XUser.empty()))),
+        BlocProvider(create: (_) => ProductBloc()),
+        BlocProvider(create: (_) => CategoriesBloc()),
       ],
       child: MaterialApp.router(
         theme: XTheme.light(),

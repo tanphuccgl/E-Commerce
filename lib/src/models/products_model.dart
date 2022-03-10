@@ -2,31 +2,34 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
 
 class XProduct extends BaseModel {
-  String? name;
+  String name;
   String? image;
-  int? star;
-  String? type;
+  int star;
+  String type;
   String? color;
   String? size;
-  // to do
-  double? originalPrice;
+  double originalPrice;
   double? discount;
   double? currentPrice;
   bool? newProduct;
+  String idCategory;
+  String nameCategory;
 
   XProduct(
-      {this.name,
-      int id = 0,
+      {this.name = '',
+      this.idCategory = '',
+      this.nameCategory = '',
+      String id = '',
       this.image,
-      this.star,
-      this.type,
+      this.star = 0,
+      this.type = '',
       this.color,
       this.size,
-      this.originalPrice,
+      this.originalPrice = 0,
       this.discount,
       this.currentPrice,
       this.newProduct})
-      : super(id: id.toString());
+      : super(id: id);
 
   factory XProduct.fromJson(Map<String, dynamic> json) {
     return XProduct(
@@ -40,6 +43,9 @@ class XProduct extends BaseModel {
       discount: json['discount'].toDouble(),
       currentPrice: json['currentPrice'].toDouble(),
       newProduct: json['newProduct'],
+      id: json['id'],
+      idCategory: json['idCategory'],
+      nameCategory: json['nameCategory'],
     );
   }
   factory XProduct.empty() {
@@ -62,6 +68,10 @@ class XProduct extends BaseModel {
     data['discount'] = discount;
     data['currentPrice'] = currentPrice;
     data['newProduct'] = newProduct;
+    data['idCategory'] = idCategory;
+
+    data['nameCategory'] = nameCategory;
+
     return data;
   }
 }

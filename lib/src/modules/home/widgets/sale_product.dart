@@ -1,3 +1,4 @@
+
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
@@ -72,8 +73,7 @@ class SaleProduct extends StatelessWidget {
               ],
             ),
             TextButton(
-                onPressed: () {
-                },
+                onPressed: () {},
                 child: const Text(
                   "View all",
                   style: TextStyle(
