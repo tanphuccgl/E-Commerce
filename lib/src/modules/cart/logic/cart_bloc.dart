@@ -7,6 +7,7 @@ import 'package:e_commerce/src/utils/enum/color_type.dart';
 import 'package:e_commerce/src/utils/enum/size_type.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';

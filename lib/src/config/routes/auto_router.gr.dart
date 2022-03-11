@@ -18,7 +18,7 @@ import '../../models/products_model.dart' as _i20;
 import '../../modules/auth/login/pages/login_page.dart' as _i16;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
 import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i17;
-import '../../modules/bag/pages/bag_page.dart' as _i8;
+import '../../modules/cart/pages/cart_page.dart' as _i8;
 import '../../modules/dashboard/pages/dashboard_page.dart' as _i5;
 import '../../modules/dashboard/router/dashboard_wrapper_router.dart' as _i1;
 import '../../modules/detail_category/pages/detail_category_page.dart' as _i10;

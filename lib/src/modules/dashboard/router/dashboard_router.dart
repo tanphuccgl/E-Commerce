@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 
 import 'package:e_commerce/src/config/routes/page_routers.dart';
-import 'package:e_commerce/src/modules/bag/pages/bag_page.dart';
+import 'package:e_commerce/src/modules/cart/pages/cart_page.dart';
 import 'package:e_commerce/src/modules/dashboard/pages/dashboard_page.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router.dart';
 import 'package:e_commerce/src/modules/detail_category/pages/detail_category_page.dart';
