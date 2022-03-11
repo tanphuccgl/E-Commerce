@@ -1,13 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
-import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/dropdown_color.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/dropdown_size.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/details.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/list_tile.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/related_products.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/top_images.dart';
+import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
 import 'package:e_commerce/src/widgets/button/button_add_favorite.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class ProductDetailsPage extends StatelessWidget {
     var value = data ?? XProduct();
     return Scaffold(
       backgroundColor: MyColors.colorBackground,
-      appBar: AppBarSign(
+      appBar: XDefaultAppBar(
         title: value.type,
         style: const TextStyle(
             color: MyColors.colorBlack,

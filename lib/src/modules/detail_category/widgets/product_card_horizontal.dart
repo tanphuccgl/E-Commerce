@@ -1,11 +1,10 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:e_commerce/src/models/products_model.dart';
-import 'package:e_commerce/src/utils/utils.dart';
+import 'package:e_commerce/src/modules/product/widgets/display_label.dart';
+import 'package:e_commerce/src/modules/product/widgets/price_product_widget.dart';
+import 'package:e_commerce/src/modules/product/widgets/review_star.dart';
 import 'package:e_commerce/src/widgets/button/button_add_favorite.dart';
-import 'package:e_commerce/src/widgets/label/discount_label.dart';
-import 'package:e_commerce/src/widgets/label/new_label.dart';
 import 'package:flutter/material.dart';
 
 class XProductCardHorizontal extends StatelessWidget {
@@ -29,17 +28,8 @@ class XProductCardHorizontal extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Align(
-                      alignment: Alignment.topLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: data.newProduct == true
-                            ? const NewLabel()
-                            : (data.discount != 0
-                                ? DisCountLabel(
-                                    number: data.discount.toString())
-                                : const SizedBox.shrink()),
-                      ),
-                    ),
+                        alignment: Alignment.topLeft,
+                        child: XDisplayLabel(data: data)),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: XButtonAddToFavorite(
@@ -55,9 +45,6 @@ class XProductCardHorizontal extends StatelessWidget {
   }
 
   Widget _belowCard() {
-    var numberStarActive = ((data.star).toInt() ~/ 5);
-    var numberStarNoActive = 5 - numberStarActive;
-
     return Container(
       height: 104,
       decoration: const BoxDecoration(
@@ -107,77 +94,8 @@ class XProductCardHorizontal extends StatelessWidget {
                     color: MyColors.colorGray,
                     fontWeight: FontWeight.normal),
               ),
-              Row(
-                children: [
-                  SizedBox(
-                    height: 20,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            width: 13,
-                            height: 12,
-                            child: Image.asset(MyIcons.activeStarIcon,
-                                fit: BoxFit.scaleDown),
-                          );
-                        },
-                        itemCount: numberStarActive),
-                  ),
-                  SizedBox(
-                    height: 20,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return SizedBox(
-                            width: 13,
-                            height: 12,
-                            child: Image.asset(MyIcons.starIcon,
-                                fit: BoxFit.scaleDown),
-                          );
-                        },
-                        itemCount: numberStarNoActive),
-                  ),
-                  const SizedBox(width: 3),
-                  Text(
-                    "(${data.star})",
-                    style: const TextStyle(
-                        fontSize: 10,
-                        color: MyColors.colorGray,
-                        fontWeight: FontWeight.normal),
-                  )
-                ],
-              ),
-              data.discount == 0.0
-                  ? Text(
-                      "${XUtils.formatPrice(data.originalPrice)}\$ ",
-                      style: const TextStyle(
-                          fontSize: 14,
-                          height: 1.42,
-                          color: MyColors.colorBlack,
-                          fontWeight: FontWeight.w600),
-                    )
-                  : RichText(
-                      text: TextSpan(
-                        text: "${XUtils.formatPrice(data.originalPrice)}\$ ",
-                        style: const TextStyle(
-                            fontSize: 14,
-                            height: 1.42,
-                            decoration: TextDecoration.lineThrough,
-                            color: MyColors.colorGray,
-                            fontWeight: FontWeight.w600),
-                        children: <TextSpan>[
-                          TextSpan(
-                              text:
-                                  "${XUtils.formatPrice(data.currentPrice ?? -1)}\$",
-                              style: const TextStyle(
-                                color: MyColors.colorSaleHot,
-                                decoration: TextDecoration.none,
-                              )),
-                        ],
-                      ),
-                    ),
+              XReviewStar(numberStar: data.star),
+              XPriceProductWidget(data: data)
             ],
           ),
         ],

@@ -1,9 +1,8 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
-import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/widgets/text_field/search_text_filed.dart';
+import 'package:e_commerce/src/widgets/app_bar/search_app_bar.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -19,22 +18,11 @@ class SearchFavoritePage extends StatelessWidget {
       XHandle handle = XHandle.result(XResult.success(items));
       if (handle.isCompleted) {
         return Scaffold(
-            appBar: AppBar(
-                backgroundColor: MyColors.colorPrimary,
-                title: Container(
-                  width: double.infinity,
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5)),
-                  child: Center(
-                    child: SearchTextField(
-                      onChanged: (value) =>
-                          context.read<FavoriteBloc>().searchProduct(value),
-                      value: state.searchText,
-                    ),
-                  ),
-                )),
+            appBar: XSearchAppBar(
+              onChanged: (value) =>
+                  context.read<FavoriteBloc>().searchProduct(value),
+              value: state.searchText,
+            ),
             body: ListView.builder(
               itemBuilder: (context, index) {
                 final item = items[index];

@@ -1,10 +1,10 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
 import 'package:e_commerce/src/modules/settings/logic/setting_bloc.dart';
 import 'package:e_commerce/src/modules/settings/widgets/notifications_setting.dart';
 import 'package:e_commerce/src/modules/settings/widgets/password_form.dart';
 import 'package:e_commerce/src/modules/settings/widgets/personal_info_form.dart';
+import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
 import 'package:e_commerce/src/widgets/header/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,7 +25,7 @@ class SettingPage extends StatelessWidget {
           child:
               BlocBuilder<SettingBloc, SettingState>(builder: (context, state) {
             return Scaffold(
-                appBar: AppBarSign(actions: [
+                appBar: XDefaultAppBar(actions: [
                   IconButton(
                       onPressed: () =>
                           context.read<SettingBloc>().saveInformation(context),
