@@ -17,6 +17,7 @@ class CategoriesBloc extends Cubit<CategoriesState> {
 
     emit(state.copyWith(items: XHandle.completed(category.data ?? [])));
   }
+
   Future<void> addCategory() async {
     final category = await domain.category.addCategory();
 

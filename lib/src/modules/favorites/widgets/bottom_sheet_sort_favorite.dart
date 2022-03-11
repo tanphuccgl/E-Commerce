@@ -35,14 +35,12 @@ class XBottomSheetSortFavorites extends StatelessWidget {
                             selectedTileColor: MyColors.colorPrimary,
                             selected: item.sortProductBy(state.sortBy),
                             onTap: () {
-                              context
-                                  .read<FavoriteBloc>()
-                                  .sortBy(item.index);
+                              context.read<FavoriteBloc>().sortBy(item.index);
                               XCoordinator.pop(context);
                             },
                             title: Text(item.value(),
-                                style:state.sortBy
-                                  .styleOf(item.sortProductBy(state.sortBy))),
+                                style: state.sortBy
+                                    .styleOf(item.sortProductBy(state.sortBy))),
                           ))).toList(),
                 )
               ],

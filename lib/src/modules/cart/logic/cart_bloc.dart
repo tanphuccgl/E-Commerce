@@ -11,12 +11,12 @@ import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-part 'favorites_state.dart';
+part 'cart_state.dart';
 
-class FavoriteBloc extends ProductBloc<FavoriteState> {
-  FavoriteBloc()
-      : super(FavoriteState(
-            listFavorite: XHandle.completed([]),
+class CartBloc extends ProductBloc<CartState> {
+  CartBloc()
+      : super(CartState(
+            productsOfCart: XHandle.completed([]),
             items: XHandle.completed([]),
             searchList: XHandle.completed([]))) {
     getProduct();
@@ -25,17 +25,17 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
   @override
   Future<void> getProduct() async {
     User? currentUser = AuthService().currentUser;
-    final value = await domain.favorite.getProductToFavorite();
+    final value = await domain.cart.getProductsOfCart();
     if (value.isSuccess) {
-      List<XProduct> items = [...(state.listFavorite.data ?? [])];
+      List<XProduct> items = [...(state.productsOfCart.data ?? [])];
       items = (value.data ?? [])
           .where((e) => e.idUser == currentUser?.uid)
           .toList();
-      emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
+      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
     } else {}
   }
 
-  Future<void> addProductToFavorite(BuildContext context,
+  Future<void> addToCart(BuildContext context,
       {required XProduct product, required SizeType sizeType}) async {
     XProduct xProduct = XProduct(
       color: product.color,
@@ -54,31 +54,31 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
       type: product.type,
       soldOut: product.soldOut,
     );
-    final value = await domain.favorite.addProductToFavorite(xProduct);
+    final value = await domain.cart.addToCard(xProduct);
     if (value.isSuccess) {
       final List<XProduct> items = [
-        ...(state.listFavorite.data ?? []),
+        ...(state.productsOfCart.data ?? []),
         xProduct
       ];
 
-      emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
-      XSnackBar.show(msg: 'Favorite success');
+      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+      XSnackBar.show(msg: 'Add to cart success');
       XCoordinator.pop(context);
     } else {
-      XSnackBar.show(msg: 'Favorite failure');
+      XSnackBar.show(msg: 'Add to cart failure');
     }
   }
 
-  Future<void> removeProductToFavorite(XProduct product) async {
-    final value = await domain.favorite.deleteProductToFavorite(product);
+  Future<void> removeProductToCart(XProduct product) async {
+    final value = await domain.cart.deleteToCart(product);
     if (value.isSuccess) {
-      final List<XProduct> items = [...(state.listFavorite.data ?? [])];
+      final List<XProduct> items = [...(state.productsOfCart.data ?? [])];
       items.remove(product);
 
-      emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
-      XSnackBar.show(msg: 'Remove Product success');
+      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+      XSnackBar.show(msg: 'Remove product to cart success');
     } else {
-      XSnackBar.show(msg: 'Remove Product failure');
+      XSnackBar.show(msg: 'Remove product to cart failure');
     }
   }
 
@@ -88,7 +88,7 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
     if (query.isEmpty || query == '') {
       items = [];
     } else {
-      items = (state.listFavorite.data ?? []).where((e) {
+      items = (state.productsOfCart.data ?? []).where((e) {
         final titleLower = e.name.toLowerCase();
         final searchLower = query.toLowerCase();
 

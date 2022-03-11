@@ -36,9 +36,7 @@ class XBottomSheetSortDetailCategory extends StatelessWidget {
                           selectedTileColor: MyColors.colorPrimary,
                           selected: item.sortProductBy(state.sortBy),
                           onTap: () {
-                            context
-                                .read<ProductBloc>()
-                                .sortBy(item.index);
+                            context.read<ProductBloc>().sortBy(item.index);
                             XCoordinator.pop(context);
                           },
                           title: Text(item.value(),

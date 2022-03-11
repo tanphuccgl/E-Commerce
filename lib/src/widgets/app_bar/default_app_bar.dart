@@ -11,7 +11,8 @@ class XDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final TextStyle? style;
   const XDefaultAppBar({
-    Key? key,this.style,
+    Key? key,
+    this.style,
     this.elevation = 0,
     this.backgroundColor,
     this.onPressed,
@@ -24,8 +25,10 @@ class XDefaultAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       title: Text(title, style: style),
-      centerTitle: true,bottomOpacity: 8,
-      actions: actions,shadowColor: MyColors.colorWhite,
+      centerTitle: true,
+      bottomOpacity: 8,
+      actions: actions,
+      shadowColor: MyColors.colorWhite,
       leading: leading,
       iconTheme: const IconThemeData(color: MyColors.colorBlack),
       backgroundColor: backgroundColor ?? Colors.transparent,

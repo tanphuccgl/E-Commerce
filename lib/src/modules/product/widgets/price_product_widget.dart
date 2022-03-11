@@ -6,17 +6,15 @@ import 'package:flutter/material.dart';
 class XPriceProductWidget extends StatelessWidget {
   final XProduct data;
   final double fontSize;
-  const XPriceProductWidget({
-    Key? key,
-    required this.data,this.fontSize=14
-  }) : super(key: key);
+  const XPriceProductWidget({Key? key, required this.data, this.fontSize = 14})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return data.discount == 0.0
         ? Text(
             "${XUtils.formatPrice(data.originalPrice)}\$ ",
-            style:  TextStyle(
+            style: TextStyle(
                 fontSize: fontSize,
                 height: 1.42,
                 color: MyColors.colorBlack,
@@ -25,7 +23,7 @@ class XPriceProductWidget extends StatelessWidget {
         : RichText(
             text: TextSpan(
               text: "${XUtils.formatPrice(data.originalPrice)}\$ ",
-              style:  TextStyle(
+              style: TextStyle(
                   fontSize: fontSize,
                   height: 1.42,
                   decoration: TextDecoration.lineThrough,

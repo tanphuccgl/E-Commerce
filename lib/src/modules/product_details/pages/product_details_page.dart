@@ -57,10 +57,12 @@ class ProductDetailsPage extends StatelessWidget {
   }
 
   Widget _topButton() {
+    var value = data ?? XProduct();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const XDropdownSize(),
+        XDropdownSize(data: value),
         const XDropdownColor(),
         XButtonAddToFavorite(data: data ?? XProduct()),
       ],

@@ -25,9 +25,10 @@ class DashboardRouters {
   static const String profile = 'profile';
   static const String setting = 'setting';
   static const String productByCategoryPage = 'productByCategory';
-  static const String searchProductsByCategoryPage = 'searchProductsByCategoryPage';
-    static const String searchProductsByFavoritePage = 'searchProductsByFavoritePage';
-
+  static const String searchProductsByCategoryPage =
+      'searchProductsByCategoryPage';
+  static const String searchProductsByFavoritePage =
+      'searchProductsByFavoritePage';
 }
 
 class DashboardCoordinator {
@@ -60,13 +61,13 @@ class DashboardCoordinator {
                   RedirectRoute(path: '*', redirectTo: ''),
                 ]),
             AutoRoute(path: DashboardRouters.bag, page: BagPage),
-               AutoRoute(
+            AutoRoute(
                 path: DashboardRouters.favorites,
                 page: EmptyRouterPage,
                 name: 'FavoritesTab',
                 children: [
-                  AutoRoute(path: "", page: FavoritesPage, name: "FavoritesRoute"),
-               
+                  AutoRoute(
+                      path: "", page: FavoritesPage, name: "FavoritesRoute"),
                   AutoRoute(
                       path: DashboardRouters.searchProductsByFavoritePage,
                       page: SearchFavoritePage,
@@ -100,15 +101,17 @@ class DashboardCoordinator {
     context.router.push(DetailCategoryRoute(
         idCategory: idCategory, nameCategory: nameCategory));
   }
-  static showSearchProductByCategory(BuildContext context,
+
+  static showSearchProductByCategory(
+    BuildContext context,
   ) {
-    context.router.push(const SearchProductsByCategoryRoute(
-     ));
+    context.router.push(const SearchProductsByCategoryRoute());
   }
-  static showSearchProductByFavorite(BuildContext context,
+
+  static showSearchProductByFavorite(
+    BuildContext context,
   ) {
-    context.router.push(const SearchFavoriteRoute(
-     ));
+    context.router.push(const SearchFavoriteRoute());
   }
 
   static switchCategory(BuildContext context,

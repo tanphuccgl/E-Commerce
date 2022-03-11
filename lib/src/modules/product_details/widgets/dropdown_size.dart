@@ -1,16 +1,19 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/utils/enum/size_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XDropdownSize extends StatelessWidget {
-  const XDropdownSize({Key? key}) : super(key: key);
+  final XProduct data;
+  const XDropdownSize({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     String? dropdownValue;
-    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
+    return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
       return Container(
         width: 138,
         height: 40,
@@ -32,9 +35,9 @@ class XDropdownSize extends StatelessWidget {
               icon: const Icon(Icons.keyboard_arrow_down,
                   color: MyColors.colorBlack),
               iconSize: 20,
-              hint: const Text(
-                "Size",
-                style: TextStyle(
+              hint: Text(
+                state.hadFavorites(data) ? state.sizeType.value() : "Size",
+                style: const TextStyle(
                     color: MyColors.colorBlack,
                     height: 1.42,
                     fontSize: 14,

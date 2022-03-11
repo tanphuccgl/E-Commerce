@@ -23,9 +23,7 @@ class XButtonAddToBag extends StatelessWidget {
                   minimumSize: Size.zero,
                   shape: const CircleBorder()),
               onPressed: () {},
-              child: const Image(
-                image: AssetImage(MyIcons.bagWhiteIcon)
-              ))
+              child: const Image(image: AssetImage(MyIcons.bagWhiteIcon)))
           : ElevatedButton(
               style: ElevatedButton.styleFrom(
                   shadowColor: MyColors.colorWhite,

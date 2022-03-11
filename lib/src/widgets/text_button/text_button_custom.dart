@@ -26,7 +26,8 @@ class XTextButtonCus extends StatelessWidget {
           IconButton(
               onPressed: onPressed,
               icon: Image.asset(
-                MyIcons.arrowIcon,fit: BoxFit.cover,
+                MyIcons.arrowIcon,
+                fit: BoxFit.cover,
                 color: MyColors.colorPrimary,
               ))
         ],
