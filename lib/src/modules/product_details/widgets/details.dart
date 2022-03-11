@@ -85,10 +85,14 @@ class XDetails extends StatelessWidget {
                 : XButton(
                     label: 'ADD TO CART',
                     height: 48,
-                    onPressed: () => XBottomSheet.show(context,
-                        widget: XBottomSheetCart(
-                          data: data,
-                        )),
+                    onPressed: () {
+                      context.read<CartBloc>().initSizeType();
+
+                      XBottomSheet.show(context,
+                          widget: XBottomSheetCart(
+                            data: data,
+                          ));
+                    },
                     width: double.infinity,
                   )
           ],

@@ -63,7 +63,7 @@ class ProductBloc<T extends ProductState> extends Cubit<T> {
   }
 
   void initSizeType() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(Duration.zero);
     emit(state.copyWithItem(sizeType: SizeType.xs) as T);
   }
 }
