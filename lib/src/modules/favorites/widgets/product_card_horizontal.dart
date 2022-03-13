@@ -52,8 +52,7 @@ class XProductCardFavoriteHorizontal extends StatelessWidget {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: XButtonAddToBag(
-                              isActive: true,
-                              onPressed: () {},
+                              data: data,
                             ),
                           )
                         ]),

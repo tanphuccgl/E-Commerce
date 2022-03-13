@@ -61,8 +61,9 @@ class XProductCardInCart extends StatelessWidget {
             children: [
               IconCircleButton(
                   icon: const Icon(Icons.remove, color: MyColors.colorGray),
-                  onPressed: () =>
-                      context.read<CartBloc>().decreaseProduct(data)),
+                  onPressed: () => context
+                      .read<CartBloc>()
+                      .decreaseProduct(context, product: data)),
               const SizedBox(
                 width: 16,
               ),
@@ -82,8 +83,9 @@ class XProductCardInCart extends StatelessWidget {
                     Icons.add,
                     color: MyColors.colorGray,
                   ),
-                  onPressed: () =>
-                      context.read<CartBloc>().increaseProduct(data)),
+                  onPressed: () => context
+                      .read<CartBloc>()
+                      .increaseProduct(context, product: data)),
             ],
           ),
           Expanded(
@@ -152,8 +154,9 @@ class XProductCardInCart extends StatelessWidget {
                 list.add(const PopupMenuDivider());
                 list.add(PopupMenuItem(
                   height: 40,
-                  onTap: () =>
-                      context.read<CartBloc>().removeProductToCart(data),
+                  onTap: () => context
+                      .read<CartBloc>()
+                      .removeProductToCart(context, product: data),
                   child: Center(
                     child: Text(
                       'Delete from the list',

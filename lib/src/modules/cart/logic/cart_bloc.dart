@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:e_commerce/src/utils/enum/color_type.dart';
@@ -11,6 +12,7 @@ import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'cart_state.dart';
 
@@ -36,8 +38,16 @@ class CartBloc extends ProductBloc<CartState> {
     } else {}
   }
 
+  Future<void> setItemToFavorites(BuildContext context,
+      {required XProduct product}) async {
+    final value = await domain.favorite.addProductToFavorite(product);
+    if (value.isSuccess) {
+      context.read<FavoriteBloc>().getProduct();
+    }
+  }
+
   Future<void> addToCart(BuildContext context,
-      {required XProduct product, required SizeType sizeType}) async {
+      {required XProduct product, required String sizeType}) async {
     XProduct xProduct = XProduct(
         color: product.color,
         currentPrice: product.currentPrice,
@@ -50,12 +60,13 @@ class CartBloc extends ProductBloc<CartState> {
         nameCategory: product.nameCategory,
         newProduct: product.newProduct,
         originalPrice: product.originalPrice,
-        size: sizeType.value(),
+        size: sizeType,
         star: product.star,
         type: product.type,
         soldOut: product.soldOut,
         amount: 1);
     final value = await domain.cart.addToCard(xProduct);
+
     if (value.isSuccess) {
       final List<XProduct> items = [
         ...(state.productsOfCart.data ?? []),
@@ -63,6 +74,7 @@ class CartBloc extends ProductBloc<CartState> {
       ];
 
       emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+      setItemToFavorites(context, product: xProduct);
       XSnackBar.show(msg: 'Add to cart success');
       XCoordinator.pop(context);
     } else {
@@ -70,13 +82,16 @@ class CartBloc extends ProductBloc<CartState> {
     }
   }
 
-  Future<void> removeProductToCart(XProduct product) async {
+  Future<void> removeProductToCart(BuildContext context,
+      {required XProduct product}) async {
     final value = await domain.cart.deleteToCart(product);
     if (value.isSuccess) {
       final List<XProduct> items = [...(state.productsOfCart.data ?? [])];
       items.remove(product);
 
       emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+      setItemToFavorites(context, product: product);
+
       XSnackBar.show(msg: 'Remove product to cart success');
     } else {
       XSnackBar.show(msg: 'Remove product to cart failure');
@@ -100,9 +115,8 @@ class CartBloc extends ProductBloc<CartState> {
         searchList: XHandle.completed(items), searchText: query));
   }
 
-  Future<void> increaseProduct(
-    XProduct product,
-  ) async {
+  Future<void> increaseProduct(BuildContext context,
+      {required XProduct product}) async {
     XProduct xProduct = XProduct(
         color: product.color,
         currentPrice: product.currentPrice,
@@ -123,14 +137,14 @@ class CartBloc extends ProductBloc<CartState> {
     final value = await domain.cart.increaseProduct(xProduct);
     if (value.isSuccess) {
       getProduct();
+      setItemToFavorites(context, product: xProduct);
     } else {
       XSnackBar.show(msg: 'Error');
     }
   }
 
-  Future<void> decreaseProduct(
-    XProduct product,
-  ) async {
+  Future<void> decreaseProduct(BuildContext context,
+      {required XProduct product}) async {
     XProduct xProduct = XProduct(
         color: product.color,
         currentPrice: product.currentPrice,
@@ -151,9 +165,10 @@ class CartBloc extends ProductBloc<CartState> {
     final value = await domain.cart.decreaseProduct(xProduct);
     if (value.isSuccess) {
       if (product.amount == 1) {
-        removeProductToCart(product);
+        removeProductToCart(context, product: product);
       }
       getProduct();
+      setItemToFavorites(context, product: xProduct);
     } else {
       XSnackBar.show(msg: 'Error');
     }

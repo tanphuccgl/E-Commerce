@@ -36,7 +36,7 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
   }
 
   Future<void> addProductToFavorite(BuildContext context,
-      {required XProduct product, required SizeType sizeType}) async {
+      {required XProduct product, required String sizeType}) async {
     XProduct xProduct = XProduct(
         color: product.color,
         currentPrice: product.currentPrice,
@@ -49,7 +49,7 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
         nameCategory: product.nameCategory,
         newProduct: product.newProduct,
         originalPrice: product.originalPrice,
-        size: sizeType.value(),
+        size: sizeType,
         star: product.star,
         type: product.type,
         soldOut: product.soldOut,
