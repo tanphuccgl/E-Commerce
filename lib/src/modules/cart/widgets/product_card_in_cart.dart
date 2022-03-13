@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/cart/widgets/icon_circle_button.dart';
@@ -115,38 +116,50 @@ class XProductCardInCart extends StatelessWidget {
             XDisplaySizeAndColor(data: data),
           ],
         ),
-        Material(
-          color: Colors.transparent,
-          child: InkWell(
-              onTap: () => _showPopupMenu(context),
-              borderRadius: const BorderRadius.all(Radius.circular(8)),
-              child: const Icon(
+        SizedBox(
+          height: 20,
+          child: PopupMenuButton(
+            offset: const Offset(-40, -40),
+            padding: EdgeInsets.zero,
+            icon: const Align(
+              alignment: Alignment.topRight,
+              child: Icon(
                 Icons.more_vert,
-                color: MyColors.colorGray2,
-              )),
+                color: MyColors.colorGray,
+              ),
+            ),
+            elevation: 2,
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            onSelected: (newValue) {},
+            itemBuilder: (context) {
+              final list = <PopupMenuEntry<int>>[];
+
+              list.add(PopupMenuItem(
+                height: 40,
+                child: Center(
+                  child: Text(
+                    'Add to favorites',
+                    style: XStyle.textTheme().labelSmall,
+                  ),
+                ),
+              ));
+
+              list.add(const PopupMenuDivider());
+              list.add(PopupMenuItem(
+                height: 40,
+                child: Center(
+                  child: Text(
+                    'Delete from the list',
+                    style: XStyle.textTheme().labelSmall,
+                  ),
+                ),
+              ));
+              return list;
+            },
+          ),
         )
       ],
     );
   }
-}
-
-void _showPopupMenu(BuildContext context) async {
-  await showMenu(
-      context: context,
-      // TODO: fix position
-      position: const RelativeRect.fromLTRB(0, 0, 0, 0),
-      items: [
-        const PopupMenuItem<String>(
-          value: 'Add to favorites',
-          child: Text(
-            'Add to favorites',
-          ),
-        ),
-        const PopupMenuItem<String>(
-          value: 'Delete from the list',
-          child: Text(
-            'Delete from the list',
-          ),
-        ),
-      ]);
 }
