@@ -44,7 +44,8 @@ class XProductCardFavoriteHorizontal extends StatelessWidget {
                                           color: MyColors.colorGray),
                                       onTap: () => context
                                           .read<FavoriteBloc>()
-                                          .removeProductToFavorite(data),
+                                          .removeProductToFavorite(context,
+                                              product: data),
                                     )),
                               )
                             ],
@@ -159,7 +160,8 @@ class XProductCardFavoriteHorizontal extends StatelessWidget {
                                       color: MyColors.colorGray),
                                   onTap: () => context
                                       .read<FavoriteBloc>()
-                                      .removeProductToFavorite(data),
+                                      .removeProductToFavorite(context,
+                                          product: data),
                                 )),
                           )
                         ],

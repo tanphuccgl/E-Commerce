@@ -17,11 +17,13 @@ class XProduct extends BaseModel {
   String? idUser;
   bool soldOut;
   int amount;
+  bool favorite;
   XProduct(
       {this.name = '',
       this.idCategory = '',
       this.nameCategory = '',
       String id = '',
+      this.favorite = false,
       this.image,
       this.star = 0,
       this.type = '',
@@ -54,6 +56,7 @@ class XProduct extends BaseModel {
       idUser: json['idUser'],
       soldOut: json['soldOut'],
       amount: json['amount'],
+      favorite: json['favorite'],
     );
   }
   factory XProduct.empty() {
@@ -81,6 +84,7 @@ class XProduct extends BaseModel {
     data['idUser'] = idUser;
     data['soldOut'] = soldOut;
     data['amount'] = amount;
+    data['favorite'] = favorite;
 
     return data;
   }

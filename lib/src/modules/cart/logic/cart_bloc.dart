@@ -38,9 +38,29 @@ class CartBloc extends ProductBloc<CartState> {
     } else {}
   }
 
+// TODO
   Future<void> setItemToFavorites(BuildContext context,
-      {required XProduct product}) async {
-    final value = await domain.favorite.addProductToFavorite(product);
+      {required XProduct product, required int amount}) async {
+    XProduct xProduct = XProduct(
+      color: product.color,
+      currentPrice: product.currentPrice,
+      discount: product.discount,
+      id: product.id,
+      idCategory: product.idCategory,
+      idUser: product.idUser,
+      image: product.image,
+      name: product.name,
+      nameCategory: product.nameCategory,
+      newProduct: product.newProduct,
+      originalPrice: product.originalPrice,
+      size: product.size,
+      star: product.star,
+      type: product.type,
+      soldOut: product.soldOut,
+      amount: amount,
+      favorite: product.favorite,
+    );
+    final value = await domain.favorite.addProductToFavorite(xProduct);
     if (value.isSuccess) {
       context.read<FavoriteBloc>().getProduct();
     }
@@ -49,22 +69,24 @@ class CartBloc extends ProductBloc<CartState> {
   Future<void> addToCart(BuildContext context,
       {required XProduct product, required String sizeType}) async {
     XProduct xProduct = XProduct(
-        color: product.color,
-        currentPrice: product.currentPrice,
-        discount: product.discount,
-        id: product.id,
-        idCategory: product.idCategory,
-        idUser: product.idUser,
-        image: product.image,
-        name: product.name,
-        nameCategory: product.nameCategory,
-        newProduct: product.newProduct,
-        originalPrice: product.originalPrice,
-        size: sizeType,
-        star: product.star,
-        type: product.type,
-        soldOut: product.soldOut,
-        amount: 1);
+      color: product.color,
+      currentPrice: product.currentPrice,
+      discount: product.discount,
+      id: product.id,
+      idCategory: product.idCategory,
+      idUser: product.idUser,
+      image: product.image,
+      name: product.name,
+      nameCategory: product.nameCategory,
+      newProduct: product.newProduct,
+      originalPrice: product.originalPrice,
+      size: sizeType,
+      star: product.star,
+      type: product.type,
+      soldOut: product.soldOut,
+      amount: 1,
+      favorite: product.favorite,
+    );
     final value = await domain.cart.addToCard(xProduct);
 
     if (value.isSuccess) {
@@ -74,7 +96,7 @@ class CartBloc extends ProductBloc<CartState> {
       ];
 
       emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
-      setItemToFavorites(context, product: xProduct);
+      setItemToFavorites(context, product: xProduct, amount: xProduct.amount);
       XSnackBar.show(msg: 'Add to cart success');
       XCoordinator.pop(context);
     } else {
@@ -90,7 +112,7 @@ class CartBloc extends ProductBloc<CartState> {
       items.remove(product);
 
       emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
-      setItemToFavorites(context, product: product);
+      setItemToFavorites(context, product: product, amount: 0);
 
       XSnackBar.show(msg: 'Remove product to cart success');
     } else {
@@ -118,26 +140,28 @@ class CartBloc extends ProductBloc<CartState> {
   Future<void> increaseProduct(BuildContext context,
       {required XProduct product}) async {
     XProduct xProduct = XProduct(
-        color: product.color,
-        currentPrice: product.currentPrice,
-        discount: product.discount,
-        id: product.id,
-        idCategory: product.idCategory,
-        idUser: product.idUser,
-        image: product.image,
-        name: product.name,
-        nameCategory: product.nameCategory,
-        newProduct: product.newProduct,
-        originalPrice: product.originalPrice,
-        size: product.size,
-        star: product.star,
-        type: product.type,
-        soldOut: product.soldOut,
-        amount: product.amount + 1);
+      color: product.color,
+      currentPrice: product.currentPrice,
+      discount: product.discount,
+      id: product.id,
+      idCategory: product.idCategory,
+      idUser: product.idUser,
+      image: product.image,
+      name: product.name,
+      nameCategory: product.nameCategory,
+      newProduct: product.newProduct,
+      originalPrice: product.originalPrice,
+      size: product.size,
+      star: product.star,
+      type: product.type,
+      soldOut: product.soldOut,
+      amount: product.amount + 1,
+      favorite: product.favorite,
+    );
     final value = await domain.cart.increaseProduct(xProduct);
     if (value.isSuccess) {
       getProduct();
-      setItemToFavorites(context, product: xProduct);
+      setItemToFavorites(context, product: xProduct, amount: xProduct.amount);
     } else {
       XSnackBar.show(msg: 'Error');
     }
@@ -161,6 +185,7 @@ class CartBloc extends ProductBloc<CartState> {
         star: product.star,
         type: product.type,
         soldOut: product.soldOut,
+        favorite: product.favorite,
         amount: product.amount - 1);
     final value = await domain.cart.decreaseProduct(xProduct);
     if (value.isSuccess) {
@@ -168,7 +193,7 @@ class CartBloc extends ProductBloc<CartState> {
         removeProductToCart(context, product: product);
       }
       getProduct();
-      setItemToFavorites(context, product: xProduct);
+      setItemToFavorites(context, product: xProduct, amount: 0);
     } else {
       XSnackBar.show(msg: 'Error');
     }

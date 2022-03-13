@@ -3,6 +3,7 @@ import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/cart/widgets/icon_circle_button.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/product/widgets/display_size_and_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,12 +141,19 @@ class XProductCardInCart extends StatelessWidget {
               onSelected: (newValue) {},
               itemBuilder: (context) {
                 final list = <PopupMenuEntry<int>>[];
-
+//TODO
                 list.add(PopupMenuItem(
                   height: 40,
+                  onTap: data.favorite
+                      ? () => context
+                          .read<FavoriteBloc>()
+                          .removeProductToFavorite(context, product: data)
+                      : null,
                   child: Center(
                     child: Text(
-                      'Add to favorites',
+                      data.favorite
+                          ? 'Remove to favorites'
+                          : 'Add to favorites',
                       style: XStyle.textTheme().labelSmall,
                     ),
                   ),
