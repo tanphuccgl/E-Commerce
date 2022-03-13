@@ -92,7 +92,6 @@ class CartBloc extends ProductBloc<CartState> {
       items = (state.productsOfCart.data ?? []).where((e) {
         final titleLower = e.name.toLowerCase();
         final searchLower = query.toLowerCase();
-
         return titleLower.contains(searchLower);
       }).toList();
     }
@@ -102,9 +101,8 @@ class CartBloc extends ProductBloc<CartState> {
   }
 
   Future<void> increaseProduct(
-    BuildContext context, {
-    required XProduct product,
-  }) async {
+    XProduct product,
+  ) async {
     XProduct xProduct = XProduct(
         color: product.color,
         currentPrice: product.currentPrice,
@@ -124,18 +122,15 @@ class CartBloc extends ProductBloc<CartState> {
         amount: product.amount + 1);
     final value = await domain.cart.increaseProduct(xProduct);
     if (value.isSuccess) {
-      final List<XProduct> items = [...(state.productsOfCart.data ?? [])];
-
-      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+      getProduct();
     } else {
       XSnackBar.show(msg: 'Error');
     }
   }
 
   Future<void> decreaseProduct(
-    BuildContext context, {
-    required XProduct product,
-  }) async {
+    XProduct product,
+  ) async {
     XProduct xProduct = XProduct(
         color: product.color,
         currentPrice: product.currentPrice,
@@ -155,9 +150,10 @@ class CartBloc extends ProductBloc<CartState> {
         amount: product.amount - 1);
     final value = await domain.cart.decreaseProduct(xProduct);
     if (value.isSuccess) {
-      final List<XProduct> items = [...(state.productsOfCart.data ?? [])];
-
-      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+      if (product.amount == 1) {
+        removeProductToCart(product);
+      }
+      getProduct();
     } else {
       XSnackBar.show(msg: 'Error');
     }

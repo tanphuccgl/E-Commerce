@@ -6,6 +6,7 @@ import 'package:e_commerce/src/modules/cart/widgets/header_cart_delegate.dart';
 import 'package:e_commerce/src/modules/cart/widgets/product_card_in_cart.dart';
 import 'package:e_commerce/src/modules/cart/widgets/promo_code_widget.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
@@ -62,7 +63,9 @@ class BagPage extends StatelessWidget {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 16),
-                                child: XProductCardInCart(data: items[index])),
+                                child: XProductCardInCart(
+                                  data: items[index],
+                                )),
                           );
                         }, childCount: items.length),
                       ),
@@ -80,8 +83,8 @@ class BagPage extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Total amount:',
                         style: TextStyle(
                             height: 1.42,
@@ -90,8 +93,8 @@ class BagPage extends StatelessWidget {
                             color: MyColors.colorGray),
                       ),
                       Text(
-                        "124\$",
-                        style: TextStyle(
+                        "${XUtils.formatPrice(state.totalPrice(items))}\$",
+                        style: const TextStyle(
                             height: 1.42,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,

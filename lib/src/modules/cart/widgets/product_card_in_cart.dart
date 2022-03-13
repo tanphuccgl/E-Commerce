@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XProductCardInCart extends StatelessWidget {
   final XProduct data;
+
   const XProductCardInCart({Key? key, required this.data}) : super(key: key);
 
   @override
@@ -60,13 +61,14 @@ class XProductCardInCart extends StatelessWidget {
             children: [
               IconCircleButton(
                   icon: const Icon(Icons.remove, color: MyColors.colorGray),
-                  onPressed: () {}),
+                  onPressed: () =>
+                      context.read<CartBloc>().decreaseProduct(data)),
               const SizedBox(
                 width: 16,
               ),
-              const Text(
-                '1',
-                style: TextStyle(
+              Text(
+                data.amount.toString(),
+                style: const TextStyle(
                     color: MyColors.colorBlack,
                     fontSize: 14,
                     height: 1.42,
@@ -80,7 +82,8 @@ class XProductCardInCart extends StatelessWidget {
                     Icons.add,
                     color: MyColors.colorGray,
                   ),
-                  onPressed: () {})
+                  onPressed: () =>
+                      context.read<CartBloc>().increaseProduct(data)),
             ],
           ),
           Expanded(
@@ -116,49 +119,53 @@ class XProductCardInCart extends StatelessWidget {
             XDisplaySizeAndColor(data: data),
           ],
         ),
-        SizedBox(
-          height: 20,
-          child: PopupMenuButton(
-            offset: const Offset(-40, -40),
-            padding: EdgeInsets.zero,
-            icon: const Align(
-              alignment: Alignment.topRight,
-              child: Icon(
-                Icons.more_vert,
-                color: MyColors.colorGray,
+        BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+          return SizedBox(
+            height: 20,
+            child: PopupMenuButton(
+              offset: const Offset(-40, -40),
+              padding: EdgeInsets.zero,
+              icon: const Align(
+                alignment: Alignment.topRight,
+                child: Icon(
+                  Icons.more_vert,
+                  color: MyColors.colorGray,
+                ),
               ),
+              elevation: 2,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              onSelected: (newValue) {},
+              itemBuilder: (context) {
+                final list = <PopupMenuEntry<int>>[];
+
+                list.add(PopupMenuItem(
+                  height: 40,
+                  child: Center(
+                    child: Text(
+                      'Add to favorites',
+                      style: XStyle.textTheme().labelSmall,
+                    ),
+                  ),
+                ));
+
+                list.add(const PopupMenuDivider());
+                list.add(PopupMenuItem(
+                  height: 40,
+                  onTap: () =>
+                      context.read<CartBloc>().removeProductToCart(data),
+                  child: Center(
+                    child: Text(
+                      'Delete from the list',
+                      style: XStyle.textTheme().labelSmall,
+                    ),
+                  ),
+                ));
+                return list;
+              },
             ),
-            elevation: 2,
-            shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(Radius.circular(8.0))),
-            onSelected: (newValue) {},
-            itemBuilder: (context) {
-              final list = <PopupMenuEntry<int>>[];
-
-              list.add(PopupMenuItem(
-                height: 40,
-                child: Center(
-                  child: Text(
-                    'Add to favorites',
-                    style: XStyle.textTheme().labelSmall,
-                  ),
-                ),
-              ));
-
-              list.add(const PopupMenuDivider());
-              list.add(PopupMenuItem(
-                height: 40,
-                child: Center(
-                  child: Text(
-                    'Delete from the list',
-                    style: XStyle.textTheme().labelSmall,
-                  ),
-                ),
-              ));
-              return list;
-            },
-          ),
-        )
+          );
+        })
       ],
     );
   }

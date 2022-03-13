@@ -47,7 +47,7 @@ class CartState extends ProductState {
 
   @override
   List<Object?> get props => [
-        items.data,
+        items,
         sortBy,
         viewType,
         sizeType,
