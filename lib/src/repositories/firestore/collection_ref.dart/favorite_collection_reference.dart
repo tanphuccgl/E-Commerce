@@ -21,22 +21,22 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
         String idDocs = product.id + user.uid;
 
         XProduct value = XProduct(
-          color: product.color,
-          currentPrice: product.currentPrice,
-          discount: product.discount,
-          id: product.id,
-          idCategory: product.idCategory,
-          idUser: user.uid,
-          image: product.image,
-          name: product.name,
-          nameCategory: product.nameCategory,
-          newProduct: product.newProduct,
-          originalPrice: product.originalPrice,
-          size: product.size,
-          star: product.star,
-          type: product.type,
-          soldOut: product.soldOut,
-        );
+            color: product.color,
+            currentPrice: product.currentPrice,
+            discount: product.discount,
+            id: product.id,
+            idCategory: product.idCategory,
+            idUser: user.uid,
+            image: product.image,
+            name: product.name,
+            nameCategory: product.nameCategory,
+            newProduct: product.newProduct,
+            originalPrice: product.originalPrice,
+            size: product.size,
+            star: product.star,
+            type: product.type,
+            soldOut: product.soldOut,
+            amount: product.amount);
         ref.doc(idDocs).set(value);
 
         return XResult.success(product);

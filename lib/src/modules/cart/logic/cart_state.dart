@@ -6,6 +6,14 @@ class CartState extends ProductState {
       ? XUtils.formatPrice(data.originalPrice)
       : XUtils.formatPrice(data.currentPrice ?? -1);
 
+  double totalPrice(List<XProduct> items) {
+    double total = 0;
+    for (int i = 0; i < items.length; i++) {
+      total = total + items[i].amount * double.parse(priceProduct(items[i]));
+    }
+    return total;
+  }
+
   bool hadFavorites(XProduct product) {
     late bool value = false;
     for (var item in productsOfCart.data ?? []) {

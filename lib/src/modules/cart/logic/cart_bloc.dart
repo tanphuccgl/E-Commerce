@@ -39,22 +39,22 @@ class CartBloc extends ProductBloc<CartState> {
   Future<void> addToCart(BuildContext context,
       {required XProduct product, required SizeType sizeType}) async {
     XProduct xProduct = XProduct(
-      color: product.color,
-      currentPrice: product.currentPrice,
-      discount: product.discount,
-      id: product.id,
-      idCategory: product.idCategory,
-      idUser: product.idUser,
-      image: product.image,
-      name: product.name,
-      nameCategory: product.nameCategory,
-      newProduct: product.newProduct,
-      originalPrice: product.originalPrice,
-      size: sizeType.value(),
-      star: product.star,
-      type: product.type,
-      soldOut: product.soldOut,
-    );
+        color: product.color,
+        currentPrice: product.currentPrice,
+        discount: product.discount,
+        id: product.id,
+        idCategory: product.idCategory,
+        idUser: product.idUser,
+        image: product.image,
+        name: product.name,
+        nameCategory: product.nameCategory,
+        newProduct: product.newProduct,
+        originalPrice: product.originalPrice,
+        size: sizeType.value(),
+        star: product.star,
+        type: product.type,
+        soldOut: product.soldOut,
+        amount: 1);
     final value = await domain.cart.addToCard(xProduct);
     if (value.isSuccess) {
       final List<XProduct> items = [
@@ -99,5 +99,67 @@ class CartBloc extends ProductBloc<CartState> {
 
     emit(state.copyWithItem(
         searchList: XHandle.completed(items), searchText: query));
+  }
+
+  Future<void> increaseProduct(
+    BuildContext context, {
+    required XProduct product,
+  }) async {
+    XProduct xProduct = XProduct(
+        color: product.color,
+        currentPrice: product.currentPrice,
+        discount: product.discount,
+        id: product.id,
+        idCategory: product.idCategory,
+        idUser: product.idUser,
+        image: product.image,
+        name: product.name,
+        nameCategory: product.nameCategory,
+        newProduct: product.newProduct,
+        originalPrice: product.originalPrice,
+        size: product.size,
+        star: product.star,
+        type: product.type,
+        soldOut: product.soldOut,
+        amount: product.amount + 1);
+    final value = await domain.cart.increaseProduct(xProduct);
+    if (value.isSuccess) {
+      final List<XProduct> items = [...(state.productsOfCart.data ?? [])];
+
+      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+    } else {
+      XSnackBar.show(msg: 'Error');
+    }
+  }
+
+  Future<void> decreaseProduct(
+    BuildContext context, {
+    required XProduct product,
+  }) async {
+    XProduct xProduct = XProduct(
+        color: product.color,
+        currentPrice: product.currentPrice,
+        discount: product.discount,
+        id: product.id,
+        idCategory: product.idCategory,
+        idUser: product.idUser,
+        image: product.image,
+        name: product.name,
+        nameCategory: product.nameCategory,
+        newProduct: product.newProduct,
+        originalPrice: product.originalPrice,
+        size: product.size,
+        star: product.star,
+        type: product.type,
+        soldOut: product.soldOut,
+        amount: product.amount - 1);
+    final value = await domain.cart.decreaseProduct(xProduct);
+    if (value.isSuccess) {
+      final List<XProduct> items = [...(state.productsOfCart.data ?? [])];
+
+      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+    } else {
+      XSnackBar.show(msg: 'Error');
+    }
   }
 }
