@@ -38,22 +38,22 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
   Future<void> addProductToFavorite(BuildContext context,
       {required XProduct product, required SizeType sizeType}) async {
     XProduct xProduct = XProduct(
-      color: product.color,
-      currentPrice: product.currentPrice,
-      discount: product.discount,
-      id: product.id,
-      idCategory: product.idCategory,
-      idUser: product.idUser,
-      image: product.image,
-      name: product.name,
-      nameCategory: product.nameCategory,
-      newProduct: product.newProduct,
-      originalPrice: product.originalPrice,
-      size: sizeType.value(),
-      star: product.star,
-      type: product.type,
-      soldOut: product.soldOut,
-    );
+        color: product.color,
+        currentPrice: product.currentPrice,
+        discount: product.discount,
+        id: product.id,
+        idCategory: product.idCategory,
+        idUser: product.idUser,
+        image: product.image,
+        name: product.name,
+        nameCategory: product.nameCategory,
+        newProduct: product.newProduct,
+        originalPrice: product.originalPrice,
+        size: sizeType.value(),
+        star: product.star,
+        type: product.type,
+        soldOut: product.soldOut,
+        amount: product.amount);
     final value = await domain.favorite.addProductToFavorite(xProduct);
     if (value.isSuccess) {
       final List<XProduct> items = [

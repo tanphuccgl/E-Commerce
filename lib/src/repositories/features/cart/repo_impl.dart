@@ -33,4 +33,24 @@ class CartRepositoryImpl implements CartRepository {
       return XResult.error(e.toString());
     }
   }
+
+  @override
+  Future<XResult> decreaseProduct(XProduct product) async {
+    try {
+      var data = CartCollectionReference().decreaseProduct(product);
+      return data;
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
+
+  @override
+  Future<XResult> increaseProduct(XProduct product) async {
+    try {
+      var data = CartCollectionReference().increaseProduct(product);
+      return data;
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
 }

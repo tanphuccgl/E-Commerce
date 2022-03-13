@@ -21,22 +21,22 @@ class CartCollectionReference extends BaseCollectionReference<XProduct> {
         String idDocs = product.id + user.uid;
 
         XProduct value = XProduct(
-          color: product.color,
-          currentPrice: product.currentPrice,
-          discount: product.discount,
-          id: product.id,
-          idCategory: product.idCategory,
-          idUser: user.uid,
-          image: product.image,
-          name: product.name,
-          nameCategory: product.nameCategory,
-          newProduct: product.newProduct,
-          originalPrice: product.originalPrice,
-          size: product.size,
-          star: product.star,
-          type: product.type,
-          soldOut: product.soldOut,
-        );
+            color: product.color,
+            currentPrice: product.currentPrice,
+            discount: product.discount,
+            id: product.id,
+            idCategory: product.idCategory,
+            idUser: user.uid,
+            image: product.image,
+            name: product.name,
+            nameCategory: product.nameCategory,
+            newProduct: product.newProduct,
+            originalPrice: product.originalPrice,
+            size: product.size,
+            star: product.star,
+            type: product.type,
+            soldOut: product.soldOut,
+            amount: 1);
         ref.doc(idDocs).set(value);
 
         return XResult.success(product);
@@ -68,6 +68,74 @@ class CartCollectionReference extends BaseCollectionReference<XProduct> {
       final User? user = AuthService().currentUser;
       if (user != null) {
         return query();
+      } else {
+        return XResult.error('Not login yet');
+      }
+    } catch (e) {
+      return XResult.exception(e);
+    }
+  }
+
+  Future<XResult<XProduct>> increaseProduct(XProduct product) async {
+    try {
+      final User? user = AuthService().currentUser;
+      if (user != null) {
+        String idDocs = product.id + user.uid;
+
+        XProduct value = XProduct(
+            color: product.color,
+            currentPrice: product.currentPrice,
+            discount: product.discount,
+            id: product.id,
+            idCategory: product.idCategory,
+            idUser: user.uid,
+            image: product.image,
+            name: product.name,
+            nameCategory: product.nameCategory,
+            newProduct: product.newProduct,
+            originalPrice: product.originalPrice,
+            size: product.size,
+            star: product.star,
+            type: product.type,
+            soldOut: product.soldOut,
+            amount: product.amount + 1);
+        ref.doc(idDocs).set(value);
+
+        return XResult.success(product);
+      } else {
+        return XResult.error('Not login yet');
+      }
+    } catch (e) {
+      return XResult.exception(e);
+    }
+  }
+
+  Future<XResult<XProduct>> decreaseProduct(XProduct product) async {
+    try {
+      final User? user = AuthService().currentUser;
+      if (user != null) {
+        String idDocs = product.id + user.uid;
+
+        XProduct value = XProduct(
+            color: product.color,
+            currentPrice: product.currentPrice,
+            discount: product.discount,
+            id: product.id,
+            idCategory: product.idCategory,
+            idUser: user.uid,
+            image: product.image,
+            name: product.name,
+            nameCategory: product.nameCategory,
+            newProduct: product.newProduct,
+            originalPrice: product.originalPrice,
+            size: product.size,
+            star: product.star,
+            type: product.type,
+            soldOut: product.soldOut,
+            amount: product.amount - 1);
+        ref.doc(idDocs).set(value);
+
+        return XResult.success(product);
       } else {
         return XResult.error('Not login yet');
       }

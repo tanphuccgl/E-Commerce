@@ -2,6 +2,17 @@ part of 'cart_bloc.dart';
 
 class CartState extends ProductState {
   final XHandle<List<XProduct>> productsOfCart;
+  String priceProduct(XProduct data) => data.discount == 0.0
+      ? XUtils.formatPrice(data.originalPrice)
+      : XUtils.formatPrice(data.currentPrice ?? -1);
+  double totalPrice(List<XProduct> items) {
+    double total = 0;
+    for (int i = 0; i < items.length; i++) {
+      total = total + items[i].amount * double.parse(priceProduct(items[i]));
+    }
+    return total;
+  }
+
   bool hadFavorites(XProduct product) {
     late bool value = false;
     for (var item in productsOfCart.data ?? []) {
