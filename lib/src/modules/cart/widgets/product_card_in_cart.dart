@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/models/products_model.dart';
@@ -15,40 +16,44 @@ class XProductCardInCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: MyColors.colorWhite, boxShadow: [
-        BoxShadow(
-            offset: const Offset(0, 1),
-            blurRadius: 25,
-            color: MyColors.colorShadowCircle.withOpacity(0.08),
-            spreadRadius: 1)
-      ]),
-      height: 104,
-      width: 343,
-      child: Row(
-        children: [
-          SizedBox(
-            height: 104,
-            width: 104,
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
-              child: Image(
-                fit: BoxFit.fill,
-                image: NetworkImage(data.image ?? "N/A"),
+    return GestureDetector(
+      onTap: () => XCoordinator.showDetailProduct(context, data: data),
+      child: Container(
+        decoration: BoxDecoration(color: MyColors.colorWhite, boxShadow: [
+          BoxShadow(
+              offset: const Offset(0, 1),
+              blurRadius: 25,
+              color: MyColors.colorShadowCircle.withOpacity(0.08),
+              spreadRadius: 1)
+        ]),
+        height: 104,
+        width: 343,
+        child: Row(
+          children: [
+            SizedBox(
+              height: 104,
+              width: 104,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(8),
+                    bottomLeft: Radius.circular(8)),
+                child: Image(
+                  fit: BoxFit.fill,
+                  image: NetworkImage(data.image ?? "N/A"),
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [_topWidget(context), _bottomWidget()],
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [_topWidget(context), _bottomWidget()],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -141,14 +146,16 @@ class XProductCardInCart extends StatelessWidget {
               onSelected: (newValue) {},
               itemBuilder: (context) {
                 final list = <PopupMenuEntry<int>>[];
-//TODO
                 list.add(PopupMenuItem(
                   height: 40,
                   onTap: data.favorite
                       ? () => context
                           .read<FavoriteBloc>()
                           .removeProductToFavorite(context, product: data)
-                      : null,
+                      : () => context.read<FavoriteBloc>().addProductToFavorite(
+                          context,
+                          product: data,
+                          sizeType: data.size ?? "N/A"),
                   child: Center(
                     child: Text(
                       data.favorite

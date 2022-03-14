@@ -14,7 +14,7 @@ class CartState extends ProductState {
     return total;
   }
 
-  bool hadFavorites(XProduct product) {
+  bool hadCart(XProduct product) {
     late bool value = false;
     for (var item in productsOfCart.data ?? []) {
       if (item.id == product.id) {

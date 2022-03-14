@@ -38,7 +38,6 @@ class CartBloc extends ProductBloc<CartState> {
     } else {}
   }
 
-// TODO
   Future<void> setItemToFavorites(BuildContext context,
       {required XProduct product, required int amount}) async {
     XProduct xProduct = XProduct(
@@ -60,9 +59,11 @@ class CartBloc extends ProductBloc<CartState> {
       amount: amount,
       favorite: product.favorite,
     );
-    final value = await domain.favorite.addProductToFavorite(xProduct);
-    if (value.isSuccess) {
-      context.read<FavoriteBloc>().getProduct();
+    if (product.favorite) {
+      final value = await domain.favorite.addProductToFavorite(xProduct);
+      if (value.isSuccess) {
+        context.read<FavoriteBloc>().getProduct();
+      }
     }
   }
 
@@ -112,6 +113,7 @@ class CartBloc extends ProductBloc<CartState> {
       items.remove(product);
 
       emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+
       setItemToFavorites(context, product: product, amount: 0);
 
       XSnackBar.show(msg: 'Remove product to cart success');
@@ -193,7 +195,8 @@ class CartBloc extends ProductBloc<CartState> {
         removeProductToCart(context, product: product);
       }
       getProduct();
-      setItemToFavorites(context, product: xProduct, amount: 0);
+      setItemToFavorites(context,
+          product: xProduct, amount: product.amount - 1);
     } else {
       XSnackBar.show(msg: 'Error');
     }

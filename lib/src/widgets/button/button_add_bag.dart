@@ -20,7 +20,7 @@ class XButtonAddToBag extends StatelessWidget {
         return SizedBox(
           width: 36,
           height: 36,
-          child: data.amount > 0
+          child: state.hadCart(data)
               ? ElevatedButton(
                   style: ElevatedButton.styleFrom(
                       shadowColor: MyColors.colorPrimary,

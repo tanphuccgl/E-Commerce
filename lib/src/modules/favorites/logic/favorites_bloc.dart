@@ -63,8 +63,14 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
         ...(state.listFavorite.data ?? []),
         xProduct
       ];
+      setItemToCart(
+        context,
+        product: xProduct,
+        favorite: true,
+      );
 
       emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
+
       XSnackBar.show(msg: 'Favorite success');
       XCoordinator.pop(context);
     } else {
@@ -72,9 +78,11 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
     }
   }
 
-// TODO
-  Future<void> setItemToCart(BuildContext context,
-      {required XProduct product, required bool favorite}) async {
+  Future<void> setItemToCart(
+    BuildContext context, {
+    required XProduct product,
+    required bool favorite,
+  }) async {
     XProduct xProduct = XProduct(
         color: product.color,
         currentPrice: product.currentPrice,
@@ -93,9 +101,12 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
         soldOut: product.soldOut,
         amount: product.amount,
         favorite: favorite);
-    final value = await domain.cart.addToCard(xProduct);
-    if (value.isSuccess) {
-      context.read<CartBloc>().getProduct();
+
+    if (product.amount > 0) {
+      final value = await domain.cart.increaseProduct(xProduct);
+      if (value.isSuccess) {
+        context.read<CartBloc>().getProduct();
+      }
     }
   }
 
@@ -105,12 +116,14 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
     if (value.isSuccess) {
       final List<XProduct> items = [...(state.listFavorite.data ?? [])];
       items.remove(product);
+      setItemToCart(
+        context,
+        product: product,
+        favorite: false,
+      );
 
       emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
       getProduct();
-      if (product.amount < 1) {
-        setItemToCart(context, product: product, favorite: false);
-      }
 
       XSnackBar.show(msg: 'Remove Product success');
     } else {
