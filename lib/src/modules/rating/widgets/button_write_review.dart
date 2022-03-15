@@ -1,4 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/review/widgets/bottom_sheet_add_review.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class XButtonWriteReview extends StatelessWidget {
@@ -12,7 +14,9 @@ class XButtonWriteReview extends StatelessWidget {
       height: 36,
       child: ElevatedButton.icon(
         icon: const Icon(Icons.edit),
-        onPressed: () {},
+        onPressed: () => XBottomSheet.show(context,
+            widget: const XBottomSheetAddReview(),
+            backgroundColor: MyColors.colorBackground),
         label: const Text('Write a review',
             textAlign: TextAlign.center,
             style: TextStyle(
