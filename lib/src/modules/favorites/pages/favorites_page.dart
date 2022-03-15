@@ -1,16 +1,100 @@
+import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/models/handle.dart';
+import 'package:e_commerce/src/models/result.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/widgets/header_delegate.dart';
+import 'package:e_commerce/src/modules/favorites/widgets/product_card_horizontal.dart';
+import 'package:e_commerce/src/modules/favorites/widgets/product_card_vertical.dart';
+import 'package:e_commerce/src/modules/product_by_category/logic/product_by_category_bloc.dart';
+import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
+import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavoritesPage extends StatelessWidget {
   const FavoritesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    const title = "Favories";
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(title),
-        centerTitle: true,
-      ),
-    );
+    late int index;
+    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
+      index = state.sortBy.index;
+      final items = state.favoriteList.data ?? [];
+      XHandle handle = XHandle.result(XResult.success(items));
+      state.sortList(items: items, index: index);
+      if (handle.isCompleted) {
+        return Scaffold(
+            backgroundColor: state.viewType.backgroundColor(),
+            body: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                Theme(
+                  data: ThemeData(
+                    appBarTheme: const AppBarTheme(
+                      iconTheme: IconThemeData(color: MyColors.colorBlack),
+                    ),
+                    textTheme: Theme.of(context).textTheme,
+                  ),
+                  child: const SliverPersistentHeader(
+                    pinned: true,
+                    floating: true,
+                    delegate: HeaderFavorite(),
+                  ),
+                ),
+                items.isEmpty
+                    ? const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 100,
+                          child: Center(
+                            child: Text(
+                              'Empty List',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      )
+                    : (state.viewType.index == 0
+                        ? SliverList(
+                            delegate:
+                                SliverChildBuilderDelegate((context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(
+                                  top: 10,
+                                ),
+                                child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 16),
+                                    child: XProductCardFavoriteHorizontal(
+                                        data: items[index])),
+                              );
+                            }, childCount: items.length),
+                          )
+                        : SliverGrid(
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 0,
+                              childAspectRatio: 164 / 280 + 0.1,
+                            ),
+                            delegate:
+                                SliverChildBuilderDelegate((context, index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(16, 10, 16, 0),
+                                child: XProductCardFavoriteVertical(
+                                    data: items[index]),
+                              );
+                            }, childCount: items.length),
+                          ))
+              ],
+            ));
+      } else if (handle.isLoading) {
+        return const XStateLoadingWidget();
+      } else {
+        return const XStateErrorWidget();
+      }
+    });
   }
 }

@@ -4,8 +4,8 @@ import 'package:e_commerce/src/modules/product_by_category/widgets/search_text_f
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SearchProductsPage extends StatelessWidget {
-  const SearchProductsPage({Key? key}) : super(key: key);
+class SearchProductsByCategoryPage extends StatelessWidget {
+  const SearchProductsByCategoryPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

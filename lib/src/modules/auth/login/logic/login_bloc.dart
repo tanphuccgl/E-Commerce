@@ -24,7 +24,7 @@ class LoginBloc extends SignBloc<LoginState> {
       var value = await domain.sign
           .loginWithEmail(email: state.email, password: state.password);
       if (value.isSuccess) {
-        context.read<AccountBloc>().setDataLogin(user: value.data);
+        context.read<AccountBloc>().setDataLogin(context, user: value.data);
         XCoordinator.showDashboard();
         XSnackBar.show(msg: "Logged in successfully");
       } else {

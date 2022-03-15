@@ -6,6 +6,7 @@ import 'package:e_commerce/src/modules/bag/pages/bag_page.dart';
 import 'package:e_commerce/src/modules/dashboard/pages/dashboard_page.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router.dart';
 import 'package:e_commerce/src/modules/favorites/pages/favorites_page.dart';
+import 'package:e_commerce/src/modules/favorites/pages/search_product_by_favorite_page.dart';
 import 'package:e_commerce/src/modules/home/pages/home_page.dart';
 import 'package:e_commerce/src/modules/product_by_category/pages/product_by_category_page.dart';
 import 'package:e_commerce/src/modules/product_by_category/pages/search_products_page.dart';
@@ -24,7 +25,9 @@ class DashboardRouters {
   static const String profile = 'profile';
   static const String setting = 'setting';
   static const String productByCategoryPage = 'productByCategory';
-  static const String searchProducts = 'searchProducts';
+  static const String searchProductsByCategoryPage = 'searchProductsByCategoryPage';
+    static const String searchProductsByFavoritePage = 'searchProductsByFavoritePage';
+
 }
 
 class DashboardCoordinator {
@@ -51,13 +54,25 @@ class DashboardCoordinator {
                       page: ProductByCategoryPage,
                       name: "ProductByCategoryRoute"),
                   AutoRoute(
-                      path: DashboardRouters.searchProducts,
-                      page: SearchProductsPage,
-                      name: "SearchProductsRoute"),
+                      path: DashboardRouters.searchProductsByCategoryPage,
+                      page: SearchProductsByCategoryPage,
+                      name: "SearchProductsByCategoryRoute"),
                   RedirectRoute(path: '*', redirectTo: ''),
                 ]),
             AutoRoute(path: DashboardRouters.bag, page: BagPage),
-            AutoRoute(path: DashboardRouters.favorites, page: FavoritesPage),
+               AutoRoute(
+                path: DashboardRouters.favorites,
+                page: EmptyRouterPage,
+                name: 'FavoritesTab',
+                children: [
+                  AutoRoute(path: "", page: FavoritesPage, name: "FavoritesRoute"),
+               
+                  AutoRoute(
+                      path: DashboardRouters.searchProductsByFavoritePage,
+                      page: SearchProductsByFavoritePage,
+                      name: "SearchProductsByFavoriteRoute"),
+                  RedirectRoute(path: '*', redirectTo: ''),
+                ]),
             AutoRoute(
                 name: "ProfileTab",
                 page: EmptyRouterPage,
@@ -85,9 +100,14 @@ class DashboardCoordinator {
     context.router.push(ProductByCategoryRoute(
         idCategory: idCategory, nameCategory: nameCategory));
   }
-  static showSearchProduct(BuildContext context,
+  static showSearchProductByCategory(BuildContext context,
   ) {
-    context.router.push(const SearchProductsRoute(
+    context.router.push(const SearchProductsByCategoryRoute(
+     ));
+  }
+  static showSearchProductByFavorite(BuildContext context,
+  ) {
+    context.router.push(const SearchProductsByFavoriteRoute(
      ));
   }
 

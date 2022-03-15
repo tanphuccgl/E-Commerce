@@ -10,34 +10,36 @@ class XButtonAddToBag extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return SizedBox(
-      width: size.height * 0.044,
-      height: size.height * 0.044,
+      width: 36,
+      height: 36,
       child: isActive
           ? ElevatedButton(
               style: ElevatedButton.styleFrom(
                   shadowColor: MyColors.colorPrimary,
                   primary: MyColors.colorPrimary,
                   onPrimary: MyColors.colorWhite,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  )),
-              onPressed: onPressed,
+                  padding: EdgeInsets.zero,
+                  minimumSize: Size.zero,
+                  shape: const CircleBorder()),
+              onPressed: () {},
               child: const Image(
-                image: AssetImage(MyIcons.bagIcon),
+                image: AssetImage(MyIcons.bagWhiteIcon)
               ))
           : ElevatedButton(
               style: ElevatedButton.styleFrom(
                   shadowColor: MyColors.colorWhite,
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   primary: MyColors.colorWhite,
+                  padding: EdgeInsets.zero,
+                  minimumSize: Size.zero,
                   onPrimary: MyColors.colorPrimary,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(4),
-                  )),
-              onPressed: onPressed,
+                  shape: const CircleBorder()),
+              onPressed: () {},
               child: const Image(
                 image: AssetImage(MyIcons.activeBagIcon),
+                height: 20,
+                fit: BoxFit.fill,
               )),
     );
   }

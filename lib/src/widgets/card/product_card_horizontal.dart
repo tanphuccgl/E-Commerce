@@ -114,7 +114,6 @@ class XProductCardHorizontal extends StatelessWidget {
                         )
                       ],
                     ),
-
                     data.discount == 0.0
                         ? Text(
                             "${XUtils.formatPrice(data.originalPrice)}\$ ",
@@ -169,8 +168,7 @@ class XProductCardHorizontal extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
-                      isActive: false,
-                      onPressed: () {},
+                      data: data,
                     ),
                   )
                 ]),

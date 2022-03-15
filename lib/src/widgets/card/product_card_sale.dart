@@ -129,8 +129,7 @@ class XProductCardSale extends StatelessWidget {
                   Align(
                     alignment: Alignment.bottomRight,
                     child: XButtonAddToFavorite(
-                      isActive: false,
-                      onPressed: () {},
+                      data: data,
                     ),
                   )
                 ]),

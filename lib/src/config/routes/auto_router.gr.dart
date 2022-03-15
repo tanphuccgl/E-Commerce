@@ -11,28 +11,30 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i6;
-import 'package:flutter/cupertino.dart' as _i17;
-import 'package:flutter/material.dart' as _i16;
+import 'package:flutter/cupertino.dart' as _i18;
+import 'package:flutter/material.dart' as _i17;
 
-import '../../modules/auth/login/pages/login_page.dart' as _i14;
+import '../../modules/auth/login/pages/login_page.dart' as _i15;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
-import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i15;
+import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i16;
 import '../../modules/bag/pages/bag_page.dart' as _i7;
 import '../../modules/dashboard/pages/dashboard_page.dart' as _i4;
 import '../../modules/dashboard/router/dashboard_wrapper_router.dart' as _i1;
-import '../../modules/favorites/pages/favorites_page.dart' as _i8;
+import '../../modules/favorites/pages/favorites_page.dart' as _i11;
+import '../../modules/favorites/pages/search_product_by_favorite_page.dart'
+    as _i12;
 import '../../modules/home/pages/home_page.dart' as _i5;
 import '../../modules/loading/pages/loading_page.dart' as _i3;
 import '../../modules/product_by_category/pages/product_by_category_page.dart'
-    as _i10;
+    as _i9;
 import '../../modules/product_by_category/pages/search_products_page.dart'
-    as _i11;
-import '../../modules/profile/pages/profile_page.dart' as _i12;
-import '../../modules/settings/pages/setting_page.dart' as _i13;
-import '../../modules/shop/pages/shop_page.dart' as _i9;
+    as _i10;
+import '../../modules/profile/pages/profile_page.dart' as _i13;
+import '../../modules/settings/pages/setting_page.dart' as _i14;
+import '../../modules/shop/pages/shop_page.dart' as _i8;
 
 class XRouter extends _i6.RootStackRouter {
-  XRouter([_i16.GlobalKey<_i16.NavigatorState>? navigatorKey])
+  XRouter([_i17.GlobalKey<_i17.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -65,9 +67,9 @@ class XRouter extends _i6.RootStackRouter {
       return _i6.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i7.BagPage());
     },
-    FavoritesRoute.name: (routeData) {
+    FavoritesTab.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i8.FavoritesPage());
+          routeData: routeData, child: const _i6.EmptyRouterPage());
     },
     ProfileTab.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
@@ -75,36 +77,46 @@ class XRouter extends _i6.RootStackRouter {
     },
     ShopRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i9.ShopPage());
+          routeData: routeData, child: const _i8.ShopPage());
     },
     ProductByCategoryRoute.name: (routeData) {
       final args = routeData.argsAs<ProductByCategoryRouteArgs>();
       return _i6.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i10.ProductByCategoryPage(
+          child: _i9.ProductByCategoryPage(
               key: args.key,
               idCategory: args.idCategory,
               nameCategory: args.nameCategory));
     },
-    SearchProductsRoute.name: (routeData) {
+    SearchProductsByCategoryRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i11.SearchProductsPage());
+          routeData: routeData,
+          child: const _i10.SearchProductsByCategoryPage());
+    },
+    FavoritesRoute.name: (routeData) {
+      return _i6.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i11.FavoritesPage());
+    },
+    SearchProductsByFavoriteRoute.name: (routeData) {
+      return _i6.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: const _i12.SearchProductsByFavoritePage());
     },
     ProfileRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i12.ProfilePage());
+          routeData: routeData, child: const _i13.ProfilePage());
     },
     SettingRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i13.SettingPage());
+          routeData: routeData, child: const _i14.SettingPage());
     },
     LoginRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i14.LoginPage());
+          routeData: routeData, child: const _i15.LoginPage());
     },
     SignUpRoute.name: (routeData) {
       return _i6.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i15.SignUpPage());
+          routeData: routeData, child: const _i16.SignUpPage());
     }
   };
 
@@ -129,8 +141,9 @@ class XRouter extends _i6.RootStackRouter {
                               path: '', parent: ShopTab.name),
                           _i6.RouteConfig(ProductByCategoryRoute.name,
                               path: 'productByCategory', parent: ShopTab.name),
-                          _i6.RouteConfig(SearchProductsRoute.name,
-                              path: 'searchProducts', parent: ShopTab.name),
+                          _i6.RouteConfig(SearchProductsByCategoryRoute.name,
+                              path: 'searchProductsByCategoryPage',
+                              parent: ShopTab.name),
                           _i6.RouteConfig('*#redirect',
                               path: '*',
                               parent: ShopTab.name,
@@ -139,8 +152,21 @@ class XRouter extends _i6.RootStackRouter {
                         ]),
                     _i6.RouteConfig(BagRoute.name,
                         path: 'bag', parent: DashboardRoute.name),
-                    _i6.RouteConfig(FavoritesRoute.name,
-                        path: 'favorites', parent: DashboardRoute.name),
+                    _i6.RouteConfig(FavoritesTab.name,
+                        path: 'favorites',
+                        parent: DashboardRoute.name,
+                        children: [
+                          _i6.RouteConfig(FavoritesRoute.name,
+                              path: '', parent: FavoritesTab.name),
+                          _i6.RouteConfig(SearchProductsByFavoriteRoute.name,
+                              path: 'searchProductsByFavoritePage',
+                              parent: FavoritesTab.name),
+                          _i6.RouteConfig('*#redirect',
+                              path: '*',
+                              parent: FavoritesTab.name,
+                              redirectTo: '',
+                              fullMatch: true)
+                        ]),
                     _i6.RouteConfig(ProfileTab.name,
                         path: 'profile',
                         parent: DashboardRoute.name,
@@ -251,11 +277,12 @@ class BagRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.FavoritesPage]
-class FavoritesRoute extends _i6.PageRouteInfo<void> {
-  const FavoritesRoute() : super(FavoritesRoute.name, path: 'favorites');
+/// [_i6.EmptyRouterPage]
+class FavoritesTab extends _i6.PageRouteInfo<void> {
+  const FavoritesTab({List<_i6.PageRouteInfo>? children})
+      : super(FavoritesTab.name, path: 'favorites', initialChildren: children);
 
-  static const String name = 'FavoritesRoute';
+  static const String name = 'FavoritesTab';
 }
 
 /// generated route for
@@ -268,7 +295,7 @@ class ProfileTab extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.ShopPage]
+/// [_i8.ShopPage]
 class ShopRoute extends _i6.PageRouteInfo<void> {
   const ShopRoute() : super(ShopRoute.name, path: '');
 
@@ -276,11 +303,11 @@ class ShopRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.ProductByCategoryPage]
+/// [_i9.ProductByCategoryPage]
 class ProductByCategoryRoute
     extends _i6.PageRouteInfo<ProductByCategoryRouteArgs> {
   ProductByCategoryRoute(
-      {_i17.Key? key, required String idCategory, required String nameCategory})
+      {_i18.Key? key, required String idCategory, required String nameCategory})
       : super(ProductByCategoryRoute.name,
             path: 'productByCategory',
             args: ProductByCategoryRouteArgs(
@@ -293,7 +320,7 @@ class ProductByCategoryRouteArgs {
   const ProductByCategoryRouteArgs(
       {this.key, required this.idCategory, required this.nameCategory});
 
-  final _i17.Key? key;
+  final _i18.Key? key;
 
   final String idCategory;
 
@@ -306,16 +333,35 @@ class ProductByCategoryRouteArgs {
 }
 
 /// generated route for
-/// [_i11.SearchProductsPage]
-class SearchProductsRoute extends _i6.PageRouteInfo<void> {
-  const SearchProductsRoute()
-      : super(SearchProductsRoute.name, path: 'searchProducts');
+/// [_i10.SearchProductsByCategoryPage]
+class SearchProductsByCategoryRoute extends _i6.PageRouteInfo<void> {
+  const SearchProductsByCategoryRoute()
+      : super(SearchProductsByCategoryRoute.name,
+            path: 'searchProductsByCategoryPage');
 
-  static const String name = 'SearchProductsRoute';
+  static const String name = 'SearchProductsByCategoryRoute';
 }
 
 /// generated route for
-/// [_i12.ProfilePage]
+/// [_i11.FavoritesPage]
+class FavoritesRoute extends _i6.PageRouteInfo<void> {
+  const FavoritesRoute() : super(FavoritesRoute.name, path: '');
+
+  static const String name = 'FavoritesRoute';
+}
+
+/// generated route for
+/// [_i12.SearchProductsByFavoritePage]
+class SearchProductsByFavoriteRoute extends _i6.PageRouteInfo<void> {
+  const SearchProductsByFavoriteRoute()
+      : super(SearchProductsByFavoriteRoute.name,
+            path: 'searchProductsByFavoritePage');
+
+  static const String name = 'SearchProductsByFavoriteRoute';
+}
+
+/// generated route for
+/// [_i13.ProfilePage]
 class ProfileRoute extends _i6.PageRouteInfo<void> {
   const ProfileRoute() : super(ProfileRoute.name, path: '');
 
@@ -323,7 +369,7 @@ class ProfileRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.SettingPage]
+/// [_i14.SettingPage]
 class SettingRoute extends _i6.PageRouteInfo<void> {
   const SettingRoute() : super(SettingRoute.name, path: 'setting');
 
@@ -331,7 +377,7 @@ class SettingRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.LoginPage]
+/// [_i15.LoginPage]
 class LoginRoute extends _i6.PageRouteInfo<void> {
   const LoginRoute() : super(LoginRoute.name, path: 'login');
 
@@ -339,7 +385,7 @@ class LoginRoute extends _i6.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.SignUpPage]
+/// [_i16.SignUpPage]
 class SignUpRoute extends _i6.PageRouteInfo<void> {
   const SignUpRoute() : super(SignUpRoute.name, path: 'register');
 

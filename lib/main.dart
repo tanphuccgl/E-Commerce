@@ -6,6 +6,7 @@ import 'package:e_commerce/src/config/themes/themes.dart';
 
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
 import 'package:e_commerce/src/modules/product_by_category/logic/product_by_category_bloc.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ProductBloc()),
         BlocProvider(create: (_) => CategoriesBloc()),
         BlocProvider(create: (_) => ProductByCategoryBloc()),
+        BlocProvider(create: (_) => FavoriteBloc()),
       ],
       child: MaterialApp.router(
         theme: XTheme.light(),

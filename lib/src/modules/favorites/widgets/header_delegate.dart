@@ -1,18 +1,13 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
-import 'package:e_commerce/src/modules/product_by_category/widgets/filter_bar.dart';
+import 'package:e_commerce/src/modules/favorites/widgets/filter_bar.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
-
 import 'package:e_commerce/src/widgets/chip/tag_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
-  final String nameCategory;
-
-  const HeaderDetailCategory({
-    required this.nameCategory,
-  });
+class HeaderFavorite extends SliverPersistentHeaderDelegate {
+  const HeaderFavorite();
 
   @override
   Widget build(
@@ -41,7 +36,7 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                   icon: const Icon(Icons.search),
                   color: MyColors.colorBlack,
                   onPressed: () =>
-                      DashboardCoordinator.showSearchProductByCategory(context),
+                      DashboardCoordinator.showSearchProductByFavorite(context),
                 )
               ],
               elevation: 3,
@@ -60,7 +55,7 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
               child: Opacity(
                 opacity: shrinkOffset > 1 && shrinkOffset < 100 ? progress : 1,
                 child: Text(
-                  nameCategory,
+                  'Favorites',
                   textAlign: TextAlign.center,
                   style: TextStyle.lerp(
                     Theme.of(context).textTheme.headlineLarge,
@@ -101,6 +96,7 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                             return TagChip(
                               label: items[index].name ?? 'N/A',
                               idCategory: items[index].id,
+                              onPressed: () {},
                             );
                           },
                         ),
@@ -108,7 +104,7 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                     }),
                     const Padding(
                       padding: EdgeInsets.fromLTRB(14, 5, 14, 0),
-                      child: FilerBar(),
+                      child: FilerBarFavorites(),
                     ),
                   ],
                 ),
