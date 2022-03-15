@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 
 class PromoCodeWidget extends StatefulWidget {
   final Function(String) onChanged;
+  final Function() onPressedArrowIcon;
 
   final String value;
 
-  const PromoCodeWidget({
-    Key? key,
-    required this.value,
-    required this.onChanged,
-  }) : super(key: key);
+  const PromoCodeWidget(
+      {Key? key,
+      required this.value,
+      required this.onChanged,
+      required this.onPressedArrowIcon})
+      : super(key: key);
 
   @override
   State<PromoCodeWidget> createState() => _PromoCodeWidgetState();
@@ -62,7 +64,7 @@ class _PromoCodeWidgetState extends State<PromoCodeWidget> {
       actions.add(IconCircleButton(
         icon: const Icon(Icons.arrow_forward, color: MyColors.colorWhite),
         primary: MyColors.colorBlack,
-        onPressed: () {},
+        onPressed: () => widget.onPressedArrowIcon.call(),
         onPrimary: MyColors.colorWhite,
       ));
     }

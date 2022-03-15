@@ -10,6 +10,8 @@ import 'package:e_commerce/src/repositories/features/categories/repo.dart';
 import 'package:e_commerce/src/repositories/features/categories/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/product/repo.dart';
 import 'package:e_commerce/src/repositories/features/product/repo_impl.dart';
+import 'package:e_commerce/src/repositories/features/promotions/repo.dart';
+import 'package:e_commerce/src/repositories/features/promotions/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/sign/repo.dart';
 import 'package:e_commerce/src/repositories/features/sign/repo_impl.dart';
 
@@ -23,6 +25,7 @@ class Domain {
     category = CategoryRepositoryImpl();
     favorite = FavoriteRepositoryImpl();
     cart = CartRepositoryImpl();
+    promotion = PromotionRepositoryImpl();
   }
   factory Domain() {
     _internal ??= Domain._();
@@ -36,4 +39,5 @@ class Domain {
   late final CategoryRepository category;
   late final FavoriteRepository favorite;
   late final CartRepository cart;
+  late final PromotionRepository promotion;
 }
