@@ -25,4 +25,20 @@ class ProductBloc extends Cubit<ProductState> {
 
     emit(state.copyWithItem(items: product.data ?? [], isLoading: false));
   }
+
+  Future<void> searchProduct(String query) async {
+    late List<XProduct> items;
+    if (query.isEmpty || query == '') {
+      items = [];
+    } else {
+      items = (state.items ?? []).where((e) {
+        final titleLower = e.name.toLowerCase();
+        final searchLower = query.toLowerCase();
+
+        return titleLower.contains(searchLower);
+      }).toList();
+    }
+
+    emit(state.copyWithItem(searchList: items, searchText: query));
+  }
 }
