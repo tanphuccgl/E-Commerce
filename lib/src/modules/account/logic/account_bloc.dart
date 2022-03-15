@@ -1,5 +1,11 @@
+import 'dart:async';
+
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
+import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
+import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
+import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/users_collection_reference.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
@@ -12,12 +18,12 @@ part 'account_state.dart';
 
 class AccountBloc<T extends AccountState> extends Cubit<T> {
   AccountBloc(T initialState) : super(initialState) {
-    _getUser();
+    getUser();
   }
-  final Domain domain = Domain();
-  Future<void> _getUser() async {
-    await Future.delayed(Duration.zero);
 
+  final Domain domain = Domain();
+  Future<void> getUser() async {
+    await Future.delayed(Duration.zero);
     User? currentUser = AuthService().currentUser;
 
     if (currentUser == null) {
@@ -30,7 +36,12 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
     }
   }
 
-  void setDataLogin({XUser? user}) {
+  void setDataLogin(BuildContext context, {XUser? user}) {
+    context.read<ProductBloc>().getProduct();
+    context.read<CategoriesBloc>().getCategory();
+    context.read<FavoriteBloc>().getProduct();
+    context.read<CartBloc>().getProduct();
+
     emit(state.copyWith(data: user, isLoading: false) as T);
   }
 

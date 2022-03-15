@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/shop/widgets/category_list_tile.dart';
+import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class ShopPage extends StatelessWidget {
         MediaQuery.of(context).padding.top;
 
     return Scaffold(
-      appBar: AppBarSign(
+      appBar: XDefaultAppBar(
         elevation: 3,
         title: "Categories",
         style: const TextStyle(
@@ -28,7 +29,8 @@ class ShopPage extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.search),
             color: MyColors.colorBlack,
-            onPressed: () {},
+            onPressed: () =>
+                DashboardCoordinator.showSearchProductByCategory(context),
           )
         ],
       ),

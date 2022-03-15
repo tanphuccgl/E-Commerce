@@ -1,46 +1,57 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
+import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_size.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XButtonAddToFavorite extends StatelessWidget {
-  final bool isActive;
-  final VoidCallback? onPressed;
-  const XButtonAddToFavorite({Key? key, this.onPressed, required this.isActive})
-      : super(key: key);
+  final XProduct data;
+  const XButtonAddToFavorite({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 36,
-      height: 36,
-      child: isActive
-          ? ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shadowColor: MyColors.colorPrimary,
-                  primary: MyColors.colorPrimary,
-                  onPrimary: MyColors.colorWhite,
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                  shape: const CircleBorder()),
-              onPressed: onPressed,
-              child: const Image(
-                image: AssetImage(MyIcons.favoriteIcon),
-              ))
-          : ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  shadowColor: MyColors.colorWhite,
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  primary: MyColors.colorWhite,
-                  padding: EdgeInsets.zero,
-                  minimumSize: Size.zero,
-                  onPrimary: MyColors.colorPrimary,
-                  shape: const CircleBorder()),
-              onPressed: onPressed,
-              child: const Image(
-                image: AssetImage(MyIcons.favoriteIcon),
-                height: 9,
-                fit: BoxFit.fill,
-              )),
-    );
+    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
+      return SizedBox(
+          width: 36,
+          height: 36,
+          child: state.hadFavorites(data)
+              ? ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shadowColor: MyColors.colorPrimary,
+                      primary: MyColors.colorPrimary,
+                      onPrimary: MyColors.colorWhite,
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size.zero,
+                      shape: const CircleBorder()),
+                  onPressed: () {},
+                  child: const Image(
+                    image: AssetImage(MyIcons.favoriteWhiteIcon),
+                    height: 9,
+                    fit: BoxFit.fill,
+                  ))
+              : ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      shadowColor: MyColors.colorWhite,
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      primary: MyColors.colorWhite,
+                      padding: EdgeInsets.zero,
+                      minimumSize: Size.zero,
+                      onPrimary: MyColors.colorPrimary,
+                      shape: const CircleBorder()),
+                  onPressed: () {
+                    context.read<FavoriteBloc>().initSizeType();
+
+                    XBottomSheet.show(context,
+                        widget: XBottomSheetFavorite(data: data));
+                  },
+                  child: const Image(
+                    image: AssetImage(MyIcons.favoriteIcon),
+                    height: 9,
+                    fit: BoxFit.fill,
+                  )));
+    });
   }
 }

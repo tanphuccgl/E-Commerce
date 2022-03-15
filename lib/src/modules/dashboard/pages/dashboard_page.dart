@@ -13,8 +13,8 @@ class DashboardPage extends StatelessWidget {
         routes: const [
           HomeRoute(),
           ShopTab(),
-          BagRoute(),
-          FavoritesRoute(),
+          BagTab(),
+          FavoritesTab(),
           ProfileTab(),
         ],
         bottomNavigationBuilder: (_, tabsRouter) {

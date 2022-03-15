@@ -2,33 +2,18 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppBarSign extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
-  final List<Widget>? actions;
-  final Function()? onPressed;
-  final Widget? leading;
-  final double elevation;
-  final Color? backgroundColor;
-  final TextStyle? style;
   const AppBarSign({
-    Key? key,this.style,
-    this.elevation = 0,
-    this.backgroundColor,
-    this.onPressed,
-    this.title = '',
-    this.actions,
-    this.leading,
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title, style: style),
-      centerTitle: true,bottomOpacity: 8,
-      actions: actions,shadowColor: MyColors.colorWhite,
-      leading: leading,
+      bottomOpacity: 8,
+      shadowColor: MyColors.colorWhite,
       iconTheme: const IconThemeData(color: MyColors.colorBlack),
-      backgroundColor: backgroundColor ?? Colors.transparent,
-      elevation: elevation,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
     );
   }
 

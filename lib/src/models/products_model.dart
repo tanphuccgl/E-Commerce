@@ -14,12 +14,16 @@ class XProduct extends BaseModel {
   bool? newProduct;
   String idCategory;
   String nameCategory;
-
+  String? idUser;
+  bool soldOut;
+  int amount;
+  bool favorite;
   XProduct(
       {this.name = '',
       this.idCategory = '',
       this.nameCategory = '',
       String id = '',
+      this.favorite = false,
       this.image,
       this.star = 0,
       this.type = '',
@@ -28,7 +32,10 @@ class XProduct extends BaseModel {
       this.originalPrice = 0,
       this.discount,
       this.currentPrice,
-      this.newProduct})
+      this.idUser,
+      this.soldOut = false,
+      this.newProduct,
+      this.amount = 0})
       : super(id: id);
 
   factory XProduct.fromJson(Map<String, dynamic> json) {
@@ -46,6 +53,10 @@ class XProduct extends BaseModel {
       id: json['id'],
       idCategory: json['idCategory'],
       nameCategory: json['nameCategory'],
+      idUser: json['idUser'],
+      soldOut: json['soldOut'],
+      amount: json['amount'],
+      favorite: json['favorite'],
     );
   }
   factory XProduct.empty() {
@@ -69,8 +80,11 @@ class XProduct extends BaseModel {
     data['currentPrice'] = currentPrice;
     data['newProduct'] = newProduct;
     data['idCategory'] = idCategory;
-
     data['nameCategory'] = nameCategory;
+    data['idUser'] = idUser;
+    data['soldOut'] = soldOut;
+    data['amount'] = amount;
+    data['favorite'] = favorite;
 
     return data;
   }

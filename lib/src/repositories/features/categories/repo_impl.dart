@@ -15,7 +15,8 @@ class CategoryRepositoryImpl extends CategoryRepository {
   }
 
   @override
-  Future<XResult<List<XCategories>>> updateCategory() async {
+
+  Future<XResult<List<XCategories>>> addCategory() async {
     try {
       var data = CategoriesCollectionReference().updateCategories();
       return data;

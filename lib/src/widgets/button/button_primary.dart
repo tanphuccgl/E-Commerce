@@ -11,7 +11,7 @@ class XButton extends StatelessWidget {
       required this.label,
       this.width,
       this.height = 36,
-       this.onPressed})
+      this.onPressed})
       : super(key: key);
 
   @override
@@ -22,7 +22,8 @@ class XButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: onPressed,
         child: Text(
-          label,textAlign: TextAlign.center,
+          label,
+          textAlign: TextAlign.center,
           style: XStyle.textTheme().labelMedium,
         ),
       ),

@@ -1,17 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bot_toast/bot_toast.dart';
-
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
-
+import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
+import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
+import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
 
@@ -40,8 +40,13 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (_) => AccountBloc(AccountState(data: XUser.empty()))),
-        BlocProvider(create: (_) => ProductBloc()),
+        BlocProvider(
+            create: (_) => ProductBloc(ProductState(
+                searchList: XHandle.completed([]),
+                items: XHandle.completed([])))),
         BlocProvider(create: (_) => CategoriesBloc()),
+        BlocProvider(create: (_) => FavoriteBloc()),
+        BlocProvider(create: (_) => CartBloc()),
       ],
       child: MaterialApp.router(
         theme: XTheme.light(),
@@ -60,7 +65,9 @@ class MyApp extends StatelessWidget {
           Locale('en', ''),
         ],
         onGenerateTitle: (BuildContext context) => S.of(context).appTitle,
-        routeInformationParser: appRouter.defaultRouteParser(),
+        routeInformationParser: appRouter.defaultRouteParser(
+          includePrefixMatches: true,
+        ),
         routerDelegate: AutoRouterDelegate(appRouter),
       ),
     );

@@ -78,7 +78,7 @@ class SettingBloc extends AccountBloc<SettingState> {
       var value = await domain.profile
           .updateInfo(name: state.name, birthDay: state.birthDay);
       if (value.isSuccess) {
-        context.read<AccountBloc>().setDataLogin(user: value.data);
+        context.read<AccountBloc>().setDataLogin(context, user: value.data);
         XCoordinator.pop(context);
 
         XSnackBar.show(msg: "Successfully changed information");

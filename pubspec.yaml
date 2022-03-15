@@ -24,7 +24,7 @@ dependencies:
 
   # STATE MANAGEMENT
   flutter_bloc: ^8.0.0
-  auto_route: ^3.2.0
+  auto_route: ^3.2.4
 
   # FIREBASE
   # GITHUB

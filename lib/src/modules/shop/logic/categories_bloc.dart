@@ -18,8 +18,9 @@ class CategoriesBloc extends Cubit<CategoriesState> {
     emit(state.copyWith(items: XHandle.completed(category.data ?? [])));
   }
 
-  Future<void> updateCategory() async {
-    final category = await domain.category.updateCategory();
+
+  Future<void> addCategory() async {
+    final category = await domain.category.addCategory();
 
     emit(state.copyWith(items: XHandle.completed(category.data ?? [])));
   }

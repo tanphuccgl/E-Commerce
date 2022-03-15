@@ -1,9 +1,9 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
 import 'package:e_commerce/src/modules/profile/logic/profile_bloc.dart';
 import 'package:e_commerce/src/modules/profile/widgets/info_profile.dart';
 import 'package:e_commerce/src/modules/profile/widgets/list_tile_profile.dart';
+import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
 import 'package:e_commerce/src/widgets/header/header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,9 +16,10 @@ class ProfilePage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final padding = size.width * 0.037;
 
-    return BlocProvider(create: (_)=>ProfileBloc(),
+    return BlocProvider(
+      create: (_) => ProfileBloc(),
       child: Scaffold(
-        appBar: AppBarSign(actions: [
+        appBar: XDefaultAppBar(actions: [
           IconButton(
             icon: const Icon(Icons.search),
             color: MyColors.colorBlack,
@@ -40,7 +41,7 @@ class ProfilePage extends StatelessWidget {
               var email = state.data.email ?? 'N/A';
               var name = state.data.name ?? 'N/A';
               var urlImage = state.data.urlAvatar ?? 'N/A';
-    
+
               return InfoProfile(
                 email: email,
                 imageUrl: urlImage,
