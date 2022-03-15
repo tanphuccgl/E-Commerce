@@ -16,6 +16,7 @@ class XProduct extends BaseModel {
   String nameCategory;
   String? idUser;
   bool soldOut;
+  int amount;
   XProduct(
       {this.name = '',
       this.idCategory = '',
@@ -31,7 +32,8 @@ class XProduct extends BaseModel {
       this.currentPrice,
       this.idUser,
       this.soldOut = false,
-      this.newProduct})
+      this.newProduct,
+      this.amount = 0})
       : super(id: id);
 
   factory XProduct.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class XProduct extends BaseModel {
       nameCategory: json['nameCategory'],
       idUser: json['idUser'],
       soldOut: json['soldOut'],
+      amount: json['amount'],
     );
   }
   factory XProduct.empty() {
@@ -77,6 +80,7 @@ class XProduct extends BaseModel {
     data['nameCategory'] = nameCategory;
     data['idUser'] = idUser;
     data['soldOut'] = soldOut;
+    data['amount'] = amount;
 
     return data;
   }

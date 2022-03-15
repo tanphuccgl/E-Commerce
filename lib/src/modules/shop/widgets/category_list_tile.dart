@@ -27,7 +27,8 @@ class CategoryListTile extends StatelessWidget {
                       dense: true,
                       contentPadding:
                           const EdgeInsets.symmetric(horizontal: 40),
-                      onTap: () => DashboardCoordinator.showProductByCategory(context,
+                      onTap: () => DashboardCoordinator.showProductByCategory(
+                          context,
                           idCategory: item.id,
                           nameCategory: item.name ?? 'N/A'),
                       title: Text(item.name ?? "N/A",

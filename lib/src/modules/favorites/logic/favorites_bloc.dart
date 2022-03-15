@@ -3,6 +3,7 @@ import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
+import 'package:e_commerce/src/utils/enum/color_type.dart';
 import 'package:e_commerce/src/utils/enum/size_type.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
@@ -18,10 +19,11 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
             listFavorite: XHandle.completed([]),
             items: XHandle.completed([]),
             searchList: XHandle.completed([]))) {
-    getFavorite();
+    getProduct();
   }
 
-  Future<void> getFavorite() async {
+  @override
+  Future<void> getProduct() async {
     User? currentUser = AuthService().currentUser;
     final value = await domain.favorite.getProductToFavorite();
     if (value.isSuccess) {
@@ -36,22 +38,22 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
   Future<void> addProductToFavorite(BuildContext context,
       {required XProduct product, required SizeType sizeType}) async {
     XProduct xProduct = XProduct(
-      color: product.color,
-      currentPrice: product.currentPrice,
-      discount: product.discount,
-      id: product.id,
-      idCategory: product.idCategory,
-      idUser: product.idUser,
-      image: product.image,
-      name: product.name,
-      nameCategory: product.nameCategory,
-      newProduct: product.newProduct,
-      originalPrice: product.originalPrice,
-      size: sizeType.value(),
-      star: product.star,
-      type: product.type,
-      soldOut: product.soldOut,
-    );
+        color: product.color,
+        currentPrice: product.currentPrice,
+        discount: product.discount,
+        id: product.id,
+        idCategory: product.idCategory,
+        idUser: product.idUser,
+        image: product.image,
+        name: product.name,
+        nameCategory: product.nameCategory,
+        newProduct: product.newProduct,
+        originalPrice: product.originalPrice,
+        size: sizeType.value(),
+        star: product.star,
+        type: product.type,
+        soldOut: product.soldOut,
+        amount: product.amount);
     final value = await domain.favorite.addProductToFavorite(xProduct);
     if (value.isSuccess) {
       final List<XProduct> items = [
@@ -79,7 +81,8 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
       XSnackBar.show(msg: 'Remove Product failure');
     }
   }
-    @override
+
+  @override
   Future<void> searchProduct(String query) async {
     late List<XProduct> items;
     if (query.isEmpty || query == '') {

@@ -1,5 +1,7 @@
 import 'package:e_commerce/src/repositories/features/account/repo.dart';
 import 'package:e_commerce/src/repositories/features/account/repo_impl.dart';
+import 'package:e_commerce/src/repositories/features/cart/repo.dart';
+import 'package:e_commerce/src/repositories/features/cart/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/favorite/repo.dart';
 import 'package:e_commerce/src/repositories/features/favorite/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/profile/repo.dart';
@@ -20,6 +22,7 @@ class Domain {
     product = ProductRepositoryImpl();
     category = CategoryRepositoryImpl();
     favorite = FavoriteRepositoryImpl();
+    cart = CartRepositoryImpl();
   }
   factory Domain() {
     _internal ??= Domain._();
@@ -32,4 +35,5 @@ class Domain {
   late final ProductRepository product;
   late final CategoryRepository category;
   late final FavoriteRepository favorite;
+  late final CartRepository cart;
 }

@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
+import 'package:e_commerce/src/utils/enum/color_type.dart';
 import 'package:e_commerce/src/utils/enum/size_type.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
@@ -62,7 +63,7 @@ class ProductBloc<T extends ProductState> extends Cubit<T> {
   }
 
   void initSizeType() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(Duration.zero);
     emit(state.copyWithItem(sizeType: SizeType.xs) as T);
   }
 }

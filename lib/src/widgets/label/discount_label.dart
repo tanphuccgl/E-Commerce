@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class DisCountLabel extends StatelessWidget {
   final String number;
-  const DisCountLabel( {Key? key, required this.number}) : super(key: key);
+  const DisCountLabel({Key? key, required this.number}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,11 @@ class DisCountLabel extends StatelessWidget {
       width: 40,
       child: Center(
         child: Text(
-          "-$number%",textAlign: TextAlign.center,
+          "-$number%",
+          textAlign: TextAlign.center,
           style: const TextStyle(
-              color: MyColors.colorWhite,height: 1,
+              color: MyColors.colorWhite,
+              height: 1,
               fontSize: 11,
               fontWeight: FontWeight.w600),
         ),

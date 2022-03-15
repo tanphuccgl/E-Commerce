@@ -11,9 +11,10 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i7;
+import 'package:flutter/cupertino.dart' as _i19;
 import 'package:flutter/material.dart' as _i18;
 
-import '../../models/products_model.dart' as _i19;
+import '../../models/products_model.dart' as _i20;
 import '../../modules/auth/login/pages/login_page.dart' as _i16;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
 import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i17;
@@ -253,7 +254,7 @@ class LoadingRoute extends _i7.PageRouteInfo<void> {
 /// generated route for
 /// [_i4.ProductDetailsPage]
 class ProductDetailsRoute extends _i7.PageRouteInfo<ProductDetailsRouteArgs> {
-  ProductDetailsRoute({required String id, _i18.Key? key, _i19.XProduct? data})
+  ProductDetailsRoute({required String id, _i19.Key? key, _i20.XProduct? data})
       : super(ProductDetailsRoute.name,
             path: '/detail/:id',
             args: ProductDetailsRouteArgs(id: id, key: key, data: data),
@@ -267,9 +268,9 @@ class ProductDetailsRouteArgs {
 
   final String id;
 
-  final _i18.Key? key;
+  final _i19.Key? key;
 
-  final _i19.XProduct? data;
+  final _i20.XProduct? data;
 
   @override
   String toString() {
@@ -341,7 +342,7 @@ class ShopRoute extends _i7.PageRouteInfo<void> {
 /// [_i10.DetailCategoryPage]
 class DetailCategoryRoute extends _i7.PageRouteInfo<DetailCategoryRouteArgs> {
   DetailCategoryRoute(
-      {_i18.Key? key, required String idCategory, required String nameCategory})
+      {_i19.Key? key, required String idCategory, required String nameCategory})
       : super(DetailCategoryRoute.name,
             path: 'productByCategory',
             args: DetailCategoryRouteArgs(
@@ -354,7 +355,7 @@ class DetailCategoryRouteArgs {
   const DetailCategoryRouteArgs(
       {this.key, required this.idCategory, required this.nameCategory});
 
-  final _i18.Key? key;
+  final _i19.Key? key;
 
   final String idCategory;
 

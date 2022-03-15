@@ -1,10 +1,21 @@
-part of 'favorites_bloc.dart';
+part of 'cart_bloc.dart';
 
-class FavoriteState extends ProductState {
-  final XHandle<List<XProduct>> listFavorite;
+class CartState extends ProductState {
+  final XHandle<List<XProduct>> productsOfCart;
+  String priceProduct(XProduct data) => data.discount == 0.0
+      ? XUtils.formatPrice(data.originalPrice)
+      : XUtils.formatPrice(data.currentPrice ?? -1);
+  double totalPrice(List<XProduct> items) {
+    double total = 0;
+    for (int i = 0; i < items.length; i++) {
+      total = total + items[i].amount * double.parse(priceProduct(items[i]));
+    }
+    return total;
+  }
+
   bool hadFavorites(XProduct product) {
     late bool value = false;
-    for (var item in listFavorite.data ?? []) {
+    for (var item in productsOfCart.data ?? []) {
       if (item.id == product.id) {
         value = true;
         break;
@@ -15,21 +26,21 @@ class FavoriteState extends ProductState {
     return value;
   }
 
-  const FavoriteState(
+  const CartState(
       {required XHandle<List<XProduct>> items,
-      required this.listFavorite,
+      required this.productsOfCart,
       String searchText = '',
       required XHandle<List<XProduct>> searchList,
       SortBy sortBy = SortBy.lowToHigh,
-      ColorType colorType = ColorType.black,
       SizeType sizeType = SizeType.xs,
+      ColorType colorType = ColorType.black,
       ViewType viewType = ViewType.listView})
       : super(
             items: items,
-            colorType: colorType,
             searchList: searchList,
             searchText: searchText,
             sizeType: sizeType,
+            colorType: colorType,
             sortBy: sortBy,
             viewType: viewType);
 
@@ -40,21 +51,22 @@ class FavoriteState extends ProductState {
         viewType,
         sizeType,
         searchList,
+        colorType,
         searchText,
-        listFavorite,
+        productsOfCart,
       ];
   @override
-  FavoriteState copyWithItem(
+  CartState copyWithItem(
       {XHandle<List<XProduct>>? items,
       XHandle<List<XProduct>>? searchList,
-      XHandle<List<XProduct>>? listFavorite,
+      XHandle<List<XProduct>>? productsOfCart,
       String? searchText,
       ViewType? viewType,
-      SizeType? sizeType,
       ColorType? colorType,
+      SizeType? sizeType,
       SortBy? sortBy}) {
-    return FavoriteState(
-        listFavorite: listFavorite ?? this.listFavorite,
+    return CartState(
+        productsOfCart: productsOfCart ?? this.productsOfCart,
         searchList: searchList ?? this.searchList,
         searchText: searchText ?? this.searchText,
         items: items ?? this.items,

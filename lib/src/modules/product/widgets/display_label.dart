@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class XDisplayLabel extends StatelessWidget {
   final XProduct data;
-  const XDisplayLabel({Key? key,required this.data }) : super(key: key);
+  const XDisplayLabel({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

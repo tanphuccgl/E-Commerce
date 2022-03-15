@@ -6,7 +6,8 @@ class TagChip extends StatelessWidget {
   final String label;
   final String idCategory;
   final Function()? onPressed;
-  const TagChip({Key? key, required this.label, required this.idCategory,this.onPressed})
+  const TagChip(
+      {Key? key, required this.label, required this.idCategory, this.onPressed})
       : super(key: key);
 
   @override
@@ -23,8 +24,9 @@ class TagChip extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(29),
               )),
-          onPressed:onPressed?? () => DashboardCoordinator.switchCategory(context,
-              idCategory: idCategory, nameCategory: label),
+          onPressed: onPressed ??
+              () => DashboardCoordinator.switchCategory(context,
+                  idCategory: idCategory, nameCategory: label),
           child: Center(
             child: Text(
               label,

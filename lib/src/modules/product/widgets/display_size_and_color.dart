@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class XDisplaySizeAndColor extends StatelessWidget {
   final XProduct data;
-  const XDisplaySizeAndColor({Key? key,required this.data }) : super(key: key);
+  const XDisplaySizeAndColor({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
