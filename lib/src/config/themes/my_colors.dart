@@ -17,4 +17,5 @@ class MyColors {
   static const Color colorBackgroundAvatar = Color(0xFFC4C4C4);
   static const Color colorSwitch = Color(0xFF2AA952);
   static const Color colorShadowCircle = Color(0xFF000000);
+  static const Color colorGray3 = Color(0xFF4F4F4F);
 }

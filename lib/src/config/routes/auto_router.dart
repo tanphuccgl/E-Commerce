@@ -4,6 +4,7 @@ import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/loading/pages/loading_page.dart';
 import 'package:e_commerce/src/modules/product_details/pages/product_details_page.dart';
+import 'package:e_commerce/src/modules/rating/pages/rating_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -15,12 +16,16 @@ import 'package:e_commerce/src/modules/product_details/pages/product_details_pag
       page: LoadingPage,
       initial: true,
     ),
-
     AutoRoute(
-      path: XRoutes.detailProduct,
-      page: ProductDetailsPage,
-      name: 'ProductDetailsRoute',
-    ),
+        name: "Detail",
+        page: EmptyRouterPage,
+        path: XRoutes.detailProduct,
+        children: [
+          AutoRoute(
+              path: "", page: ProductDetailsPage, name: "ProductDetailsRoute"),
+          AutoRoute(path: 'rating', page: RatingPage, name: "RatingRoute"),
+          RedirectRoute(path: '*', redirectTo: ''),
+        ]),
 
     // redirect all other paths
     RedirectRoute(path: '*', redirectTo: ''),

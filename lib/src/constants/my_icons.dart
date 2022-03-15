@@ -28,4 +28,5 @@ class MyIcons {
   static const String filterIcon = "assets/images/ic_filter.png";
   static const String gridIcon = "assets/images/ic_grid.png";
   static const String listIcon = "assets/images/ic_list.png";
+  static const String likeIcon = "assets/images/ic_like.png";
 }
