@@ -7,8 +7,8 @@ import 'package:e_commerce/src/widgets/text_field/base_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class XBottomSheet extends StatelessWidget {
-  const XBottomSheet({Key? key}) : super(key: key);
+class XBottomSheetA extends StatelessWidget {
+  const XBottomSheetA({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -103,4 +103,5 @@ class XBottomSheet extends StatelessWidget {
       }),
     );
   }
+
 }

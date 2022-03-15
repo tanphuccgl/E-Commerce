@@ -2,10 +2,11 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/modules/favorites/widgets/header_delegate.dart';
+import 'package:e_commerce/src/modules/favorites/widgets/header_favorite_delegate.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_horizontal.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_vertical.dart';
-import 'package:e_commerce/src/modules/product_by_category/logic/product_by_category_bloc.dart';
+import 'package:e_commerce/src/utils/enum/sort_by.dart';
+import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,12 +17,10 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    late int index;
     return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
-      index = state.sortBy.index;
-      final items = state.favoriteList.data ?? [];
+      final items = state.listFavorite.data ?? [];
       XHandle handle = XHandle.result(XResult.success(items));
-      state.sortList(items: items, index: index);
+      state.sortBy.sortList(items: items);
       if (handle.isCompleted) {
         return Scaffold(
             backgroundColor: state.viewType.backgroundColor(),

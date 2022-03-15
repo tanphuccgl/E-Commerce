@@ -1,16 +1,17 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
-import 'package:e_commerce/src/modules/product_by_category/logic/product_by_category_bloc.dart';
+import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
+import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class XBottomSheetSort extends StatelessWidget {
-  const XBottomSheetSort({Key? key}) : super(key: key);
+class XBottomSheetSortDetailCategory extends StatelessWidget {
+  const XBottomSheetSortDetailCategory({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductByCategoryBloc, ProductByCategoryState>(
+    return BlocBuilder<ProductBloc, ProductState>(
       builder: (context, state) {
         return SizedBox(
           height: 300,
@@ -36,7 +37,7 @@ class XBottomSheetSort extends StatelessWidget {
                           selected: item.sortProductBy(state.sortBy),
                           onTap: () {
                             context
-                                .read<ProductByCategoryBloc>()
+                                .read<ProductBloc>()
                                 .sortBy(item.index);
                             XCoordinator.pop(context);
                           },

@@ -1,14 +1,15 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
-import 'package:e_commerce/src/modules/product_by_category/logic/product_by_category_bloc.dart';
-import 'package:e_commerce/src/modules/product_by_category/widgets/bottom_sheet_sort.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/widgets/bottom_sheet_sort_favorite.dart';
+import 'package:e_commerce/src/utils/enum/sort_by.dart';
+import 'package:e_commerce/src/utils/enum/view_type.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FilerBar extends StatelessWidget {
-  const FilerBar({
-    Key? key,
-  }) : super(key: key);
+class FilerBarFavorites extends StatelessWidget {
+  const FilerBarFavorites({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,22 +57,10 @@ class FilerBar extends StatelessWidget {
   }
 
   Widget _sort() {
-    return BlocBuilder<ProductByCategoryBloc, ProductByCategoryState>(
-        builder: (context, state) {
+    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
       return ElevatedButton(
-        onPressed: () {
-          const radius = Radius.circular(34);
-          showModalBottomSheet<void>(
-              isScrollControlled: true,
-              context: context,
-              shape: const RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.only(topLeft: radius, topRight: radius)),
-              backgroundColor: MyColors.colorWhite,
-              builder: (BuildContext context) {
-                return const XBottomSheetSort();
-              });
-        },
+        onPressed: () => XBottomSheet.show(context,
+            widget: const XBottomSheetSortFavorites()),
         style: ElevatedButton.styleFrom(
             primary: MyColors.colorBackground,
             onPrimary: MyColors.colorBackground,
@@ -101,15 +90,14 @@ class FilerBar extends StatelessWidget {
   }
 
   Widget _viewType() {
-    return BlocBuilder<ProductByCategoryBloc, ProductByCategoryState>(
-        builder: (context, state) {
+    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: MyColors.colorBackground,
             onPrimary: MyColors.colorBackground,
             shadowColor: MyColors.colorWhite,
             elevation: 0),
-        onPressed: () => context.read<ProductByCategoryBloc>().changeViewType(),
+        onPressed: () => context.read<FavoriteBloc>().changeViewType(),
         child: Row(
           children: [
             Image.asset(

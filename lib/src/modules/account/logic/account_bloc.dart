@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/modules/home/logic/product_bloc.dart';
+import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/users_collection_reference.dart';
@@ -38,7 +38,7 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
   void setDataLogin(BuildContext context, {XUser? user}) {
     context.read<ProductBloc>().getProduct();
     context.read<CategoriesBloc>().getCategory();
-    context.read<FavoriteBloc>().getProduct();
+    context.read<FavoriteBloc>().getFavorite();
     emit(state.copyWith(data: user, isLoading: false) as T);
   }
 

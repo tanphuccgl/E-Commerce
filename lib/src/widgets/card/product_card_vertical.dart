@@ -7,9 +7,9 @@ import 'package:e_commerce/src/modules/product/widgets/review_star.dart';
 import 'package:e_commerce/src/widgets/button/button_add_favorite.dart';
 import 'package:flutter/material.dart';
 
-class XProductCardSale extends StatelessWidget {
+class XProductCardVertical extends StatelessWidget {
   final XProduct data;
-  const XProductCardSale({Key? key, required this.data}) : super(key: key);
+  const XProductCardVertical({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class XProductCardSale extends StatelessWidget {
       onTap: () => XCoordinator.showDetailProduct(context, data: data),
       child: SizedBox(
         height: 260,
-        width: 150,
+        width: 164,
         child: Stack(
           children: [
             _belowCard(),
@@ -28,7 +28,9 @@ class XProductCardSale extends StatelessWidget {
                   children: [
                     Align(
                         alignment: Alignment.topLeft,
-                        child: XDisplayLabel(data: data)),
+                        child: XDisplayLabel(
+                          data: data,
+                        )),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: XButtonAddToFavorite(
@@ -49,7 +51,7 @@ class XProductCardSale extends StatelessWidget {
       children: [
         SizedBox(
           height: 184,
-          width: 148,
+          width: 162,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image(
@@ -68,8 +70,10 @@ class XProductCardSale extends StatelessWidget {
         ),
         Text(
           data.type,
+          maxLines: 1,
           style: const TextStyle(
               fontSize: 16,
+              overflow: TextOverflow.clip,
               color: MyColors.colorBlack,
               height: 1,
               fontWeight: FontWeight.w600),

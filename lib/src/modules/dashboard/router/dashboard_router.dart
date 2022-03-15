@@ -5,11 +5,11 @@ import 'package:e_commerce/src/config/routes/page_routers.dart';
 import 'package:e_commerce/src/modules/bag/pages/bag_page.dart';
 import 'package:e_commerce/src/modules/dashboard/pages/dashboard_page.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router.dart';
+import 'package:e_commerce/src/modules/detail_category/pages/detail_category_page.dart';
+import 'package:e_commerce/src/modules/detail_category/pages/search_products_page.dart';
 import 'package:e_commerce/src/modules/favorites/pages/favorites_page.dart';
-import 'package:e_commerce/src/modules/favorites/pages/search_product_by_favorite_page.dart';
+import 'package:e_commerce/src/modules/favorites/pages/search_favorite_page.dart';
 import 'package:e_commerce/src/modules/home/pages/home_page.dart';
-import 'package:e_commerce/src/modules/product_by_category/pages/product_by_category_page.dart';
-import 'package:e_commerce/src/modules/product_by_category/pages/search_products_page.dart';
 import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
 import 'package:e_commerce/src/modules/settings/pages/setting_page.dart';
 import 'package:e_commerce/src/modules/shop/pages/shop_page.dart';
@@ -51,8 +51,8 @@ class DashboardCoordinator {
                   AutoRoute(path: "", page: ShopPage, name: "ShopRoute"),
                   AutoRoute(
                       path: DashboardRouters.productByCategoryPage,
-                      page: ProductByCategoryPage,
-                      name: "ProductByCategoryRoute"),
+                      page: DetailCategoryPage,
+                      name: "DetailCategoryRoute"),
                   AutoRoute(
                       path: DashboardRouters.searchProductsByCategoryPage,
                       page: SearchProductsByCategoryPage,
@@ -69,8 +69,8 @@ class DashboardCoordinator {
                
                   AutoRoute(
                       path: DashboardRouters.searchProductsByFavoritePage,
-                      page: SearchProductsByFavoritePage,
-                      name: "SearchProductsByFavoriteRoute"),
+                      page: SearchFavoritePage,
+                      name: "SearchFavoriteRoute"),
                   RedirectRoute(path: '*', redirectTo: ''),
                 ]),
             AutoRoute(
@@ -97,7 +97,7 @@ class DashboardCoordinator {
 
   static showProductByCategory(BuildContext context,
       {required String idCategory, required String nameCategory}) {
-    context.router.push(ProductByCategoryRoute(
+    context.router.push(DetailCategoryRoute(
         idCategory: idCategory, nameCategory: nameCategory));
   }
   static showSearchProductByCategory(BuildContext context,
@@ -107,13 +107,13 @@ class DashboardCoordinator {
   }
   static showSearchProductByFavorite(BuildContext context,
   ) {
-    context.router.push(const SearchProductsByFavoriteRoute(
+    context.router.push(const SearchFavoriteRoute(
      ));
   }
 
   static switchCategory(BuildContext context,
       {required String idCategory, required String nameCategory}) {
-    context.router.replace(ProductByCategoryRoute(
+    context.router.replace(DetailCategoryRoute(
         idCategory: idCategory, nameCategory: nameCategory));
   }
 }
