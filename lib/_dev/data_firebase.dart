@@ -19,6 +19,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Dresses',
     soldOut: true,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: '2',
@@ -37,6 +38,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Dresses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: '3',
@@ -55,6 +57,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: '4',
@@ -73,6 +76,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Jeans',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: '5',
@@ -91,6 +95,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: '6',
@@ -109,6 +114,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: '7',
@@ -127,6 +133,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: '8',
@@ -145,6 +152,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: '9',
@@ -162,6 +170,7 @@ final List<XProduct> listProduct = [
     idCategory: '2',
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
+    favorite: false,
     amount: 0,
   ),
   XProduct(
@@ -181,6 +190,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Dresses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: "11",
@@ -199,6 +209,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: "12",
@@ -217,6 +228,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: "13",
@@ -235,6 +247,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: "14",
@@ -253,6 +266,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
     id: "15",
@@ -271,6 +285,7 @@ final List<XProduct> listProduct = [
     nameCategory: 'Shirts & Blouses',
     soldOut: false,
     amount: 0,
+    favorite: false,
   ),
   XProduct(
       id: "16",
@@ -288,6 +303,7 @@ final List<XProduct> listProduct = [
       nameCategory: 'Shirts & Blouses',
       soldOut: false,
       amount: 0,
+      favorite: false,
       newProduct: true),
 ];
 

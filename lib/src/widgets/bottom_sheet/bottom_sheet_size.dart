@@ -70,12 +70,11 @@ class XBottomSheetFavorite extends StatelessWidget {
                     width: double.infinity,
                     onPressed: state.hadFavorites(data)
                         ? null
-                        : () {
-                            context.read<FavoriteBloc>().addProductToFavorite(
-                                context,
+                        : () => context
+                            .read<FavoriteBloc>()
+                            .addProductToFavorite(context,
                                 product: data,
-                                sizeType: state.sizeType);
-                          })
+                                sizeType: state.sizeType.value()))
               ],
             ),
           ),

@@ -35,7 +35,7 @@ class XDropdownSize extends StatelessWidget {
                   color: MyColors.colorBlack),
               iconSize: 20,
               hint: Text(
-                state.hadFavorites(data) ? state.sizeType.value() : "Size",
+                state.hadCart(data) ? state.sizeType.value() : "Size",
                 style: const TextStyle(
                     color: MyColors.colorBlack,
                     height: 1.42,

@@ -76,7 +76,7 @@ class XDetails extends StatelessWidget {
             const SizedBox(
               height: 15,
             ),
-            state.hadFavorites(data)
+            state.hadCart(data)
                 ? const XButton(
                     label: 'PRODUCT IN CART',
                     height: 48,

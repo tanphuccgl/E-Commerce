@@ -68,12 +68,10 @@ class XBottomSheetCart extends StatelessWidget {
                     label: 'ADD TO CART',
                     height: 47,
                     width: double.infinity,
-                    onPressed: state.hadFavorites(data)
+                    onPressed: state.hadCart(data)
                         ? null
-                        : () {
-                            context.read<CartBloc>().addToCart(context,
-                                product: data, sizeType: state.sizeType);
-                          })
+                        : () => context.read<CartBloc>().addToCart(context,
+                            product: data, sizeType: state.sizeType.value()))
               ],
             ),
           ),

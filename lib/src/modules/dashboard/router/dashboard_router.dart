@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 
 import 'package:e_commerce/src/config/routes/page_routers.dart';
-import 'package:e_commerce/src/modules/bag/pages/bag_page.dart';
+import 'package:e_commerce/src/modules/cart/pages/cart_page.dart';
 import 'package:e_commerce/src/modules/dashboard/pages/dashboard_page.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router.dart';
 import 'package:e_commerce/src/modules/detail_category/pages/detail_category_page.dart';
@@ -60,7 +60,14 @@ class DashboardCoordinator {
                       name: "SearchProductsByCategoryRoute"),
                   RedirectRoute(path: '*', redirectTo: ''),
                 ]),
-            AutoRoute(path: DashboardRouters.bag, page: BagPage),
+            AutoRoute(
+                path: DashboardRouters.bag,
+                page: EmptyRouterPage,
+                name: 'BagTab',
+                children: [
+                  AutoRoute(path: "", page: BagPage, name: "BagRoute"),
+                  RedirectRoute(path: '*', redirectTo: ''),
+                ]),
             AutoRoute(
                 path: DashboardRouters.favorites,
                 page: EmptyRouterPage,
@@ -92,31 +99,29 @@ class DashboardCoordinator {
     ],
   );
 
-  static showSetting(BuildContext context) {
-    context.router.push(const SettingRoute());
-  }
+  static showSetting(BuildContext context) =>
+      context.router.push(const SettingRoute());
 
   static showProductByCategory(BuildContext context,
-      {required String idCategory, required String nameCategory}) {
-    context.router.push(DetailCategoryRoute(
-        idCategory: idCategory, nameCategory: nameCategory));
-  }
+          {required String idCategory, required String nameCategory}) =>
+      context.router.push(DetailCategoryRoute(
+          idCategory: idCategory, nameCategory: nameCategory));
 
   static showSearchProductByCategory(
     BuildContext context,
-  ) {
-    context.router.push(const SearchProductsByCategoryRoute());
-  }
+  ) =>
+      context.router.push(const SearchProductsByCategoryRoute());
 
   static showSearchProductByFavorite(
     BuildContext context,
-  ) {
-    context.router.push(const SearchFavoriteRoute());
-  }
+  ) =>
+      context.router.push(const SearchFavoriteRoute());
 
   static switchCategory(BuildContext context,
-      {required String idCategory, required String nameCategory}) {
-    context.router.replace(DetailCategoryRoute(
-        idCategory: idCategory, nameCategory: nameCategory));
-  }
+          {required String idCategory, required String nameCategory}) =>
+      context.router.replace(DetailCategoryRoute(
+          idCategory: idCategory, nameCategory: nameCategory));
+
+  static showYourCart(BuildContext context) =>
+      context.router.navigate(const DashboardRoute(children: [BagTab()]));
 }

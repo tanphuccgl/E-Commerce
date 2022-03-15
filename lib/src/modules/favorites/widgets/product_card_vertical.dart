@@ -44,7 +44,8 @@ class XProductCardFavoriteVertical extends StatelessWidget {
                                           color: MyColors.colorGray),
                                       onTap: () => context
                                           .read<FavoriteBloc>()
-                                          .removeProductToFavorite(data),
+                                          .removeProductToFavorite(context,
+                                              product: data),
                                     )),
                               )
                             ],
@@ -52,8 +53,7 @@ class XProductCardFavoriteVertical extends StatelessWidget {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: XButtonAddToBag(
-                              isActive: true,
-                              onPressed: () {},
+                              data: data,
                             ),
                           )
                         ]),
@@ -129,7 +129,8 @@ class XProductCardFavoriteVertical extends StatelessWidget {
                                   color: MyColors.colorGray),
                               onTap: () => context
                                   .read<FavoriteBloc>()
-                                  .removeProductToFavorite(data),
+                                  .removeProductToFavorite(context,
+                                      product: data),
                             )),
                       )
                     ],
