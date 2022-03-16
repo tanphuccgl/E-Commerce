@@ -1,10 +1,12 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/assets_path.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
+import 'package:e_commerce/src/models/review_model.dart';
 import 'package:flutter/material.dart';
 
 class XReviewCard extends StatelessWidget {
-  const XReviewCard({Key? key}) : super(key: key);
+  final XReview data;
+  const XReviewCard({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

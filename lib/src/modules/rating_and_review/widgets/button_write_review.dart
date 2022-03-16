@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/review/widgets/bottom_sheet_add_review.dart';
+import 'package:e_commerce/src/modules/rating_and_review/widgets/bottom_sheet_add_review.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 

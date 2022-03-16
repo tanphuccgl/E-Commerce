@@ -37,6 +37,7 @@ class CartCollectionReference extends BaseCollectionReference<XProduct> {
             type: product.type,
             soldOut: product.soldOut,
             amount: 1,
+            listReview: product.listReview,
             favorite: product.favorite);
         ref.doc(idDocs).set(value);
 
@@ -100,6 +101,7 @@ class CartCollectionReference extends BaseCollectionReference<XProduct> {
             type: product.type,
             soldOut: product.soldOut,
             amount: product.amount,
+            listReview: product.listReview,
             favorite: product.favorite);
         ref.doc(idDocs).set(value);
 
@@ -135,6 +137,7 @@ class CartCollectionReference extends BaseCollectionReference<XProduct> {
             type: product.type,
             soldOut: product.soldOut,
             amount: product.amount,
+            listReview: product.listReview,
             favorite: product.favorite);
         ref.doc(idDocs).set(value);
 

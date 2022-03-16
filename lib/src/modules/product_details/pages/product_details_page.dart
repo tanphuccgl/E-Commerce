@@ -46,7 +46,7 @@ class ProductDetailsPage extends StatelessWidget {
                   XDetails(data: data ?? XProduct())
                 ],
               )),
-          const ListTileDetailProduct(),
+          ListTileDetailProduct(data: value),
           const Padding(
             padding: EdgeInsets.fromLTRB(0, 12, 0, 30),
             child: RelatedProducts(),

@@ -1,9 +1,14 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
+import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/rating_and_review/logic/review_bloc.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StatisticsWidget extends StatelessWidget {
-  const StatisticsWidget({Key? key}) : super(key: key);
+  final XProduct data;
+  const StatisticsWidget({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +18,7 @@ class StatisticsWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _ratingScore(),
+          _ratingScore(data),
           const SizedBox(
             width: 20,
           ),
@@ -24,28 +29,30 @@ class StatisticsWidget extends StatelessWidget {
   }
 }
 
-Widget _ratingScore() {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: const [
-      Text(
-        '4.3',
-        style: TextStyle(
-            fontSize: 44,
-            height: 1.1,
-            fontWeight: FontWeight.w600,
-            color: MyColors.colorBlack),
-      ),
-      Text(
-        '23 ratings',
-        style: TextStyle(
-            fontSize: 14,
-            height: 1.42,
-            fontWeight: FontWeight.normal,
-            color: MyColors.colorGray),
-      )
-    ],
-  );
+Widget _ratingScore(XProduct data) {
+  return BlocBuilder<ReviewBloc, ReviewState>(builder: (context, state) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          XUtils.formatPrice(state.ratingScore(data: data)),
+          style: const TextStyle(
+              fontSize: 44,
+              height: 1.1,
+              fontWeight: FontWeight.w600,
+              color: MyColors.colorBlack),
+        ),
+        Text(
+          (data.listReview ?? []).length.toString(),
+          style: const TextStyle(
+              fontSize: 14,
+              height: 1.42,
+              fontWeight: FontWeight.normal,
+              color: MyColors.colorGray),
+        )
+      ],
+    );
+  });
 }
 
 Widget _ratingScale() {
