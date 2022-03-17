@@ -118,6 +118,7 @@ class ReviewBloc extends Cubit<ReviewState> {
 
   Future<void> initAddReview() async {
     await Future.delayed(Duration.zero);
-    emit(state.copyWithItem(fileImageList: [], reviewText: '', yourRating: 0));
+    emit(state.copyWithItem(
+        fileImageList: [], reviewText: '', yourRating: 0, imageReviewList: []));
   }
 }
