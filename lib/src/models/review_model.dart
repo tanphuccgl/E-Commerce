@@ -8,12 +8,14 @@ class XReview extends BaseModel {
   String? content;
   List<String>? images;
   String? imageAvatar;
+  String idUser;
 
   XReview(
       {this.name = '',
       String id = '',
       this.time = '',
       this.content,
+      this.idUser = '',
       this.images,
       this.star = 0,
       this.imageAvatar})
@@ -27,6 +29,7 @@ class XReview extends BaseModel {
         time: json['time'],
         images: json['images'].cast<String>(),
         id: json['id'],
+        idUser: json['idUser'],
         imageAvatar: json['imageAvatar']);
   }
   factory XReview.empty() {
@@ -43,6 +46,7 @@ class XReview extends BaseModel {
     data['images'] = images;
     data['content'] = content;
     data['star'] = star;
+    data['idUser'] = idUser;
 
     data['time'] = time;
     data['imageAvatar'] = imageAvatar;

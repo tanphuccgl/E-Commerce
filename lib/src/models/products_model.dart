@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
-import 'package:e_commerce/src/models/review_model.dart';
 
 class XProduct extends BaseModel {
   String name;
@@ -19,11 +18,9 @@ class XProduct extends BaseModel {
   bool soldOut;
   int amount;
   bool favorite;
-  List<XReview>? listReview;
 
   XProduct(
       {this.name = '',
-      this.listReview,
       this.idCategory = '',
       this.nameCategory = '',
       String id = '',
@@ -43,29 +40,24 @@ class XProduct extends BaseModel {
       : super(id: id);
 
   factory XProduct.fromJson(Map<String, dynamic> json) {
-    List<XReview> listReviews = <XReview>[];
-    json['listReview'].forEach((v) {
-      listReviews.add(XReview.fromJson(v));
-    });
     return XProduct(
-        name: json['name'],
-        image: json['image'],
-        star: json['star'],
-        type: json['type'],
-        color: json['color'],
-        size: json['size'],
-        originalPrice: json['originalPrice'].toDouble(),
-        discount: json['discount'].toDouble(),
-        currentPrice: json['currentPrice'].toDouble(),
-        newProduct: json['newProduct'],
-        id: json['id'],
-        idCategory: json['idCategory'],
-        nameCategory: json['nameCategory'],
-        idUser: json['idUser'],
-        soldOut: json['soldOut'],
-        amount: json['amount'],
-        favorite: json['favorite'],
-        listReview: listReviews);
+      name: json['name'],
+      image: json['image'],
+      star: json['star'],
+      type: json['type'],
+      color: json['color'],
+      size: json['size'],
+      originalPrice: json['originalPrice'].toDouble(),
+      discount: json['discount'].toDouble(),
+      currentPrice: json['currentPrice'].toDouble(),
+      newProduct: json['newProduct'],
+      id: json['id'],
+      idCategory: json['idCategory'],
+      nameCategory: json['nameCategory'],
+      idUser: json['idUser'],
+      soldOut: json['soldOut'],
+      amount: json['amount'],
+    );
   }
 
   factory XProduct.empty() {
@@ -94,7 +86,6 @@ class XProduct extends BaseModel {
     data['soldOut'] = soldOut;
     data['amount'] = amount;
     data['favorite'] = favorite;
-    data['listReview'] = listReview?.map((v) => v.toJson()).toList();
 
     return data;
   }

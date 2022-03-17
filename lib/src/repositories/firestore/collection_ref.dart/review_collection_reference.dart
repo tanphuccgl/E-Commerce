@@ -7,9 +7,10 @@ import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart
 import 'package:firebase_auth/firebase_auth.dart';
 
 class ReviewCollectionReference extends BaseCollectionReference<XReview> {
-  ReviewCollectionReference()
+  final String id;
+  ReviewCollectionReference({required this.id})
       : super(FirebaseFirestore.instance
-            .collection('Reviews')
+            .collection('Product/$id/Reviews')
             .withConverter<XReview>(
               fromFirestore: (snapshot, _) => XReview.formDocument(snapshot),
               toFirestore: (review, _) => review.toJson(),
@@ -28,8 +29,8 @@ class ReviewCollectionReference extends BaseCollectionReference<XReview> {
       var batch = ref.firestore.batch();
       for (int i = 0; i < listReviews.length; i++) {
         {
-          batch.set(ref.doc(listReviews[i].id), listReviews[i],
-              SetOptions(merge: true));
+          batch.set(
+              ref.doc(i.toString()), listReviews[i], SetOptions(merge: false));
         }
       }
       batch.commit();
@@ -39,13 +40,11 @@ class ReviewCollectionReference extends BaseCollectionReference<XReview> {
     }
   }
 
-  Future<XResult<XReview>> addYourReview(XReview review) async {
+  Future<XResult<XReview>> addYourReview({required XReview review}) async {
     try {
       final User? user = AuthService().currentUser;
       if (user != null) {
-        String idDocs = review.id + user.uid;
-
-        ref.doc(idDocs).set(review);
+        ref.add(review);
 
         return XResult.success(review);
       } else {

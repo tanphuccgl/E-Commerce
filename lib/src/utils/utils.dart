@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class XUtils {
   static String formatPrice(double price) {
     RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
@@ -62,4 +64,8 @@ class XUtils {
   }
 
   static isValidCurrentPassword(String newPassword) {}
+  static String dateTimeReview() {
+    var date = DateTime.now();
+    return DateFormat("MMMM d,yyyy").format(date);
+  }
 }

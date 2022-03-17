@@ -2,7 +2,6 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/rating_and_review/logic/review_bloc.dart';
-import 'package:e_commerce/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,7 +34,7 @@ Widget _ratingScore(XProduct data) {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          XUtils.formatPrice(state.ratingScore(data: data)),
+          state.ratingScore(data: data).toString().substring(0, 3),
           style: const TextStyle(
               fontSize: 44,
               height: 1.1,
@@ -43,7 +42,7 @@ Widget _ratingScore(XProduct data) {
               color: MyColors.colorBlack),
         ),
         Text(
-          (data.listReview ?? []).length.toString(),
+          (state.items.data ?? []).length.toString() + " ratings",
           style: const TextStyle(
               fontSize: 14,
               height: 1.42,
@@ -57,37 +56,40 @@ Widget _ratingScore(XProduct data) {
 
 Widget _ratingScale() {
   List<int> listStars = [5, 4, 3, 2, 1];
-  return Row(
-    children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: listStars.map((e) => _starWidget(e)).toList(),
-      ),
-      Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: listStars
-              .map((e) => Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 7, 23, 5),
-                  child: _ratingLine(e)))
-              .toList(),
+
+  return BlocBuilder<ReviewBloc, ReviewState>(builder: (context, state) {
+    return Row(
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: listStars.map((e) => _starWidget(e)).toList(),
         ),
-      ),
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: listStars
-            .map((e) => Text(
-                  e.toString(),
-                  style: const TextStyle(
-                      height: 1.42,
-                      fontSize: 14,
-                      color: MyColors.colorGray3,
-                      fontWeight: FontWeight.normal),
-                ))
-            .toList(),
-      )
-    ],
-  );
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: state.listRatings
+                .map((e) => Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 7, 23, 5),
+                    child: _ratingLine(e)))
+                .toList(),
+          ),
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: state.listRatings
+              .map((e) => Text(
+                    e.toString(),
+                    style: const TextStyle(
+                        height: 1.42,
+                        fontSize: 14,
+                        color: MyColors.colorGray3,
+                        fontWeight: FontWeight.normal),
+                  ))
+              .toList(),
+        )
+      ],
+    );
+  });
 }
 
 Widget _starWidget(int itemCount) {
@@ -113,7 +115,7 @@ Widget _starWidget(int itemCount) {
 Widget _ratingLine(int numberRatings) {
   return Container(
     height: 8,
-    width: 8 * numberRatings.toDouble(),
+    width: (8 * (numberRatings + 1).toDouble()),
     decoration: const BoxDecoration(
       borderRadius: BorderRadius.all(Radius.circular(4)),
       color: MyColors.colorPrimary,

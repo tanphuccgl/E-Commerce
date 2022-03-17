@@ -10,11 +10,6 @@ class XReviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const contentText = 'The dress is great! Very classy and comfortable. '
-        'It fit perfectly! I\'m 5\'7" and 130 pounds. I am a 34B chest. This dress'
-        'would be too long for those who are shorter but could be hemmed. I wouldn\'t '
-        'recommend it for those big chested as I am smaller chested and it fit me perfectly.'
-        'The underarms were not too wide and the dress was made well.';
     return Padding(
         padding: const EdgeInsets.fromLTRB(13, 0, 32, 0),
         child: SizedBox(
@@ -38,9 +33,9 @@ class XReviewCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'Helene Moore',
-                      style: TextStyle(
+                    Text(
+                      data.name,
+                      style: const TextStyle(
                           color: MyColors.colorBlack,
                           height: 1.42,
                           fontSize: 14,
@@ -51,10 +46,10 @@ class XReviewCard extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          _reviewStars(1),
-                          const Text(
-                            'June 5, 2019',
-                            style: TextStyle(
+                          _reviewStars(data.star),
+                          Text(
+                            data.time,
+                            style: const TextStyle(
                                 color: MyColors.colorGray,
                                 height: 1,
                                 fontSize: 11,
@@ -66,41 +61,44 @@ class XReviewCard extends StatelessWidget {
                     const SizedBox(
                       height: 10,
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(right: 20),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20),
                       child: Text(
-                        contentText,
-                        style: TextStyle(
+                        data.content ?? 'N/A',
+                        style: const TextStyle(
                             color: MyColors.colorBlack,
                             height: 1,
                             fontSize: 14,
                             fontWeight: FontWeight.normal),
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 110,
-                      child: ListView.builder(
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 13),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(4.0),
-                                child: Image.network(
-                                  MyPath.avatarUrl,
-                                  fit: BoxFit.fill,
-                                  height: 104.0,
-                                  width: 104.0,
-                                )),
-                          );
-                        },
-                        itemCount: 3,
-                        scrollDirection: Axis.horizontal,
-                        physics: const BouncingScrollPhysics(),
-                      ),
-                    ),
+                    (data.images ?? []).isNotEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.only(top: 10),
+                            child: SizedBox(
+                              height: 110,
+                              child: ListView.builder(
+                                itemBuilder: (context, index) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 13),
+                                    child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        child: Image.network(
+                                          (data.images ?? [])[index],
+                                          fit: BoxFit.fill,
+                                          height: 104.0,
+                                          width: 104.0,
+                                        )),
+                                  );
+                                },
+                                itemCount: (data.images ?? []).length,
+                                scrollDirection: Axis.horizontal,
+                                physics: const BouncingScrollPhysics(),
+                              ),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -122,15 +120,15 @@ class XReviewCard extends StatelessWidget {
                 ),
               ),
             ),
-            _avatar()
+            _avatar(data)
           ]),
         ));
   }
 }
 
-Widget _avatar() {
-  return const CircleAvatar(
-    backgroundImage: NetworkImage(MyPath.avatarUrl),
+Widget _avatar(XReview data) {
+  return CircleAvatar(
+    backgroundImage: NetworkImage(data.imageAvatar ?? MyPath.avatarUrl),
     radius: 18,
     backgroundColor: MyColors.colorBackgroundAvatar,
   );

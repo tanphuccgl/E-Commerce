@@ -56,7 +56,6 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
         type: product.type,
         soldOut: product.soldOut,
         amount: product.amount,
-        listReview: product.listReview,
         favorite: true);
     final value = await domain.favorite.addProductToFavorite(xProduct);
     if (value.isSuccess) {
@@ -101,7 +100,6 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
         type: product.type,
         soldOut: product.soldOut,
         amount: product.amount,
-        listReview: product.listReview,
         favorite: favorite);
 
     if (product.amount > 0) {

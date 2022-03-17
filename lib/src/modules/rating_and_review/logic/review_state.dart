@@ -1,21 +1,79 @@
 part of 'review_bloc.dart';
-//TODO
+
 class ReviewState extends Equatable {
+  final XHandle<List<XReview>> items;
+  final bool checkBoxWithPhoto;
+  final int yourRating;
+  final String reviewText;
+  final List<XFile>? imageReviewList;
+  final List<File>? fileImageList;
+
+  const ReviewState(
+      {required this.items,
+      this.fileImageList,
+      this.imageReviewList,
+      this.reviewText = "",
+      this.checkBoxWithPhoto = false,
+      this.yourRating = 0});
   double ratingScore({required XProduct data}) {
-    var items = data.listReview ?? [];
-    var totalStar = 0;
-    for (int i = 0; i < items.length; i++) {
-      totalStar = totalStar + items[i].star;
+    var list = items.data ?? [];
+    if (list.isNotEmpty) {
+      var totalStar = 0;
+      for (int i = 0; i < list.length; i++) {
+        totalStar = totalStar + list[i].star;
+      }
+      return totalStar / list.length;
+    } else {
+      return 0.0;
     }
-    return totalStar / items.length;
   }
 
   int numberReview({required XProduct data}) {
-    List<XReview> items =
-        (data.listReview ?? []).where((e) => e.content != null).toList();
-    return items.length;
+    List<XReview> list =
+        (items.data ?? []).where((e) => e.content != null).toList();
+    return list.length;
+  }
+
+  List<XReview> get isWithPhoto {
+    var list = items.data ?? [];
+    if (checkBoxWithPhoto) {
+      list = list.where((e) => (e.images ?? []).isNotEmpty).toList();
+    }
+    return list;
+  }
+
+  List<int> get listRatings {
+    int oneStar = (items.data ?? []).where((e) => e.star == 1).toList().length;
+    int twoStar = (items.data ?? []).where((e) => e.star == 2).toList().length;
+    int threeStar =
+        (items.data ?? []).where((e) => e.star == 3).toList().length;
+    int fourStar = (items.data ?? []).where((e) => e.star == 4).toList().length;
+    int fiveStar = (items.data ?? []).where((e) => e.star == 5).toList().length;
+    return [fiveStar, fourStar, threeStar, twoStar, oneStar];
   }
 
   @override
-  List<Object?> get props => throw UnimplementedError();
+  List<Object?> get props => [
+        items,
+        checkBoxWithPhoto,
+        yourRating,
+        reviewText,
+        imageReviewList,
+        fileImageList
+      ];
+  ReviewState copyWithItem(
+      {XHandle<List<XReview>>? items,
+      String? reviewText,
+      List<File>? fileImageList,
+      bool? checkBoxWithPhoto,
+      List<XFile>? imageReviewList,
+      int? yourRating}) {
+    return ReviewState(
+        items: items ?? this.items,
+        fileImageList: fileImageList ?? this.fileImageList,
+        imageReviewList: imageReviewList ?? this.imageReviewList,
+        reviewText: reviewText ?? this.reviewText,
+        yourRating: yourRating ?? this.yourRating,
+        checkBoxWithPhoto: checkBoxWithPhoto ?? this.checkBoxWithPhoto);
+  }
 }
