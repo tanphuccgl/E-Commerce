@@ -3,6 +3,7 @@ import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 
 import 'package:e_commerce/src/config/routes/page_routers.dart';
 import 'package:e_commerce/src/modules/cart/pages/cart_page.dart';
+import 'package:e_commerce/src/modules/checkout/pages/checkout_page.dart';
 import 'package:e_commerce/src/modules/dashboard/pages/dashboard_page.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router.dart';
 import 'package:e_commerce/src/modules/detail_category/pages/detail_category_page.dart';
@@ -66,6 +67,10 @@ class DashboardCoordinator {
                 name: 'BagTab',
                 children: [
                   AutoRoute(path: "", page: BagPage, name: "BagRoute"),
+                  AutoRoute(
+                      path: "checkout",
+                      page: CheckoutPage,
+                      name: "CheckoutRoute"),
                   RedirectRoute(path: '*', redirectTo: ''),
                 ]),
             AutoRoute(
@@ -124,4 +129,6 @@ class DashboardCoordinator {
 
   static showYourCart(BuildContext context) =>
       context.router.navigate(const DashboardRoute(children: [BagTab()]));
+  static showCheckoutScreen(BuildContext context) =>
+      context.router.push(const CheckoutRoute());
 }
