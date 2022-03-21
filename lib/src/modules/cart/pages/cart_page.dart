@@ -5,6 +5,7 @@ import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/cart/widgets/header_cart_delegate.dart';
 import 'package:e_commerce/src/modules/cart/widgets/product_card_in_cart.dart';
 import 'package:e_commerce/src/modules/cart/widgets/promo_code_widget.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
 import 'package:e_commerce/src/modules/promotion/widgets/bottom_sheet_promotion.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
@@ -126,7 +127,8 @@ class BagPage extends StatelessWidget {
                       label: 'CHECK OUT',
                       height: 48,
                       width: 343,
-                      onPressed: () {},
+                      onPressed: () =>
+                          DashboardCoordinator.showCheckoutScreen(context),
                     ),
                   ),
                 )

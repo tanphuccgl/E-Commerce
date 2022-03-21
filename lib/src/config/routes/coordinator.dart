@@ -31,4 +31,8 @@ class XCoordinator {
       data: data,
     ));
   }
+
+  static showPaymentMethod(BuildContext context) {
+    context.router.push(const PaymentMethodRoute());
+  }
 }
