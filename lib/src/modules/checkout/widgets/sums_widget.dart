@@ -43,7 +43,7 @@ Widget _orderWidget() {
                   fontWeight: FontWeight.w500),
             ),
             Text(
-              "${XUtils.formatPrice(state.totalPrice(items: state.productsOfCart.data ?? [], promoCode: state1.discountPromotion))}\$",
+              "${XUtils.formatPrice(state.totalPrice( promoCode: state1.discountPromotion))}\$",
               style: _priceStyle(),
             )
           ],
@@ -91,7 +91,7 @@ Widget _summaryWidget() {
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              "${XUtils.formatPrice(state.totalPrice(items: state.productsOfCart.data ?? [], promoCode: state1.discountPromotion) + 15.0)}\$",
+              "${XUtils.formatPrice(state.totalPrice( promoCode: state1.discountPromotion) + 15.0)}\$",
               style: _priceStyle(),
             )
           ],
