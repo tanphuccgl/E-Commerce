@@ -5,8 +5,11 @@ import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/cart/widgets/header_cart_delegate.dart';
 import 'package:e_commerce/src/modules/cart/widgets/product_card_in_cart.dart';
 import 'package:e_commerce/src/modules/cart/widgets/promo_code_widget.dart';
+import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
+import 'package:e_commerce/src/modules/promotion/widgets/bottom_sheet_promotion.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/utils.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
@@ -69,14 +72,21 @@ class BagPage extends StatelessWidget {
                           );
                         }, childCount: items.length),
                       ),
-                SliverToBoxAdapter(
-                    child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 25, 16, 28),
-                  child: PromoCodeWidget(
-                    onChanged: (value) {},
-                    value: '',
-                  ),
-                )),
+                SliverToBoxAdapter(child:
+                    BlocBuilder<PromotionBloc, PromotionState>(
+                        builder: (context, state) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 25, 16, 28),
+                    child: PromoCodeWidget(
+                      onChanged: (value) =>
+                          context.read<PromotionBloc>().changedPromoCode(value),
+                      onPressedArrowIcon: () => XBottomSheet.show(context,
+                          backgroundColor: MyColors.colorBackground,
+                          widget: const XBottomSheetPromotion()),
+                      value: state.promoCode,
+                    ),
+                  );
+                })),
                 SliverToBoxAdapter(
                     child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 26),
@@ -92,14 +102,20 @@ class BagPage extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             color: MyColors.colorGray),
                       ),
-                      Text(
-                        "${XUtils.formatPrice(state.totalPrice(items))}\$",
-                        style: const TextStyle(
-                            height: 1.42,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: MyColors.colorBlack),
-                      )
+                      BlocBuilder<PromotionBloc, PromotionState>(
+                          builder: (context, promotionState) {
+                        return BlocBuilder<CartBloc, CartState>(
+                            builder: (context, state) {
+                          return Text(
+                            "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion))}\$",
+                            style: const TextStyle(
+                                height: 1.42,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: MyColors.colorBlack),
+                          );
+                        });
+                      })
                     ],
                   ),
                 )),
