@@ -1,9 +1,13 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/rating_and_review/logic/review_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ListTileDetailProduct extends StatelessWidget {
-  const ListTileDetailProduct({Key? key}) : super(key: key);
+  final XProduct data;
+  const ListTileDetailProduct({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,8 @@ class ListTileDetailProduct extends StatelessWidget {
                   onTap: () {
                     switch (item) {
                       case 'Rating and reviews':
-                        XCoordinator.showRatings(context);
+                        context.read<ReviewBloc>().getReviews(product: data);
+                        XCoordinator.showRatings(context, data: data);
                         break;
                       default:
                     }

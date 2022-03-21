@@ -3,12 +3,14 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
 import 'package:e_commerce/src/models/handle.dart';
+import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
 import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
+import 'package:e_commerce/src/modules/rating_and_review/logic/review_bloc.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +51,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => FavoriteBloc()),
         BlocProvider(create: (_) => CartBloc()),
         BlocProvider(create: (_) => PromotionBloc()),
+        BlocProvider(create: (_) => ReviewBloc(product: XProduct.empty())),
       ],
       child: MaterialApp.router(
         theme: XTheme.light(),

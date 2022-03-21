@@ -28,7 +28,7 @@ import '../../modules/home/pages/home_page.dart' as _i6;
 import '../../modules/loading/pages/loading_page.dart' as _i3;
 import '../../modules/product_details/pages/product_details_page.dart' as _i17;
 import '../../modules/profile/pages/profile_page.dart' as _i13;
-import '../../modules/rating/pages/rating_page.dart' as _i18;
+import '../../modules/rating_and_review/pages/rating_page.dart' as _i18;
 import '../../modules/settings/pages/setting_page.dart' as _i14;
 import '../../modules/shop/pages/shop_page.dart' as _i7;
 
@@ -135,8 +135,10 @@ class XRouter extends _i4.RootStackRouter {
               id: args.id, key: args.key, data: args.data));
     },
     RatingRoute.name: (routeData) {
+      final args = routeData.argsAs<RatingRouteArgs>();
       return _i4.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i18.RatingPage());
+          routeData: routeData,
+          child: _i18.RatingPage(key: args.key, data: args.data));
     }
   };
 
@@ -475,8 +477,23 @@ class ProductDetailsRouteArgs {
 
 /// generated route for
 /// [_i18.RatingPage]
-class RatingRoute extends _i4.PageRouteInfo<void> {
-  const RatingRoute() : super(RatingRoute.name, path: 'rating');
+class RatingRoute extends _i4.PageRouteInfo<RatingRouteArgs> {
+  RatingRoute({_i19.Key? key, required _i20.XProduct data})
+      : super(RatingRoute.name,
+            path: 'rating', args: RatingRouteArgs(key: key, data: data));
 
   static const String name = 'RatingRoute';
+}
+
+class RatingRouteArgs {
+  const RatingRouteArgs({this.key, required this.data});
+
+  final _i19.Key? key;
+
+  final _i20.XProduct data;
+
+  @override
+  String toString() {
+    return 'RatingRouteArgs{key: $key, data: $data}';
+  }
 }
