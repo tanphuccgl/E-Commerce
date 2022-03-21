@@ -9,7 +9,7 @@ class XButtonWriteReview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 36,
+      height: 40,
       child: ElevatedButton.icon(
         icon: const Icon(Icons.edit),
         onPressed: () {},
