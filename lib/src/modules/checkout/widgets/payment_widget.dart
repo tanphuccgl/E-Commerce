@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_images.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class PaymentWidget extends StatelessWidget {
                     fontWeight: FontWeight.w600),
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () => XCoordinator.showPaymentMethod(context),
                   child: const Text('Change',
                       style: TextStyle(
                           fontSize: 14,
