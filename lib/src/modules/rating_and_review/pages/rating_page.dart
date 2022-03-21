@@ -26,95 +26,80 @@ class RatingPage extends StatelessWidget {
       if (handle.isCompleted) {
         return Scaffold(
             backgroundColor: MyColors.colorBackground,
-            body: Stack(
-              children: [
-                CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
-                    Theme(
-                      data: ThemeData(
-                        appBarTheme: const AppBarTheme(
-                          iconTheme: IconThemeData(color: MyColors.colorBlack),
-                        ),
-                        textTheme: Theme.of(context).textTheme,
-                      ),
-                      child: const SliverPersistentHeader(
-                        pinned: true,
-                        floating: true,
-                        delegate: HeaderRating(),
-                      ),
+            floatingActionButton: FadeEndWidget(data: data),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.endDocked,
+            body: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                Theme(
+                  data: ThemeData(
+                    appBarTheme: const AppBarTheme(
+                      iconTheme: IconThemeData(color: MyColors.colorBlack),
                     ),
-                    SliverToBoxAdapter(child: StatisticsWidget(data: data)),
-                    SliverToBoxAdapter(
-                        child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 0, 32, 0),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    textTheme: Theme.of(context).textTheme,
+                  ),
+                  child: const SliverPersistentHeader(
+                    pinned: true,
+                    floating: true,
+                    delegate: HeaderRating(),
+                  ),
+                ),
+                SliverToBoxAdapter(child: StatisticsWidget(data: data)),
+                SliverToBoxAdapter(
+                    child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 32, 0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        state.numberReview(data: data).toString() + " reviews",
+                        style: const TextStyle(
+                            color: MyColors.colorBlack,
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600,
+                            height: 1),
+                      ),
+                      Row(
                         children: [
-                          Text(
-                            state.numberReview(data: data).toString() +
-                                " reviews",
-                            style: const TextStyle(
+                          Checkbox(
+                            value: state.checkBoxWithPhoto,
+                            activeColor: MyColors.colorBlack,
+                            onChanged: (value) => context
+                                .read<ReviewBloc>()
+                                .changeWithPhoto(value ?? false),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                          ),
+                          const Text(
+                            'With photo',
+                            style: TextStyle(
                                 color: MyColors.colorBlack,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal,
                                 height: 1),
                           ),
-                          Row(
-                            children: [
-                              Checkbox(
-                                value: state.checkBoxWithPhoto,
-                                activeColor: MyColors.colorBlack,
-                                onChanged: (value) => context
-                                    .read<ReviewBloc>()
-                                    .changeWithPhoto(value ?? false),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4.0),
-                                ),
-                              ),
-                              const Text(
-                                'With photo',
-                                style: TextStyle(
-                                    color: MyColors.colorBlack,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.normal,
-                                    height: 1),
-                              ),
-                            ],
-                          )
                         ],
-                      ),
-                    )),
-                    SliverList(
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          return XReviewCard(
-                            data: items[index],
-                          );
-                        },
-                        childCount: items.length,
-                      ),
-                    ),
-                    const SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: 50,
-                    )),
-                  ],
+                      )
+                    ],
+                  ),
+                )),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate(
+                    (context, index) {
+                      return XReviewCard(
+                        data: items[index],
+                      );
+                    },
+                    childCount: items.length,
+                  ),
                 ),
-                const Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    height: 90,
-                    child: FadeEndWidget()),
-                Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: Padding(
-                      padding: const EdgeInsets.all(17),
-                      child: XButtonWriteReview(data: data),
-                    ))
+                const SliverToBoxAdapter(
+                    child: SizedBox(
+                  height: 50,
+                )),
               ],
             ));
       } else if (handle.isLoading) {
