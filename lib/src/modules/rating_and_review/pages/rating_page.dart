@@ -2,7 +2,6 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/modules/rating_and_review/widgets/button_write_review.dart';
 import 'package:e_commerce/src/modules/rating_and_review/widgets/fade_end_widget.dart';
 import 'package:e_commerce/src/modules/rating_and_review/widgets/header_rating_delegate.dart';
 import 'package:e_commerce/src/modules/rating_and_review/widgets/review_card.dart';
