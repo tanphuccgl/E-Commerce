@@ -1,9 +1,11 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/modules/cart/widgets/icon_circle_button.dart';
+import 'package:e_commerce/src/modules/payment_method/widgets/bottom_sheet_new_payment.dart';
 import 'package:e_commerce/src/modules/payment_method/widgets/payment_card_master.dart';
 import 'package:e_commerce/src/modules/payment_method/widgets/payment_card_visa.dart';
 import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:flutter/material.dart';
 
 class PaymentMethodPage extends StatelessWidget {
@@ -56,7 +58,10 @@ class PaymentMethodPage extends StatelessWidget {
                 child: IconCircleButton(
                   icon: const Icon(Icons.add, color: MyColors.colorWhite),
                   primary: MyColors.colorBlack,
-                  onPressed: () {},
+                  onPressed: () => XBottomSheet.show(
+                    context,
+                    widget: const XBottomSheetNewPayment(),
+                  ),
                   onPrimary: MyColors.colorWhite,
                 ),
               ))
