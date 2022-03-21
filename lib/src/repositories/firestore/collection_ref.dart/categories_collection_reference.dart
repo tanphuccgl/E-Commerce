@@ -22,7 +22,7 @@ class CategoriesCollectionReference
     }
   }
 
-  Future<XResult<List<XCategories>>> addCategories() async {
+  Future<XResult<List<XCategories>>> updateCategories() async {
     try {
       var batch = ref.firestore.batch();
       for (int i = 0; i < listCategories.length; i++) {

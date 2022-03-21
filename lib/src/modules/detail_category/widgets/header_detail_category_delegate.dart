@@ -49,7 +49,7 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
             Container(
               padding: EdgeInsets.lerp(
                 const EdgeInsets.fromLTRB(16, paddingAppbar, 0, 0),
-                const EdgeInsets.only(top: 20, bottom: 10),
+                const EdgeInsets.only(top: 15, bottom: 10),
                 progress,
               ),
               alignment: Alignment.lerp(

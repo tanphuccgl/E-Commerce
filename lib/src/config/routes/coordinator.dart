@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/product_details/pages/product_details_page.dart';
+import 'package:e_commerce/src/modules/rating/pages/rating_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 
@@ -23,5 +24,9 @@ class XCoordinator {
       id: data.id,
       data: data,
     ));
+  }
+
+  static showRatings(BuildContext context) {
+    context.router.pushWidget(const RatingPage());
   }
 }

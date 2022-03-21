@@ -21,7 +21,7 @@ class ProductCollectionReference extends BaseCollectionReference<XProduct> {
     }
   }
 
-  Future<XResult<List<XProduct>>> addProduct() async {
+  Future<XResult<List<XProduct>>> updateProduct() async {
     try {
       var batch = ref.firestore.batch();
       for (int i = 0; i < listProduct.length; i++) {
