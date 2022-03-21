@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/models/categories_model.dart';
 import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/models/promotions_model.dart';
 
 final List<XProduct> listProduct = [
   XProduct(
@@ -319,4 +320,30 @@ final List<XCategories> listCategories = [
   XCategories(id: '9', name: 'Shorts'),
   XCategories(id: '10', name: 'Skirts'),
   XCategories(id: '11', name: 'Dresses'),
+];
+final List<XPromotion> listPromotions = [
+  XPromotion(
+      id: '1',
+      name: 'Personal offer',
+      code: 'mypromocode2020',
+      discount: 22,
+      image:
+          'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/uploads%2Fbg1.png?alt=media&token=5e350f1f-cdfe-4ed4-b02d-096936c8caca',
+      timeRemaining: 6),
+  XPromotion(
+      id: '2',
+      name: 'Summer Sale',
+      code: 'summer2020',
+      discount: 15,
+      image:
+          'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/uploads%2Fimage.png?alt=media&token=eb83cb81-2254-45ac-87a2-275a252f7740',
+      timeRemaining: 23),
+  XPromotion(
+      id: '3',
+      name: 'Personal offer1',
+      code: 'promocode2020',
+      discount: 10,
+      image:
+          'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/uploads%2Fbg.png?alt=media&token=12d484f9-9433-48f9-8cd0-d3bbad97e62b',
+      timeRemaining: 6),
 ];
