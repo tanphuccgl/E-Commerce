@@ -6,21 +6,13 @@ import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/promot
 class PromotionRepositoryImpl implements PromotionRepository {
   @override
   Future<XResult<List<XPromotion>>> addPromotions() async {
-    try {
-      var data = PromotionsCollectionReference().addPromotions();
-      return data;
-    } catch (e) {
-      return XResult.error(e.toString());
-    }
+    var data = PromotionsCollectionReference().addPromotions();
+    return data;
   }
 
   @override
   Future<XResult<List<XPromotion>>> getPromotions() async {
-    try {
-      var data = await PromotionsCollectionReference().getPromotions();
-      return data;
-    } catch (e) {
-      return XResult.error(e.toString());
-    }
+    var data = await PromotionsCollectionReference().getPromotions();
+    return data;
   }
 }

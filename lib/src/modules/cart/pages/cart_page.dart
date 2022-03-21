@@ -103,11 +103,11 @@ class BagPage extends StatelessWidget {
                             color: MyColors.colorGray),
                       ),
                       BlocBuilder<PromotionBloc, PromotionState>(
-                          builder: (context, state1) {
+                          builder: (context, promotionState) {
                         return BlocBuilder<CartBloc, CartState>(
                             builder: (context, state) {
                           return Text(
-                            "${XUtils.formatPrice(state.totalPrice(items: items, promoCode: state1.discountPromotion))}\$",
+                            "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion))}\$",
                             style: const TextStyle(
                                 height: 1.42,
                                 fontSize: 18,

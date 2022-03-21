@@ -6,9 +6,9 @@ class CartState extends ProductState {
       ? XUtils.formatPrice(data.originalPrice)
       : XUtils.formatPrice(data.currentPrice ?? -1);
 
-  double totalPrice(
-      {required List<XProduct> items, required double promoCode}) {
+  double totalPrice({required double promoCode}) {
     double total = 0;
+    List<XProduct> items = productsOfCart.data ?? [];
     for (int i = 0; i < items.length; i++) {
       total = total + items[i].amount * double.parse(priceProduct(items[i]));
     }

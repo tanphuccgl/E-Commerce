@@ -15,11 +15,7 @@ class PromotionsCollectionReference
             ));
 
   Future<XResult<List<XPromotion>>> getPromotions() async {
-    try {
-      return query();
-    } catch (e) {
-      return XResult.exception(e);
-    }
+    return query();
   }
 
   Future<XResult<List<XPromotion>>> addPromotions() async {
