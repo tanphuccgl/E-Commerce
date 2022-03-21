@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/models/categories_model.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/promotions_model.dart';
+import 'package:e_commerce/src/models/review_model.dart';
 
 final List<XProduct> listProduct = [
   XProduct(
@@ -346,4 +347,56 @@ final List<XPromotion> listPromotions = [
       image:
           'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/uploads%2Fbg.png?alt=media&token=12d484f9-9433-48f9-8cd0-d3bbad97e62b',
       timeRemaining: 6),
+];
+final List<XReview> listReviews = [
+  XReview(
+      id: '1',
+      images: [],
+      idUser: 'h6sCl0dNSqamV1LhKa0f8eyTYeh2',
+      imageAvatar:
+          'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/user%2Favatar%2Fimage.png?alt=media&token=4347ca09-e0e9-42f8-bd6b-bd86c2ab014b',
+      name: 'Helene Moore',
+      content:
+          'The dress is great! Very classy and comfortable. It fit perfectly! I\'m 5\'7" and 130 pounds. I am a 34B chest. This dress would be too long for those who are shorter but could be hemmed. I wouldn\'t recommend it for those big chested as I am smaller chested and it fit me perfectly. The underarms were not too wide and the dress was made well.',
+      star: 4,
+      time: 'June 5, 2019'),
+  XReview(
+      id: '1',
+      images: [],
+      idUser: 'h6sCl0dNSqamV1LhKa0f8eyTYeh2',
+      imageAvatar:
+          'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/user%2Favatar%2Fimage%202.png?alt=media&token=05d841d2-8fbb-4d4d-bcb0-9a3fc4f7013a',
+      name: 'Kate Doe',
+      content:
+          'The dress is great! Very classy and comfortable. It fit perfectly! I\'m 5\'7" and 130 pounds. I am a 34B chest. This dress would be too long for those who are shorter but could be hemmed. I wouldn\'t recommend it for those big chested as I am smaller chested and it fit me perfectly. The underarms were not too wide and the dress was made well.',
+      star: 4,
+      time: 'June 5, 2019'),
+  XReview(
+      id: '1',
+      imageAvatar:
+          'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/user%2Favatar%2Fimage%203.png?alt=media&token=2f55e9ab-1174-44b4-a6a4-a385e6366596',
+      name: 'Kim Shine',
+      content:
+          'I loved this dress so much as soon as I tried it on I knew I had to buy it in another color. I am 5\'3 about 155lbs and I carry all my weight in my upper body. When I put it on I felt like it thinned me put and I got so many compliments.',
+      star: 4,
+      idUser: 'h6sCl0dNSqamV1LhKa0f8eyTYeh2',
+      images: [
+        'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/products%2Freviews%2Fimage%203.png?alt=media&token=e678d749-da6f-4f8e-baa8-4836ceef1cfb',
+        'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/products%2Freviews%2Fimage.png?alt=media&token=2d1530fd-5d99-408e-8027-ee6f9d973eb6'
+      ],
+      time: 'August 13, 2019'),
+  XReview(
+      id: '1',
+      idUser: 'h6sCl0dNSqamV1LhKa0f8eyTYeh2',
+      images: [
+        'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/products%2Freviews%2Fimage%203.png?alt=media&token=e678d749-da6f-4f8e-baa8-4836ceef1cfb',
+        'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/products%2Freviews%2Fimage.png?alt=media&token=2d1530fd-5d99-408e-8027-ee6f9d973eb6'
+      ],
+      imageAvatar:
+          'https://firebasestorage.googleapis.com/v0/b/e-commerce-c1119.appspot.com/o/user%2Favatar%2Fimage%204.png?alt=media&token=861c61c8-210e-45ec-8343-522b1c6b7ba9',
+      name: 'Matilda Brown',
+      content:
+          'I loved this dress so much as soon as I tried it on I knew I had to buy it in another color. I am 5\'3 about 155lbs and I carry all my weight in my upper body. When I put it on I felt like it thinned me put and I got so many compliments.',
+      star: 4,
+      time: 'August 14, 2019')
 ];

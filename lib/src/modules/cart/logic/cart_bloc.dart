@@ -172,23 +172,24 @@ class CartBloc extends ProductBloc<CartState> {
   Future<void> decreaseProduct(BuildContext context,
       {required XProduct product}) async {
     XProduct xProduct = XProduct(
-        color: product.color,
-        currentPrice: product.currentPrice,
-        discount: product.discount,
-        id: product.id,
-        idCategory: product.idCategory,
-        idUser: product.idUser,
-        image: product.image,
-        name: product.name,
-        nameCategory: product.nameCategory,
-        newProduct: product.newProduct,
-        originalPrice: product.originalPrice,
-        size: product.size,
-        star: product.star,
-        type: product.type,
-        soldOut: product.soldOut,
-        favorite: product.favorite,
-        amount: product.amount - 1);
+      color: product.color,
+      currentPrice: product.currentPrice,
+      discount: product.discount,
+      id: product.id,
+      idCategory: product.idCategory,
+      idUser: product.idUser,
+      image: product.image,
+      name: product.name,
+      nameCategory: product.nameCategory,
+      newProduct: product.newProduct,
+      originalPrice: product.originalPrice,
+      size: product.size,
+      star: product.star,
+      type: product.type,
+      soldOut: product.soldOut,
+      favorite: product.favorite,
+      amount: product.amount - 1,
+    );
     final value = await domain.cart.decreaseProduct(xProduct);
     if (value.isSuccess) {
       if (product.amount == 1) {

@@ -21,6 +21,8 @@ class MyIcons {
   static const String avatarIcon = "assets/images/ic_avatar.png";
 
   static const String starIcon = "assets/images/ic_star.png";
+  static const String starIcon2 = "assets/images/ic_star2.png";
+  static const String activeStarIcon2 = "assets/images/ic_active_star2.png";
 
   static const String activeStarIcon = "assets/images/ic_active_star.png";
   static const String cancelIcon = "assets/images/ic_cancel.png";
