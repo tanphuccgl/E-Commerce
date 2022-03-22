@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/review/logic/review_bloc.dart';
+import 'package:e_commerce/src/modules/review/logic/write_review_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -8,7 +8,8 @@ class AddImageReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReviewBloc, ReviewState>(builder: (context, state) {
+    return BlocBuilder<WriteReviewBloc, WriteReviewState>(
+        builder: (context, state) {
       var items = state.fileImageList ?? [];
       return SizedBox(
         height: 161,
@@ -57,7 +58,7 @@ class AddImageReviewWidget extends StatelessWidget {
                                     child: const Icon(Icons.clear,
                                         color: MyColors.colorBlack),
                                     onTap: () => context
-                                        .read<ReviewBloc>()
+                                        .read<WriteReviewBloc>()
                                         .removeImageToReview(e))),
                           )
                         ],
@@ -73,8 +74,9 @@ class AddImageReviewWidget extends StatelessWidget {
                         color: MyColors.colorWhite,
                         child: InkWell(
                           splashColor: MyColors.colorPrimary,
-                          onTap: () =>
-                              context.read<ReviewBloc>().addImageToReview(),
+                          onTap: () => context
+                              .read<WriteReviewBloc>()
+                              .addImageToReview(),
                           child: Container(
                             width: 104,
                             height: 104,

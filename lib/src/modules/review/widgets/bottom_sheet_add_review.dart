@@ -3,7 +3,7 @@ import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-import 'package:e_commerce/src/modules/review/logic/review_bloc.dart';
+import 'package:e_commerce/src/modules/review/logic/write_review_bloc.dart';
 import 'package:e_commerce/src/modules/review/widgets/add_image_review_widget.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +15,8 @@ class XBottomSheetAddReview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ReviewBloc, ReviewState>(builder: (context, state) {
+    return BlocBuilder<WriteReviewBloc, WriteReviewState>(
+        builder: (context, state) {
       return SingleChildScrollView(
         child: SizedBox(
           height: 600,
@@ -60,7 +61,7 @@ class XBottomSheetAddReview extends StatelessWidget {
                         fontSize: 14,
                         fontWeight: FontWeight.normal),
                     onChanged: (value) =>
-                        context.read<ReviewBloc>().changeReviewText(value),
+                        context.read<WriteReviewBloc>().changeReviewText(value),
                     decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintStyle: TextStyle(
@@ -81,7 +82,7 @@ class XBottomSheetAddReview extends StatelessWidget {
                     child: AddImageReviewWidget()),
               ),
               BlocBuilder<AccountBloc, AccountState>(
-                builder: (context, state2) {
+                builder: (context, accountState) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: XButton(
@@ -90,10 +91,10 @@ class XBottomSheetAddReview extends StatelessWidget {
                       width: 343,
                       onPressed: state.yourRating < 1
                           ? null
-                          : () => context.read<ReviewBloc>().addYourReview(
+                          : () => context.read<WriteReviewBloc>().addYourReview(
                               context,
                               product: data,
-                              user: state2.data),
+                              user: accountState.data),
                     ),
                   );
                 },
@@ -107,7 +108,7 @@ class XBottomSheetAddReview extends StatelessWidget {
 }
 
 Widget _reviewStars() {
-  return BlocBuilder<ReviewBloc, ReviewState>(
+  return BlocBuilder<WriteReviewBloc, WriteReviewState>(
     builder: (context, state) {
       return SizedBox(
         height: 45,
@@ -128,7 +129,7 @@ Widget _reviewStars() {
                       ),
                       iconSize: 10,
                       onPressed: () =>
-                          context.read<ReviewBloc>().chooseStar(index)));
+                          context.read<WriteReviewBloc>().chooseStar(index)));
             },
             itemCount: 5),
       );

@@ -3,7 +3,6 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
 import 'package:e_commerce/src/models/handle.dart';
-import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
@@ -19,7 +18,6 @@ import 'package:get_it/get_it.dart';
 
 import 'src/config/routes/auto_router.gr.dart';
 import 'src/localization/localization_util.dart';
-import 'src/modules/review/logic/review_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,7 +49,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => FavoriteBloc()),
         BlocProvider(create: (_) => CartBloc()),
         BlocProvider(create: (_) => PromotionBloc()),
-        BlocProvider(create: (_) => ReviewBloc(product: XProduct.empty())),
       ],
       child: MaterialApp.router(
         theme: XTheme.light(),

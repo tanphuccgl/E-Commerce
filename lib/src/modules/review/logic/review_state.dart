@@ -3,18 +3,11 @@ part of 'review_bloc.dart';
 class ReviewState extends Equatable {
   final XHandle<List<XReview>> items;
   final bool checkBoxWithPhoto;
-  final int yourRating;
-  final String reviewText;
-  final List<XFile>? imageReviewList;
-  final List<File>? fileImageList;
 
-  const ReviewState(
-      {required this.items,
-      this.fileImageList,
-      this.imageReviewList,
-      this.reviewText = "",
-      this.checkBoxWithPhoto = false,
-      this.yourRating = 0});
+  const ReviewState({
+    required this.items,
+    this.checkBoxWithPhoto = false,
+  });
   double ratingScore({required XProduct data}) {
     var list = items.data ?? [];
     if (list.isNotEmpty) {
@@ -56,10 +49,6 @@ class ReviewState extends Equatable {
   List<Object?> get props => [
         items,
         checkBoxWithPhoto,
-        yourRating,
-        reviewText,
-        imageReviewList,
-        fileImageList
       ];
   ReviewState copyWithItem(
       {XHandle<List<XReview>>? items,
@@ -70,10 +59,6 @@ class ReviewState extends Equatable {
       int? yourRating}) {
     return ReviewState(
         items: items ?? this.items,
-        fileImageList: fileImageList ?? this.fileImageList,
-        imageReviewList: imageReviewList ?? this.imageReviewList,
-        reviewText: reviewText ?? this.reviewText,
-        yourRating: yourRating ?? this.yourRating,
         checkBoxWithPhoto: checkBoxWithPhoto ?? this.checkBoxWithPhoto);
   }
 }

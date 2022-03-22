@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/dropdown_color.dart';
@@ -27,6 +28,7 @@ class ProductDetailsPage extends StatelessWidget {
       backgroundColor: MyColors.colorBackground,
       appBar: XDefaultAppBar(
         title: value.type,
+        leading: BackButton(onPressed: () => XCoordinator.pop(context)),
         style: const TextStyle(
             color: MyColors.colorBlack,
             fontSize: 18,
