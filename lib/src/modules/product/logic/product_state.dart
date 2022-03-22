@@ -1,5 +1,6 @@
 part of 'product_bloc.dart';
 
+// TODO: đổi tên cho hợp lý hơn.
 class ProductState extends Equatable {
   final XHandle<List<XProduct>> items;
   final XHandle<List<XProduct>> searchList;

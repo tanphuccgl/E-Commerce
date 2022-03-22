@@ -22,6 +22,10 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
   }
 
   final Domain domain = Domain();
+
+  // user change
+  StreamController<XUser?> streamUser = StreamController.broadcast();
+
   Future<void> getUser() async {
     await Future.delayed(Duration.zero);
     User? currentUser = AuthService().currentUser;
@@ -37,9 +41,16 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
   }
 
   void setDataLogin(BuildContext context, {XUser? user}) {
+    // Ví dụ sử dụng stream. research thêm về stream để biết cách dùng.
+    streamUser.add(user);
+
+    // TODO: tại sao cần getProduct sau khi login???
     context.read<ProductBloc>().getProduct();
+    // TODO: tại sao cần getCategory sau khi login???
     context.read<CategoriesBloc>().getCategory();
+    // TODO: di chuyển sang vị trí khác hợp lý hơn. tránh trường hợp login ko có refresh
     context.read<FavoriteBloc>().getProduct();
+    // TODO: di chuyển sang vị trí khác hợp lý hơn. tránh trường hợp login ko có refresh
     context.read<CartBloc>().getProduct();
 
     emit(state.copyWith(data: user, isLoading: false) as T);

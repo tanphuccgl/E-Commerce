@@ -41,12 +41,15 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (_) => AccountBloc(AccountState(data: XUser.empty()))),
+        // TODO: di chuyển sang vị trí khác hợp lý hơn
+        // TODO: đặt tên cho đúng.
         BlocProvider(
             create: (_) => ProductBloc(ProductState(
                 searchList: XHandle.completed([]),
                 items: XHandle.completed([])))),
         BlocProvider(create: (_) => CategoriesBloc()),
         BlocProvider(create: (_) => FavoriteBloc()),
+        // TODO: di chuyển sang vị trí khác hợp lý hơn. tránh trường hợp login ko có refresh
         BlocProvider(create: (_) => CartBloc()),
         BlocProvider(create: (_) => PromotionBloc()),
       ],

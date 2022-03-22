@@ -10,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'product_state.dart';
 
+// TODO: đổi tên cho hợp lý hơn.
 class ProductBloc<T extends ProductState> extends Cubit<T> {
   ProductBloc(T initialState) : super(initialState) {
     getProduct();

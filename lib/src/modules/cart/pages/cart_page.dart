@@ -17,6 +17,7 @@ import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// TODO: Đặt trên trùng với bloc và file => CartPage
 class BagPage extends StatelessWidget {
   const BagPage({Key? key}) : super(key: key);
 

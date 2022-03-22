@@ -23,6 +23,7 @@ import 'package:e_commerce/src/modules/review/pages/review_page.dart';
         page: ProductDetailsWrapperPage,
         path: 'details_product',
         children: [
+          // TODO: Chưa đúng. ko cần thiết EmptyRouterPage ở đây
           AutoRoute(
               path: '',
               page: EmptyRouterPage,
