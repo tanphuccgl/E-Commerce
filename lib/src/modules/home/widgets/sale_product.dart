@@ -9,6 +9,7 @@ import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+// TODO: sử dụng slider_product.dart
 class SaleProduct extends StatelessWidget {
   const SaleProduct({Key? key}) : super(key: key);
 

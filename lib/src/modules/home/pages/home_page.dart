@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    const _space = SizedBox(height: 30);
     return Scaffold(
         body: CustomScrollView(
       physics: const BouncingScrollPhysics(),
@@ -32,18 +33,15 @@ class HomePage extends StatelessWidget {
               child: Column(
                 children: const [
                   SaleProduct(),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  _space,
                   NewProduct(),
-                  SizedBox(
-                    height: 30,
-                  ),
+                  _space,
                 ],
               ),
             );
           }, childCount: 1),
-        )
+        ),
+        // TODO: implement a new SliverList for product by category. do forget use slider_product.dart
       ],
     ));
   }
