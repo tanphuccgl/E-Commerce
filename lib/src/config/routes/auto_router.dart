@@ -5,7 +5,7 @@ import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/loading/pages/loading_page.dart';
 import 'package:e_commerce/src/modules/payment_method/pages/payment_method_page.dart';
 import 'package:e_commerce/src/modules/product_details/pages/product_details_page.dart';
-import 'package:e_commerce/src/modules/rating_and_review/pages/rating_page.dart';
+import 'package:e_commerce/src/modules/review/pages/review_page.dart';
 
 @MaterialAutoRouter(
   replaceInRouteName: 'Page,Route',
@@ -24,7 +24,7 @@ import 'package:e_commerce/src/modules/rating_and_review/pages/rating_page.dart'
         children: [
           AutoRoute(
               path: "", page: ProductDetailsPage, name: "ProductDetailsRoute"),
-          AutoRoute(path: 'rating', page: RatingPage, name: "RatingRoute"),
+          AutoRoute(path: 'review', page: ReviewPage, name: "ReviewRoute"),
           RedirectRoute(path: '*', redirectTo: ''),
         ]),
     AutoRoute(

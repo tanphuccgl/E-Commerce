@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
-import 'package:e_commerce/src/modules/rating_and_review/widgets/button_write_review.dart';
+import 'package:e_commerce/src/modules/review/widgets/button_write_review.dart';
 import 'package:flutter/material.dart';
 
 class FadeEndWidget extends StatelessWidget {

@@ -10,7 +10,6 @@ import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
 import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
-import 'package:e_commerce/src/modules/rating_and_review/logic/review_bloc.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +19,7 @@ import 'package:get_it/get_it.dart';
 
 import 'src/config/routes/auto_router.gr.dart';
 import 'src/localization/localization_util.dart';
+import 'src/modules/review/logic/review_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

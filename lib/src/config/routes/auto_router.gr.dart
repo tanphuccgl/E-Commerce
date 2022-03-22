@@ -11,10 +11,9 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i4;
-import 'package:flutter/cupertino.dart' as _i22;
 import 'package:flutter/material.dart' as _i21;
 
-import '../../models/products_model.dart' as _i23;
+import '../../models/products_model.dart' as _i22;
 import '../../modules/auth/login/pages/login_page.dart' as _i17;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
 import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i18;
@@ -31,7 +30,7 @@ import '../../modules/loading/pages/loading_page.dart' as _i3;
 import '../../modules/payment_method/pages/payment_method_page.dart' as _i5;
 import '../../modules/product_details/pages/product_details_page.dart' as _i19;
 import '../../modules/profile/pages/profile_page.dart' as _i15;
-import '../../modules/rating_and_review/pages/rating_page.dart' as _i20;
+import '../../modules/review/pages/review_page.dart' as _i20;
 import '../../modules/settings/pages/setting_page.dart' as _i16;
 import '../../modules/shop/pages/shop_page.dart' as _i8;
 
@@ -145,11 +144,11 @@ class XRouter extends _i4.RootStackRouter {
           child: _i19.ProductDetailsPage(
               id: args.id, key: args.key, data: args.data));
     },
-    RatingRoute.name: (routeData) {
-      final args = routeData.argsAs<RatingRouteArgs>();
+    ReviewRoute.name: (routeData) {
+      final args = routeData.argsAs<ReviewRouteArgs>();
       return _i4.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i20.RatingPage(key: args.key, data: args.data));
+          child: _i20.ReviewPage(key: args.key, data: args.data));
     }
   };
 
@@ -258,8 +257,8 @@ class XRouter extends _i4.RootStackRouter {
         _i4.RouteConfig(Detail.name, path: '/detail/:id', children: [
           _i4.RouteConfig(ProductDetailsRoute.name,
               path: '', parent: Detail.name),
-          _i4.RouteConfig(RatingRoute.name,
-              path: 'rating', parent: Detail.name),
+          _i4.RouteConfig(ReviewRoute.name,
+              path: 'review', parent: Detail.name),
           _i4.RouteConfig('*#redirect',
               path: '*', parent: Detail.name, redirectTo: '', fullMatch: true)
         ]),
@@ -379,7 +378,7 @@ class ShopRoute extends _i4.PageRouteInfo<void> {
 /// [_i9.DetailCategoryPage]
 class DetailCategoryRoute extends _i4.PageRouteInfo<DetailCategoryRouteArgs> {
   DetailCategoryRoute(
-      {_i22.Key? key, required String idCategory, required String nameCategory})
+      {_i21.Key? key, required String idCategory, required String nameCategory})
       : super(DetailCategoryRoute.name,
             path: 'productByCategory',
             args: DetailCategoryRouteArgs(
@@ -392,7 +391,7 @@ class DetailCategoryRouteArgs {
   const DetailCategoryRouteArgs(
       {this.key, required this.idCategory, required this.nameCategory});
 
-  final _i22.Key? key;
+  final _i21.Key? key;
 
   final String idCategory;
 
@@ -482,7 +481,7 @@ class SignUpRoute extends _i4.PageRouteInfo<void> {
 /// generated route for
 /// [_i19.ProductDetailsPage]
 class ProductDetailsRoute extends _i4.PageRouteInfo<ProductDetailsRouteArgs> {
-  ProductDetailsRoute({required String id, _i22.Key? key, _i23.XProduct? data})
+  ProductDetailsRoute({required String id, _i21.Key? key, _i22.XProduct? data})
       : super(ProductDetailsRoute.name,
             path: '',
             args: ProductDetailsRouteArgs(id: id, key: key, data: data),
@@ -496,9 +495,9 @@ class ProductDetailsRouteArgs {
 
   final String id;
 
-  final _i22.Key? key;
+  final _i21.Key? key;
 
-  final _i23.XProduct? data;
+  final _i22.XProduct? data;
 
   @override
   String toString() {
@@ -507,24 +506,24 @@ class ProductDetailsRouteArgs {
 }
 
 /// generated route for
-/// [_i20.RatingPage]
-class RatingRoute extends _i4.PageRouteInfo<RatingRouteArgs> {
-  RatingRoute({_i22.Key? key, required _i23.XProduct data})
-      : super(RatingRoute.name,
-            path: 'rating', args: RatingRouteArgs(key: key, data: data));
+/// [_i20.ReviewPage]
+class ReviewRoute extends _i4.PageRouteInfo<ReviewRouteArgs> {
+  ReviewRoute({_i21.Key? key, required _i22.XProduct data})
+      : super(ReviewRoute.name,
+            path: 'review', args: ReviewRouteArgs(key: key, data: data));
 
-  static const String name = 'RatingRoute';
+  static const String name = 'ReviewRoute';
 }
 
-class RatingRouteArgs {
-  const RatingRouteArgs({this.key, required this.data});
+class ReviewRouteArgs {
+  const ReviewRouteArgs({this.key, required this.data});
 
-  final _i22.Key? key;
+  final _i21.Key? key;
 
-  final _i23.XProduct data;
+  final _i22.XProduct data;
 
   @override
   String toString() {
-    return 'RatingRouteArgs{key: $key, data: $data}';
+    return 'ReviewRouteArgs{key: $key, data: $data}';
   }
 }

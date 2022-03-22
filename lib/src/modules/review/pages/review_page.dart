@@ -2,19 +2,19 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/modules/rating_and_review/widgets/fade_end_widget.dart';
-import 'package:e_commerce/src/modules/rating_and_review/widgets/header_rating_delegate.dart';
-import 'package:e_commerce/src/modules/rating_and_review/widgets/review_card.dart';
-import 'package:e_commerce/src/modules/rating_and_review/logic/review_bloc.dart';
-import 'package:e_commerce/src/modules/rating_and_review/widgets/statistics_widget.dart';
+import 'package:e_commerce/src/modules/review/logic/review_bloc.dart';
+import 'package:e_commerce/src/modules/review/widgets/fade_end_widget.dart';
+import 'package:e_commerce/src/modules/review/widgets/header_rating_delegate.dart';
+import 'package:e_commerce/src/modules/review/widgets/review_card.dart';
+import 'package:e_commerce/src/modules/review/widgets/statistics_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RatingPage extends StatelessWidget {
+class ReviewPage extends StatelessWidget {
   final XProduct data;
-  const RatingPage({Key? key, required this.data}) : super(key: key);
+  const ReviewPage({Key? key, required this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
