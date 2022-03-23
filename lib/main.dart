@@ -2,14 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
-import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
-import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
-import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
-import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,17 +35,6 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (_) => AccountBloc(AccountState(data: XUser.empty()))),
-        // TODO: di chuyển sang vị trí khác hợp lý hơn
-        // TODO: đặt tên cho đúng.
-        BlocProvider(
-            create: (_) => ProductBloc(ProductState(
-                searchList: XHandle.completed([]),
-                items: XHandle.completed([])))),
-        BlocProvider(create: (_) => CategoriesBloc()),
-        BlocProvider(create: (_) => FavoriteBloc()),
-        // TODO: di chuyển sang vị trí khác hợp lý hơn. tránh trường hợp login ko có refresh
-        BlocProvider(create: (_) => CartBloc()),
-        BlocProvider(create: (_) => PromotionBloc()),
       ],
       child: MaterialApp.router(
         theme: XTheme.light(),

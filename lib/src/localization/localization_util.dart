@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:flutter/material.dart';
+// ignore: library_prefixes
 import 'package:flutter_gen/gen_l10n/app_localizations.dart' as AL;
 
 class S {

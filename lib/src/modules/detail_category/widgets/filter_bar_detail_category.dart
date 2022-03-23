@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_icons.dart';
-import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
+import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
@@ -59,7 +59,8 @@ class FilerBarDetailCategory extends StatelessWidget {
   }
 
   Widget _sort() {
-    return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+        builder: (context, state) {
       return ElevatedButton(
         onPressed: () => XBottomSheet.show(context,
             widget: const XBottomSheetSortDetailCategory()),
@@ -92,14 +93,16 @@ class FilerBarDetailCategory extends StatelessWidget {
   }
 
   Widget _viewType() {
-    return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+        builder: (context, state) {
       return ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: MyColors.colorBackground,
             onPrimary: MyColors.colorBackground,
             shadowColor: MyColors.colorWhite,
             elevation: 0),
-        onPressed: () => context.read<ProductBloc>().changeViewType(),
+        onPressed: () =>
+            context.read<ListProductsFilterBloc>().changeViewType(),
         child: Row(
           children: [
             Image.asset(

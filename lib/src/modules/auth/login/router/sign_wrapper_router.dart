@@ -6,8 +6,11 @@ class SignWrapperPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: AutoRouter(),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: const Scaffold(
+        body: AutoRouter(),
+      ),
     );
   }
 }

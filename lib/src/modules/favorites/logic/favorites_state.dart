@@ -1,9 +1,9 @@
 part of 'favorites_bloc.dart';
 
-class FavoriteState extends ProductState {
+class FavoriteState extends ListProductsFilterState {
   final XHandle<List<XProduct>> listFavorite;
   bool hadFavorites(XProduct product) {
-    late bool value = false;
+    bool value = false;
     for (var item in listFavorite.data ?? []) {
       if (item.id == product.id) {
         value = true;

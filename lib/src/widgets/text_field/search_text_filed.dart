@@ -49,7 +49,7 @@ class _XTextFieldState extends State<SearchTextField> {
     if (value.isNotEmpty && widget.isAction) {
       actions.add(IconButton(
         icon: const Icon(
-          Icons.cancel,
+          Icons.clear,
           color: MyColors.colorGray,
         ),
         onPressed: () {

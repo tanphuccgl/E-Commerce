@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/modules/home/widgets/banner.dart';
-import 'package:e_commerce/src/modules/home/widgets/new_product.dart';
-import 'package:e_commerce/src/modules/home/widgets/sale_product.dart';
+import 'package:e_commerce/src/modules/home/widgets/slider_product.dart';
+import 'package:e_commerce/src/utils/enum/product_type.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,7 +9,6 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    const _space = SizedBox(height: 30);
     return Scaffold(
         body: CustomScrollView(
       physics: const BouncingScrollPhysics(),
@@ -31,17 +30,14 @@ class HomePage extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.only(left: 18, top: 37),
               child: Column(
-                children: const [
-                  SaleProduct(),
-                  _space,
-                  NewProduct(),
-                  _space,
-                ],
+                children: ProductType.values
+                    .map((e) =>
+                        SliderProduct(onPressedViewAll: () {}, productType: e))
+                    .toList(),
               ),
             );
           }, childCount: 1),
         ),
-        // TODO: implement a new SliverList for product by category. do forget use slider_product.dart
       ],
     ));
   }

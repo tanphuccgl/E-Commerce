@@ -4,10 +4,10 @@ import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/detail_category/widgets/header_detail_category_delegate.dart';
 import 'package:e_commerce/src/modules/detail_category/widgets/product_card_horizontal.dart';
-import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
+import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
-import 'package:e_commerce/src/widgets/card/product_card_vertical.dart';
+import 'package:e_commerce/src/modules/product_details/widgets/product_card_vertical.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 
@@ -23,7 +23,8 @@ class DetailCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+        builder: (context, state) {
       return Scaffold(
           backgroundColor: state.viewType.backgroundColor(),
           body: CustomScrollView(
@@ -44,7 +45,8 @@ class DetailCategoryPage extends StatelessWidget {
                   ),
                 ),
               ),
-              BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+              BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+                  builder: (context, state) {
                 final data = state.items.data ?? [];
                 List<XProduct> items =
                     data.where((e) => e.idCategory == idCategory).toList();

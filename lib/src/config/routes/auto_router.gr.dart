@@ -14,12 +14,12 @@ import 'package:auto_route/auto_route.dart' as _i8;
 import 'package:flutter/material.dart' as _i22;
 
 import '../../models/products_model.dart' as _i23;
-import '../../modules/auth/login/pages/login_page.dart' as _i18;
+import '../../modules/auth/login/pages/login_page.dart' as _i20;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
-import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i19;
+import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i21;
 import '../../modules/cart/pages/cart_page.dart' as _i12;
 import '../../modules/checkout/pages/checkout_page.dart' as _i13;
-import '../../modules/dashboard/pages/dashboard_page.dart' as _i6;
+import '../../modules/dashboard/pages/dashboard_page.dart' as _i4;
 import '../../modules/dashboard/router/dashboard_wrapper_router.dart' as _i1;
 import '../../modules/detail_category/pages/detail_category_page.dart' as _i10;
 import '../../modules/detail_category/pages/search_products_page.dart' as _i11;
@@ -27,12 +27,12 @@ import '../../modules/favorites/pages/favorites_page.dart' as _i14;
 import '../../modules/favorites/pages/search_favorite_page.dart' as _i15;
 import '../../modules/home/pages/home_page.dart' as _i7;
 import '../../modules/loading/pages/loading_page.dart' as _i3;
-import '../../modules/payment_method/pages/payment_method_page.dart' as _i5;
-import '../../modules/product_details/pages/product_details_page.dart' as _i20;
-import '../../modules/product_details/pages/product_details_wrapper_router.dart'
-    as _i4;
+import '../../modules/payment_method/pages/payment_method_page.dart' as _i6;
+import '../../modules/product_details/pages/product_details_page.dart' as _i18;
+import '../../modules/product_details/router/product_details_wrapper_router.dart'
+    as _i5;
 import '../../modules/profile/pages/profile_page.dart' as _i16;
-import '../../modules/review/pages/review_page.dart' as _i21;
+import '../../modules/review/pages/review_page.dart' as _i19;
 import '../../modules/settings/pages/setting_page.dart' as _i17;
 import '../../modules/shop/pages/shop_page.dart' as _i9;
 
@@ -54,19 +54,19 @@ class XRouter extends _i8.RootStackRouter {
       return _i8.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i3.LoadingPage());
     },
+    DashboardRoute.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i4.DashboardPage());
+    },
     ProductDetailsWrapperRoute.name: (routeData) {
       final args = routeData.argsAs<ProductDetailsWrapperRouteArgs>();
       return _i8.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i4.ProductDetailsWrapperPage(data: args.data, key: args.key));
+          child: _i5.ProductDetailsWrapperPage(data: args.data, key: args.key));
     },
     PaymentMethodRoute.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i5.PaymentMethodPage());
-    },
-    DashboardRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i6.DashboardPage());
+          routeData: routeData, child: const _i6.PaymentMethodPage());
     },
     HomeRoute.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(
@@ -76,7 +76,7 @@ class XRouter extends _i8.RootStackRouter {
       return _i8.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i8.EmptyRouterPage());
     },
-    BagTab.name: (routeData) {
+    CartTab.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i8.EmptyRouterPage());
     },
@@ -106,9 +106,9 @@ class XRouter extends _i8.RootStackRouter {
           routeData: routeData,
           child: const _i11.SearchProductsByCategoryPage());
     },
-    BagRoute.name: (routeData) {
+    CartRoute.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i12.BagPage());
+          routeData: routeData, child: const _i12.CartPage());
     },
     CheckoutRoute.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(
@@ -130,18 +130,6 @@ class XRouter extends _i8.RootStackRouter {
       return _i8.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i17.SettingPage());
     },
-    LoginRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i18.LoginPage());
-    },
-    SignUpRoute.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i19.SignUpPage());
-    },
-    ProductDetailsRouter.name: (routeData) {
-      return _i8.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i8.EmptyRouterPage());
-    },
     ProductDetailsRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<ProductDetailsRouteArgs>(
@@ -149,14 +137,22 @@ class XRouter extends _i8.RootStackRouter {
               ProductDetailsRouteArgs(id: pathParams.getString('id')));
       return _i8.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i20.ProductDetailsPage(
+          child: _i18.ProductDetailsPage(
               id: args.id, key: args.key, data: args.data));
     },
     ReviewRoute.name: (routeData) {
       final args = routeData.argsAs<ReviewRouteArgs>();
       return _i8.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i21.ReviewPage(key: args.key, data: args.data));
+          child: _i19.ReviewPage(key: args.key, data: args.data));
+    },
+    LoginRoute.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i20.LoginPage());
+    },
+    SignUpRoute.name: (routeData) {
+      return _i8.MaterialPageX<dynamic>(
+          routeData: routeData, child: const _i21.SignUpPage());
     }
   };
 
@@ -180,9 +176,10 @@ class XRouter extends _i8.RootStackRouter {
                           _i8.RouteConfig(ShopRoute.name,
                               path: '', parent: ShopTab.name),
                           _i8.RouteConfig(DetailCategoryRoute.name,
-                              path: 'productByCategory', parent: ShopTab.name),
+                              path: 'product_by_category',
+                              parent: ShopTab.name),
                           _i8.RouteConfig(SearchProductsByCategoryRoute.name,
-                              path: 'searchProductsByCategoryPage',
+                              path: 'search_products_by_category',
                               parent: ShopTab.name),
                           _i8.RouteConfig('*#redirect',
                               path: '*',
@@ -190,17 +187,17 @@ class XRouter extends _i8.RootStackRouter {
                               redirectTo: '',
                               fullMatch: true)
                         ]),
-                    _i8.RouteConfig(BagTab.name,
-                        path: 'bag',
+                    _i8.RouteConfig(CartTab.name,
+                        path: 'cart',
                         parent: DashboardRoute.name,
                         children: [
-                          _i8.RouteConfig(BagRoute.name,
-                              path: '', parent: BagTab.name),
+                          _i8.RouteConfig(CartRoute.name,
+                              path: '', parent: CartTab.name),
                           _i8.RouteConfig(CheckoutRoute.name,
-                              path: 'checkout', parent: BagTab.name),
+                              path: 'checkout', parent: CartTab.name),
                           _i8.RouteConfig('*#redirect',
                               path: '*',
-                              parent: BagTab.name,
+                              parent: CartTab.name,
                               redirectTo: '',
                               fullMatch: true)
                         ]),
@@ -211,7 +208,7 @@ class XRouter extends _i8.RootStackRouter {
                           _i8.RouteConfig(FavoritesRoute.name,
                               path: '', parent: FavoritesTab.name),
                           _i8.RouteConfig(SearchFavoriteRoute.name,
-                              path: 'searchProductsByFavoritePage',
+                              path: 'search_products_by_favorite',
                               parent: FavoritesTab.name),
                           _i8.RouteConfig('*#redirect',
                               path: '*',
@@ -239,6 +236,29 @@ class XRouter extends _i8.RootStackRouter {
                         redirectTo: '',
                         fullMatch: true)
                   ]),
+              _i8.RouteConfig(ProductDetailsWrapperRoute.name,
+                  path: 'details_product',
+                  parent: DashboardWrapperRoute.name,
+                  children: [
+                    _i8.RouteConfig('#redirect',
+                        path: '',
+                        parent: ProductDetailsWrapperRoute.name,
+                        redirectTo: 'detail/:id',
+                        fullMatch: true),
+                    _i8.RouteConfig(ProductDetailsRoute.name,
+                        path: 'detail/:id',
+                        parent: ProductDetailsWrapperRoute.name),
+                    _i8.RouteConfig(ReviewRoute.name,
+                        path: 'review',
+                        parent: ProductDetailsWrapperRoute.name),
+                    _i8.RouteConfig('*#redirect',
+                        path: '*',
+                        parent: ProductDetailsWrapperRoute.name,
+                        redirectTo: '',
+                        fullMatch: true)
+                  ]),
+              _i8.RouteConfig(PaymentMethodRoute.name,
+                  path: 'payment_method', parent: DashboardWrapperRoute.name),
               _i8.RouteConfig('*#redirect',
                   path: '*',
                   parent: DashboardWrapperRoute.name,
@@ -262,35 +282,6 @@ class XRouter extends _i8.RootStackRouter {
               fullMatch: true)
         ]),
         _i8.RouteConfig(LoadingRoute.name, path: ''),
-        _i8.RouteConfig(ProductDetailsWrapperRoute.name,
-            path: 'details_product',
-            children: [
-              _i8.RouteConfig(ProductDetailsRouter.name,
-                  path: 'hee',
-                  parent: ProductDetailsWrapperRoute.name,
-                  children: [
-                    _i8.RouteConfig('#redirect',
-                        path: '',
-                        parent: ProductDetailsRouter.name,
-                        redirectTo: 'detail/:id',
-                        fullMatch: true),
-                    _i8.RouteConfig(ProductDetailsRoute.name,
-                        path: 'detail/:id', parent: ProductDetailsRouter.name),
-                    _i8.RouteConfig(ReviewRoute.name,
-                        path: 'review', parent: ProductDetailsRouter.name),
-                    _i8.RouteConfig('*#redirect',
-                        path: '*',
-                        parent: ProductDetailsRouter.name,
-                        redirectTo: '',
-                        fullMatch: true)
-                  ]),
-              _i8.RouteConfig('*#redirect',
-                  path: '*',
-                  parent: ProductDetailsWrapperRoute.name,
-                  redirectTo: '',
-                  fullMatch: true)
-            ]),
-        _i8.RouteConfig(PaymentMethodRoute.name, path: 'payment_method'),
         _i8.RouteConfig('*#redirect',
             path: '*', redirectTo: '', fullMatch: true)
       ];
@@ -324,7 +315,16 @@ class LoadingRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.ProductDetailsWrapperPage]
+/// [_i4.DashboardPage]
+class DashboardRoute extends _i8.PageRouteInfo<void> {
+  const DashboardRoute({List<_i8.PageRouteInfo>? children})
+      : super(DashboardRoute.name, path: '', initialChildren: children);
+
+  static const String name = 'DashboardRoute';
+}
+
+/// generated route for
+/// [_i5.ProductDetailsWrapperPage]
 class ProductDetailsWrapperRoute
     extends _i8.PageRouteInfo<ProductDetailsWrapperRouteArgs> {
   ProductDetailsWrapperRoute(
@@ -353,21 +353,12 @@ class ProductDetailsWrapperRouteArgs {
 }
 
 /// generated route for
-/// [_i5.PaymentMethodPage]
+/// [_i6.PaymentMethodPage]
 class PaymentMethodRoute extends _i8.PageRouteInfo<void> {
   const PaymentMethodRoute()
       : super(PaymentMethodRoute.name, path: 'payment_method');
 
   static const String name = 'PaymentMethodRoute';
-}
-
-/// generated route for
-/// [_i6.DashboardPage]
-class DashboardRoute extends _i8.PageRouteInfo<void> {
-  const DashboardRoute({List<_i8.PageRouteInfo>? children})
-      : super(DashboardRoute.name, path: '', initialChildren: children);
-
-  static const String name = 'DashboardRoute';
 }
 
 /// generated route for
@@ -389,11 +380,11 @@ class ShopTab extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.EmptyRouterPage]
-class BagTab extends _i8.PageRouteInfo<void> {
-  const BagTab({List<_i8.PageRouteInfo>? children})
-      : super(BagTab.name, path: 'bag', initialChildren: children);
+class CartTab extends _i8.PageRouteInfo<void> {
+  const CartTab({List<_i8.PageRouteInfo>? children})
+      : super(CartTab.name, path: 'cart', initialChildren: children);
 
-  static const String name = 'BagTab';
+  static const String name = 'CartTab';
 }
 
 /// generated route for
@@ -428,7 +419,7 @@ class DetailCategoryRoute extends _i8.PageRouteInfo<DetailCategoryRouteArgs> {
   DetailCategoryRoute(
       {_i22.Key? key, required String idCategory, required String nameCategory})
       : super(DetailCategoryRoute.name,
-            path: 'productByCategory',
+            path: 'product_by_category',
             args: DetailCategoryRouteArgs(
                 key: key, idCategory: idCategory, nameCategory: nameCategory));
 
@@ -456,17 +447,17 @@ class DetailCategoryRouteArgs {
 class SearchProductsByCategoryRoute extends _i8.PageRouteInfo<void> {
   const SearchProductsByCategoryRoute()
       : super(SearchProductsByCategoryRoute.name,
-            path: 'searchProductsByCategoryPage');
+            path: 'search_products_by_category');
 
   static const String name = 'SearchProductsByCategoryRoute';
 }
 
 /// generated route for
-/// [_i12.BagPage]
-class BagRoute extends _i8.PageRouteInfo<void> {
-  const BagRoute() : super(BagRoute.name, path: '');
+/// [_i12.CartPage]
+class CartRoute extends _i8.PageRouteInfo<void> {
+  const CartRoute() : super(CartRoute.name, path: '');
 
-  static const String name = 'BagRoute';
+  static const String name = 'CartRoute';
 }
 
 /// generated route for
@@ -489,7 +480,7 @@ class FavoritesRoute extends _i8.PageRouteInfo<void> {
 /// [_i15.SearchFavoritePage]
 class SearchFavoriteRoute extends _i8.PageRouteInfo<void> {
   const SearchFavoriteRoute()
-      : super(SearchFavoriteRoute.name, path: 'searchProductsByFavoritePage');
+      : super(SearchFavoriteRoute.name, path: 'search_products_by_favorite');
 
   static const String name = 'SearchFavoriteRoute';
 }
@@ -511,33 +502,7 @@ class SettingRoute extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.LoginPage]
-class LoginRoute extends _i8.PageRouteInfo<void> {
-  const LoginRoute() : super(LoginRoute.name, path: 'login');
-
-  static const String name = 'LoginRoute';
-}
-
-/// generated route for
-/// [_i19.SignUpPage]
-class SignUpRoute extends _i8.PageRouteInfo<void> {
-  const SignUpRoute() : super(SignUpRoute.name, path: 'register');
-
-  static const String name = 'SignUpRoute';
-}
-
-/// generated route for
-/// [_i8.EmptyRouterPage]
-class ProductDetailsRouter extends _i8.PageRouteInfo<void> {
-  const ProductDetailsRouter({List<_i8.PageRouteInfo>? children})
-      : super(ProductDetailsRouter.name,
-            path: 'hee', initialChildren: children);
-
-  static const String name = 'ProductDetailsRouter';
-}
-
-/// generated route for
-/// [_i20.ProductDetailsPage]
+/// [_i18.ProductDetailsPage]
 class ProductDetailsRoute extends _i8.PageRouteInfo<ProductDetailsRouteArgs> {
   ProductDetailsRoute({required String id, _i22.Key? key, _i23.XProduct? data})
       : super(ProductDetailsRoute.name,
@@ -564,7 +529,7 @@ class ProductDetailsRouteArgs {
 }
 
 /// generated route for
-/// [_i21.ReviewPage]
+/// [_i19.ReviewPage]
 class ReviewRoute extends _i8.PageRouteInfo<ReviewRouteArgs> {
   ReviewRoute({_i22.Key? key, required _i23.XProduct data})
       : super(ReviewRoute.name,
@@ -584,4 +549,20 @@ class ReviewRouteArgs {
   String toString() {
     return 'ReviewRouteArgs{key: $key, data: $data}';
   }
+}
+
+/// generated route for
+/// [_i20.LoginPage]
+class LoginRoute extends _i8.PageRouteInfo<void> {
+  const LoginRoute() : super(LoginRoute.name, path: 'login');
+
+  static const String name = 'LoginRoute';
+}
+
+/// generated route for
+/// [_i21.SignUpPage]
+class SignUpRoute extends _i8.PageRouteInfo<void> {
+  const SignUpRoute() : super(SignUpRoute.name, path: 'register');
+
+  static const String name = 'SignUpRoute';
 }

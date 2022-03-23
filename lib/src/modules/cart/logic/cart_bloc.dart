@@ -2,7 +2,7 @@ import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
+import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:e_commerce/src/utils/enum/color_type.dart';
 import 'package:e_commerce/src/utils/enum/size_type.dart';
@@ -16,7 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'cart_state.dart';
 
-class CartBloc extends ProductBloc<CartState> {
+class CartBloc extends ListProductsFilterBloc<CartState> {
   CartBloc()
       : super(CartState(
             productsOfCart: XHandle.completed([]),

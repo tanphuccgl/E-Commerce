@@ -1,7 +1,6 @@
-part of 'product_bloc.dart';
+part of 'list_products_filter_bloc.dart';
 
-// TODO: đổi tên cho hợp lý hơn.
-class ProductState extends Equatable {
+class ListProductsFilterState extends Equatable {
   final XHandle<List<XProduct>> items;
   final XHandle<List<XProduct>> searchList;
   final String searchText;
@@ -11,7 +10,7 @@ class ProductState extends Equatable {
   final SizeType sizeType;
   final ColorType colorType;
 
-  const ProductState(
+  const ListProductsFilterState(
       {required this.items,
       this.colorType = ColorType.black,
       this.sortBy = SortBy.lowToHigh,
@@ -23,7 +22,7 @@ class ProductState extends Equatable {
   @override
   List<Object?> get props =>
       [items, searchList, searchText, sortBy, sizeType, viewType, colorType];
-  ProductState copyWithItem(
+  ListProductsFilterState copyWithItem(
       {XHandle<List<XProduct>>? items,
       XHandle<List<XProduct>>? searchList,
       SortBy? sortBy,
@@ -31,7 +30,7 @@ class ProductState extends Equatable {
       SizeType? sizeType,
       ColorType? colorType,
       String? searchText}) {
-    return ProductState(
+    return ListProductsFilterState(
         items: items ?? this.items,
         searchText: searchText ?? this.searchText,
         searchList: searchList ?? this.searchList,

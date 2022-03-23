@@ -2,10 +2,10 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
+import 'package:e_commerce/src/modules/cart/router/cart_router.dart';
 import 'package:e_commerce/src/modules/cart/widgets/header_cart_delegate.dart';
 import 'package:e_commerce/src/modules/cart/widgets/product_card_in_cart.dart';
 import 'package:e_commerce/src/modules/cart/widgets/promo_code_widget.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
 import 'package:e_commerce/src/modules/promotion/widgets/bottom_sheet_promotion.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
@@ -17,9 +17,8 @@ import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// TODO: Đặt trên trùng với bloc và file => CartPage
-class BagPage extends StatelessWidget {
-  const BagPage({Key? key}) : super(key: key);
+class CartPage extends StatelessWidget {
+  const CartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +128,7 @@ class BagPage extends StatelessWidget {
                       height: 48,
                       width: 343,
                       onPressed: () =>
-                          DashboardCoordinator.showCheckoutScreen(context),
+                          CartCoordinator.showCheckoutScreen(context),
                     ),
                   ),
                 )

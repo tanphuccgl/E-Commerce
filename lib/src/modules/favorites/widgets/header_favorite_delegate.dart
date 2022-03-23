@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
+import 'package:e_commerce/src/modules/favorites/router/favorites_router.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/filter_bar_favorite.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:e_commerce/src/widgets/chip/tag_chip.dart';
@@ -36,7 +36,7 @@ class HeaderFavorite extends SliverPersistentHeaderDelegate {
                   icon: const Icon(Icons.search),
                   color: MyColors.colorBlack,
                   onPressed: () =>
-                      DashboardCoordinator.showSearchProductByFavorite(context),
+                      FavoritesCoordinator.showSearchProductByFavorite(context),
                 )
               ],
               elevation: 3,

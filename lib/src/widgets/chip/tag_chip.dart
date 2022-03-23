@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
+import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
 import 'package:flutter/material.dart';
 
 class TagChip extends StatelessWidget {
@@ -25,7 +25,7 @@ class TagChip extends StatelessWidget {
                 borderRadius: BorderRadius.circular(29),
               )),
           onPressed: onPressed ??
-              () => DashboardCoordinator.switchCategory(context,
+              () => ShopCoordinator.switchCategory(context,
                   idCategory: idCategory, nameCategory: label),
           child: Center(
             child: Text(

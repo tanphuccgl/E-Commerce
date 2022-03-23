@@ -1,6 +1,6 @@
 part of 'cart_bloc.dart';
 
-class CartState extends ProductState {
+class CartState extends ListProductsFilterState {
   final XHandle<List<XProduct>> productsOfCart;
   String priceProduct(XProduct data) => data.discount == 0.0
       ? XUtils.formatPrice(data.originalPrice)
@@ -16,7 +16,7 @@ class CartState extends ProductState {
   }
 
   bool hadCart(XProduct product) {
-    late bool value = false;
+    bool value = false;
     for (var item in productsOfCart.data ?? []) {
       if (item.id == product.id) {
         value = true;

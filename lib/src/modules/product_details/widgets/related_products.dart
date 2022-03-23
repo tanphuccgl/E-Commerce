@@ -1,8 +1,9 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
-import 'package:e_commerce/src/widgets/card/product_card_vertical.dart';
+import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
+import 'package:e_commerce/src/modules/product_details/router/product_details_router.dart';
+import 'package:e_commerce/src/modules/product_details/widgets/product_card_vertical.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +14,8 @@ class RelatedProducts extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+        builder: (context, state) {
       var items = state.items.data ?? [];
       items.shuffle();
       XHandle handle = XHandle.result(XResult.success(items));
@@ -36,6 +38,10 @@ class RelatedProducts extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: XProductCardVertical(
                             data: items[index],
+                            onTap: () =>
+                                ProductDetailsCoordinator.showRelatedProduct(
+                                    context,
+                                    data: items[index]),
                           ),
                         );
                       },

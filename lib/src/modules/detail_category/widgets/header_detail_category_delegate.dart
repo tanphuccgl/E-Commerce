@@ -1,8 +1,7 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/detail_category/widgets/filter_bar_detail_category.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
-
+import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
 import 'package:e_commerce/src/widgets/chip/tag_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,7 +40,7 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                   icon: const Icon(Icons.search),
                   color: MyColors.colorBlack,
                   onPressed: () =>
-                      DashboardCoordinator.showSearchProductByCategory(context),
+                      ShopCoordinator.showSearchProductByCategory(context),
                 )
               ],
               elevation: 3,
