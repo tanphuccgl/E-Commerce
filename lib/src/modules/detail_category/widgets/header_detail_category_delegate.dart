@@ -1,8 +1,13 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/detail_category/widgets/filter_bar_detail_category.dart';
+import 'package:e_commerce/src/modules/detail_category/widgets/bottom_sheet_sort_by.dart';
+import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
+import 'package:e_commerce/src/utils/enum/sort_by.dart';
+import 'package:e_commerce/src/utils/enum/view_type.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/chip/tag_chip.dart';
+import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -105,10 +110,20 @@ class HeaderDetailCategory extends SliverPersistentHeaderDelegate {
                         ),
                       );
                     }),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(14, 5, 14, 0),
-                      child: FilerBarDetailCategory(),
-                    ),
+                    BlocBuilder<ListProductsFilterBloc,
+                        ListProductsFilterState>(builder: (context, state) {
+                      return Padding(
+                          padding: const EdgeInsets.fromLTRB(14, 5, 14, 0),
+                          child: XDefaultFilerBar(
+                            iconViewType: state.viewType.iconOf(),
+                            onPressedSortBy: () => XBottomSheet.show(context,
+                                widget: const XBottomSheetSortDetailCategory()),
+                            onPressedViewType: () => context
+                                .read<ListProductsFilterBloc>()
+                                .changeViewType(),
+                            sortByText: state.sortBy.value(),
+                          ));
+                    })
                   ],
                 ),
               ),

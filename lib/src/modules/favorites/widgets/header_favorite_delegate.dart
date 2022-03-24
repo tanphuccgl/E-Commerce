@@ -1,8 +1,13 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/router/favorites_router.dart';
-import 'package:e_commerce/src/modules/favorites/widgets/filter_bar_favorite.dart';
+import 'package:e_commerce/src/modules/favorites/widgets/bottom_sheet_sort_favorite.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
+import 'package:e_commerce/src/utils/enum/sort_by.dart';
+import 'package:e_commerce/src/utils/enum/view_type.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/chip/tag_chip.dart';
+import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -96,16 +101,25 @@ class HeaderFavorite extends SliverPersistentHeaderDelegate {
                             return TagChip(
                               label: items[index].name ?? 'N/A',
                               idCategory: items[index].id,
-                              onPressed: () {},
+                              unSelectTagChip: true,
                             );
                           },
                         ),
                       );
                     }),
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(14, 5, 14, 0),
-                      child: FilerBarFavorites(),
-                    ),
+                    BlocBuilder<FavoriteBloc, FavoriteState>(
+                        builder: (context, state) {
+                      return Padding(
+                          padding: const EdgeInsets.fromLTRB(14, 5, 14, 0),
+                          child: XDefaultFilerBar(
+                            iconViewType: state.viewType.iconOf(),
+                            onPressedSortBy: () => XBottomSheet.show(context,
+                                widget: const XBottomSheetSortFavorites()),
+                            onPressedViewType: () =>
+                                context.read<FavoriteBloc>().changeViewType(),
+                            sortByText: state.sortBy.value(),
+                          ));
+                    })
                   ],
                 ),
               ),

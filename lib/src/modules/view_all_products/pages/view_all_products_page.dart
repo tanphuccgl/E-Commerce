@@ -1,12 +1,11 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
-import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/modules/detail_category/widgets/bottom_sheet_sort_by.dart';
 import 'package:e_commerce/src/modules/detail_category/widgets/product_card_horizontal.dart';
-import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/product_card_vertical.dart';
-import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
+import 'package:e_commerce/src/modules/view_all_products/logic/view_all_products_bloc.dart';
+import 'package:e_commerce/src/modules/view_all_products/widgets/bottom_sheet_sort.dart';
+import 'package:e_commerce/src/utils/enum/product_type.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
@@ -17,16 +16,15 @@ import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetailCategoryPage extends StatelessWidget {
-  final String idCategory;
-  final String nameCategory;
-  const DetailCategoryPage(
-      {Key? key, required this.idCategory, required this.nameCategory})
+class ViewAllProductsPage extends StatelessWidget {
+  final ProductType productType;
+
+  const ViewAllProductsPage({Key? key, required this.productType})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+    return BlocBuilder<ViewAllProductsBloc, ViewAllProductsState>(
         builder: (context, state) {
       return Scaffold(
           backgroundColor: state.viewType.backgroundColor(),
@@ -44,21 +42,19 @@ class DetailCategoryPage extends StatelessWidget {
                   pinned: true,
                   floating: true,
                   delegate: XHeaderDelegate(
-                      title: nameCategory,
-                      isShowTagChip: true,
+                      title: productType.title(),
                       elevation: 3,
+                      filterBarWidget: _filterBarWidget(),
                       isShowFilterBar: true,
-                      onPressedSearch: () =>
-                          ShopCoordinator.showSearchProductByCategory(context),
-                      filterBarWidget: _filterBarWidget()),
+                      onPressedSearch: () {}),
                 ),
               ),
-              BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+              BlocBuilder<ViewAllProductsBloc, ViewAllProductsState>(
                   builder: (context, state) {
                 final data = state.items.data ?? [];
-                List<XProduct> items =
-                    data.where((e) => e.idCategory == idCategory).toList();
+                var items = productType.listFilter(data: data);
                 state.sortBy.sortList(items: items);
+
                 XHandle handle = XHandle.result(XResult.success(items));
                 if (handle.isCompleted) {
                   return state.viewType.index == 0
@@ -102,14 +98,14 @@ class DetailCategoryPage extends StatelessWidget {
   }
 
   Widget _filterBarWidget() {
-    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+    return BlocBuilder<ViewAllProductsBloc, ViewAllProductsState>(
         builder: (context, state) {
       return XDefaultFilerBar(
         iconViewType: state.viewType.iconOf(),
         onPressedSortBy: () => XBottomSheet.show(context,
-            widget: const XBottomSheetSortDetailCategory()),
+            widget: const XBottomSheetSortViewAllProducts()),
         onPressedViewType: () =>
-            context.read<ListProductsFilterBloc>().changeViewType(),
+            context.read<ViewAllProductsBloc>().changeViewType(),
         sortByText: state.sortBy.value(),
       );
     });

@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 class TagChip extends StatelessWidget {
   final String label;
   final String idCategory;
-  final Function()? onPressed;
+  final bool unSelectTagChip;
   const TagChip(
-      {Key? key, required this.label, required this.idCategory, this.onPressed})
+      {Key? key,
+      required this.label,
+      required this.idCategory,
+      this.unSelectTagChip = false})
       : super(key: key);
 
   @override
@@ -24,8 +27,9 @@ class TagChip extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(29),
               )),
-          onPressed: onPressed ??
-              () => ShopCoordinator.switchCategory(context,
+          onPressed: unSelectTagChip
+              ? () {}
+              : () => ShopCoordinator.switchCategory(context,
                   idCategory: idCategory, nameCategory: label),
           child: Center(
             child: Text(

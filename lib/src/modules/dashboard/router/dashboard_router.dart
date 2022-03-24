@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
-
 import 'package:e_commerce/src/config/routes/page_routers.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/cart/router/cart_router.dart';
 import 'package:e_commerce/src/modules/dashboard/pages/dashboard_page.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_wrapper_router.dart';
 import 'package:e_commerce/src/modules/favorites/router/favorites_router.dart';
-import 'package:e_commerce/src/modules/home/pages/home_page.dart';
+import 'package:e_commerce/src/modules/home/router/home_router.dart';
 import 'package:e_commerce/src/modules/payment_method/router/payment_method_router.dart';
 import 'package:e_commerce/src/modules/product_details/router/product_details_router.dart';
 import 'package:e_commerce/src/modules/profile/router/profile_router.dart';
@@ -33,7 +32,7 @@ class DashboardCoordinator {
           page: DashboardPage,
           initial: true,
           children: [
-            AutoRoute(path: DashboardRouters.homeTab, page: HomePage),
+            HomeCoordinator.autoRoute,
             ShopCoordinator.autoRoute,
             CartCoordinator.autoRoute,
             FavoritesCoordinator.autoRoute,

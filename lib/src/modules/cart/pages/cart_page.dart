@@ -3,7 +3,6 @@ import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/cart/router/cart_router.dart';
-import 'package:e_commerce/src/modules/cart/widgets/header_cart_delegate.dart';
 import 'package:e_commerce/src/modules/cart/widgets/product_card_in_cart.dart';
 import 'package:e_commerce/src/modules/cart/widgets/promo_code_widget.dart';
 import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
@@ -12,6 +11,7 @@ import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
+import 'package:e_commerce/src/widgets/header/header_delegate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,9 @@ class CartPage extends StatelessWidget {
                   child: const SliverPersistentHeader(
                     pinned: true,
                     floating: true,
-                    delegate: HeaderCart(),
+                    delegate: XHeaderDelegate(
+                        title: 'My Bag',
+                        backgroundColor: MyColors.colorBackground),
                   ),
                 ),
                 items.isEmpty

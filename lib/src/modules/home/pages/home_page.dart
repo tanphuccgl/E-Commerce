@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/modules/home/router/home_router.dart';
 import 'package:e_commerce/src/modules/home/widgets/banner.dart';
 import 'package:e_commerce/src/modules/home/widgets/slider_product.dart';
 import 'package:e_commerce/src/utils/enum/product_type.dart';
@@ -31,8 +32,11 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 18, top: 37),
               child: Column(
                 children: ProductType.values
-                    .map((e) =>
-                        SliderProduct(onPressedViewAll: () {}, productType: e))
+                    .map((e) => SliderProduct(
+                        onPressedViewAll: () => HomeCoordinator.showViewAll(
+                            context,
+                            productType: e),
+                        productType: e))
                     .toList(),
               ),
             );
