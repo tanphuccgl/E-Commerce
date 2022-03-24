@@ -2,14 +2,15 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/modules/detail_category/widgets/bottom_sheet_sort_by.dart';
 import 'package:e_commerce/src/modules/detail_category/widgets/product_card_horizontal.dart';
 import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/product_card_vertical.dart';
 import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
+import 'package:e_commerce/src/utils/enum/page_info.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_sort.dart';
 import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
@@ -107,7 +108,10 @@ class DetailCategoryPage extends StatelessWidget {
       return XDefaultFilerBar(
         iconViewType: state.viewType.iconOf(),
         onPressedSortBy: () => XBottomSheet.show(context,
-            widget: const XBottomSheetSortDetailCategory()),
+            widget: XBottomSheetSort(
+              sortBy: state.sortBy,
+              pageInfo: PageInfo.detailsCategory,
+            )),
         onPressedViewType: () =>
             context.read<ListProductsFilterBloc>().changeViewType(),
         sortByText: state.sortBy.value(),

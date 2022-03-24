@@ -4,11 +4,12 @@ import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/detail_category/widgets/product_card_horizontal.dart';
 import 'package:e_commerce/src/modules/product_details/widgets/product_card_vertical.dart';
 import 'package:e_commerce/src/modules/view_all_products/logic/view_all_products_bloc.dart';
-import 'package:e_commerce/src/modules/view_all_products/widgets/bottom_sheet_sort.dart';
+import 'package:e_commerce/src/utils/enum/page_info.dart';
 import 'package:e_commerce/src/utils/enum/product_type.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_sort.dart';
 import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
@@ -103,7 +104,10 @@ class ViewAllProductsPage extends StatelessWidget {
       return XDefaultFilerBar(
         iconViewType: state.viewType.iconOf(),
         onPressedSortBy: () => XBottomSheet.show(context,
-            widget: const XBottomSheetSortViewAllProducts()),
+            widget: XBottomSheetSort(
+              pageInfo: PageInfo.home,
+              sortBy: state.sortBy,
+            )),
         onPressedViewType: () =>
             context.read<ViewAllProductsBloc>().changeViewType(),
         sortByText: state.sortBy.value(),

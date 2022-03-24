@@ -3,12 +3,13 @@ import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/router/favorites_router.dart';
-import 'package:e_commerce/src/modules/favorites/widgets/bottom_sheet_sort_favorite.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_horizontal.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_vertical.dart';
+import 'package:e_commerce/src/utils/enum/page_info.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_sort.dart';
 import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
@@ -115,7 +116,10 @@ class FavoritesPage extends StatelessWidget {
       return XDefaultFilerBar(
         iconViewType: state.viewType.iconOf(),
         onPressedSortBy: () => XBottomSheet.show(context,
-            widget: const XBottomSheetSortFavorites()),
+            widget: XBottomSheetSort(
+              pageInfo: PageInfo.favorites,
+              sortBy: state.sortBy,
+            )),
         onPressedViewType: () => context.read<FavoriteBloc>().changeViewType(),
         sortByText: state.sortBy.value(),
       );
