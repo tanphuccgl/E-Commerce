@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProductDetailsWrapperPage extends StatelessWidget {
-  final XProduct data;
+  final XProduct? data;
+  final String id;
   const ProductDetailsWrapperPage({
-    required this.data,
+    @PathParam('id') required this.id,
+    this.data,
     Key? key,
   }) : super(key: key);
 

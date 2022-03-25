@@ -11,7 +11,7 @@ class CartRouters {
 
 class CartCoordinator {
   static const autoRoute = AutoRoute(
-      path: DashboardRouters.cartTab,
+      path: DashboardTaps.cartTab,
       page: EmptyRouterPage,
       name: 'CartTab',
       children: [

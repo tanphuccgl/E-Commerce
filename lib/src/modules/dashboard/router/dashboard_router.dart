@@ -13,12 +13,16 @@ import 'package:e_commerce/src/modules/profile/router/profile_router.dart';
 import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
 import 'package:flutter/material.dart';
 
-class DashboardRouters {
+class DashboardTaps {
   static const String homeTab = 'home';
   static const String shopTab = 'shop';
   static const String cartTab = 'cart';
   static const String favoritesTab = 'favorites';
   static const String profileTab = 'profile';
+}
+
+class DashboardRouters {
+  static const String productDetail = 'product/:id';
 }
 
 class DashboardCoordinator {
@@ -48,10 +52,10 @@ class DashboardCoordinator {
   static showYourCart(BuildContext context) =>
       context.router.navigate(const DashboardRoute(children: [CartTab()]));
 
-  static showDetailsProduct(BuildContext context, {required XProduct data}) =>
-      context.router.push(ProductDetailsWrapperRoute(
-          data: data,
-          children: [ProductDetailsRoute(id: data.id, data: data)]));
+  static showDetailsProduct(BuildContext context,
+      {XProduct? data, required String id}) {
+    return context.router.push(ProductDetailsWrapperRoute(data: data, id: id));
+  }
 
   static showPaymentMethod(BuildContext context) =>
       context.router.push(const PaymentMethodRoute());

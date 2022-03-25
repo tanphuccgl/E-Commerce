@@ -15,7 +15,7 @@ class ShopRouters {
 
 class ShopCoordinator {
   static const autoRoute = AutoRoute(
-      path: DashboardRouters.shopTab,
+      path: DashboardTaps.shopTab,
       page: EmptyRouterPage,
       name: 'ShopTab',
       children: [

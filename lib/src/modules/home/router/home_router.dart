@@ -13,7 +13,7 @@ class HomeRouters {
 
 class HomeCoordinator {
   static const autoRoute = AutoRoute(
-      path: DashboardRouters.homeTab,
+      path: DashboardTaps.homeTab,
       page: HomeWrapperPage,
       name: 'HomeTab',
       children: [

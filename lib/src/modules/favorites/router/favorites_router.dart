@@ -11,7 +11,7 @@ class FavoritesRouters {
 
 class FavoritesCoordinator {
   static const autoRoute = AutoRoute(
-      path: DashboardRouters.favoritesTab,
+      path: DashboardTaps.favoritesTab,
       page: EmptyRouterPage,
       name: 'FavoritesTab',
       children: [
