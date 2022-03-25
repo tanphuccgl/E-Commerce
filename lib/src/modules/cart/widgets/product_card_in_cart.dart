@@ -20,13 +20,16 @@ class XProductCardInCart extends StatelessWidget {
     return GestureDetector(
       onTap: () => DashboardCoordinator.showDetailsProduct(context, data: data),
       child: Container(
-        decoration: BoxDecoration(color: MyColors.colorWhite, boxShadow: [
-          BoxShadow(
-              offset: const Offset(0, 1),
-              blurRadius: 25,
-              color: MyColors.colorShadowCircle.withOpacity(0.08),
-              spreadRadius: 1)
-        ]),
+        decoration: BoxDecoration(
+            color: MyColors.colorWhite,
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 1),
+                  blurRadius: 25,
+                  color: MyColors.colorShadowCircle.withOpacity(0.08),
+                  spreadRadius: 1)
+            ],
+            borderRadius: const BorderRadius.all(Radius.circular(8))),
         height: 104,
         width: 343,
         child: Row(
@@ -39,7 +42,7 @@ class XProductCardInCart extends StatelessWidget {
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8)),
                 child: Image(
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   image: NetworkImage(data.image ?? "N/A"),
                 ),
               ),

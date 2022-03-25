@@ -1,3 +1,3 @@
-enum PageInfo { home, detailsCategory, favorites }
+enum PageInfo { home, detailsCategory, favorites, cart }
 
 extension PageInfoExt on PageInfo {}

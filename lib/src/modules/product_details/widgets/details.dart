@@ -4,8 +4,9 @@ import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/product/widgets/display_label.dart';
 import 'package:e_commerce/src/modules/product/widgets/price_product_widget.dart';
 import 'package:e_commerce/src/modules/product/widgets/review_star.dart';
-import 'package:e_commerce/src/modules/product_details/widgets/bottom_sheet_cart.dart';
+import 'package:e_commerce/src/utils/enum/page_info.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_select_size.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,7 +90,8 @@ class XDetails extends StatelessWidget {
                       context.read<CartBloc>().initSizeType();
 
                       XBottomSheet.show(context,
-                          widget: XBottomSheetCart(
+                          widget: XBottomSheetSelectSize(
+                            pageInfo: PageInfo.cart,
                             data: data,
                           ));
                     },
