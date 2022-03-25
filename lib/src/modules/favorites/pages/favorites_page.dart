@@ -7,6 +7,8 @@ import 'package:e_commerce/src/modules/favorites/widgets/product_card_horizontal
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_vertical.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
+import 'package:e_commerce/src/widgets/paginate/empty_display.dart';
+import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -24,35 +26,12 @@ class FavoritesPage extends StatelessWidget {
       if (handle.isCompleted) {
         return Scaffold(
             backgroundColor: state.viewType.backgroundColor(),
-            body: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                Theme(
-                  data: ThemeData(
-                    appBarTheme: const AppBarTheme(
-                      iconTheme: IconThemeData(color: MyColors.colorBlack),
-                    ),
-                    textTheme: Theme.of(context).textTheme,
-                  ),
-                  child: const SliverPersistentHeader(
-                    pinned: true,
-                    floating: true,
-                    delegate: HeaderFavorite(),
-                  ),
-                ),
-                items.isEmpty
-                    ? const SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 100,
-                          child: Center(
-                            child: Text(
-                              'Empty List',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                      )
+            body: Paginate(
+                fetchNextData: () => context.read<FavoriteBloc>().getProduct(),
+                isLoading: state.isLoading,
+                header: _header(context),
+                body: items.isEmpty
+                    ? const EmptyDisplay()
                     : (state.viewType.index == 0
                         ? SliverList(
                             delegate:
@@ -86,14 +65,28 @@ class FavoritesPage extends StatelessWidget {
                                     data: items[index]),
                               );
                             }, childCount: items.length),
-                          ))
-              ],
-            ));
+                          ))));
       } else if (handle.isLoading) {
         return const XStateLoadingWidget();
       } else {
         return const XStateErrorWidget();
       }
     });
+  }
+
+  Widget _header(BuildContext context) {
+    return Theme(
+      data: ThemeData(
+        appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: MyColors.colorBlack),
+        ),
+        textTheme: Theme.of(context).textTheme,
+      ),
+      child: const SliverPersistentHeader(
+        pinned: true,
+        floating: true,
+        delegate: HeaderFavorite(),
+      ),
+    );
   }
 }

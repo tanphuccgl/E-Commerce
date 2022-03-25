@@ -5,6 +5,16 @@ class EmptyDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: Text('No documents found'));
+    return const SliverToBoxAdapter(
+      child: SizedBox(
+        height: 100,
+        child: Center(
+          child: Text(
+            'Empty List',
+            style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+          ),
+        ),
+      ),
+    );
   }
 }

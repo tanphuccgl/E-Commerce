@@ -5,9 +5,11 @@ import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/cart_c
 
 class CartRepositoryImpl implements CartRepository {
   @override
-  Future<XResult<List<XProduct>>> getProductsOfCart() async {
+  Future<XResult<List<XProduct>>> getProductsOfCart(
+      {required int currentListLength}) async {
     try {
-      var data = await CartCollectionReference().getProductOfCart();
+      var data = await CartCollectionReference()
+          .getProductOfCart(currentListLength: currentListLength);
       return data;
     } catch (e) {
       return XResult.error(e.toString());

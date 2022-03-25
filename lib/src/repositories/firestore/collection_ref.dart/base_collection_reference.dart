@@ -68,4 +68,15 @@ class BaseCollectionReference<T extends BaseModel> {
       return XResult.exception(e);
     }
   }
+
+  Future<XResult<List<T>>> queryLimit(int limit) async {
+    try {
+      final QuerySnapshot<T> query =
+          await ref.limit(limit).get().timeout(const Duration(seconds: 5));
+      final docs = query.docs.map((e) => e.data()).toList();
+      return XResult.success(docs);
+    } catch (e) {
+      return XResult.exception(e);
+    }
+  }
 }

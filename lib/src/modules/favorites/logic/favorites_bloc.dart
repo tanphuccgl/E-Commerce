@@ -26,14 +26,19 @@ class FavoriteBloc extends ProductBloc<FavoriteState> {
 
   @override
   Future<void> getProduct() async {
+    emit(state.copyWithItem(isLoading: true));
+    await Future.delayed(const Duration(seconds: 2));
+
     User? currentUser = AuthService().currentUser;
-    final value = await domain.favorite.getProductToFavorite();
+    final value = await domain.favorite.getProductToFavorite(
+        currentListLength: (state.listFavorite.data ?? []).length);
     if (value.isSuccess) {
       List<XProduct> items = [...(state.listFavorite.data ?? [])];
       items = (value.data ?? [])
           .where((e) => e.idUser == currentUser?.uid)
           .toList();
-      emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
+      emit(state.copyWithItem(
+          listFavorite: XHandle.completed(items), isLoading: false));
     } else {}
   }
 

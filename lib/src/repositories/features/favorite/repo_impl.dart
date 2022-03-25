@@ -5,9 +5,11 @@ import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/favori
 
 class FavoriteRepositoryImpl implements FavoriteRepository {
   @override
-  Future<XResult<List<XProduct>>> getProductToFavorite() async {
+  Future<XResult<List<XProduct>>> getProductToFavorite(
+      {required int currentListLength}) async {
     try {
-      var data = await FavoriteCollectionReference().getProductToFavorite();
+      var data = await FavoriteCollectionReference()
+          .getProductToFavorite(currentListLength: currentListLength);
       return data;
     } catch (e) {
       return XResult.error(e.toString());

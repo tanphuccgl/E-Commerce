@@ -27,14 +27,19 @@ class CartBloc extends ProductBloc<CartState> {
 
   @override
   Future<void> getProduct() async {
+    emit(state.copyWithItem(isLoading: true));
+    await Future.delayed(const Duration(seconds: 2));
     User? currentUser = AuthService().currentUser;
-    final value = await domain.cart.getProductsOfCart();
+    final value = await domain.cart.getProductsOfCart(
+        currentListLength: (state.productsOfCart.data ?? []).length);
+
     if (value.isSuccess) {
       List<XProduct> items = [...(state.productsOfCart.data ?? [])];
       items = (value.data ?? [])
           .where((e) => e.idUser == currentUser?.uid)
           .toList();
-      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
+      emit(state.copyWithItem(
+          productsOfCart: XHandle.completed(items), isLoading: false));
     } else {}
   }
 

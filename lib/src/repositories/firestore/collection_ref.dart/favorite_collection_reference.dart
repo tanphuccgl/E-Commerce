@@ -65,11 +65,12 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
     }
   }
 
-  Future<XResult<List<XProduct>>> getProductToFavorite() async {
+  Future<XResult<List<XProduct>>> getProductToFavorite(
+      {int currentListLength = 0}) async {
     try {
       final User? user = AuthService().currentUser;
       if (user != null) {
-        return query();
+        return queryLimit(currentListLength + 6);
       } else {
         return XResult.error('Not login yet');
       }
