@@ -6,11 +6,9 @@ import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/review_model.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
-import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -27,14 +25,9 @@ class ReviewBloc extends Cubit<ReviewState> {
   final Domain domain = Domain();
 
   Future<void> getReviews({required XProduct product}) async {
-    User? currentUser = AuthService().currentUser;
     final value = await domain.review.getAllReview(product: product);
     if (value.isSuccess) {
-      List<XReview> items = [...(state.items.data ?? [])];
-      items = (value.data ?? [])
-          .where((e) => e.idUser == currentUser?.uid)
-          .toList();
-      emit(state.copyWithItem(items: XHandle.completed(items)));
+      emit(state.copyWithItem(items: XHandle.completed(value.data ?? [])));
     } else {}
   }
 
