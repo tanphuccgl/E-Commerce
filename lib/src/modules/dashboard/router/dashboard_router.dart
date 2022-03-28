@@ -54,7 +54,9 @@ class DashboardCoordinator {
 
   static showDetailsProduct(BuildContext context,
       {XProduct? data, required String id}) {
-    return context.router.push(ProductDetailsWrapperRoute(data: data, id: id));
+    var value = data ?? XProduct();
+    return context.router
+        .push(ProductDetailsWrapperRoute(data: value, id: value.id));
   }
 
   static showPaymentMethod(BuildContext context) =>

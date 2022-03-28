@@ -20,8 +20,8 @@ class XProductCardFavoriteVertical extends StatelessWidget {
     return data.soldOut
         ? _soldOutWidget()
         : GestureDetector(
-            onTap: () =>
-                DashboardCoordinator.showDetailsProduct(context, data: data),
+            onTap: () => DashboardCoordinator.showDetailsProduct(context,
+                data: data, id: data.id),
             child: SizedBox(
               height: 280,
               width: 164,

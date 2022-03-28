@@ -9,7 +9,6 @@ class BottomBarBloc extends Cubit<BottomBarState> {
   BottomBarBloc() : super(const BottomBarState());
 
   void onItemTapped(int index) {
-    // TODO: back to root
     emit(state.copyWith(index: PageIndex.values[index]));
   }
 }

@@ -1,10 +1,7 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
-import 'package:e_commerce/src/modules/review/logic/write_review_bloc.dart';
-import 'package:e_commerce/src/modules/review/widgets/bottom_sheet_add_review.dart';
-import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:e_commerce/src/modules/product_details/router/product_details_router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XButtonWriteReview extends StatelessWidget {
   final XProduct data;
@@ -16,12 +13,8 @@ class XButtonWriteReview extends StatelessWidget {
       height: 40,
       child: ElevatedButton.icon(
         icon: const Icon(Icons.edit),
-        onPressed: () => {
-          context.read<WriteReviewBloc>().initAddReview(),
-          XBottomSheet.show(context,
-              widget: XBottomSheetAddReview(data: data),
-              backgroundColor: MyColors.colorBackground),
-        },
+        onPressed: () =>
+            ProductDetailsCoordinator.showWriteReview(context, data: data),
         label: const Text('Write a review',
             textAlign: TextAlign.center,
             style: TextStyle(

@@ -63,10 +63,14 @@ class XRouter extends _i8.RootStackRouter {
           routeData: routeData, child: const _i4.DashboardPage());
     },
     ProductDetailsWrapperRoute.name: (routeData) {
-      final args = routeData.argsAs<ProductDetailsWrapperRouteArgs>();
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<ProductDetailsWrapperRouteArgs>(
+          orElse: () =>
+              ProductDetailsWrapperRouteArgs(id: pathParams.getString('id')));
       return _i8.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i5.ProductDetailsWrapperPage(data: args.data, key: args.key));
+          child: _i5.ProductDetailsWrapperPage(
+              id: args.id, data: args.data, key: args.key));
     },
     PaymentMethodRoute.name: (routeData) {
       return _i8.MaterialPageX<dynamic>(
@@ -146,14 +150,8 @@ class XRouter extends _i8.RootStackRouter {
           routeData: routeData, child: const _i19.SettingPage());
     },
     ProductDetailsRoute.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<ProductDetailsRouteArgs>(
-          orElse: () =>
-              ProductDetailsRouteArgs(id: pathParams.getString('id')));
       return _i8.MaterialPageX<dynamic>(
-          routeData: routeData,
-          child: _i20.ProductDetailsPage(
-              id: args.id, key: args.key, data: args.data));
+          routeData: routeData, child: const _i20.ProductDetailsPage());
     },
     ReviewRoute.name: (routeData) {
       final args = routeData.argsAs<ReviewRouteArgs>();
@@ -264,17 +262,11 @@ class XRouter extends _i8.RootStackRouter {
                         fullMatch: true)
                   ]),
               _i8.RouteConfig(ProductDetailsWrapperRoute.name,
-                  path: 'details_product',
+                  path: 'product/:id',
                   parent: DashboardWrapperRoute.name,
                   children: [
-                    _i8.RouteConfig('#redirect',
-                        path: '',
-                        parent: ProductDetailsWrapperRoute.name,
-                        redirectTo: 'detail/:id',
-                        fullMatch: true),
                     _i8.RouteConfig(ProductDetailsRoute.name,
-                        path: 'detail/:id',
-                        parent: ProductDetailsWrapperRoute.name),
+                        path: '', parent: ProductDetailsWrapperRoute.name),
                     _i8.RouteConfig(ReviewRoute.name,
                         path: 'review',
                         parent: ProductDetailsWrapperRoute.name),
@@ -355,27 +347,31 @@ class DashboardRoute extends _i8.PageRouteInfo<void> {
 class ProductDetailsWrapperRoute
     extends _i8.PageRouteInfo<ProductDetailsWrapperRouteArgs> {
   ProductDetailsWrapperRoute(
-      {required _i25.XProduct data,
+      {required String id,
+      _i25.XProduct? data,
       _i24.Key? key,
       List<_i8.PageRouteInfo>? children})
       : super(ProductDetailsWrapperRoute.name,
-            path: 'details_product',
-            args: ProductDetailsWrapperRouteArgs(data: data, key: key),
+            path: 'product/:id',
+            args: ProductDetailsWrapperRouteArgs(id: id, data: data, key: key),
+            rawPathParams: {'id': id},
             initialChildren: children);
 
   static const String name = 'ProductDetailsWrapperRoute';
 }
 
 class ProductDetailsWrapperRouteArgs {
-  const ProductDetailsWrapperRouteArgs({required this.data, this.key});
+  const ProductDetailsWrapperRouteArgs({required this.id, this.data, this.key});
 
-  final _i25.XProduct data;
+  final String id;
+
+  final _i25.XProduct? data;
 
   final _i24.Key? key;
 
   @override
   String toString() {
-    return 'ProductDetailsWrapperRouteArgs{data: $data, key: $key}';
+    return 'ProductDetailsWrapperRouteArgs{id: $id, data: $data, key: $key}';
   }
 }
 
@@ -563,29 +559,10 @@ class SettingRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i20.ProductDetailsPage]
-class ProductDetailsRoute extends _i8.PageRouteInfo<ProductDetailsRouteArgs> {
-  ProductDetailsRoute({required String id, _i24.Key? key, _i25.XProduct? data})
-      : super(ProductDetailsRoute.name,
-            path: 'detail/:id',
-            args: ProductDetailsRouteArgs(id: id, key: key, data: data),
-            rawPathParams: {'id': id});
+class ProductDetailsRoute extends _i8.PageRouteInfo<void> {
+  const ProductDetailsRoute() : super(ProductDetailsRoute.name, path: '');
 
   static const String name = 'ProductDetailsRoute';
-}
-
-class ProductDetailsRouteArgs {
-  const ProductDetailsRouteArgs({required this.id, this.key, this.data});
-
-  final String id;
-
-  final _i24.Key? key;
-
-  final _i25.XProduct? data;
-
-  @override
-  String toString() {
-    return 'ProductDetailsRouteArgs{id: $id, key: $key, data: $data}';
-  }
 }
 
 /// generated route for

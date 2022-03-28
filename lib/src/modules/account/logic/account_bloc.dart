@@ -37,8 +37,6 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
   }
 
   void setDataLogin(BuildContext context, {XUser? user}) {
-    //TODO  Ví dụ sử dụng stream. research thêm về stream để biết cách dùng.
-
     streamUser.add(user);
 
     emit(state.copyWith(data: user, isLoading: false) as T);

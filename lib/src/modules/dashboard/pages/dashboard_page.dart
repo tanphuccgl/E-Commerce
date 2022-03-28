@@ -30,7 +30,13 @@ class DashboardPage extends StatelessWidget {
             backgroundColor: MyColors.colorWhite,
             type: BottomNavigationBarType.fixed,
             showUnselectedLabels: true,
-            onTap: tabsRouter.setActiveIndex,
+            onTap: (index) {
+              if (index == tabsRouter.activeIndex) {
+                tabsRouter.stackRouterOfIndex(index)?.popUntilRoot();
+              } else {
+                tabsRouter.setActiveIndex(index);
+              }
+            },
             items: [
               for (final item in PageIndex.values)
                 BottomNavigationBarItem(

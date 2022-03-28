@@ -36,7 +36,7 @@ class SearchProductsByCategoryPage extends StatelessWidget {
                     height: 50,
                   ),
                   onTap: () => DashboardCoordinator.showDetailsProduct(context,
-                      data: item),
+                      data: item, id: item.id),
                   title: Text(item.name),
                   subtitle: Text(item.type),
                 );

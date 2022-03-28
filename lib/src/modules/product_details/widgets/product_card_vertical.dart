@@ -17,7 +17,8 @@ class XProductCardVertical extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap ??
-          () => DashboardCoordinator.showDetailsProduct(context, data: data),
+          () => DashboardCoordinator.showDetailsProduct(context,
+              data: data, id: data.id),
       child: SizedBox(
         height: 260,
         width: 164,

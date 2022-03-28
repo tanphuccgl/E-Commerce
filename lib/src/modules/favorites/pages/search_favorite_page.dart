@@ -29,7 +29,7 @@ class SearchFavoritePage extends StatelessWidget {
 
                 return ListTile(
                   onTap: () => DashboardCoordinator.showDetailsProduct(context,
-                      data: item),
+                      data: item, id: item.id),
                   leading: Image.network(
                     item.image ?? '',
                     fit: BoxFit.fill,
