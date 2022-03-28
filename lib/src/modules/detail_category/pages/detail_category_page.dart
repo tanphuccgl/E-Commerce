@@ -2,15 +2,19 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/modules/detail_category/widgets/header_detail_category_delegate.dart';
 import 'package:e_commerce/src/modules/detail_category/widgets/product_card_horizontal.dart';
-import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
+import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
+import 'package:e_commerce/src/modules/product_details/widgets/product_card_vertical.dart';
+import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
+import 'package:e_commerce/src/utils/enum/page_info.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
-import 'package:e_commerce/src/widgets/card/product_card_vertical.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
+import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_sort.dart';
+import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
+import 'package:e_commerce/src/widgets/header/header_delegate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,7 +27,8 @@ class DetailCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+        builder: (context, state) {
       return Scaffold(
           backgroundColor: state.viewType.backgroundColor(),
           body: CustomScrollView(
@@ -39,12 +44,18 @@ class DetailCategoryPage extends StatelessWidget {
                 child: SliverPersistentHeader(
                   pinned: true,
                   floating: true,
-                  delegate: HeaderDetailCategory(
-                    nameCategory: nameCategory,
-                  ),
+                  delegate: XHeaderDelegate(
+                      title: nameCategory,
+                      isShowTagChip: true,
+                      elevation: 3,
+                      isShowFilterBar: true,
+                      onPressedSearch: () =>
+                          ShopCoordinator.showSearchProductByCategory(context),
+                      filterBarWidget: _filterBarWidget()),
                 ),
               ),
-              BlocBuilder<ProductBloc, ProductState>(builder: (context, state) {
+              BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+                  builder: (context, state) {
                 final data = state.items.data ?? [];
                 List<XProduct> items =
                     data.where((e) => e.idCategory == idCategory).toList();
@@ -88,6 +99,23 @@ class DetailCategoryPage extends StatelessWidget {
               })
             ],
           ));
+    });
+  }
+
+  Widget _filterBarWidget() {
+    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+        builder: (context, state) {
+      return XDefaultFilerBar(
+        iconViewType: state.viewType.iconOf(),
+        onPressedSortBy: () => XBottomSheet.show(context,
+            widget: XBottomSheetSort(
+              sortBy: state.sortBy,
+              pageInfo: PageInfo.detailsCategory,
+            )),
+        onPressedViewType: () =>
+            context.read<ListProductsFilterBloc>().changeViewType(),
+        sortByText: state.sortBy.value(),
+      );
     });
   }
 }

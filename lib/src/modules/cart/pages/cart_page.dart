@@ -2,16 +2,16 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
-import 'package:e_commerce/src/modules/cart/widgets/header_cart_delegate.dart';
+import 'package:e_commerce/src/modules/cart/router/cart_router.dart';
 import 'package:e_commerce/src/modules/cart/widgets/product_card_in_cart.dart';
 import 'package:e_commerce/src/modules/cart/widgets/promo_code_widget.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
 import 'package:e_commerce/src/modules/promotion/widgets/bottom_sheet_promotion.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
+import 'package:e_commerce/src/widgets/header/header_delegate.dart';
 import 'package:e_commerce/src/widgets/paginate/empty_display.dart';
 import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
@@ -19,8 +19,8 @@ import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class BagPage extends StatelessWidget {
-  const BagPage({Key? key}) : super(key: key);
+class CartPage extends StatelessWidget {
+  const CartPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,8 @@ class BagPage extends StatelessWidget {
       child: const SliverPersistentHeader(
         pinned: true,
         floating: true,
-        delegate: HeaderCart(),
+        delegate: XHeaderDelegate(
+            title: 'My Bag', backgroundColor: MyColors.colorBackground),
       ),
     );
   }
@@ -130,8 +131,7 @@ class BagPage extends StatelessWidget {
                   label: 'CHECK OUT',
                   height: 48,
                   width: 343,
-                  onPressed: () =>
-                      DashboardCoordinator.showCheckoutScreen(context),
+                  onPressed: () => CartCoordinator.showCheckoutScreen(context),
                 ),
               ),
             ],

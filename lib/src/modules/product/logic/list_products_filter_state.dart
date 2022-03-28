@@ -1,6 +1,6 @@
-part of 'product_bloc.dart';
+part of 'list_products_filter_bloc.dart';
 
-class ProductState extends Equatable {
+class ListProductsFilterState extends Equatable {
   final XHandle<List<XProduct>> items;
   final XHandle<List<XProduct>> searchList;
   final String searchText;
@@ -11,7 +11,7 @@ class ProductState extends Equatable {
   final SizeType sizeType;
   final ColorType colorType;
 
-  const ProductState(
+  const ListProductsFilterState(
       {required this.items,
       this.isLoading = false,
       this.colorType = ColorType.black,
@@ -32,7 +32,8 @@ class ProductState extends Equatable {
         colorType,
         isLoading
       ];
-  ProductState copyWithItem(
+
+  ListProductsFilterState copyWithItem(
       {XHandle<List<XProduct>>? items,
       XHandle<List<XProduct>>? searchList,
       bool? isLoading,
@@ -41,7 +42,7 @@ class ProductState extends Equatable {
       SizeType? sizeType,
       ColorType? colorType,
       String? searchText}) {
-    return ProductState(
+    return ListProductsFilterState(
         items: items ?? this.items,
         isLoading: isLoading ?? this.isLoading,
         searchText: searchText ?? this.searchText,

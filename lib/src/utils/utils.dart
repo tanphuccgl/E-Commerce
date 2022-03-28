@@ -1,10 +1,9 @@
+import 'package:e_commerce/src/utils/regex/regex.dart';
 import 'package:intl/intl.dart';
 
 class XUtils {
   static String formatPrice(double price) {
-    RegExp regex = RegExp(r'([.]*0)(?!.*\d)');
-
-    String value = price.toString().replaceAll(regex, '');
+    String value = price.toString().replaceAll(XRegex.priceRegex, '');
     return value;
   }
 
@@ -12,9 +11,7 @@ class XUtils {
     email = email.trim();
     String message = "";
 
-    bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
+    bool emailValid = XRegex.emailRegex.hasMatch(email);
     if (emailValid == false) {
       message = "Invalid email";
     }
@@ -41,10 +38,7 @@ class XUtils {
 
   static String isValidName(String name) {
     String message = "";
-
-    if (name.contains(RegExp(r'^[a-z A-Z,.\-]+$'))) {
-      message = "";
-    } else {
+    if (!name.contains(XRegex.nameVietnameseRegex)) {
       message = "Name cannot contain special characters or numbers";
     }
     if (name.isEmpty) {
@@ -63,7 +57,6 @@ class XUtils {
     return message;
   }
 
-  static isValidCurrentPassword(String newPassword) {}
   static String dateTimeReview() {
     var date = DateTime.now();
     return DateFormat("MMMM d,yyyy").format(date);

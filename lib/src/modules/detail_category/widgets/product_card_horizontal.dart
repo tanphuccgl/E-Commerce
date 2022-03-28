@@ -1,6 +1,6 @@
-import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/product/widgets/display_label.dart';
 import 'package:e_commerce/src/modules/product/widgets/price_product_widget.dart';
 import 'package:e_commerce/src/modules/product/widgets/review_star.dart';
@@ -15,7 +15,8 @@ class XProductCardHorizontal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => XCoordinator.showDetailProduct(context, data: data),
+      onTap: () => DashboardCoordinator.showDetailsProduct(context,
+          data: data, id: data.id),
       child: SizedBox(
         height: 114,
         width: 343,

@@ -27,7 +27,8 @@ class SumsWidget extends StatelessWidget {
 }
 
 Widget _orderWidget() {
-  return BlocBuilder<PromotionBloc, PromotionState>(builder: (context, state1) {
+  return BlocBuilder<PromotionBloc, PromotionState>(
+      builder: (context, promotionState) {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         return Row(
@@ -43,7 +44,7 @@ Widget _orderWidget() {
                   fontWeight: FontWeight.w500),
             ),
             Text(
-              "${XUtils.formatPrice(state.totalPrice(promoCode: state1.discountPromotion))}\$",
+              "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion))}\$",
               style: _priceStyle(),
             )
           ],
@@ -75,7 +76,8 @@ Widget _deliveryWidget() {
 }
 
 Widget _summaryWidget() {
-  return BlocBuilder<PromotionBloc, PromotionState>(builder: (context, state1) {
+  return BlocBuilder<PromotionBloc, PromotionState>(
+      builder: (context, promotionState) {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         return Row(
@@ -91,7 +93,7 @@ Widget _summaryWidget() {
                   fontWeight: FontWeight.w600),
             ),
             Text(
-              "${XUtils.formatPrice(state.totalPrice(promoCode: state1.discountPromotion) + 15.0)}\$",
+              "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion) + 15.0)}\$",
               style: _priceStyle(),
             )
           ],

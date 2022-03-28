@@ -8,10 +8,11 @@ import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'product_state.dart';
+part 'list_products_filter_state.dart';
 
-class ProductBloc<T extends ProductState> extends Cubit<T> {
-  ProductBloc(T initialState) : super(initialState) {
+class ListProductsFilterBloc<T extends ListProductsFilterState>
+    extends Cubit<T> {
+  ListProductsFilterBloc(T initialState) : super(initialState) {
     getProduct();
   }
   final Domain domain = Domain();

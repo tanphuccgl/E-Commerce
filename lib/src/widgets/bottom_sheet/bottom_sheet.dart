@@ -14,7 +14,25 @@ class XBottomSheet {
             borderRadius: BorderRadius.only(topLeft: radius, topRight: radius)),
         backgroundColor: backgroundColor,
         builder: (BuildContext context) {
-          return widget;
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisSize: MainAxisSize.min,
+            children: [_lineOnTopBottomSheet(), widget],
+          );
         });
   }
+}
+
+Widget _lineOnTopBottomSheet() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 14),
+    child: Container(
+      height: 6,
+      width: 60,
+      decoration: const BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(3)),
+        color: MyColors.colorGray,
+      ),
+    ),
+  );
 }

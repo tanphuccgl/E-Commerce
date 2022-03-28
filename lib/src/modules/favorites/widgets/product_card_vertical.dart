@@ -1,12 +1,12 @@
-import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/product/widgets/display_label.dart';
 import 'package:e_commerce/src/modules/product/widgets/display_size_and_color.dart';
 import 'package:e_commerce/src/modules/product/widgets/price_product_widget.dart';
 import 'package:e_commerce/src/modules/product/widgets/review_star.dart';
-import 'package:e_commerce/src/widgets/button/button_add_bag.dart';
+import 'package:e_commerce/src/widgets/button/button_add_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +20,8 @@ class XProductCardFavoriteVertical extends StatelessWidget {
     return data.soldOut
         ? _soldOutWidget()
         : GestureDetector(
-            onTap: () => XCoordinator.showDetailProduct(context, data: data),
+            onTap: () => DashboardCoordinator.showDetailsProduct(context,
+                data: data, id: data.id),
             child: SizedBox(
               height: 280,
               width: 164,
@@ -52,7 +53,7 @@ class XProductCardFavoriteVertical extends StatelessWidget {
                           ),
                           Align(
                             alignment: Alignment.bottomRight,
-                            child: XButtonAddToBag(
+                            child: XButtonAddToCart(
                               data: data,
                             ),
                           )

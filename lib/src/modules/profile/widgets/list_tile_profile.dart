@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
+import 'package:e_commerce/src/modules/profile/router/profile_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,7 +41,7 @@ class ListTileProfile extends StatelessWidget {
       XFunctionProfile(
           subtitle: 'Notifications, password',
           title: 'Settings',
-          onTap: () => DashboardCoordinator.showSetting(context)),
+          onTap: () => ProfileCoordinator.showSetting(context)),
     ];
     return Column(
         children: ListTile.divideTiles(

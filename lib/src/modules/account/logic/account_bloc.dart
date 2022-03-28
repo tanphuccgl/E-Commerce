@@ -2,17 +2,13 @@ import 'dart:async';
 
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
-import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
-import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
-import 'package:e_commerce/src/modules/product/logic/product_bloc.dart';
-import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/users_collection_reference.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 part 'account_state.dart';
 
@@ -22,6 +18,10 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
   }
 
   final Domain domain = Domain();
+
+  // user change
+  StreamController<XUser?> streamUser = StreamController.broadcast();
+
   Future<void> getUser() async {
     await Future.delayed(Duration.zero);
     User? currentUser = AuthService().currentUser;
@@ -37,10 +37,7 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
   }
 
   void setDataLogin(BuildContext context, {XUser? user}) {
-    context.read<ProductBloc>().getProduct();
-    context.read<CategoriesBloc>().getCategory();
-    context.read<FavoriteBloc>().getProduct();
-    context.read<CartBloc>().getProduct();
+    streamUser.add(user);
 
     emit(state.copyWith(data: user, isLoading: false) as T);
   }

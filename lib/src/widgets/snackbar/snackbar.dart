@@ -1,11 +1,11 @@
 import 'package:bot_toast/bot_toast.dart';
 
 class XSnackBar {
-  static late CancelFunc cancel;
+  static CancelFunc? cancel;
 
   static show({required String msg}) => BotToast.showText(text: msg);
-  static showLoading() => cancel = BotToast.showLoading();
-  static hideLoading() {
-    cancel();
-  }
+  static showLoading() =>
+      cancel == null ? cancel = BotToast.showLoading() : null;
+
+  static hideLoading() => cancel != null ? (cancel ?? () {})() : null;
 }

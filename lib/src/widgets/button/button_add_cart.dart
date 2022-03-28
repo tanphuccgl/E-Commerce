@@ -6,9 +6,9 @@ import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class XButtonAddToBag extends StatelessWidget {
+class XButtonAddToCart extends StatelessWidget {
   final XProduct data;
-  const XButtonAddToBag({
+  const XButtonAddToCart({
     Key? key,
     required this.data,
   }) : super(key: key);

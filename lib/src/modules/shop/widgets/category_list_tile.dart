@@ -3,8 +3,8 @@ import 'package:e_commerce/src/models/categories_model.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/result.dart';
 
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
+import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class CategoryListTile extends StatelessWidget {
                       dense: true,
                       contentPadding:
                           const EdgeInsets.symmetric(horizontal: 40),
-                      onTap: () => DashboardCoordinator.showProductByCategory(
+                      onTap: () => ShopCoordinator.showProductByCategory(
                           context,
                           idCategory: item.id,
                           nameCategory: item.name ?? 'N/A'),

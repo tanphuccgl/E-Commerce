@@ -1,6 +1,6 @@
-import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/product_details/router/product_details_router.dart';
 import 'package:flutter/material.dart';
 
 class ListTileDetailProduct extends StatelessWidget {
@@ -19,7 +19,8 @@ class ListTileDetailProduct extends StatelessWidget {
                   onTap: () {
                     switch (item) {
                       case 'Rating and reviews':
-                        XCoordinator.showRatings(context, data: data);
+                        ProductDetailsCoordinator.showReviews(context,
+                            data: data);
                         break;
                       default:
                     }
