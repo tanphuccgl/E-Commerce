@@ -40,7 +40,6 @@ class CartState extends ListProductsFilterState {
       ViewType viewType = ViewType.listView})
       : super(
             items: items,
-            isLoading: isLoading,
             searchList: searchList,
             searchText: searchText,
             sizeType: sizeType,
@@ -58,12 +57,10 @@ class CartState extends ListProductsFilterState {
         colorType,
         searchText,
         productsOfCart,
-        isLoading,
       ];
   @override
   CartState copyWithItem(
       {XHandle<List<XProduct>>? items,
-      bool? isLoading,
       XHandle<List<XProduct>>? searchList,
       XHandle<List<XProduct>>? productsOfCart,
       String? searchText,
@@ -73,7 +70,6 @@ class CartState extends ListProductsFilterState {
       SortBy? sortBy}) {
     return CartState(
         productsOfCart: productsOfCart ?? this.productsOfCart,
-        isLoading: isLoading ?? this.isLoading,
         searchList: searchList ?? this.searchList,
         searchText: searchText ?? this.searchText,
         items: items ?? this.items,

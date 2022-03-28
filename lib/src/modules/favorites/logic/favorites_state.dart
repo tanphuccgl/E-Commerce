@@ -27,7 +27,6 @@ class FavoriteState extends ListProductsFilterState {
       ViewType viewType = ViewType.listView})
       : super(
             items: items,
-            isLoading: isLoading,
             colorType: colorType,
             searchList: searchList,
             searchText: searchText,
@@ -44,14 +43,12 @@ class FavoriteState extends ListProductsFilterState {
         searchList,
         searchText,
         listFavorite,
-        isLoading
       ];
   @override
   FavoriteState copyWithItem(
       {XHandle<List<XProduct>>? items,
       XHandle<List<XProduct>>? searchList,
       XHandle<List<XProduct>>? listFavorite,
-      bool? isLoading,
       String? searchText,
       ViewType? viewType,
       SizeType? sizeType,
@@ -59,7 +56,6 @@ class FavoriteState extends ListProductsFilterState {
       SortBy? sortBy}) {
     return FavoriteState(
         listFavorite: listFavorite ?? this.listFavorite,
-        isLoading: isLoading ?? this.isLoading,
         searchList: searchList ?? this.searchList,
         searchText: searchText ?? this.searchText,
         items: items ?? this.items,

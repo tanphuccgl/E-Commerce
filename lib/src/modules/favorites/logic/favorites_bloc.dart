@@ -26,7 +26,6 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
 
   @override
   Future<void> getProduct() async {
-    emit(state.copyWithItem(isLoading: true));
     await Future.delayed(const Duration(seconds: 2));
 
     User? currentUser = AuthService().currentUser;
@@ -37,8 +36,7 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
       items = (value.data ?? [])
           .where((e) => e.idUser == currentUser?.uid)
           .toList();
-      emit(state.copyWithItem(
-          listFavorite: XHandle.completed(items), isLoading: false));
+      emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
     } else {}
   }
 

@@ -4,7 +4,6 @@ class ListProductsFilterState extends Equatable {
   final XHandle<List<XProduct>> items;
   final XHandle<List<XProduct>> searchList;
   final String searchText;
-  final bool isLoading;
 
   final ViewType viewType;
   final SortBy sortBy;
@@ -13,7 +12,6 @@ class ListProductsFilterState extends Equatable {
 
   const ListProductsFilterState(
       {required this.items,
-      this.isLoading = false,
       this.colorType = ColorType.black,
       this.sortBy = SortBy.lowToHigh,
       this.viewType = ViewType.listView,
@@ -30,13 +28,11 @@ class ListProductsFilterState extends Equatable {
         sizeType,
         viewType,
         colorType,
-        isLoading
       ];
 
   ListProductsFilterState copyWithItem(
       {XHandle<List<XProduct>>? items,
       XHandle<List<XProduct>>? searchList,
-      bool? isLoading,
       SortBy? sortBy,
       ViewType? viewType,
       SizeType? sizeType,
@@ -44,7 +40,6 @@ class ListProductsFilterState extends Equatable {
       String? searchText}) {
     return ListProductsFilterState(
         items: items ?? this.items,
-        isLoading: isLoading ?? this.isLoading,
         searchText: searchText ?? this.searchText,
         searchList: searchList ?? this.searchList,
         sortBy: sortBy ?? this.sortBy,

@@ -27,7 +27,6 @@ class CartBloc extends ListProductsFilterBloc<CartState> {
 
   @override
   Future<void> getProduct() async {
-    emit(state.copyWithItem(isLoading: true));
     await Future.delayed(const Duration(seconds: 2));
     User? currentUser = AuthService().currentUser;
     final value = await domain.cart.getProductsOfCart(
@@ -38,8 +37,7 @@ class CartBloc extends ListProductsFilterBloc<CartState> {
       items = (value.data ?? [])
           .where((e) => e.idUser == currentUser?.uid)
           .toList();
-      emit(state.copyWithItem(
-          productsOfCart: XHandle.completed(items), isLoading: false));
+      emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
     } else {}
   }
 

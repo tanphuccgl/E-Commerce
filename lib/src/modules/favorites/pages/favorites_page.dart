@@ -8,14 +8,11 @@ import 'package:e_commerce/src/modules/favorites/widgets/product_card_vertical.d
 import 'package:e_commerce/src/utils/enum/page_info.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
-
-import 'package:e_commerce/src/widgets/paginate/empty_display.dart';
-import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_sort.dart';
 import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
-
+import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -33,46 +30,42 @@ class FavoritesPage extends StatelessWidget {
       if (handle.isCompleted) {
         return Scaffold(
             backgroundColor: state.viewType.backgroundColor(),
+            //TODO
             body: Paginate(
+                list: items,
                 fetchNextData: () => context.read<FavoriteBloc>().getProduct(),
-                isLoading: state.isLoading,
                 header: _header(context),
-                body: items.isEmpty
-                    ? const EmptyDisplay()
-                    : (state.viewType.index == 0
-                        ? SliverList(
-                            delegate:
-                                SliverChildBuilderDelegate((context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(
-                                  top: 10,
-                                ),
-                                child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8, horizontal: 16),
-                                    child: XProductCardFavoriteHorizontal(
-                                        data: items[index])),
-                              );
-                            }, childCount: items.length),
-                          )
-                        : SliverGrid(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 0,
-                              childAspectRatio: 164 / 280 + 0.1,
+                body: (state.viewType.index == 0
+                    ? SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              top: 10,
                             ),
-                            delegate:
-                                SliverChildBuilderDelegate((context, index) {
-                              return Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                                child: XProductCardFavoriteVertical(
-                                    data: items[index]),
-                              );
-                            }, childCount: items.length),
-                          ))));
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                child: XProductCardFavoriteHorizontal(
+                                    data: items[index])),
+                          );
+                        }, childCount: items.length),
+                      )
+                    : SliverGrid(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 0,
+                          childAspectRatio: 164 / 280 + 0.1,
+                        ),
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
+                            child: XProductCardFavoriteVertical(
+                                data: items[index]),
+                          );
+                        }, childCount: items.length),
+                      ))));
       } else if (handle.isLoading) {
         return const XStateLoadingWidget();
       } else {

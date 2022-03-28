@@ -1,16 +1,27 @@
-import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
+import 'package:e_commerce/src/models/result.dart';
+import 'package:e_commerce/src/widgets/paginate/handle_paginate.dart';
+import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
+import 'package:e_commerce/src/widgets/paginate/widgets/bottom_loader.dart';
+import 'package:e_commerce/src/widgets/paginate/widgets/empty_display.dart';
+import 'package:e_commerce/src/widgets/paginate/widgets/empty_widget.dart';
+import 'package:e_commerce/src/widgets/paginate/widgets/error_display.dart';
+import 'package:e_commerce/src/widgets/paginate/widgets/init_loader.dart';
+import 'package:e_commerce/src/widgets/paginate/widgets/top_loader.dart';
+import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+//TODO
 class Paginate extends StatefulWidget {
+  final List list;
   final Function() fetchNextData;
   final Widget? header;
   final Widget? footer;
   final Widget body;
-  final bool isLoading;
   const Paginate(
       {Key? key,
       this.header,
-      this.isLoading = false,
+      required this.list,
       this.footer,
       required this.body,
       required this.fetchNextData})
@@ -30,28 +41,45 @@ class _PaginateState extends State<Paginate> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: controller,
-      physics: const BouncingScrollPhysics(),
-      slivers: [
-        widget.header ?? const SliverToBoxAdapter(child: SizedBox.shrink()),
-        widget.body,
-        SliverToBoxAdapter(
-          child: widget.isLoading
-              ? const Padding(
-                  padding: EdgeInsets.all(5),
-                  child: SizedBox(
-                    height: 40,
-                    width: 30,
-                    child: Center(
-                      child: XStateLoadingWidget(),
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink(),
-        ),
-        widget.footer ?? const SliverToBoxAdapter(child: SizedBox.shrink()),
-      ],
+    var items = widget.list;
+
+    return BlocProvider(
+      create: (context) => PaginateBloc(),
+      child: BlocBuilder<PaginateBloc, PaginateState>(
+        builder: (context, state) {
+          if (state.paginationStatus == PaginationStatus.initial) {
+            context.read<PaginateBloc>().getItems(items: items);
+            return const InitialLoader();
+          } else if (state.paginationStatus == PaginationStatus.empty) {
+            return CustomScrollView(
+              slivers: [
+                widget.header ?? const EmptyWidget(),
+                state.isRefresh ? const TopLoader() : const EmptyWidget(),
+                const EmptyDisplay(),
+                widget.footer ?? const EmptyWidget(),
+              ],
+            );
+          } else if (state.paginationStatus == PaginationStatus.loading) {
+            return const InitialLoader();
+          } else if (state.paginationStatus == PaginationStatus.loader) {
+            return CustomScrollView(
+              controller: controller,
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                widget.header ?? const EmptyWidget(),
+                state.isRefresh ? const TopLoader() : const EmptyWidget(),
+                widget.body,
+                state.isLoadingMore
+                    ? const BottomLoader()
+                    : const EmptyWidget(),
+                widget.footer ?? const EmptyWidget(),
+              ],
+            );
+          } else {
+            return ErrorDisplay(exception: Exception('Please try again later'));
+          }
+        },
+      ),
     );
   }
 

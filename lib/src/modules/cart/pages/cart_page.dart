@@ -12,7 +12,6 @@ import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
-import 'package:e_commerce/src/widgets/paginate/empty_display.dart';
 import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
@@ -31,27 +30,26 @@ class CartPage extends StatelessWidget {
       if (handle.isCompleted) {
         return Scaffold(
             backgroundColor: MyColors.colorBackground,
+//TODO
             body: Paginate(
-                isLoading: state.isLoading,
+                list: items,
                 header: _header(context),
                 footer: _footer(context),
-                body: items.isEmpty
-                    ? const EmptyDisplay()
-                    : SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                            ),
-                            child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 16),
-                                child: XProductCardInCart(
-                                  data: items[index],
-                                )),
-                          );
-                        }, childCount: items.length),
+                body: SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.only(
+                        top: 10,
                       ),
+                      child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 16),
+                          child: XProductCardInCart(
+                            data: items[index],
+                          )),
+                    );
+                  }, childCount: items.length),
+                ),
                 fetchNextData: () {
                   context.read<CartBloc>().getProduct();
                 }));
