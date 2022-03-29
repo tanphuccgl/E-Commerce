@@ -19,7 +19,6 @@ class FavoriteState extends ListProductsFilterState {
       {required XHandle<List<XProduct>> items,
       required this.listFavorite,
       String searchText = '',
-      bool isLoading = false,
       required XHandle<List<XProduct>> searchList,
       SortBy sortBy = SortBy.lowToHigh,
       ColorType colorType = ColorType.black,

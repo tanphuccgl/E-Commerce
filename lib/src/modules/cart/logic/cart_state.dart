@@ -32,7 +32,6 @@ class CartState extends ListProductsFilterState {
       {required XHandle<List<XProduct>> items,
       required this.productsOfCart,
       String searchText = '',
-      bool isLoading = false,
       required XHandle<List<XProduct>> searchList,
       SortBy sortBy = SortBy.lowToHigh,
       SizeType sizeType = SizeType.xs,
