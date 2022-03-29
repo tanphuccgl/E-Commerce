@@ -30,9 +30,8 @@ class CartPage extends StatelessWidget {
       if (handle.isCompleted) {
         return Scaffold(
             backgroundColor: MyColors.colorBackground,
-//TODO
             body: Paginate(
-                list: items,
+                fetchData: () {},
                 header: _header(context),
                 footer: _footer(context),
                 body: SliverList(
@@ -50,9 +49,8 @@ class CartPage extends StatelessWidget {
                     );
                   }, childCount: items.length),
                 ),
-                fetchNextData: () {
-                  context.read<CartBloc>().getProduct();
-                }));
+                reloadData: () {},
+                fetchNextData: () {}));
       } else if (handle.isLoading) {
         return const XStateLoadingWidget();
       } else {

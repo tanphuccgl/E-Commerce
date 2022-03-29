@@ -1,39 +1,39 @@
+import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/widgets/paginate/handle_paginate.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'paginate_state.dart';
 
-class PaginateBloc extends Cubit<PaginateState> {
-  PaginateBloc() : super(PaginateState(items: XHandlePaginate.loader([])));
-//TODO
-  void getItems({required List items}) {
-    XHandlePaginate handle = XHandlePaginate.result(XResult.error('aja'));
-    if (handle.isInitial) {
-      changeStatePagination(paginationStatus: PaginationStatus.loading);
-    } else if (handle.isLoading) {
-      changeStatePagination(paginationStatus: PaginationStatus.loading);
+class PaginateBloc<T extends PaginateState> extends Cubit<T> {
+  PaginateBloc(T initialState) : super(initialState);
+
+  void getItems({required List<XProduct> list}) {
+    List<XProduct> items = [...(list)];
+
+    XHandlePaginate handle = XHandlePaginate.result(XResult.success(items));
+
+    if (handle.isInitial || handle.isLoading) {
+      emit(state.copyWith(paginationStatus: PaginationStatus.loading) as T);
     } else if (handle.isLoader) {
-      if (items.isEmpty) {
-        changeStatePagination(paginationStatus: PaginationStatus.empty);
+      if (list.isEmpty) {
+        emit(state.copyWith(paginationStatus: PaginationStatus.empty) as T);
       } else {
-        changeStatePagination(paginationStatus: PaginationStatus.loader);
+        emit(state.copyWith(paginationStatus: PaginationStatus.loader) as T);
       }
     } else {
-      changeStatePagination(paginationStatus: PaginationStatus.error);
+      emit(state.copyWith(paginationStatus: PaginationStatus.error) as T);
     }
+    emit(state.copyWith(items: XHandlePaginate.completed(items)) as T);
   }
 
-  void changeStatePagination({required PaginationStatus paginationStatus}) {
-    emit(state.copyWith(paginationStatus: paginationStatus));
+  void loadMore(BuildContext context) {
+    emit(state.copyWith(isLoadingMore: true) as T);
   }
 
-  void loadMore() {
-    emit(state.copyWith(isLoadingMore: true));
-  }
-
-  void refreshPaginatedList() {
-    emit(state.copyWith(isRefresh: true));
+  void refreshPaginatedList({required List<XProduct> list}) {
+    emit(state.copyWith(isRefresh: true) as T);
   }
 }

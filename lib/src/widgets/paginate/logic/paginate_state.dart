@@ -2,8 +2,8 @@ part of 'paginate_bloc.dart';
 
 enum PaginationStatus { initial, loading, loader, error, empty }
 
-class PaginateState<T> extends Equatable {
-  final XHandlePaginate<List<T>> items;
+class PaginateState extends Equatable {
+  final XHandlePaginate<List<XProduct>> items;
   final bool isLoadingMore;
   final bool isRefresh;
   final PaginationStatus paginationStatus;
@@ -22,7 +22,7 @@ class PaginateState<T> extends Equatable {
     bool? isLoadingMore,
     bool? isRefresh,
     PaginationStatus? paginationStatus,
-    XHandlePaginate<List<T>>? items,
+    XHandlePaginate<List<XProduct>>? items,
   }) {
     return PaginateState(
         isLoadingMore: isLoadingMore ?? this.isLoadingMore,

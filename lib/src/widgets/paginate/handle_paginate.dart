@@ -24,7 +24,7 @@ class XHandlePaginate<T> {
     _status = StatusPaginate.loading;
   }
 
-  XHandlePaginate.loader(T data) {
+  XHandlePaginate.completed(T data) {
     _data = data;
     message = '';
     _status = StatusPaginate.loader;

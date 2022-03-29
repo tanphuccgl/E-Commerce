@@ -1,5 +1,3 @@
-import 'package:e_commerce/src/models/result.dart';
-import 'package:e_commerce/src/widgets/paginate/handle_paginate.dart';
 import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/bottom_loader.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/empty_display.dart';
@@ -7,22 +5,27 @@ import 'package:e_commerce/src/widgets/paginate/widgets/empty_widget.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/error_display.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/init_loader.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/top_loader.dart';
-import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-//TODO
 class Paginate extends StatefulWidget {
-  final List list;
+  final PaginationStatus paginationStatus;
   final Function() fetchNextData;
+  final Function() reloadData;
+  final Function() fetchData;
   final Widget? header;
   final Widget? footer;
   final Widget body;
+  final bool isRefresh;
+  final bool isLoadingMore;
   const Paginate(
       {Key? key,
+      this.paginationStatus = PaginationStatus.initial,
       this.header,
-      required this.list,
+      required this.fetchData,
+      this.isLoadingMore = false,
+      this.isRefresh = false,
       this.footer,
+      required this.reloadData,
       required this.body,
       required this.fetchNextData})
       : super(key: key);
@@ -32,7 +35,8 @@ class Paginate extends StatefulWidget {
 }
 
 class _PaginateState extends State<Paginate> {
-  ScrollController controller = ScrollController();
+  late ScrollController controller = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -40,53 +44,53 @@ class _PaginateState extends State<Paginate> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    var items = widget.list;
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
 
-    return BlocProvider(
-      create: (context) => PaginateBloc(),
-      child: BlocBuilder<PaginateBloc, PaginateState>(
-        builder: (context, state) {
-          if (state.paginationStatus == PaginationStatus.initial) {
-            context.read<PaginateBloc>().getItems(items: items);
-            return const InitialLoader();
-          } else if (state.paginationStatus == PaginationStatus.empty) {
-            return CustomScrollView(
-              slivers: [
-                widget.header ?? const EmptyWidget(),
-                state.isRefresh ? const TopLoader() : const EmptyWidget(),
-                const EmptyDisplay(),
-                widget.footer ?? const EmptyWidget(),
-              ],
-            );
-          } else if (state.paginationStatus == PaginationStatus.loading) {
-            return const InitialLoader();
-          } else if (state.paginationStatus == PaginationStatus.loader) {
-            return CustomScrollView(
-              controller: controller,
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                widget.header ?? const EmptyWidget(),
-                state.isRefresh ? const TopLoader() : const EmptyWidget(),
-                widget.body,
-                state.isLoadingMore
-                    ? const BottomLoader()
-                    : const EmptyWidget(),
-                widget.footer ?? const EmptyWidget(),
-              ],
-            );
-          } else {
-            return ErrorDisplay(exception: Exception('Please try again later'));
-          }
-        },
-      ),
-    );
+  @override
+  Widget build(BuildContext context) {
+    if (widget.paginationStatus == PaginationStatus.initial) {
+      widget.fetchData();
+      return const InitialLoader();
+    } else if (widget.paginationStatus == PaginationStatus.empty) {
+      return CustomScrollView(
+        slivers: [
+          widget.header ?? const EmptyWidget(),
+          widget.isRefresh ? const TopLoader() : const EmptyWidget(),
+          const EmptyDisplay(),
+          widget.isLoadingMore ? const BottomLoader() : const EmptyWidget(),
+          widget.footer ?? const EmptyWidget(),
+        ],
+      );
+    } else if (widget.paginationStatus == PaginationStatus.loading) {
+      return const InitialLoader();
+    } else if (widget.paginationStatus == PaginationStatus.loader) {
+      return CustomScrollView(
+        controller: controller,
+        slivers: [
+          widget.header ?? const EmptyWidget(),
+          widget.isRefresh ? const TopLoader() : const EmptyWidget(),
+          widget.body,
+          widget.isLoadingMore ? const BottomLoader() : const EmptyWidget(),
+          widget.footer ?? const EmptyWidget(),
+        ],
+      );
+    } else {
+      return ErrorDisplay(exception: Exception('Please try again later'));
+    }
   }
 
   void _scrollListener() {
-    if (controller.offset >= controller.position.maxScrollExtent &&
-        !controller.position.outOfRange) {
+    if ((controller.offset >= controller.position.maxScrollExtent &&
+            !controller.position.outOfRange) ||
+        controller.position.extentAfter < 200) {
       widget.fetchNextData();
+    }
+    if (controller.offset <= controller.position.maxScrollExtent &&
+        !controller.position.outOfRange) {
+      widget.reloadData();
     }
   }
 }

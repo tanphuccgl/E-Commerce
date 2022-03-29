@@ -26,8 +26,6 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
 
   @override
   Future<void> getProduct() async {
-    await Future.delayed(const Duration(seconds: 2));
-
     User? currentUser = AuthService().currentUser;
     final value = await domain.favorite.getProductToFavorite(
         currentListLength: (state.listFavorite.data ?? []).length);

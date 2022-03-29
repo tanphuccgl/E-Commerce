@@ -8,14 +8,14 @@ class BottomLoader extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SliverToBoxAdapter(
         child: Padding(
-      padding: EdgeInsets.all(5),
-      child: SizedBox(
-        height: 40,
-        width: 30,
-        child: Center(
-          child: Center(
-            child: CircularProgressIndicator(color: MyColors.colorPrimary),
-          ),
+      padding: EdgeInsets.all(10),
+      child: Center(
+        child: Text(
+          'Loading',
+          style: TextStyle(
+              color: MyColors.colorPrimary,
+              fontSize: 17,
+              fontWeight: FontWeight.normal),
         ),
       ),
     ));

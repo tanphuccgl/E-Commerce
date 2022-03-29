@@ -1,7 +1,9 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/handle.dart';
+import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/logic/paginate_favorites_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/router/favorites_router.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_horizontal.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_vertical.dart';
@@ -23,55 +25,75 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
-      final items = state.listFavorite.data ?? [];
-      XHandle handle = XHandle.result(XResult.success(items));
-      state.sortBy.sortList(items: items);
-      if (handle.isCompleted) {
-        return Scaffold(
-            backgroundColor: state.viewType.backgroundColor(),
-            //TODO
-            body: Paginate(
-                list: items,
-                fetchNextData: () => context.read<FavoriteBloc>().getProduct(),
-                header: _header(context),
-                body: (state.viewType.index == 0
-                    ? SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(
-                              top: 10,
-                            ),
-                            child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 16),
-                                child: XProductCardFavoriteHorizontal(
-                                    data: items[index])),
-                          );
-                        }, childCount: items.length),
-                      )
-                    : SliverGrid(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 0,
-                          childAspectRatio: 164 / 280 + 0.1,
-                        ),
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                            child: XProductCardFavoriteVertical(
-                                data: items[index]),
-                          );
-                        }, childCount: items.length),
-                      ))));
-      } else if (handle.isLoading) {
-        return const XStateLoadingWidget();
-      } else {
-        return const XStateErrorWidget();
-      }
-    });
+    return BlocProvider(
+        create: (context) => PaginateFavoritesBloc(),
+        child: BlocBuilder<PaginateFavoritesBloc, PaginateFavoritesState>(
+            builder: (context, paginateFavoritesState) {
+          return BlocBuilder<FavoriteBloc, FavoriteState>(
+              builder: (context, state) {
+            List<XProduct> items = state.listFavorite.data ?? [];
+            XHandle handle = XHandle.result(XResult.success(items));
+            state.sortBy.sortList(items: items);
+            if (handle.isCompleted) {
+              return Scaffold(
+                  backgroundColor: state.viewType.backgroundColor(),
+                  body: Paginate(
+                      paginationStatus: paginateFavoritesState.paginationStatus,
+                      fetchData: () {
+                        context
+                            .read<PaginateFavoritesBloc>()
+                            .getItems(list: handle.data);
+                      },
+                      isLoadingMore: paginateFavoritesState.isLoadingMore,
+                      isRefresh: paginateFavoritesState.isRefresh,
+                      reloadData: () => context
+                          .read<PaginateFavoritesBloc>()
+                          .refreshPaginatedList(list: handle.data),
+                      fetchNextData: () => context
+                          .read<PaginateFavoritesBloc>()
+                          .loadMore(context),
+                      header: _header(context),
+                      body: (state.viewType.index == 0
+                          ? SliverList(
+                              delegate:
+                                  SliverChildBuilderDelegate((context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                  ),
+                                  child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8, horizontal: 16),
+                                      child: XProductCardFavoriteHorizontal(
+                                          data: items[index])),
+                                );
+                              }, childCount: items.length),
+                            )
+                          : SliverGrid(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 0,
+                                childAspectRatio: 164 / 280 + 0.1,
+                              ),
+                              delegate:
+                                  SliverChildBuilderDelegate((context, index) {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(16, 10, 16, 0),
+                                  child: XProductCardFavoriteVertical(
+                                      data: items[index]),
+                                );
+                              }, childCount: items.length),
+                            ))));
+            } else if (handle.isLoading) {
+              return const XStateLoadingWidget();
+            } else {
+              return const XStateErrorWidget();
+            }
+          });
+        }));
   }
 
   Widget _header(BuildContext context) {
