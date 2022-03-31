@@ -33,17 +33,18 @@ class ViewAllProductsPage extends StatelessWidget {
             fetchData: () => context
                 .read<ViewAllProductsBloc>()
                 .getProductViewAll(productType: productType),
-            fetchNextData: () => items.length > 5
-                ? context
+            fetchNextData: () => items.length <= 5 && items.isNotEmpty
+                ? null
+                : context
                     .read<ViewAllProductsBloc>()
-                    .loadMore(productType: productType)
-                : null,
+                    .loadMore(productType: productType),
             reloadData: () => context
                 .read<ViewAllProductsBloc>()
                 .refresh(productType: productType),
             header: _header(context),
             isLoadMore: state.isLoadMore,
-            isEndList: items.length > 5 ? state.isEndList : true,
+            isEndList:
+                items.length <= 5 && items.isNotEmpty ? true : state.isEndList,
             handle: state.docs,
             body: state.viewType.index == 0
                 ? SliverList(
