@@ -64,13 +64,11 @@ class CartCollectionReference extends BaseCollectionReference<XProduct> {
     }
   }
 
-  Future<XResult<List<XProduct>>> getProductOfCart(
-      {int currentListLength = 0}) async {
+  Future<XResult<List<XProduct>>> getProductOfCart() async {
     try {
       final User? user = AuthService().currentUser;
-
       if (user != null) {
-        return queryLimit(currentListLength + 5);
+        return query();
       } else {
         return XResult.error('Not login yet');
       }

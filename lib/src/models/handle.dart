@@ -8,7 +8,8 @@ class XHandle<T> {
 
   T? get data => _data;
 
-  Status _status = Status.none;
+  Status _status = Status.initial;
+  bool get isInitial => _status == Status.initial;
 
   bool get isLoading => _status == Status.loading;
 
@@ -16,8 +17,8 @@ class XHandle<T> {
 
   bool get isError => _status == Status.error;
 
-  XHandle() {
-    _status = Status.none;
+  XHandle.initial() {
+    _status = Status.initial;
   }
   XHandle.loading({this.message}) {
     _status = Status.loading;
@@ -41,4 +42,4 @@ class XHandle<T> {
   }
 }
 
-enum Status { none, loading, error, success }
+enum Status { initial, loading, error, success }

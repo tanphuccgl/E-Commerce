@@ -27,11 +27,8 @@ class CartBloc extends ListProductsFilterBloc<CartState> {
 
   @override
   Future<void> getProduct() async {
-    await Future.delayed(const Duration(seconds: 2));
     User? currentUser = AuthService().currentUser;
-    final value = await domain.cart.getProductsOfCart(
-        currentListLength: (state.productsOfCart.data ?? []).length);
-
+    final value = await domain.cart.getProductsOfCart();
     if (value.isSuccess) {
       List<XProduct> items = [...(state.productsOfCart.data ?? [])];
       items = (value.data ?? [])

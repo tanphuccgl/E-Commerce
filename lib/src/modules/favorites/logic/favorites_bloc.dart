@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
@@ -18,24 +19,48 @@ part 'favorites_state.dart';
 class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
   FavoriteBloc()
       : super(FavoriteState(
-            listFavorite: XHandle.completed([]),
-            items: XHandle.completed([]),
-            searchList: XHandle.completed([]))) {
-    getProduct();
+            docs: XHandle.initial(),
+            listFavorite: XHandle.initial(),
+            items: XHandle.initial(),
+            searchList: XHandle.completed([])));
+
+  Future<void> getProductsToFavorite() async {
+    var value = await domain.favorite.getProductToFavorite();
+    if (value.isSuccess) {
+      emit(state.copyWithItem(
+          listFavorite:
+              XHandle.completed(convertToListXProducts(docs: value.data ?? [])),
+          docs: XHandle.completed(value.data ?? [])));
+    } else {}
   }
 
-  @override
-  Future<void> getProduct() async {
-    User? currentUser = AuthService().currentUser;
-    final value = await domain.favorite.getProductToFavorite(
-        currentListLength: (state.listFavorite.data ?? []).length);
+  Future<void> loadMore() async {
+    emit(state.copyWithItem(isLoadMore: true));
+    await Future.delayed(const Duration(seconds: 5));
+    var value =
+        await domain.favorite.getNextProductToFavorite(state.docs.data ?? []);
     if (value.isSuccess) {
-      List<XProduct> items = [...(state.listFavorite.data ?? [])];
-      items = (value.data ?? [])
-          .where((e) => e.idUser == currentUser?.uid)
-          .toList();
-      emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
-    } else {}
+      (state.docs.data ?? []).addAll(value.data ?? []);
+
+      emit(state.copyWithItem(
+          docs: XHandle.completed(state.docs.data ?? []),
+          listFavorite: XHandle.completed(
+              convertToListXProducts(docs: state.docs.data ?? [])),
+          isLoadMore: false));
+
+      if ((value.data ?? []).isEmpty) {
+        emit(state.copyWithItem(isLoadMore: false, isEndList: true));
+      }
+    }
+  }
+
+  Future<void> refresh() async {
+    var value = await domain.favorite.getProductToFavorite();
+    emit(state.copyWithItem(
+        docs: XHandle.completed(value.data ?? []),
+        listFavorite:
+            XHandle.completed(convertToListXProducts(docs: value.data ?? [])),
+        isEndList: false));
   }
 
   Future<void> addProductToFavorite(BuildContext context,
@@ -148,5 +173,15 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
 
     emit(state.copyWithItem(
         searchList: XHandle.completed(items), searchText: query));
+  }
+
+  List<XProduct> convertToListXProducts(
+      {required List<DocumentSnapshot> docs}) {
+    User? currentUser = AuthService().currentUser;
+    List<XProduct> list = docs
+        .map((e) => e.data() as XProduct)
+        .where((e) => e.idUser == currentUser?.uid)
+        .toList();
+    return list;
   }
 }

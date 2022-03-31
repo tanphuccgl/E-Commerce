@@ -12,7 +12,6 @@ import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
-import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
 import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
 import 'package:flutter/material.dart';
@@ -30,110 +29,118 @@ class CartPage extends StatelessWidget {
       if (handle.isCompleted) {
         return Scaffold(
             backgroundColor: MyColors.colorBackground,
-            body: Paginate(
-                fetchData: () {},
-                header: _header(context),
-                footer: _footer(context),
-                body: SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(
-                        top: 10,
-                      ),
-                      child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 8, horizontal: 16),
-                          child: XProductCardInCart(
-                            data: items[index],
-                          )),
-                    );
-                  }, childCount: items.length),
+            body: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                Theme(
+                  data: ThemeData(
+                    appBarTheme: const AppBarTheme(
+                      iconTheme: IconThemeData(color: MyColors.colorBlack),
+                    ),
+                    textTheme: Theme.of(context).textTheme,
+                  ),
+                  child: const SliverPersistentHeader(
+                    pinned: true,
+                    floating: true,
+                    delegate: XHeaderDelegate(
+                        title: 'My Bag',
+                        backgroundColor: MyColors.colorBackground),
+                  ),
                 ),
-                reloadData: () {},
-                fetchNextData: () {}));
+                items.isEmpty
+                    ? const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 100,
+                          child: Center(
+                            child: Text(
+                              'Empty List',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                      )
+                    : SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              top: 10,
+                            ),
+                            child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 16),
+                                child: XProductCardInCart(
+                                  data: items[index],
+                                )),
+                          );
+                        }, childCount: items.length),
+                      ),
+                SliverToBoxAdapter(child:
+                    BlocBuilder<PromotionBloc, PromotionState>(
+                        builder: (context, state) {
+                  return Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 25, 16, 28),
+                    child: PromoCodeWidget(
+                      onChanged: (value) =>
+                          context.read<PromotionBloc>().changedPromoCode(value),
+                      onPressedArrowIcon: () => XBottomSheet.show(context,
+                          backgroundColor: MyColors.colorBackground,
+                          widget: const XBottomSheetPromotion()),
+                      value: state.promoCode,
+                    ),
+                  );
+                })),
+                SliverToBoxAdapter(
+                    child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 26),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Total amount:',
+                        style: TextStyle(
+                            height: 1.42,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: MyColors.colorGray),
+                      ),
+                      BlocBuilder<PromotionBloc, PromotionState>(
+                          builder: (context, promotionState) {
+                        return BlocBuilder<CartBloc, CartState>(
+                            builder: (context, state) {
+                          return Text(
+                            "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion))}\$",
+                            style: const TextStyle(
+                                height: 1.42,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: MyColors.colorBlack),
+                          );
+                        });
+                      })
+                    ],
+                  ),
+                )),
+                SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: XButton(
+                      label: 'CHECK OUT',
+                      height: 48,
+                      width: 343,
+                      onPressed: () =>
+                          CartCoordinator.showCheckoutScreen(context),
+                    ),
+                  ),
+                )
+              ],
+            ));
       } else if (handle.isLoading) {
         return const XStateLoadingWidget();
       } else {
         return const XStateErrorWidget();
       }
     });
-  }
-
-  Widget _header(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        appBarTheme: const AppBarTheme(
-          iconTheme: IconThemeData(color: MyColors.colorBlack),
-        ),
-        textTheme: Theme.of(context).textTheme,
-      ),
-      child: const SliverPersistentHeader(
-        pinned: true,
-        floating: true,
-        delegate: XHeaderDelegate(
-            title: 'My Bag', backgroundColor: MyColors.colorBackground),
-      ),
-    );
-  }
-
-  Widget _footer(BuildContext context) {
-    return SliverToBoxAdapter(
-        child: BlocBuilder<CartBloc, CartState>(builder: (context, state) {
-      return BlocBuilder<PromotionBloc, PromotionState>(
-          builder: (context, promotionState) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 25),
-                child: PromoCodeWidget(
-                  onChanged: (value) =>
-                      context.read<PromotionBloc>().changedPromoCode(value),
-                  onPressedArrowIcon: () => XBottomSheet.show(context,
-                      backgroundColor: MyColors.colorBackground,
-                      widget: const XBottomSheetPromotion()),
-                  value: promotionState.promoCode,
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 26),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const Text(
-                      'Total amount:',
-                      style: TextStyle(
-                          height: 1.42,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: MyColors.colorGray),
-                    ),
-                    Text(
-                      "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion))}\$",
-                      style: const TextStyle(
-                          height: 1.42,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: MyColors.colorBlack),
-                    )
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 25),
-                child: XButton(
-                  label: 'CHECK OUT',
-                  height: 48,
-                  width: 343,
-                  onPressed: () => CartCoordinator.showCheckoutScreen(context),
-                ),
-              ),
-            ],
-          ),
-        );
-      });
-    }));
   }
 }
