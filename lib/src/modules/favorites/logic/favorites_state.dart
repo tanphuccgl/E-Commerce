@@ -2,9 +2,7 @@ part of 'favorites_bloc.dart';
 
 class FavoriteState extends ListProductsFilterState {
   final XHandle<List<XProduct>> listFavorite;
-  final XHandle<List<DocumentSnapshot>> docs;
-  final bool isLoadMore;
-  final bool isEndList;
+
   bool hadFavorites(XProduct product) {
     bool value = false;
     for (var item in listFavorite.data ?? []) {
@@ -22,9 +20,9 @@ class FavoriteState extends ListProductsFilterState {
       {required XHandle<List<XProduct>> items,
       required this.listFavorite,
       String searchText = '',
-      required this.docs,
-      this.isLoadMore = false,
-      this.isEndList = false,
+      required XHandle<List<DocumentSnapshot>> docs,
+      bool isLoadMore = false,
+      bool isEndList = false,
       required XHandle<List<XProduct>> searchList,
       SortBy sortBy = SortBy.lowToHigh,
       ColorType colorType = ColorType.black,
@@ -32,6 +30,9 @@ class FavoriteState extends ListProductsFilterState {
       ViewType viewType = ViewType.listView})
       : super(
             items: items,
+            docs: docs,
+            isEndList: isEndList,
+            isLoadMore: isLoadMore,
             colorType: colorType,
             searchList: searchList,
             searchText: searchText,

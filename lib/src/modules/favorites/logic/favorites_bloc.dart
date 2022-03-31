@@ -4,13 +4,11 @@ import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
-import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:e_commerce/src/utils/enum/color_type.dart';
 import 'package:e_commerce/src/utils/enum/size_type.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,7 +34,7 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
 
   Future<void> loadMore() async {
     emit(state.copyWithItem(isLoadMore: true));
-    await Future.delayed(const Duration(seconds: 5));
+    await Future.delayed(const Duration(seconds: 1));
     var value =
         await domain.favorite.getNextProductToFavorite(state.docs.data ?? []);
     if (value.isSuccess) {
@@ -173,15 +171,5 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
 
     emit(state.copyWithItem(
         searchList: XHandle.completed(items), searchText: query));
-  }
-
-  List<XProduct> convertToListXProducts(
-      {required List<DocumentSnapshot> docs}) {
-    User? currentUser = AuthService().currentUser;
-    List<XProduct> list = docs
-        .map((e) => e.data() as XProduct)
-        .where((e) => e.idUser == currentUser?.uid)
-        .toList();
-    return list;
   }
 }

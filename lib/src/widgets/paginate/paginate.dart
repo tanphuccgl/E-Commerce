@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/empty_display.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/empty_widget.dart';
+import 'package:e_commerce/src/widgets/paginate/widgets/end_list_display.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/error_display.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/init_loader.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/load_more_widget.dart';
@@ -15,11 +16,13 @@ class Paginate extends StatefulWidget {
   final Widget body;
   final bool isLoadMore;
   final bool isEndList;
+  final Function() restart;
 
   final XHandle handle;
   const Paginate(
       {Key? key,
       this.header,
+      required this.restart,
       required this.fetchData,
       required this.isLoadMore,
       required this.isEndList,
@@ -41,6 +44,7 @@ class _PaginateState extends State<Paginate> {
   void initState() {
     super.initState();
     controller.addListener(_scrollListener);
+    widget.restart();
   }
 
   @override
@@ -66,6 +70,7 @@ class _PaginateState extends State<Paginate> {
               ((widget.handle.data ?? []).isEmpty)
                   ? const EmptyDisplay()
                   : widget.body,
+              widget.isEndList ? const EndListDisplay() : const EmptyWidget(),
               widget.isLoadMore ? const LoadMoreWidget() : const EmptyWidget(),
               widget.footer ?? const EmptyWidget(),
             ],

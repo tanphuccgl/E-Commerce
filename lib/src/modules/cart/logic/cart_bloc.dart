@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
@@ -19,6 +20,7 @@ part 'cart_state.dart';
 class CartBloc extends ListProductsFilterBloc<CartState> {
   CartBloc()
       : super(CartState(
+            docs: XHandle.initial(),
             productsOfCart: XHandle.completed([]),
             items: XHandle.completed([]),
             searchList: XHandle.completed([]))) {

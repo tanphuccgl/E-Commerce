@@ -8,7 +8,7 @@ class LoadMoreWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SliverToBoxAdapter(
         child: Padding(
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.all(5),
       child: Center(
         child: Text(
           'Loading',

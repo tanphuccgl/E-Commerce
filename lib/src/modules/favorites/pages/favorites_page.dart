@@ -28,12 +28,15 @@ class FavoritesPage extends StatelessWidget {
           backgroundColor: state.viewType.backgroundColor(),
           body: Paginate(
               isLoadMore: state.isLoadMore,
-              isEndList: state.isEndList,
+              restart: () {},
+              isEndList: items.length > 5 ? state.isEndList : true,
               handle: state.listFavorite,
               fetchData: () =>
                   context.read<FavoriteBloc>().getProductsToFavorite(),
               reloadData: () => context.read<FavoriteBloc>().refresh(),
-              fetchNextData: () => context.read<FavoriteBloc>().loadMore(),
+              fetchNextData: () => items.length > 5
+                  ? context.read<FavoriteBloc>().loadMore()
+                  : null,
               header: _header(context),
               body: (state.viewType.index == 0
                   ? SliverList(
