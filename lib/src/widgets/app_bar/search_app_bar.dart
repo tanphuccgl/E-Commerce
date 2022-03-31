@@ -12,12 +12,14 @@ class XSearchAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        backgroundColor: MyColors.colorPrimary,
+        iconTheme: const IconThemeData(color: MyColors.colorBlack),
+        backgroundColor: MyColors.colorWhite,
         title: Container(
           width: double.infinity,
           height: 40,
           decoration: BoxDecoration(
-              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+              color: MyColors.colorGray.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(5)),
           child: Center(
             child: SearchTextField(
               onChanged: onChanged,

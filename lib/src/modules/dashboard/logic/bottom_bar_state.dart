@@ -20,7 +20,7 @@ class BottomBarState extends Equatable {
 enum PageIndex {
   home,
   shop,
-  bag,
+  cart,
   favorite,
   profile,
 }
@@ -32,7 +32,7 @@ extension PageIndexExt on PageIndex {
         return "Home";
       case PageIndex.shop:
         return "Shop";
-      case PageIndex.bag:
+      case PageIndex.cart:
         return "Bag";
       case PageIndex.favorite:
         return "Favorites";
@@ -56,7 +56,7 @@ extension PageIndexExt on PageIndex {
           AssetImage(MyIcons.shopIcon),
           size: 30,
         );
-      case PageIndex.bag:
+      case PageIndex.cart:
         return const ImageIcon(
           AssetImage(MyIcons.bagIcon),
           size: 30,
@@ -89,7 +89,7 @@ extension PageIndexExt on PageIndex {
           AssetImage(MyIcons.activeShopIcon),
           size: 30,
         );
-      case PageIndex.bag:
+      case PageIndex.cart:
         return const ImageIcon(
           AssetImage(MyIcons.activeBagIcon),
           size: 30,

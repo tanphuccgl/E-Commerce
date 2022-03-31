@@ -1,6 +1,7 @@
+import 'package:e_commerce/src/modules/home/router/home_router.dart';
 import 'package:e_commerce/src/modules/home/widgets/banner.dart';
-import 'package:e_commerce/src/modules/home/widgets/new_product.dart';
-import 'package:e_commerce/src/modules/home/widgets/sale_product.dart';
+import 'package:e_commerce/src/modules/home/widgets/slider_product.dart';
+import 'package:e_commerce/src/utils/enum/product_type.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -30,20 +31,17 @@ class HomePage extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.only(left: 18, top: 37),
               child: Column(
-                children: const [
-                  SaleProduct(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  NewProduct(),
-                  SizedBox(
-                    height: 30,
-                  ),
-                ],
+                children: ProductType.values
+                    .map((e) => SliderProduct(
+                        onPressedViewAll: () => HomeCoordinator.showViewAll(
+                            context,
+                            productType: e),
+                        productType: e))
+                    .toList(),
               ),
             );
           }, childCount: 1),
-        )
+        ),
       ],
     ));
   }

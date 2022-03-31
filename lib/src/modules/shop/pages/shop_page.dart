@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
+import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
 import 'package:e_commerce/src/modules/shop/widgets/category_list_tile.dart';
 import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
@@ -30,7 +30,7 @@ class ShopPage extends StatelessWidget {
             icon: const Icon(Icons.search),
             color: MyColors.colorBlack,
             onPressed: () =>
-                DashboardCoordinator.showSearchProductByCategory(context),
+                ShopCoordinator.showSearchProductByCategory(context),
           )
         ],
       ),

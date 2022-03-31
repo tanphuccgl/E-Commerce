@@ -1,13 +1,14 @@
-import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
-import 'package:e_commerce/src/modules/cart/widgets/icon_circle_button.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/product/widgets/display_size_and_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'icon_circle_button.dart';
 
 class XProductCardInCart extends StatelessWidget {
   final XProduct data;
@@ -17,15 +18,19 @@ class XProductCardInCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => XCoordinator.showDetailProduct(context, data: data),
+      onTap: () => DashboardCoordinator.showDetailsProduct(context,
+          data: data, id: data.id),
       child: Container(
-        decoration: BoxDecoration(color: MyColors.colorWhite, boxShadow: [
-          BoxShadow(
-              offset: const Offset(0, 1),
-              blurRadius: 25,
-              color: MyColors.colorShadowCircle.withOpacity(0.08),
-              spreadRadius: 1)
-        ]),
+        decoration: BoxDecoration(
+            color: MyColors.colorWhite,
+            boxShadow: [
+              BoxShadow(
+                  offset: const Offset(0, 1),
+                  blurRadius: 25,
+                  color: MyColors.colorShadowCircle.withOpacity(0.08),
+                  spreadRadius: 1)
+            ],
+            borderRadius: const BorderRadius.all(Radius.circular(8))),
         height: 104,
         width: 343,
         child: Row(
@@ -38,7 +43,7 @@ class XProductCardInCart extends StatelessWidget {
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8)),
                 child: Image(
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                   image: NetworkImage(data.image ?? "N/A"),
                 ),
               ),

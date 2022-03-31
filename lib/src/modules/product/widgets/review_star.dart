@@ -43,7 +43,7 @@ class XReviewStar extends StatelessWidget {
         ),
         const SizedBox(width: 3),
         Text(
-          numberStar.toString(),
+          '(${numberStar.toString()})',
           style: const TextStyle(
               fontSize: 10,
               color: MyColors.colorGray,
