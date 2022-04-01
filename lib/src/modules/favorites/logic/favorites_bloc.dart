@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
@@ -17,49 +16,9 @@ part 'favorites_state.dart';
 class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
   FavoriteBloc()
       : super(FavoriteState(
-            docs: XHandle.initial(),
             listFavorite: XHandle.initial(),
             items: XHandle.initial(),
             searchList: XHandle.completed([])));
-
-  Future<void> getProductsToFavorite() async {
-    var value = await domain.favorite.getProductToFavorite();
-    if (value.isSuccess) {
-      emit(state.copyWithItem(
-          listFavorite:
-              XHandle.completed(convertToListXProducts(docs: value.data ?? [])),
-          docs: XHandle.completed(value.data ?? [])));
-    } else {}
-  }
-
-  Future<void> loadMore() async {
-    emit(state.copyWithItem(isLoadMore: true));
-    await Future.delayed(const Duration(seconds: 1));
-    var value =
-        await domain.favorite.getNextProductToFavorite(state.docs.data ?? []);
-    if (value.isSuccess) {
-      (state.docs.data ?? []).addAll(value.data ?? []);
-
-      emit(state.copyWithItem(
-          docs: XHandle.completed(state.docs.data ?? []),
-          listFavorite: XHandle.completed(
-              convertToListXProducts(docs: state.docs.data ?? [])),
-          isLoadMore: false));
-
-      if ((value.data ?? []).isEmpty) {
-        emit(state.copyWithItem(isLoadMore: false, isEndList: true));
-      }
-    }
-  }
-
-  Future<void> refresh() async {
-    var value = await domain.favorite.getProductToFavorite();
-    emit(state.copyWithItem(
-        docs: XHandle.completed(value.data ?? []),
-        listFavorite:
-            XHandle.completed(convertToListXProducts(docs: value.data ?? [])),
-        isEndList: false));
-  }
 
   Future<void> addProductToFavorite(BuildContext context,
       {required XProduct product, required String sizeType}) async {

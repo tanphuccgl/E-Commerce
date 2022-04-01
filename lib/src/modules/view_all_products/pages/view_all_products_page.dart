@@ -10,6 +10,7 @@ import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_sort.dart';
 import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
+import 'package:e_commerce/src/widgets/paginate/custom_paginate.dart';
 import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,24 +29,10 @@ class ViewAllProductsPage extends StatelessWidget {
       state.sortBy.sortList(items: items);
       return Scaffold(
           backgroundColor: state.viewType.backgroundColor(),
-          body: Paginate(
-            restart: () => context.read<ViewAllProductsBloc>().restart(),
-            fetchData: () => context
-                .read<ViewAllProductsBloc>()
-                .getProductViewAll(productType: productType),
-            fetchNextData: () => items.length <= 5 && items.isNotEmpty
-                ? null
-                : context
-                    .read<ViewAllProductsBloc>()
-                    .loadMore(productType: productType),
-            reloadData: () => context
-                .read<ViewAllProductsBloc>()
-                .refresh(productType: productType),
+          body: CustomPaginate(
+            paginate: XPaginate.initial(),
             header: _header(context),
-            isLoadMore: state.isLoadMore,
-            isEndList:
-                items.length <= 5 && items.isNotEmpty ? true : state.isEndList,
-            handle: state.docs,
+            isLoadMore: true,
             body: state.viewType.index == 0
                 ? SliverList(
                     delegate: SliverChildBuilderDelegate((context, index) {

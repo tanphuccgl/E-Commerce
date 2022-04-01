@@ -20,9 +20,6 @@ class FavoriteState extends ListProductsFilterState {
       {required XHandle<List<XProduct>> items,
       required this.listFavorite,
       String searchText = '',
-      required XHandle<List<DocumentSnapshot>> docs,
-      bool isLoadMore = false,
-      bool isEndList = false,
       required XHandle<List<XProduct>> searchList,
       SortBy sortBy = SortBy.lowToHigh,
       ColorType colorType = ColorType.black,
@@ -30,9 +27,6 @@ class FavoriteState extends ListProductsFilterState {
       ViewType viewType = ViewType.listView})
       : super(
             items: items,
-            docs: docs,
-            isEndList: isEndList,
-            isLoadMore: isLoadMore,
             colorType: colorType,
             searchList: searchList,
             searchText: searchText,
@@ -49,9 +43,6 @@ class FavoriteState extends ListProductsFilterState {
         searchList,
         searchText,
         listFavorite,
-        docs,
-        isLoadMore,
-        isEndList
       ];
   @override
   FavoriteState copyWithItem(
@@ -62,21 +53,16 @@ class FavoriteState extends ListProductsFilterState {
       ViewType? viewType,
       SizeType? sizeType,
       ColorType? colorType,
-      XHandle<List<DocumentSnapshot>>? docs,
-      bool? isLoadMore,
-      bool? isEndList,
       SortBy? sortBy}) {
     return FavoriteState(
-        listFavorite: listFavorite ?? this.listFavorite,
-        searchList: searchList ?? this.searchList,
-        searchText: searchText ?? this.searchText,
-        items: items ?? this.items,
-        sizeType: sizeType ?? this.sizeType,
-        sortBy: sortBy ?? this.sortBy,
-        viewType: viewType ?? this.viewType,
-        colorType: colorType ?? this.colorType,
-        docs: docs ?? this.docs,
-        isEndList: isEndList ?? this.isEndList,
-        isLoadMore: isLoadMore ?? this.isLoadMore);
+      listFavorite: listFavorite ?? this.listFavorite,
+      searchList: searchList ?? this.searchList,
+      searchText: searchText ?? this.searchText,
+      items: items ?? this.items,
+      sizeType: sizeType ?? this.sizeType,
+      sortBy: sortBy ?? this.sortBy,
+      viewType: viewType ?? this.viewType,
+      colorType: colorType ?? this.colorType,
+    );
   }
 }

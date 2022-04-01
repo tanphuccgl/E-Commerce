@@ -1,14 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
-import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:e_commerce/src/utils/enum/color_type.dart';
 import 'package:e_commerce/src/utils/enum/size_type.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'list_products_filter_state.dart';
@@ -69,15 +66,5 @@ class ListProductsFilterBloc<T extends ListProductsFilterState>
   void initSizeType() async {
     await Future.delayed(Duration.zero);
     emit(state.copyWithItem(sizeType: SizeType.xs) as T);
-  }
-
-  List<XProduct> convertToListXProducts(
-      {required List<DocumentSnapshot> docs}) {
-    User? currentUser = AuthService().currentUser;
-    List<XProduct> list = docs
-        .map((e) => e.data() as XProduct)
-        .where((e) => e.idUser == currentUser?.uid)
-        .toList();
-    return list;
   }
 }

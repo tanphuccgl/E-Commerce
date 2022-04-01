@@ -11,6 +11,8 @@ import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet.dart';
 import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_sort.dart';
 import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
+import 'package:e_commerce/src/widgets/paginate/custom_paginate.dart';
+import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
 import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,58 +22,59 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
-      List<XProduct> items = state.listFavorite.data ?? [];
-      state.sortBy.sortList(items: items);
+    return BlocProvider(
+        create: (context) =>
+            PaginateBloc(PaginateState(docs: XPaginate.initial())),
+        child: BlocBuilder<PaginateBloc, PaginateState>(
+          builder: (context, paginateState) {
+            return BlocBuilder<FavoriteBloc, FavoriteState>(
+                builder: (context, state) {
+              List<XProduct> items = paginateState.convertDocsToProductsByUser;
+              state.sortBy.sortList(items: items);
 
-      return Scaffold(
-          backgroundColor: state.viewType.backgroundColor(),
-          body: Paginate(
-              isLoadMore: state.isLoadMore,
-              restart: () {},
-              isEndList: items.length <= 5 && items.isNotEmpty
-                  ? true
-                  : state.isEndList,
-              handle: state.listFavorite,
-              fetchData: () =>
-                  context.read<FavoriteBloc>().getProductsToFavorite(),
-              reloadData: () => context.read<FavoriteBloc>().refresh(),
-              fetchNextData: () => items.length <= 5 && items.isNotEmpty
-                  ? null
-                  : context.read<FavoriteBloc>().loadMore(),
-              header: _header(context),
-              body: (state.viewType.index == 0
-                  ? SliverList(
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: 10,
-                          ),
-                          child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 8, horizontal: 16),
-                              child: XProductCardFavoriteHorizontal(
-                                  data: items[index])),
-                        );
-                      }, childCount: items.length),
-                    )
-                  : SliverGrid(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 0,
-                        childAspectRatio: 164 / 280 + 0.1,
-                      ),
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                          child:
-                              XProductCardFavoriteVertical(data: items[index]),
-                        );
-                      }, childCount: items.length),
-                    ))));
-    });
+              return Scaffold(
+                  backgroundColor: state.viewType.backgroundColor(),
+                  body: CustomPaginate(
+                      paginate: paginateState.docs,
+                      isLoadMore: paginateState.isLoadMore,
+                      header: _header(context),
+                      body: (state.viewType.index == 0
+                          ? SliverList(
+                              delegate:
+                                  SliverChildBuilderDelegate((context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                  ),
+                                  child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8, horizontal: 16),
+                                      child: XProductCardFavoriteHorizontal(
+                                          data: items[index])),
+                                );
+                              }, childCount: items.length),
+                            )
+                          : SliverGrid(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 0,
+                                childAspectRatio: 164 / 280 + 0.1,
+                              ),
+                              delegate:
+                                  SliverChildBuilderDelegate((context, index) {
+                                return Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(16, 10, 16, 0),
+                                  child: XProductCardFavoriteVertical(
+                                      data: items[index]),
+                                );
+                              }, childCount: items.length),
+                            ))));
+            });
+          },
+        ));
   }
 
   Widget _header(BuildContext context) {

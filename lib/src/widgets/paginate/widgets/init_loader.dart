@@ -6,9 +6,14 @@ class InitialLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-        child: CircularProgressIndicator(
-      color: MyColors.colorPrimary,
-    ));
+    return const SliverToBoxAdapter(
+      child: Padding(
+        padding: EdgeInsets.only(top: 50),
+        child: Center(
+            child: CircularProgressIndicator(
+          color: MyColors.colorPrimary,
+        )),
+      ),
+    );
   }
 }

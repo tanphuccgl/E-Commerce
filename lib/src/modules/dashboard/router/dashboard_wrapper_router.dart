@@ -22,7 +22,6 @@ class DashboardWrapperPage extends StatelessWidget {
           BlocProvider(create: (_) => FavoriteBloc()),
           BlocProvider(
               create: (_) => ListProductsFilterBloc(ListProductsFilterState(
-                  docs: XHandle.initial(),
                   searchList: XHandle.completed([]),
                   items: XHandle.completed([])))),
           BlocProvider(create: (_) => CategoriesBloc()),

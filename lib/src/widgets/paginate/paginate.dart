@@ -1,92 +1,47 @@
-import 'package:e_commerce/src/models/handle.dart';
-import 'package:e_commerce/src/widgets/paginate/widgets/empty_display.dart';
-import 'package:e_commerce/src/widgets/paginate/widgets/empty_widget.dart';
-import 'package:e_commerce/src/widgets/paginate/widgets/end_list_display.dart';
-import 'package:e_commerce/src/widgets/paginate/widgets/error_display.dart';
-import 'package:e_commerce/src/widgets/paginate/widgets/init_loader.dart';
-import 'package:e_commerce/src/widgets/paginate/widgets/load_more_widget.dart';
-import 'package:flutter/material.dart';
+import 'dart:core';
 
-class Paginate extends StatefulWidget {
-  final Function() fetchNextData;
-  final Function() reloadData;
-  final Function() fetchData;
-  final Widget? header;
-  final Widget? footer;
-  final Widget body;
-  final bool isLoadMore;
-  final bool isEndList;
-  final Function() restart;
+import 'package:e_commerce/src/models/result.dart';
 
-  final XHandle handle;
-  const Paginate(
-      {Key? key,
-      this.header,
-      required this.restart,
-      required this.fetchData,
-      required this.isLoadMore,
-      required this.isEndList,
-      required this.handle,
-      this.footer,
-      required this.reloadData,
-      required this.body,
-      required this.fetchNextData})
-      : super(key: key);
+class XPaginate<T> {
+  String? message;
 
-  @override
-  State<Paginate> createState() => _PaginateState();
-}
+  List<T>? _data;
 
-class _PaginateState extends State<Paginate> {
-  late ScrollController controller = ScrollController();
+  List<T>? get data => _data;
 
-  @override
-  void initState() {
-    super.initState();
-    controller.addListener(_scrollListener);
-    widget.restart();
+  Status _status = Status.initial;
+  bool get isInitial => _status == Status.initial;
+
+  bool get isLoading => _status == Status.loading;
+
+  bool get isCompleted => _status == Status.success;
+
+  bool get isError => _status == Status.error;
+
+  XPaginate.initial() {
+    _status = Status.initial;
   }
 
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
+  XPaginate.loading({this.message}) {
+    _status = Status.loading;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    if (widget.handle.isInitial || widget.handle.isLoading) {
-      if (widget.handle.isInitial) {
-        widget.fetchData();
-      }
-      return const InitialLoader();
-    } else if (widget.handle.isCompleted) {
-      return NestedScrollView(
-        controller: controller,
-        body: RefreshIndicator(
-          onRefresh: () => widget.reloadData(),
-          child: CustomScrollView(
-            slivers: [
-              ((widget.handle.data ?? []).isEmpty)
-                  ? const EmptyDisplay()
-                  : widget.body,
-              widget.isEndList ? const EndListDisplay() : const EmptyWidget(),
-              widget.isLoadMore ? const LoadMoreWidget() : const EmptyWidget(),
-              widget.footer ?? const EmptyWidget(),
-            ],
-          ),
-        ),
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) =>
-            [widget.header ?? const EmptyWidget()],
-      );
-    } else {
-      return ErrorDisplay(exception: Exception('Please try again later'));
-    }
+  XPaginate.completed(List<T>? data) {
+    _data = data;
+    message = '';
+    _status = Status.success;
   }
 
-  void _scrollListener() {
-    if ((controller.offset >= controller.position.maxScrollExtent)) {
-      widget.isEndList ? null : widget.fetchNextData();
-    }
+  XPaginate.error(this.message) {
+    _data = null;
+    _status = Status.error;
+  }
+
+  XPaginate.result(XResult<List<T>> result) {
+    message = result.error;
+    _data = result.data;
+    _status = result.isError ? Status.error : Status.success;
   }
 }
+
+enum Status { initial, loading, error, success }

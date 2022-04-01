@@ -32,9 +32,6 @@ class CartState extends ListProductsFilterState {
       {required XHandle<List<XProduct>> items,
       required this.productsOfCart,
       String searchText = '',
-      required XHandle<List<DocumentSnapshot>> docs,
-      bool isLoadMore = false,
-      bool isEndList = false,
       required XHandle<List<XProduct>> searchList,
       SortBy sortBy = SortBy.lowToHigh,
       SizeType sizeType = SizeType.xs,
@@ -42,9 +39,6 @@ class CartState extends ListProductsFilterState {
       ViewType viewType = ViewType.listView})
       : super(
             items: items,
-            docs: docs,
-            isEndList: isEndList,
-            isLoadMore: isLoadMore,
             searchList: searchList,
             searchText: searchText,
             sizeType: sizeType,
@@ -62,9 +56,6 @@ class CartState extends ListProductsFilterState {
         colorType,
         searchText,
         productsOfCart,
-        docs,
-        isLoadMore,
-        isEndList
       ];
   @override
   CartState copyWithItem(
@@ -75,9 +66,6 @@ class CartState extends ListProductsFilterState {
       ViewType? viewType,
       ColorType? colorType,
       SizeType? sizeType,
-      XHandle<List<DocumentSnapshot>>? docs,
-      bool? isLoadMore,
-      bool? isEndList,
       SortBy? sortBy}) {
     return CartState(
         productsOfCart: productsOfCart ?? this.productsOfCart,
@@ -86,9 +74,6 @@ class CartState extends ListProductsFilterState {
         items: items ?? this.items,
         sizeType: sizeType ?? this.sizeType,
         sortBy: sortBy ?? this.sortBy,
-        docs: docs ?? this.docs,
-        isEndList: isEndList ?? this.isEndList,
-        isLoadMore: isLoadMore ?? this.isLoadMore,
         viewType: viewType ?? this.viewType,
         colorType: colorType ?? this.colorType);
   }
