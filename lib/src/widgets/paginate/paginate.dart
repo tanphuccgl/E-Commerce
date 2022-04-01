@@ -3,44 +3,47 @@ import 'dart:core';
 import 'package:e_commerce/src/models/result.dart';
 
 class XPaginate<T> {
-  String? message;
+  final String? message;
 
-  List<T>? _data;
+  final List<T>? data;
 
-  List<T>? get data => _data;
+  final Status status;
 
-  Status _status = Status.initial;
-  bool get isInitial => _status == Status.initial;
+  // hasMore
+  // canNext
+  // hiện tại là trang nào. và làm sao để load trang tiếp theo
+  //
 
-  bool get isLoading => _status == Status.loading;
+  XPaginate({
+    this.message,
+    this.data,
+    this.status = Status.initial,
+  });
 
-  bool get isCompleted => _status == Status.success;
-
-  bool get isError => _status == Status.error;
-
-  XPaginate.initial() {
-    _status = Status.initial;
+  factory XPaginate.initial() {
+    return XPaginate();
   }
 
-  XPaginate.loading({this.message}) {
-    _status = Status.loading;
+  bool get isInitial => status == Status.initial;
+
+  bool get isLoading => status == Status.loading;
+
+  bool get isCompleted => status == Status.success;
+
+  bool get isError => status == Status.error;
+
+  XPaginate loading(XResult<List<T>> result) {
+    // TODO:
   }
 
-  XPaginate.completed(List<T>? data) {
-    _data = data;
-    message = '';
-    _status = Status.success;
-  }
-
-  XPaginate.error(this.message) {
-    _data = null;
-    _status = Status.error;
-  }
-
-  XPaginate.result(XResult<List<T>> result) {
-    message = result.error;
-    _data = result.data;
-    _status = result.isError ? Status.error : Status.success;
+  XPaginate result(XResult<List<T>> result) {
+    final items = [
+      ...[data ?? []],
+      ...[result.data ?? []],
+    ];
+    // hasMore
+    // canNext
+    return XPaginate(status: result.status, message: result.error, data: items);
   }
 }
 
