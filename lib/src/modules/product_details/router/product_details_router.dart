@@ -35,7 +35,7 @@ class ProductDetailsCoordinator {
   static showReviews(BuildContext context, {required XProduct data}) =>
       context.router.push(ReviewRoute(data: data));
 
-  //TODO: push error
+  //TODO: push error ??
   static showRelatedProduct(BuildContext context, {required XProduct data}) {
     return context.router
         .push(ProductDetailsWrapperRoute(data: data, id: data.id));
