@@ -1,38 +1,24 @@
 part of 'paginate_bloc.dart';
 
 class PaginateState<T> extends Equatable {
-  // TODO: ko cần thiết
-  final bool isLoadMore;
-  // Ko sử dụng DocumentSnapshot mà thay vào đó sử dụng Generic type
-  final XPaginate<DocumentSnapshot> docs;
+  final XPaginate<T> docs;
 
-  List<XProduct> get convertDocsToProductsByUser {
-    User? currentUser = AuthService().currentUser;
-    List<XProduct> list = (docs.data ?? [])
-        .map((e) => e.data() as XProduct)
-        .where((e) => e.idUser == currentUser?.uid)
-        .toList();
-    return list;
-  }
-
-  const PaginateState({this.isLoadMore = false, required this.docs});
+  const PaginateState(this.docs);
 
   @override
-  List<Object?> get props => [isLoadMore, docs];
+  List<Object?> get props => [docs];
   // Sử dụng khi load xong 1 trang
-  PaginateState copyWithItem(XResult<List<T>> docs) {
+  PaginateState copyWithItem(XPaginate<T> docs) {
     return copyWith(
-      docs: this.docs.result(docs),
+      docs: docs,
     );
   }
 
   PaginateState<T> copyWith({
-    bool? isLoadMore,
-    XPaginate<DocumentSnapshot>? docs,
+    XPaginate<T>? docs,
   }) {
     return PaginateState<T>(
-      isLoadMore: isLoadMore ?? this.isLoadMore,
-      docs: docs ?? this.docs,
+      docs ?? this.docs,
     );
   }
 }

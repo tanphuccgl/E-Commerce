@@ -7,44 +7,57 @@ class XPaginate<T> {
 
   final List<T>? data;
 
-  final Status status;
+  PageStatus status;
+  int page;
 
-  // hasMore
-  // canNext
-  // hiện tại là trang nào. và làm sao để load trang tiếp theo
-  //
+  bool hasMore;
 
-  XPaginate({
-    this.message,
-    this.data,
-    this.status = Status.initial,
-  });
+  bool get canNext => hasMore == true && isLoading == false;
+
+  // hasMore // còn sản phẩm
+  // canNext  //có thể tải trang tiếp theo
+
+  XPaginate(
+      {this.message,
+      this.hasMore = true,
+      this.data,
+      this.status = PageStatus.initial,
+      this.page = 0});
 
   factory XPaginate.initial() {
     return XPaginate();
   }
 
-  bool get isInitial => status == Status.initial;
+  bool get isInitial => status == PageStatus.initial;
 
-  bool get isLoading => status == Status.loading;
+  bool get isLoading => status == PageStatus.loading;
 
-  bool get isCompleted => status == Status.success;
+  bool get isCompleted => status == PageStatus.success;
 
-  bool get isError => status == Status.error;
+  bool get isError => status == PageStatus.error;
 
-  XPaginate loading(XResult<List<T>> result) {
-    // TODO:
+  XPaginate loading() {
+    return XPaginate(data: data, page: page, status: PageStatus.loading);
   }
 
   XPaginate result(XResult<List<T>> result) {
+    hasMore = (result.data ?? []).isEmpty ? false : true;
+    status = result.status;
+
     final items = [
-      ...[data ?? []],
-      ...[result.data ?? []],
+      ...data ?? [],
+      ...result.data ?? [],
     ];
-    // hasMore
-    // canNext
-    return XPaginate(status: result.status, message: result.error, data: items);
+    if (canNext) {
+      page++;
+    }
+    return XPaginate(
+        status: status,
+        message: result.error,
+        data: items,
+        page: page,
+        hasMore: hasMore);
   }
 }
 
-enum Status { initial, loading, error, success }
+enum PageStatus { initial, loading, error, success }

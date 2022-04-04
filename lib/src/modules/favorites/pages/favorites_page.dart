@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/logic/paginate_favorites_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/router/favorites_router.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_horizontal.dart';
 import 'package:e_commerce/src/modules/favorites/widgets/product_card_vertical.dart';
@@ -13,7 +14,6 @@ import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
 import 'package:e_commerce/src/widgets/paginate/custom_paginate.dart';
 import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
-import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,20 +23,20 @@ class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) =>
-            PaginateBloc(PaginateState(docs: XPaginate.initial())),
-        child: BlocBuilder<PaginateBloc, PaginateState>(
+        create: (context) => PaginateFavoritesBloc(),
+        child: BlocBuilder<PaginateFavoritesBloc, PaginateState>(
           builder: (context, paginateState) {
             return BlocBuilder<FavoriteBloc, FavoriteState>(
                 builder: (context, state) {
-              List<XProduct> items = paginateState.convertDocsToProductsByUser;
+              var items = (((paginateState.docs.data ?? [])
+                  .map((e) => e as XProduct))).toList();
               state.sortBy.sortList(items: items);
 
               return Scaffold(
                   backgroundColor: state.viewType.backgroundColor(),
                   body: CustomPaginate(
                       paginate: paginateState.docs,
-                      isLoadMore: paginateState.isLoadMore,
+                      isLoadMore: false,
                       header: _header(context),
                       body: (state.viewType.index == 0
                           ? SliverList(

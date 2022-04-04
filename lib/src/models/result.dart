@@ -10,8 +10,8 @@ class XResult<T> {
   bool get isError => error != null;
   bool get isSuccess => !isError;
 
-  Status get status {
-    return isError ? Status.error : Status.success;
+  PageStatus get status {
+    return isError ? PageStatus.error : PageStatus.success;
   }
 
   XResult.success(this.data) {

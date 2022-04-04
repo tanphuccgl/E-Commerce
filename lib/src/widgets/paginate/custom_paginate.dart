@@ -1,7 +1,8 @@
-import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/logic/paginate_favorites_bloc.dart';
 import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/empty_display.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/empty_widget.dart';
+import 'package:e_commerce/src/widgets/paginate/widgets/end_list_display.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/error_display.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/init_loader.dart';
 import 'package:e_commerce/src/widgets/paginate/widgets/load_more_widget.dart';
@@ -34,7 +35,6 @@ class _CustomPaginateState extends State<CustomPaginate> {
   @override
   void initState() {
     super.initState();
-    context.read<PaginateBloc>().fetchFirstData();
     controller.addListener(_scrollListener);
   }
 
@@ -50,13 +50,36 @@ class _CustomPaginateState extends State<CustomPaginate> {
       return NestedScrollView(
         controller: controller,
         body: RefreshIndicator(
-          onRefresh: () => context.read<PaginateBloc>().fetchFirstData(),
+          onRefresh: () =>
+              context.read<PaginateFavoritesBloc>().fetchFirstData(),
           child: CustomScrollView(
             slivers: [
               ((widget.paginate.data ?? []).isEmpty)
                   ? const EmptyDisplay()
                   : widget.body,
-              widget.isLoadMore ? const LoadMoreWidget() : const EmptyWidget(),
+              widget.paginate.canNext
+                  ? const EmptyWidget()
+                  : const EndListDisplay(),
+              widget.footer ?? const EmptyWidget(),
+            ],
+          ),
+        ),
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) =>
+            [widget.header ?? const EmptyWidget()],
+      );
+    }
+    if (widget.paginate.isLoading) {
+      return NestedScrollView(
+        controller: controller,
+        body: RefreshIndicator(
+          onRefresh: () =>
+              context.read<PaginateFavoritesBloc>().fetchFirstData(),
+          child: CustomScrollView(
+            slivers: [
+              ((widget.paginate.data ?? []).isEmpty)
+                  ? const EmptyDisplay()
+                  : widget.body,
+              const LoadMoreWidget(),
               widget.footer ?? const EmptyWidget(),
             ],
           ),
@@ -68,7 +91,8 @@ class _CustomPaginateState extends State<CustomPaginate> {
       return NestedScrollView(
         controller: controller,
         body: RefreshIndicator(
-          onRefresh: () => context.read<PaginateBloc>().fetchFirstData(),
+          onRefresh: () =>
+              context.read<PaginateFavoritesBloc>().fetchFirstData(),
           child: CustomScrollView(
             slivers: [
               const InitialLoader(),
@@ -85,8 +109,8 @@ class _CustomPaginateState extends State<CustomPaginate> {
   }
 
   void _scrollListener() {
-    if (controller.offset >= controller.position.maxScrollExtent) {
-      context.read<PaginateBloc>().fetchNextData();
+    if (controller.position.pixels == controller.position.maxScrollExtent) {
+      context.read<PaginateFavoritesBloc>().fetchNextData();
     }
   }
 }
