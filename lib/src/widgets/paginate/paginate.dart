@@ -14,6 +14,13 @@ class XPaginate<T> {
 
   bool get canNext => hasMore == true && isLoading == false;
 
+  T? get lastDoc {
+    if (data?.isNotEmpty == true) {
+      return data!.last;
+    }
+    return null;
+  }
+
   // hasMore // còn sản phẩm
   // canNext  //có thể tải trang tiếp theo
 

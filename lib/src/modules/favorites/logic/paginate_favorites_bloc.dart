@@ -14,28 +14,17 @@ class PaginateFavoritesBloc extends PaginateBloc {
   PaginateFavoritesBloc() : super(PaginateState(XPaginate.initial())) {
     fetchFirstData();
   }
-  XPaginate<dynamic>? paginate;
-  List<DocumentSnapshot>? documentSnapshot;
   Domain domain = Domain();
 
   @override
   Future<void> fetchFirstData() async {
-    var value = await domain.favorite.getProductToFavorite();
-    if (value.isSuccess) {
-      final listDocs = value.data ?? [];
-      documentSnapshot = listDocs;
-
-      paginate = XPaginate()
-          .result(XResult.success(_convertDocsToProductsByUser(listDocs)));
-      emit(state.copyWithItem(paginate ?? XPaginate()));
-    } else {
-      XSnackBar.show(msg: 'Page load failed');
-    }
+    emit(state.copyWith(docs: XPaginate()));
+    return fetchNextData();
   }
 
   @override
   Future<void> fetchNextData() async {
-    if ((paginate ?? XPaginate()).canNext) {
+    if ((state.docs).canNext) {
       paginate = (paginate ?? XPaginate()).loading();
       emit(state.copyWithItem(paginate ?? XPaginate()));
     }
@@ -43,7 +32,7 @@ class PaginateFavoritesBloc extends PaginateBloc {
     await Future.delayed(const Duration(seconds: 3));
 
     var value =
-        await domain.favorite.getNextProductToFavorite(documentSnapshot ?? []);
+        await domain.favorite.getNextProductToFavorite(state.docs.lastDoc);
 
     if (value.isSuccess) {
       final listDocs = value.data ?? [];
