@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/modules/cart/widgets/icon_circle_button.dart';
@@ -12,6 +13,7 @@ class ShippingAddressesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: XDefaultAppBar(
+          leading: BackButton(onPressed: () => XCoordinator.pop(context)),
           backgroundColor: MyColors.colorBackground,
           elevation: 1,
           title: 'Shipping Addresses',
