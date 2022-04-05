@@ -2,7 +2,7 @@
     package="com.example.e_commerce">
    <application
         android:label="E- Commerce"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true"
 >
         <activity
