@@ -10,6 +10,7 @@ import 'package:e_commerce/src/modules/home/router/home_router.dart';
 import 'package:e_commerce/src/modules/payment_method/router/payment_method_router.dart';
 import 'package:e_commerce/src/modules/product_details/router/product_details_router.dart';
 import 'package:e_commerce/src/modules/profile/router/profile_router.dart';
+import 'package:e_commerce/src/modules/shipping_address/router/shipping_address_router.dart';
 import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
 import 'package:flutter/material.dart';
 
@@ -45,6 +46,7 @@ class DashboardCoordinator {
           ]),
       ProductDetailsCoordinator.autoRoute,
       PaymentMethodCoordinator.autoRoute,
+      ShippingAddressCoordinator.autoRoute,
       RedirectRoute(path: '*', redirectTo: ''),
     ],
   );
@@ -61,4 +63,7 @@ class DashboardCoordinator {
 
   static showPaymentMethod(BuildContext context) =>
       context.router.push(const PaymentMethodRoute());
+
+  static showShippingAddresses(BuildContext context) =>
+      context.router.push(const ShippingAddressesRoute());
 }
