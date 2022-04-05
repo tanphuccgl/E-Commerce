@@ -37,10 +37,10 @@ class FavoriteRepositoryImpl implements FavoriteRepository {
 
   @override
   Future<XResult<List<DocumentSnapshot>>> getNextProductToFavorite(
-      List<DocumentSnapshot> documentList) async {
+      DocumentSnapshot? lastDoc) async {
     try {
-      var data = await FavoriteCollectionReference()
-          .getNextProductToFavorite(documentList);
+      var data =
+          await FavoriteCollectionReference().getNextProductToFavorite(lastDoc);
       return data;
     } catch (e) {
       return XResult.error(e.toString());

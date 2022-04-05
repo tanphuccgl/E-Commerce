@@ -9,16 +9,8 @@ class PaginateState<T> extends Equatable {
   List<Object?> get props => [docs];
   // Sử dụng khi load xong 1 trang
   PaginateState copyWithItem(XPaginate<T> docs) {
-    return copyWith(
-      docs: docs,
-    );
-  }
-
-  PaginateState<T> copyWith({
-    XPaginate<T>? docs,
-  }) {
-    return PaginateState<T>(
-      docs ?? this.docs,
+    return PaginateState(
+      docs,
     );
   }
 }

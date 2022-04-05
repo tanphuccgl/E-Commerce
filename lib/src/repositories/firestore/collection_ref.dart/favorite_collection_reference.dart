@@ -83,15 +83,17 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
   }
 
   Future<XResult<List<DocumentSnapshot>>> getNextProductToFavorite(
-      DocumentSnapshot lastDoc) async {
+      DocumentSnapshot? lastDoc) async {
     try {
       final User? user = AuthService().currentUser;
+      final QuerySnapshot<XProduct> query;
       if (user != null) {
-        final QuerySnapshot<XProduct> query = await ref
-            .where('idUser', isEqualTo: user.uid)
-            .startAfterDocument(lastDoc)
-            .limit(6)
-            .get();
+        query = lastDoc != null
+            ? await ref
+                .where('idUser', isEqualTo: user.uid)
+                .startAfterDocument(lastDoc)
+                .get()
+            : await ref.where('idUser', isEqualTo: user.uid).limit(6).get();
 
         List<DocumentSnapshot<XProduct>> docs = query.docs;
         return XResult.success(docs);

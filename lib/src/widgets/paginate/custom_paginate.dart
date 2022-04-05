@@ -35,6 +35,7 @@ class _CustomPaginateState extends State<CustomPaginate> {
   @override
   void initState() {
     super.initState();
+
     controller.addListener(_scrollListener);
   }
 

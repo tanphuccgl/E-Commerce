@@ -1,12 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
-import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
 import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 part 'paginate_favorites_state.dart';
 
@@ -18,43 +14,23 @@ class PaginateFavoritesBloc extends PaginateBloc {
 
   @override
   Future<void> fetchFirstData() async {
-    emit(state.copyWith(docs: XPaginate()));
-    return fetchNextData();
+    emit(state.copyWithItem(XPaginate.initial()));
+    return await fetchNextData();
   }
 
   @override
   Future<void> fetchNextData() async {
-    if ((state.docs).canNext) {
-      paginate = (paginate ?? XPaginate()).loading();
-      emit(state.copyWithItem(paginate ?? XPaginate()));
+    if (state.docs.canNext) {
+      emit(state.copyWithItem(state.docs.loading()));
     }
-
-    await Future.delayed(const Duration(seconds: 3));
-
-    var value =
+    final value =
         await domain.favorite.getNextProductToFavorite(state.docs.lastDoc);
 
     if (value.isSuccess) {
-      final listDocs = value.data ?? [];
-      if (listDocs.isNotEmpty) {
-        (documentSnapshot ?? []).addAll(listDocs);
-      }
-
-      paginate = (paginate ?? XPaginate())
-          .result(XResult.success(_convertDocsToProductsByUser(listDocs)));
-
-      emit(state.copyWithItem(paginate ?? XPaginate()));
+      emit(state
+          .copyWithItem(state.docs.result(XResult.success(value.data ?? []))));
     } else {
       XSnackBar.show(msg: 'Fetch Next Page Failed');
     }
-  }
-
-  List<XProduct> _convertDocsToProductsByUser(List<DocumentSnapshot> docs) {
-    User? currentUser = AuthService().currentUser;
-    List<XProduct> list = (docs)
-        .map((e) => e.data() as XProduct)
-        .where((e) => e.idUser == currentUser?.uid)
-        .toList();
-    return list;
   }
 }

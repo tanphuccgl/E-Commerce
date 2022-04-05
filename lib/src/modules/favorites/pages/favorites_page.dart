@@ -28,10 +28,10 @@ class FavoritesPage extends StatelessWidget {
           builder: (context, paginateState) {
             return BlocBuilder<FavoriteBloc, FavoriteState>(
                 builder: (context, state) {
-              var items = (((paginateState.docs.data ?? [])
-                  .map((e) => e as XProduct))).toList();
+              final List<XProduct> items = (paginateState.docs.data ?? [])
+                  .map((e) => e.data() as XProduct)
+                  .toList();
               state.sortBy.sortList(items: items);
-
               return Scaffold(
                   backgroundColor: state.viewType.backgroundColor(),
                   body: CustomPaginate(
