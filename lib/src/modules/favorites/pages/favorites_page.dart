@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
@@ -13,7 +14,6 @@ import 'package:e_commerce/src/widgets/bottom_sheet/bottom_sheet_sort.dart';
 import 'package:e_commerce/src/widgets/filter_bar/default_filter_bar.dart';
 import 'package:e_commerce/src/widgets/header/header_delegate.dart';
 import 'package:e_commerce/src/widgets/paginate/custom_paginate.dart';
-import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,13 +24,14 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
         create: (context) => PaginateFavoritesBloc(),
-        child: BlocBuilder<PaginateFavoritesBloc, PaginateState>(
+        child: BlocBuilder<PaginateFavoritesBloc, PaginateFavoritesState>(
           builder: (context, paginateState) {
             return BlocBuilder<FavoriteBloc, FavoriteState>(
                 builder: (context, state) {
-              final List<XProduct> items = (paginateState.docs.data ?? [])
-                  .map((e) => e.data() as XProduct)
-                  .toList();
+              final List<XProduct> items =
+                  ((paginateState.docs.data as List<DocumentSnapshot>?) ?? [])
+                      .map((e) => e.data() as XProduct)
+                      .toList();
               state.sortBy.sortList(items: items);
               return Scaffold(
                   backgroundColor: state.viewType.backgroundColor(),

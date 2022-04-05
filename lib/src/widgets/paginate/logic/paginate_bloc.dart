@@ -4,8 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'paginate_state.dart';
 
-abstract class PaginateBloc extends Cubit<PaginateState> {
-  PaginateBloc(PaginateState initialState) : super(initialState);
+abstract class PaginateBloc<T extends PaginateState> extends Cubit<T> {
+  PaginateBloc(T initialState) : super(initialState);
 
   Future<void> fetchFirstData();
 

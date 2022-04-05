@@ -1,5 +1,3 @@
-import 'dart:core';
-
 import 'package:e_commerce/src/models/result.dart';
 
 class XPaginate<T> {
@@ -44,15 +42,15 @@ class XPaginate<T> {
 
   bool get isError => status == PageStatus.error;
 
-  XPaginate loading() {
+  XPaginate<T> loading() {
     return XPaginate(data: data, page: page, status: PageStatus.loading);
   }
 
-  XPaginate result(XResult<List<T>> result) {
+  XPaginate<T> result(XResult<List<T>> result) {
     hasMore = (result.data ?? []).isEmpty ? false : true;
     status = result.status;
 
-    final items = [
+    final List<T> items = [
       ...data ?? [],
       ...result.data ?? [],
     ];
