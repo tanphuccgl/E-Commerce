@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.e_commerce">
    <application
-        android:label="e_commerce"
-        android:icon="@mipmap/ic_launcher"
+        android:label="E- Commerce"
+        android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true"
 >
         <activity
