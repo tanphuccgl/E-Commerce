@@ -87,11 +87,9 @@ class SignUpPage extends StatelessWidget {
                                       width: size.width,
                                       label: "SIGN UP",
                                       onPressed: state.isValidSignUp
-                                          ? () {
-                                              context
-                                                  .read<SignUpBloc>()
-                                                  .createAccount(context);
-                                            }
+                                          ? () => context
+                                              .read<SignUpBloc>()
+                                              .createAccount(context)
                                           : null,
                                       height: 48,
                                     ),
@@ -110,9 +108,8 @@ class SignUpPage extends StatelessWidget {
                           const Spacer(),
                           BottomSign(
                             title: "Or sign up with social account",
-                            onClickGoogle: () {
-                              context.read<SignUpBloc>().withGoogle(context);
-                            },
+                            onClickGoogle: () =>
+                                context.read<SignUpBloc>().withGoogle(context),
                           ),
                           const SizedBox(
                             height: 15,
