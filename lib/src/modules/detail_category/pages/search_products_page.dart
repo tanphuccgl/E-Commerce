@@ -27,7 +27,6 @@ class SearchProductsByCategoryPage extends StatelessWidget {
             body: ListView.builder(
               itemBuilder: (context, index) {
                 final item = items[index];
-
                 return ListTile(
                   leading: Image.network(
                     item.image ?? '',
