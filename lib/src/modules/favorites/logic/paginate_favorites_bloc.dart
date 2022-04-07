@@ -4,15 +4,12 @@ import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
 import 'package:e_commerce/src/widgets/paginate/paginate.dart';
-import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 
 part 'paginate_favorites_state.dart';
 
 class PaginateFavoritesBloc
     extends PaginateBloc<PaginateFavoritesState<DocumentSnapshot<XProduct>>> {
-  PaginateFavoritesBloc() : super(PaginateFavoritesState(XPaginate.initial())) {
-    fetchFirstData();
-  }
+  PaginateFavoritesBloc() : super(PaginateFavoritesState(XPaginate.initial()));
   Domain domain = Domain();
 
   @override
@@ -31,8 +28,6 @@ class PaginateFavoritesBloc
       if (value.isSuccess) {
         emit(state.copyWithItem(
             state.docs.result(XResult.success(value.data ?? []))));
-      } else {
-        XSnackBar.show(msg: 'Fetch Next Page Failed');
       }
     }
   }

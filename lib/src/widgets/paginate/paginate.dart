@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/models/result.dart';
+import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 
 class XPaginate<T> {
   final String? message;
@@ -57,6 +58,9 @@ class XPaginate<T> {
       ...data ?? [],
       ...result.data ?? [],
     ];
+    if (items.isNotEmpty && canNext == false) {
+      XSnackBar.show(msg: 'End List');
+    }
     if (canNext) {
       page++;
     }

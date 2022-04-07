@@ -37,7 +37,11 @@ class FavoritesPage extends StatelessWidget {
                   backgroundColor: state.viewType.backgroundColor(),
                   body: CustomPaginate(
                       paginate: paginateState.docs,
-                      isLoadMore: false,
+                      fetchFirstData: () => context
+                          .read<PaginateFavoritesBloc>()
+                          .fetchFirstData(),
+                      fetchNextData: () =>
+                          context.read<PaginateFavoritesBloc>().fetchNextData(),
                       header: _header(context),
                       body: (state.viewType.index == 0
                           ? SliverList(

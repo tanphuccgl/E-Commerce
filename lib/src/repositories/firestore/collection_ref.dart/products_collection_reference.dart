@@ -22,38 +22,30 @@ class ProductCollectionReference extends BaseCollectionReference<XProduct> {
     }
   }
 
-  Future<XResult<List<DocumentSnapshot>>> getProductsFilter(
-      {required ProductType productType}) async {
+  Future<XResult<List<DocumentSnapshot<XProduct>>>> getNextProductsFilter(
+      {required ProductType productType, DocumentSnapshot? lastDoc}) async {
     try {
-      QuerySnapshot<XProduct> query = await ref
-          .where(productType.field(),
-              isNotEqualTo: productType == ProductType.sale ? 0 : null,
-              isEqualTo: productType == ProductType.sale
-                  ? null
-                  : productType.isEqualTo())
-          .limit(6)
-          .get();
+      final QuerySnapshot<XProduct> query;
+      query = lastDoc != null
+          ? await ref
+              .where(productType.field(),
+                  isNotEqualTo: productType == ProductType.sale ? 0 : null,
+                  isEqualTo: productType.isEqualTo())
+              .startAfterDocument(lastDoc)
+              .limit(6)
+              .get()
+          : await ref
+              .where(productType.field(),
+                  isNotEqualTo: productType == ProductType.sale ? 0 : null,
+                  isEqualTo: productType == ProductType.sale
+                      ? null
+                      : productType.isEqualTo())
+              .limit(6)
+              .get();
 
       List<DocumentSnapshot<XProduct>> docs = query.docs;
-      return XResult.success(docs);
-    } catch (e) {
-      return XResult.exception(e);
-    }
-  }
+      //   print(lastDoc);
 
-  Future<XResult<List<DocumentSnapshot>>> getNextProductsFilter(
-      {required ProductType productType,
-      required List<DocumentSnapshot> documentList}) async {
-    try {
-      QuerySnapshot<XProduct> query = await ref
-          .where(productType.field(),
-              isNotEqualTo: productType == ProductType.sale ? 0 : null,
-              isEqualTo: productType.isEqualTo())
-          .startAfterDocument(documentList[documentList.length - 1])
-          .limit(6)
-          .get();
-
-      List<DocumentSnapshot<XProduct>> docs = query.docs;
       return XResult.success(docs);
     } catch (e) {
       return XResult.exception(e);

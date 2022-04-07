@@ -29,7 +29,6 @@ class CategoryListTile extends StatelessWidget {
                           const EdgeInsets.symmetric(horizontal: 40),
                       onTap: () => ShopCoordinator.showProductByCategory(
                           context,
-                          idCategory: item.id,
                           nameCategory: item.name ?? 'N/A'),
                       title: Text(item.name ?? "N/A",
                           style: const TextStyle(

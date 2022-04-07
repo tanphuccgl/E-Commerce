@@ -5,11 +5,9 @@ import 'package:e_commerce/src/utils/enum/product_type.dart';
 
 abstract class ProductRepository {
   Future<XResult<List<XProduct>>> getProduct();
-  Future<XResult<List<DocumentSnapshot>>> getProductsFilter(
-      {required ProductType productType});
-  Future<XResult<List<DocumentSnapshot>>> getNextProductsFilter(
-      {required ProductType productType,
-      required List<DocumentSnapshot> documentList});
+
+  Future<XResult<List<DocumentSnapshot<XProduct>>>> getNextProductsFilter(
+      {required ProductType productType, DocumentSnapshot? lastDoc});
 
   Future<XResult<List<XProduct>>> addProduct();
 }

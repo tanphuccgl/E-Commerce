@@ -17,25 +17,11 @@ class ProductRepositoryImpl implements ProductRepository {
   }
 
   @override
-  Future<XResult<List<DocumentSnapshot>>> getProductsFilter(
-      {required ProductType productType}) async {
+  Future<XResult<List<DocumentSnapshot<XProduct>>>> getNextProductsFilter(
+      {required ProductType productType, DocumentSnapshot? lastDoc}) async {
     try {
       var data = await ProductCollectionReference()
-          .getProductsFilter(productType: productType);
-      return data;
-    } catch (e) {
-      return XResult.error(e.toString());
-    }
-  }
-
-  @override
-  Future<XResult<List<DocumentSnapshot>>> getNextProductsFilter(
-      {required ProductType productType,
-      required List<DocumentSnapshot> documentList}) async {
-    try {
-      var data = await ProductCollectionReference().getNextProductsFilter(
-          productType: productType, documentList: documentList);
-
+          .getNextProductsFilter(productType: productType, lastDoc: lastDoc);
       return data;
     } catch (e) {
       return XResult.error(e.toString());
