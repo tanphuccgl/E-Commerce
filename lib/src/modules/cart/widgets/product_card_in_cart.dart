@@ -43,7 +43,7 @@ class XProductCardInCart extends StatelessWidget {
                     topLeft: Radius.circular(8),
                     bottomLeft: Radius.circular(8)),
                 child: Image(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   image: NetworkImage(data.image ?? "N/A"),
                 ),
               ),
