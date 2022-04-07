@@ -65,11 +65,21 @@ class FavoriteCollectionReference extends BaseCollectionReference<XProduct> {
     }
   }
 
-  Future<XResult<List<XProduct>>> getProductToFavorite() async {
+  Future<XResult<List<DocumentSnapshot<XProduct>>>> getNextProductToFavorite(
+      DocumentSnapshot? lastDoc) async {
     try {
       final User? user = AuthService().currentUser;
+      final QuerySnapshot<XProduct> query;
       if (user != null) {
-        return query();
+        query = lastDoc != null
+            ? await ref
+                .where('idUser', isEqualTo: user.uid)
+                .startAfterDocument(lastDoc)
+                .get()
+            : await ref.where('idUser', isEqualTo: user.uid).limit(6).get();
+
+        List<DocumentSnapshot<XProduct>> docs = query.docs;
+        return XResult.success(docs);
       } else {
         return XResult.error('Not login yet');
       }

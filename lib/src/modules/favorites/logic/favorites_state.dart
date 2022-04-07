@@ -2,6 +2,7 @@ part of 'favorites_bloc.dart';
 
 class FavoriteState extends ListProductsFilterState {
   final XHandle<List<XProduct>> listFavorite;
+
   bool hadFavorites(XProduct product) {
     bool value = false;
     for (var item in listFavorite.data ?? []) {
@@ -54,13 +55,14 @@ class FavoriteState extends ListProductsFilterState {
       ColorType? colorType,
       SortBy? sortBy}) {
     return FavoriteState(
-        listFavorite: listFavorite ?? this.listFavorite,
-        searchList: searchList ?? this.searchList,
-        searchText: searchText ?? this.searchText,
-        items: items ?? this.items,
-        sizeType: sizeType ?? this.sizeType,
-        sortBy: sortBy ?? this.sortBy,
-        viewType: viewType ?? this.viewType,
-        colorType: colorType ?? this.colorType);
+      listFavorite: listFavorite ?? this.listFavorite,
+      searchList: searchList ?? this.searchList,
+      searchText: searchText ?? this.searchText,
+      items: items ?? this.items,
+      sizeType: sizeType ?? this.sizeType,
+      sortBy: sortBy ?? this.sortBy,
+      viewType: viewType ?? this.viewType,
+      colorType: colorType ?? this.colorType,
+    );
   }
 }

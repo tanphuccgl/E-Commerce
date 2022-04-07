@@ -20,8 +20,16 @@ class ListProductsFilterState extends Equatable {
       this.searchText = ''});
 
   @override
-  List<Object?> get props =>
-      [items, searchList, searchText, sortBy, sizeType, viewType, colorType];
+  List<Object?> get props => [
+        items,
+        searchList,
+        searchText,
+        sortBy,
+        sizeType,
+        viewType,
+        colorType,
+      ];
+
   ListProductsFilterState copyWithItem(
       {XHandle<List<XProduct>>? items,
       XHandle<List<XProduct>>? searchList,

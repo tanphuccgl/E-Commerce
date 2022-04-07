@@ -109,7 +109,6 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 itemBuilder: (context, index) {
                                   return TagChip(
                                     label: items[index].name ?? 'N/A',
-                                    idCategory: items[index].id,
                                     unSelectTagChip: unSelectTagChip,
                                   );
                                 },
