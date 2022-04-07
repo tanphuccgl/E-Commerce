@@ -10,8 +10,7 @@ class XPaginate<T> {
 
   bool hasMore;
 
-  bool get canNext =>
-      hasMore == true && isLoading == false && isInitial == false;
+  bool get canNext => hasMore == true && isLoading == false;
 
   T? get lastDoc {
     if (data?.isNotEmpty == true) {
@@ -43,7 +42,11 @@ class XPaginate<T> {
   bool get isError => status == PageStatus.error;
 
   XPaginate<T> loading() {
-    return XPaginate(data: data, page: page, status: PageStatus.loading);
+    if (canNext == true && status != PageStatus.initial) {
+      return XPaginate(data: data, page: page, status: PageStatus.loading);
+    } else {
+      return XPaginate();
+    }
   }
 
   XPaginate<T> result(XResult<List<T>> result) {

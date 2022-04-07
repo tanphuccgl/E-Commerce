@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/widgets/paginate/logic/paginate_bloc.dart';
@@ -8,7 +9,7 @@ import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 part 'paginate_favorites_state.dart';
 
 class PaginateFavoritesBloc
-    extends PaginateBloc<PaginateFavoritesState<DocumentSnapshot>> {
+    extends PaginateBloc<PaginateFavoritesState<DocumentSnapshot<XProduct>>> {
   PaginateFavoritesBloc() : super(PaginateFavoritesState(XPaginate.initial())) {
     fetchFirstData();
   }
@@ -24,15 +25,15 @@ class PaginateFavoritesBloc
   Future<void> fetchNextData() async {
     if (state.docs.canNext) {
       emit(state.copyWithItem(state.docs.loading()));
-    }
 
-    final value =
-        await domain.favorite.getNextProductToFavorite(state.docs.lastDoc);
-    if (value.isSuccess) {
-      emit(state
-          .copyWithItem(state.docs.result(XResult.success(value.data ?? []))));
-    } else {
-      XSnackBar.show(msg: 'Fetch Next Page Failed');
+      final value =
+          await domain.favorite.getNextProductToFavorite(state.docs.lastDoc);
+      if (value.isSuccess) {
+        emit(state.copyWithItem(
+            state.docs.result(XResult.success(value.data ?? []))));
+      } else {
+        XSnackBar.show(msg: 'Fetch Next Page Failed');
+      }
     }
   }
 }

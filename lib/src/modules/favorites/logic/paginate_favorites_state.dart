@@ -1,14 +1,12 @@
 part of 'paginate_favorites_bloc.dart';
 
-class PaginateFavoritesState<DocumentSnapshot>
-    extends PaginateState<DocumentSnapshot> {
-  const PaginateFavoritesState(XPaginate<DocumentSnapshot> docs) : super(docs);
+class PaginateFavoritesState<T> extends PaginateState<T> {
+  const PaginateFavoritesState(XPaginate<T> docs) : super(docs);
 
   @override
   List<Object?> get props => [docs];
   @override
-  PaginateFavoritesState<DocumentSnapshot> copyWithItem(
-      XPaginate<DocumentSnapshot> docs) {
+  PaginateFavoritesState<T> copyWithItem(XPaginate<T> docs) {
     return PaginateFavoritesState(docs);
   }
 }
