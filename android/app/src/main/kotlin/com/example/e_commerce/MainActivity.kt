@@ -1,4 +1,4 @@
-package com.goldenowl.e_commerce
+package com.goldenowl.ecommerce
 
 import io.flutter.embedding.android.FlutterActivity
 
