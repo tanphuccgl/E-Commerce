@@ -24,34 +24,36 @@ class CheckoutPage extends StatelessWidget {
             fontWeight: FontWeight.w600,
             fontSize: 18),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const ShippingAddressWidget(),
-            const SizedBox(
-              height: 30,
-            ),
-            const PaymentWidget(),
-            const SizedBox(
-              height: 30,
-            ),
-            const DeliveryMethodWidget(),
-            const SizedBox(
-              height: 30,
-            ),
-            const SumsWidget(),
-            const SizedBox(
-              height: 10,
-            ),
-            XButton(
-              label: 'SUBMIT ORDER',
-              height: 48,
-              width: 343,
-              onPressed: () => DashboardCoordinator.showSuccess(context),
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const ShippingAddressWidget(),
+              const SizedBox(
+                height: 30,
+              ),
+              const PaymentWidget(),
+              const SizedBox(
+                height: 30,
+              ),
+              const DeliveryMethodWidget(),
+              const SizedBox(
+                height: 30,
+              ),
+              const SumsWidget(),
+              const SizedBox(
+                height: 10,
+              ),
+              XButton(
+                label: 'SUBMIT ORDER',
+                height: 48,
+                width: 343,
+                onPressed: () => DashboardCoordinator.showSuccess(context),
+              )
+            ],
+          ),
         ),
       ),
     );
