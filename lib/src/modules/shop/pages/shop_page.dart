@@ -10,11 +10,6 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final sizeHeightBody = size.height -
-        MediaQuery.of(context).padding.bottom -
-        MediaQuery.of(context).padding.top;
-
     return Scaffold(
       appBar: XDefaultAppBar(
         elevation: 3,
@@ -35,45 +30,42 @@ class ShopPage extends StatelessWidget {
         ],
       ),
       body: SingleChildScrollView(
-        child: SizedBox(
-          height: sizeHeightBody,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 16),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 48,
-                        child: XButton(
-                          label: 'VIEW ALL ITEMS',
-                          onPressed: () {},
-                        ),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 16),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      height: 48,
+                      child: XButton(
+                        label: 'VIEW ALL ITEMS',
+                        onPressed: () {},
                       ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      const Text(
-                        "Choose category",
-                        style: TextStyle(
-                            color: MyColors.colorGray,
-                            fontSize: 14,
-                            height: 1.42,
-                            fontWeight: FontWeight.normal),
-                      )
-                    ],
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    const Text(
+                      "Choose category",
+                      style: TextStyle(
+                          color: MyColors.colorGray,
+                          fontSize: 14,
+                          height: 1.42,
+                          fontWeight: FontWeight.normal),
+                    )
+                  ],
                 ),
-                const SizedBox(
-                  height: 17,
-                ),
-                const CategoryListTile()
-              ],
-            ),
+              ),
+              const SizedBox(
+                height: 17,
+              ),
+              const CategoryListTile()
+            ],
           ),
         ),
       ),
