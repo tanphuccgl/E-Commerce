@@ -42,13 +42,14 @@ class ViewAllProductsState extends ListProductsFilterState {
       ColorType? colorType,
       SortBy? sortBy}) {
     return ViewAllProductsState(
-        listProducts: listProducts ?? this.listProducts,
-        searchList: searchList ?? this.searchList,
-        searchText: searchText ?? this.searchText,
-        items: items ?? this.items,
-        sizeType: sizeType ?? this.sizeType,
-        sortBy: sortBy ?? this.sortBy,
-        viewType: viewType ?? this.viewType,
-        colorType: colorType ?? this.colorType);
+      listProducts: listProducts ?? this.listProducts,
+      searchList: searchList ?? this.searchList,
+      searchText: searchText ?? this.searchText,
+      items: items ?? this.items,
+      sizeType: sizeType ?? this.sizeType,
+      sortBy: sortBy ?? this.sortBy,
+      viewType: viewType ?? this.viewType,
+      colorType: colorType ?? this.colorType,
+    );
   }
 }

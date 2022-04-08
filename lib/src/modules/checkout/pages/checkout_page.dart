@@ -1,7 +1,8 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/checkout/widgets/delivery_method_widget.dart';
 import 'package:e_commerce/src/modules/checkout/widgets/payment_widget.dart';
-import 'package:e_commerce/src/modules/checkout/widgets/shipping_address_widget.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
+import 'package:e_commerce/src/modules/shipping_address/shipping_addresses/widgets/shipping_address_widget.dart';
 import 'package:e_commerce/src/modules/checkout/widgets/sums_widget.dart';
 import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
@@ -48,7 +49,7 @@ class CheckoutPage extends StatelessWidget {
               label: 'SUBMIT ORDER',
               height: 48,
               width: 343,
-              onPressed: () {},
+              onPressed: () => DashboardCoordinator.showSuccess(context),
             )
           ],
         ),

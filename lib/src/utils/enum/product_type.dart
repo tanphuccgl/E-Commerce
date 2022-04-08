@@ -17,6 +17,53 @@ enum ProductType {
 }
 
 extension ProductTypeExt on ProductType {
+  String field() {
+    switch (this) {
+      case ProductType.sale:
+        return 'discount';
+      case ProductType.news:
+        return "newProduct";
+
+      default:
+        return 'nameCategory';
+    }
+  }
+
+  dynamic isEqualTo() {
+    switch (this) {
+      case ProductType.sale:
+        return null;
+      case ProductType.news:
+        return true;
+
+      case ProductType.top:
+        return "Tops";
+      case ProductType.shirts:
+        return "Shirts & Blouses";
+      case ProductType.cardigans:
+        return "Cardigans & Sweaters";
+      case ProductType.knitwear:
+        return "Knitwear";
+      case ProductType.blazers:
+        return "Blazers";
+      case ProductType.outerwear:
+        return "Outerwear";
+      case ProductType.pants:
+        return "Pants";
+      case ProductType.jeans:
+        return "Jeans";
+      case ProductType.shorts:
+        return "Shorts";
+      case ProductType.skirts:
+        return "Skirts";
+      case ProductType.dresses:
+        return "Dresses";
+
+      default:
+        return "N/A";
+    }
+  }
+
   String title() {
     switch (this) {
       case ProductType.sale:

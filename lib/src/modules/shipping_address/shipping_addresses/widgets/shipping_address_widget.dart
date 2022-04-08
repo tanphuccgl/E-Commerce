@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:flutter/material.dart';
 
 class ShippingAddressWidget extends StatelessWidget {
@@ -47,7 +48,8 @@ class ShippingAddressWidget extends StatelessWidget {
                           fontWeight: FontWeight.w500,
                           height: 1.42)),
                   TextButton(
-                      onPressed: () {},
+                      onPressed: () =>
+                          DashboardCoordinator.showShippingAddresses(context),
                       child: const Text('Change',
                           style: TextStyle(
                               fontSize: 14,

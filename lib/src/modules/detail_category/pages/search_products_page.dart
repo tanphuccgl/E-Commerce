@@ -1,10 +1,10 @@
-import 'package:e_commerce/src/models/handle.dart';
-import 'package:e_commerce/src/models/result.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
+import 'package:e_commerce/src/modules/detail_category/logic/paginate_search_products_bloc.dart';
 import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
-import 'package:e_commerce/src/widgets/app_bar/search_app_bar.dart';
-import 'package:e_commerce/src/widgets/state/state_error_widget.dart';
-import 'package:e_commerce/src/widgets/state/state_loading_widget.dart';
+import 'package:e_commerce/src/widgets/header/header_search.dart';
+import 'package:e_commerce/src/widgets/paginate/custom_paginate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,41 +13,63 @@ class SearchProductsByCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
-        builder: (context, state) {
-      var items = state.searchList.data ?? [];
-      XHandle handle = XHandle.result(XResult.success(items));
-      if (handle.isCompleted) {
-        return Scaffold(
-            appBar: XSearchAppBar(
-              onChanged: (value) =>
-                  context.read<ListProductsFilterBloc>().searchProduct(value),
-              value: state.searchText,
-            ),
-            body: ListView.builder(
-              itemBuilder: (context, index) {
-                final item = items[index];
+    return BlocProvider(
+      create: (context) => PaginateSearchProductsBloc(),
+      child:
+          BlocBuilder<PaginateSearchProductsBloc, PaginateSearchProductsState>(
+        builder: (context, paginateState) {
+          return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
+              builder: (context, state) {
+            final List<XProduct> items =
+                ((paginateState.docs.data as List<DocumentSnapshot>?) ?? [])
+                    .map((e) => e.data() as XProduct)
+                    .toList();
+            return Scaffold(
+                body: CustomPaginate(
+                    fetchFirstData: () => context
+                        .read<PaginateSearchProductsBloc>()
+                        .fetchFirstData(),
+                    fetchNextData: () => context
+                        .read<PaginateSearchProductsBloc>()
+                        .fetchNextData(),
+                    paginate: paginateState.docs,
+                    body: SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                      return ListTile(
+                        leading: Image.network(
+                          items[index].image ?? '',
+                          fit: BoxFit.fill,
+                          width: 50,
+                          height: 50,
+                        ),
+                        onTap: () => DashboardCoordinator.showDetailsProduct(
+                            context,
+                            data: items[index],
+                            id: items[index].id),
+                        title: Text(items[index].name),
+                        subtitle: Text(items[index].type),
+                      );
+                    }, childCount: items.length)),
+                    header: _header(context)));
+          });
+        },
+      ),
+    );
+  }
 
-                return ListTile(
-                  leading: Image.network(
-                    item.image ?? '',
-                    fit: BoxFit.fill,
-                    width: 50,
-                    height: 50,
-                  ),
-                  onTap: () => DashboardCoordinator.showDetailsProduct(context,
-                      data: item, id: item.id),
-                  title: Text(item.name),
-                  subtitle: Text(item.type),
-                );
-              },
-              itemCount: items.length,
-            ));
-      } else if (handle.isLoading) {
-        return const XStateLoadingWidget();
-      } else {
-        return const XStateErrorWidget();
-      }
-    });
+  Widget _header(BuildContext context) {
+    return BlocBuilder<PaginateSearchProductsBloc, PaginateSearchProductsState>(
+      builder: (context, state) {
+        return SliverPersistentHeader(
+          pinned: true,
+          floating: true,
+          delegate: XHeaderDelegateSearch(
+            value: state.name ?? '',
+            onChanged: (value) =>
+                context.read<PaginateSearchProductsBloc>().changeName(value),
+          ),
+        );
+      },
+    );
   }
 }

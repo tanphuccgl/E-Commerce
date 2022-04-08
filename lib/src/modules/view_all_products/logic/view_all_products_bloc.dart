@@ -11,11 +11,9 @@ part 'view_all_products_state.dart';
 class ViewAllProductsBloc extends ListProductsFilterBloc<ViewAllProductsState> {
   ViewAllProductsBloc()
       : super(ViewAllProductsState(
-            listProducts: XHandle.completed([]),
+            listProducts: XHandle.initial(),
             items: XHandle.completed([]),
-            searchList: XHandle.completed([]))) {
-    getProduct();
-  }
+            searchList: XHandle.completed([])));
 
   @override
   Future<void> searchProduct(String query) async {
