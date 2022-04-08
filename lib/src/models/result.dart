@@ -1,3 +1,4 @@
+import 'package:e_commerce/src/widgets/paginate/paginate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -8,6 +9,10 @@ class XResult<T> {
 
   bool get isError => error != null;
   bool get isSuccess => !isError;
+
+  PageStatus get status {
+    return isError ? PageStatus.error : PageStatus.success;
+  }
 
   XResult.success(this.data) {
     error = null;

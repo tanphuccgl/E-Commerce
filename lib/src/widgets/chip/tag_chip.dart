@@ -4,13 +4,8 @@ import 'package:flutter/material.dart';
 
 class TagChip extends StatelessWidget {
   final String label;
-  final String idCategory;
   final bool unSelectTagChip;
-  const TagChip(
-      {Key? key,
-      required this.label,
-      required this.idCategory,
-      this.unSelectTagChip = false})
+  const TagChip({Key? key, required this.label, this.unSelectTagChip = false})
       : super(key: key);
 
   @override
@@ -29,8 +24,8 @@ class TagChip extends StatelessWidget {
               )),
           onPressed: unSelectTagChip
               ? () {}
-              : () => ShopCoordinator.switchCategory(context,
-                  idCategory: idCategory, nameCategory: label),
+              : () =>
+                  ShopCoordinator.switchCategory(context, nameCategory: label),
           child: Center(
             child: Text(
               label,
