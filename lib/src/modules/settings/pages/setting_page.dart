@@ -15,7 +15,6 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final sizeHeightBody = size.height - MediaQuery.of(context).padding.top;
     final padding = size.width * 0.037;
     return BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
       return BlocProvider(
@@ -40,27 +39,24 @@ class SettingPage extends StatelessWidget {
                   )
                 ]),
                 body: SingleChildScrollView(
-                  child: SizedBox(
-                    height: sizeHeightBody,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(padding, 0, padding, 0),
-                      child: Column(
-                        children: [
-                          const XHeader(title: "Settings"),
-                          SizedBox(
-                            height: size.height * 0.02,
-                          ),
-                          const PersonalInfoForm(),
-                          SizedBox(
-                            height: size.height * 0.02,
-                          ),
-                          const PasswordForm(),
-                          SizedBox(
-                            height: size.height * 0.04,
-                          ),
-                          const NotificationsSetting(),
-                        ],
-                      ),
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(padding, 0, padding, 0),
+                    child: Column(
+                      children: [
+                        const XHeader(title: "Settings"),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        const PersonalInfoForm(),
+                        SizedBox(
+                          height: size.height * 0.02,
+                        ),
+                        const PasswordForm(),
+                        SizedBox(
+                          height: size.height * 0.04,
+                        ),
+                        const NotificationsSetting(),
+                      ],
                     ),
                   ),
                 ));
