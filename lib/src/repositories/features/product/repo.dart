@@ -9,5 +9,8 @@ abstract class ProductRepository {
   Future<XResult<List<DocumentSnapshot<XProduct>>>> getNextProductsFilter(
       {required ProductType productType, DocumentSnapshot? lastDoc});
 
+  Future<XResult<List<DocumentSnapshot<XProduct>>>> getNextProductsSearch(
+      {String? name, DocumentSnapshot? lastDoc});
+
   Future<XResult<List<XProduct>>> addProduct();
 }

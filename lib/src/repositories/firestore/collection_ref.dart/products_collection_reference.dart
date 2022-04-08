@@ -4,6 +4,7 @@ import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/base_collection_reference.dart';
 import 'package:e_commerce/src/utils/enum/product_type.dart';
+import 'package:e_commerce/src/utils/enum/extension.dart';
 
 class ProductCollectionReference extends BaseCollectionReference<XProduct> {
   ProductCollectionReference()
@@ -44,8 +45,6 @@ class ProductCollectionReference extends BaseCollectionReference<XProduct> {
               .get();
 
       List<DocumentSnapshot<XProduct>> docs = query.docs;
-      //   print(lastDoc);
-
       return XResult.success(docs);
     } catch (e) {
       return XResult.exception(e);
@@ -63,6 +62,35 @@ class ProductCollectionReference extends BaseCollectionReference<XProduct> {
       }
       batch.commit();
       return XResult.success(listProduct);
+    } catch (e) {
+      return XResult.exception(e);
+    }
+  }
+
+  Future<XResult<List<DocumentSnapshot<XProduct>>>> getNextProductsSearch(
+      {String? name, DocumentSnapshot? lastDoc}) async {
+    var value = (name ?? '').toTitleCase();
+    try {
+      if (name != '' && name != null) {
+        final QuerySnapshot<XProduct> query;
+        query = lastDoc != null
+            ? await ref
+                .where('name', isGreaterThanOrEqualTo: value)
+                .where('name', isLessThan: value + '\uf8ff')
+                .startAfterDocument(lastDoc)
+                .limit(8)
+                .get()
+            : await ref
+                .where('name', isGreaterThanOrEqualTo: value)
+                .where('name', isLessThan: value + '\uf8ff')
+                .limit(8)
+                .get();
+
+        List<DocumentSnapshot<XProduct>> docs = query.docs;
+        return XResult.success(docs);
+      } else {
+        return XResult.error('Error');
+      }
     } catch (e) {
       return XResult.exception(e);
     }
