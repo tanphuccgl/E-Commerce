@@ -36,8 +36,8 @@ class ProductDetailsCoordinator {
       context.router.push(ReviewRoute(data: data));
 
   static showRelatedProduct(BuildContext context, {required XProduct data}) {
-    return context.router
-        .push(ProductDetailsWrapperRoute(data: data, id: data.id));
+    // return context.router
+    //     .push(ProductDetailsWrapperRoute(data: data, id: data.id));
   }
 
   static showWriteReview(BuildContext context, {required XProduct data}) {

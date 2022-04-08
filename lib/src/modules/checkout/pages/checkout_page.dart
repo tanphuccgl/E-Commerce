@@ -26,7 +26,7 @@ class CheckoutPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 15),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

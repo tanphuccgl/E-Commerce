@@ -95,7 +95,6 @@ class FavoritesPage extends StatelessWidget {
             elevation: 3,
             isShowFilterBar: true,
             filterBarWidget: _filterBarWidget(),
-            isShowTagChip: true,
             onPressedSearch: () =>
                 FavoritesCoordinator.showSearchProductByFavorite(context),
             unSelectTagChip: true),
