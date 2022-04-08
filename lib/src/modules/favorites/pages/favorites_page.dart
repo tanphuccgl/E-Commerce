@@ -22,64 +22,61 @@ class FavoritesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => PaginateFavoritesBloc(),
-        child: BlocBuilder<PaginateFavoritesBloc, PaginateFavoritesState>(
-          builder: (context, paginateState) {
-            return BlocBuilder<FavoriteBloc, FavoriteState>(
-                builder: (context, state) {
-              final List<XProduct> items =
-                  ((paginateState.docs.data as List<DocumentSnapshot>?) ?? [])
-                      .map((e) => e.data() as XProduct)
-                      .toList();
-              state.sortBy.sortList(items: items);
-              return Scaffold(
-                  backgroundColor: state.viewType.backgroundColor(),
-                  body: CustomPaginate(
-                      paginate: paginateState.docs,
-                      fetchFirstData: () => context
-                          .read<PaginateFavoritesBloc>()
-                          .fetchFirstData(),
-                      fetchNextData: () =>
-                          context.read<PaginateFavoritesBloc>().fetchNextData(),
-                      header: _header(context),
-                      body: (state.viewType.index == 0
-                          ? SliverList(
-                              delegate:
-                                  SliverChildBuilderDelegate((context, index) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                    top: 10,
-                                  ),
-                                  child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8, horizontal: 16),
-                                      child: XProductCardFavoriteHorizontal(
-                                          data: items[index])),
-                                );
-                              }, childCount: items.length),
-                            )
-                          : SliverGrid(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                mainAxisSpacing: 10,
-                                crossAxisSpacing: 0,
-                                childAspectRatio: 164 / 280 + 0.1,
+    return BlocBuilder<PaginateFavoritesBloc, PaginateFavoritesState>(
+      builder: (context, paginateState) {
+        return BlocBuilder<FavoriteBloc, FavoriteState>(
+            builder: (context, state) {
+          final List<XProduct> items =
+              ((paginateState.docs.data as List<DocumentSnapshot>?) ?? [])
+                  .map((e) => e.data() as XProduct)
+                  .toList();
+
+          state.sortBy.sortList(items: items);
+          return Scaffold(
+              backgroundColor: state.viewType.backgroundColor(),
+              body: CustomPaginate(
+                  paginate: paginateState.docs,
+                  fetchFirstData: () =>
+                      context.read<PaginateFavoritesBloc>().fetchFirstData(),
+                  fetchNextData: () =>
+                      context.read<PaginateFavoritesBloc>().fetchNextData(),
+                  header: _header(context),
+                  body: (state.viewType.index == 0
+                      ? SliverList(
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                top: 10,
                               ),
-                              delegate:
-                                  SliverChildBuilderDelegate((context, index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                                  child: XProductCardFavoriteVertical(
-                                      data: items[index]),
-                                );
-                              }, childCount: items.length),
-                            ))));
-            });
-          },
-        ));
+                              child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 16),
+                                  child: XProductCardFavoriteHorizontal(
+                                      data: items[index])),
+                            );
+                          }, childCount: items.length),
+                        )
+                      : SliverGrid(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 0,
+                            childAspectRatio: 164 / 280 + 0.1,
+                          ),
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
+                              child: XProductCardFavoriteVertical(
+                                  data: items[index]),
+                            );
+                          }, childCount: items.length),
+                        ))));
+        });
+      },
+    );
   }
 
   Widget _header(BuildContext context) {
