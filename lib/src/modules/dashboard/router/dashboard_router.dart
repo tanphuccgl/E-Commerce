@@ -70,8 +70,9 @@ class DashboardCoordinator {
   static showPaymentMethod(BuildContext context) =>
       context.router.push(const PaymentMethodRoute());
 
-  static showShippingAddresses(BuildContext context) =>
+   static showShippingAddresses(BuildContext context) =>
       context.router.push(const ShippingAddressesRoute());
   static showSuccess(BuildContext context) =>
       context.router.push(const SuccessRoute());
+
 }
