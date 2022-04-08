@@ -2,12 +2,15 @@ import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
+import 'package:e_commerce/src/modules/favorites/logic/paginate_favorites_bloc.dart';
 import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
+import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:e_commerce/src/utils/enum/color_type.dart';
 import 'package:e_commerce/src/utils/enum/size_type.dart';
 import 'package:e_commerce/src/utils/enum/sort_by.dart';
 import 'package:e_commerce/src/utils/enum/view_type.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,7 +21,22 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
       : super(FavoriteState(
             listFavorite: XHandle.initial(),
             items: XHandle.initial(),
-            searchList: XHandle.completed([])));
+            searchList: XHandle.completed([]))) {
+    getProduct();
+  }
+
+  @override
+  Future<void> getProduct() async {
+    User? currentUser = AuthService().currentUser;
+    final value = await domain.favorite.getProductToFavorite();
+    if (value.isSuccess) {
+      List<XProduct> items = [...(state.listFavorite.data ?? [])];
+      items = (value.data ?? [])
+          .where((e) => e.idUser == currentUser?.uid)
+          .toList();
+      emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
+    } else {}
+  }
 
   Future<void> addProductToFavorite(BuildContext context,
       {required XProduct product, required String sizeType}) async {
@@ -53,6 +71,7 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
       );
 
       emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
+      context.read<PaginateFavoritesBloc>().fetchFirstData();
 
       XSnackBar.show(msg: 'Favorite success');
       XCoordinator.pop(context);
@@ -106,6 +125,7 @@ class FavoriteBloc extends ListProductsFilterBloc<FavoriteState> {
       );
 
       emit(state.copyWithItem(listFavorite: XHandle.completed(items)));
+      context.read<PaginateFavoritesBloc>().fetchFirstData();
       getProduct();
 
       XSnackBar.show(msg: 'Remove Product success');
