@@ -1,7 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/modules/auth/sign_up/logic/sign_up_bloc.dart';
-
 import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
 import 'package:e_commerce/src/modules/auth/widgets/bottom_sign.dart';
 import 'package:e_commerce/src/modules/auth/widgets/header_sign.dart';
@@ -18,10 +17,6 @@ class SignUpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     const paddingHori = 16.0;
-
-    final sizeHeightBody = size.height -
-        MediaQuery.of(context).padding.bottom -
-        MediaQuery.of(context).padding.top;
     final paddingAppbar = MediaQuery.of(context).padding.top;
 
     return BlocProvider(
@@ -32,93 +27,78 @@ class SignUpPage extends StatelessWidget {
                 extendBodyBehindAppBar: true,
                 appBar: const AppBarSign(),
                 body: SingleChildScrollView(
-                  child: SizedBox(
-                    height: sizeHeightBody,
-                    child: Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          paddingHori, paddingAppbar, paddingHori, 0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          const HeaderSign(
-                            title: "Sign up",
-                          ),
-                          Column(
-                            children: [
-                              XTextField(
-                                label: "Name",
-                                value: state.name,
-                                textInputType: TextInputType.name,
-                                errorText: state.isValidName,
-                                onChanged: (value) => context
-                                    .read<SignUpBloc>()
-                                    .changedName(value),
-                              ),
-                              XTextField(
-                                label: "Email",
-                                value: state.email,
-                                textInputType: TextInputType.emailAddress,
-                                errorText: state.isValidEmail,
-                                onChanged: (value) => context
-                                    .read<SignUpBloc>()
-                                    .changedEmail(value),
-                              ),
-                              XTextField(
-                                value: state.password,
-                                label: "Password",
-                                obscureText: true,
-                                errorText: state.isValidPassword,
-                                onChanged: (value) => context
-                                    .read<SignUpBloc>()
-                                    .changedPassword(value),
-                              ),
-                              Align(
-                                alignment: Alignment.centerRight,
-                                child: XTextButtonCus(
-                                  title: "Already have an account?",
-                                  onPressed: () {
-                                    SignCoordinator.showLogin(context);
-                                  },
-                                ),
-                              ),
-                              state.isLoading
-                                  ? const CircularProgressIndicator()
-                                  : XButton(
-                                      width: size.width,
-                                      label: "SIGN UP",
-                                      onPressed: state.isValidSignUp
-                                          ? () {
-                                              context
-                                                  .read<SignUpBloc>()
-                                                  .createAccount(context);
-                                            }
-                                          : null,
-                                      height: 48,
-                                    ),
-                              state.messageError.isEmpty
-                                  ? const SizedBox.shrink()
-                                  : Center(
-                                      child: Text(
-                                      state.messageError,
-                                      textAlign: TextAlign.center,
-                                      style: const TextStyle(
-                                          color: MyColors.colorPrimary,
-                                          fontWeight: FontWeight.w500),
-                                    ))
-                            ],
-                          ),
-                          const Spacer(),
-                          BottomSign(
-                            title: "Or sign up with social account",
-                            onClickGoogle: () {
-                              context.read<SignUpBloc>().withGoogle(context);
+                  child: Padding(
+                    padding: EdgeInsets.fromLTRB(
+                        paddingHori, paddingAppbar, paddingHori, 0),
+                    child: Column(
+                      children: [
+                        const HeaderSign(
+                          title: "Sign up",
+                        ),
+                        XTextField(
+                          label: "Name",
+                          value: state.name,
+                          textInputType: TextInputType.name,
+                          errorText: state.isValidName,
+                          onChanged: (value) =>
+                              context.read<SignUpBloc>().changedName(value),
+                        ),
+                        XTextField(
+                          label: "Email",
+                          value: state.email,
+                          textInputType: TextInputType.emailAddress,
+                          errorText: state.isValidEmail,
+                          onChanged: (value) =>
+                              context.read<SignUpBloc>().changedEmail(value),
+                        ),
+                        XTextField(
+                          value: state.password,
+                          label: "Password",
+                          obscureText: true,
+                          errorText: state.isValidPassword,
+                          onChanged: (value) =>
+                              context.read<SignUpBloc>().changedPassword(value),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: XTextButtonCus(
+                            title: "Already have an account?",
+                            onPressed: () {
+                              SignCoordinator.showLogin(context);
                             },
                           ),
-                          const SizedBox(
-                            height: 15,
-                          )
-                        ],
-                      ),
+                        ),
+                        state.isLoading
+                            ? const CircularProgressIndicator()
+                            : XButton(
+                                width: size.width,
+                                label: "SIGN UP",
+                                onPressed: state.isValidSignUp
+                                    ? () => context
+                                        .read<SignUpBloc>()
+                                        .createAccount(context)
+                                    : null,
+                                height: 48,
+                              ),
+                        state.messageError.isEmpty
+                            ? const SizedBox.shrink()
+                            : Center(
+                                child: Text(
+                                state.messageError,
+                                textAlign: TextAlign.center,
+                                style: const TextStyle(
+                                    color: MyColors.colorPrimary,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                        BottomSign(
+                          title: "Or sign up with social account",
+                          onClickGoogle: () =>
+                              context.read<SignUpBloc>().withGoogle(context),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        )
+                      ],
                     ),
                   ),
                 ));

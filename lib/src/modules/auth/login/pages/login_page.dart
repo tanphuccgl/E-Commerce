@@ -71,13 +71,11 @@ class LoginPage extends StatelessWidget {
                                   width: size.width,
                                   label: "LOGIN",
                                   onPressed: state.isValidLogin
-                                      ? () {
-                                          context
-                                              .read<LoginBloc>()
-                                              .loginWithEmailAndPassword(
-                                                context,
-                                              );
-                                        }
+                                      ? () => context
+                                          .read<LoginBloc>()
+                                          .loginWithEmailAndPassword(
+                                            context,
+                                          )
                                       : null,
                                   height: 48,
                                 ),
@@ -96,9 +94,8 @@ class LoginPage extends StatelessWidget {
                       const Spacer(),
                       BottomSign(
                           title: "Or login with social account",
-                          onClickGoogle: () {
-                            context.read<LoginBloc>().withGoogle(context);
-                          }),
+                          onClickGoogle: () =>
+                              context.read<LoginBloc>().withGoogle(context)),
                       const SizedBox(height: 15),
                     ],
                   ),

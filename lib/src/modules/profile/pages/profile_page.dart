@@ -35,7 +35,7 @@ class ProfilePage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: size.height * 0.018,
+              height: size.height * 0.010,
             ),
             BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
               var email = state.data.email ?? 'N/A';
