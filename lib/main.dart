@@ -4,6 +4,7 @@ import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
+import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (_) => AccountBloc(AccountState(data: XUser.empty()))),
+        BlocProvider(create: (_) => ShippingAddressBloc()),
       ],
       child: MaterialApp.router(
         theme: XTheme.light(),

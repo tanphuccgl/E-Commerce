@@ -5,13 +5,13 @@ class XTextFieldShippingAddress extends StatefulWidget {
   final String label;
   final TextInputType textInputType;
   final bool isShowPopUp;
-
   final Function(String) onChanged;
   final String errorText;
   final String value;
   final bool readOnly;
   final bool isAction;
   final Function()? onTap;
+
   const XTextFieldShippingAddress(
       {Key? key,
       required this.value,
@@ -34,6 +34,7 @@ class _XTextFieldShippingAddressState extends State<XTextFieldShippingAddress> {
   late TextEditingController _controller;
   String get value => widget.value;
   bool isShowPopUp = false;
+
   @override
   void initState() {
     _controller = TextEditingController(text: widget.value);
@@ -57,7 +58,7 @@ class _XTextFieldShippingAddressState extends State<XTextFieldShippingAddress> {
 
   Widget? _buildAction() {
     final List<Widget> actions = [];
-    if (value.isNotEmpty && widget.isAction) {
+    if (value.isNotEmpty && widget.isAction && widget.isShowPopUp == false) {
       actions.add(IconButton(
         icon: const Icon(
           Icons.cancel,

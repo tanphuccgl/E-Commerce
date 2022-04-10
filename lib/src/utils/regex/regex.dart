@@ -15,10 +15,10 @@ class XRegex {
     RegExp(r'ỳ|ý|ỵ|ỷ|ỹ'),
     RegExp(r'Ỳ|Ý|Ỵ|Ỷ|Ỹ'),
   ];
-  // RegExp(r'^[a-z A-Z,.\-]+$')
   static final nameVietnameseRegex = RegExp(
       r'^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$');
   static final priceRegex = RegExp(r'([.]*0)(?!.*\d)');
   static final emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  static final onlyNumberRegex = RegExp(r'^[0-9]+$');
 }
