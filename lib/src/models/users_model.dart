@@ -56,7 +56,11 @@ class XUser extends BaseModel {
     data['urlAvatar'] = urlAvatar;
     data['birthDay'] = birthDay;
     data['accountType'] = accountType;
-    data['paymentMethods'] = paymentMethods!.map((v) => v.toJson()).toList();
+    if (data['paymentMethods'] != null) {
+      data['paymentMethods'] = paymentMethods!.map((v) => v.toJson()).toList();
+    } else {
+      data['paymentMethods'] = [];
+    }
 
     return data;
   }
