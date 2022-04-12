@@ -84,9 +84,11 @@ class AddShippingAddressPage extends StatelessWidget {
                   XButton(
                     label: 'SAVE ADDRESS',
                     height: 48,
-                    onPressed: () => context
-                        .read<ShippingAddressBloc>()
-                        .saveAddress(context),
+                    onPressed: state.isValidSaveAddress
+                        ? () => context
+                            .read<ShippingAddressBloc>()
+                            .saveAddress(context)
+                        : null,
                     width: double.infinity,
                   )
                 ],

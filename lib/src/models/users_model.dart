@@ -22,6 +22,14 @@ class XUser extends BaseModel {
       : super(id: id);
 
   factory XUser.fromJson(Map<String, dynamic> json, {String? id}) {
+    //print();
+    // var list = json['shippingAddresses'] as List;
+
+    // List<XShippingAddress>? itemsList =
+    //     list.map((i) => XShippingAddress.fromJson(i)).toList();
+
+    // print("asf ${itemsList.length}");
+    // // print(list.length);
     return XUser(
         name: json['name'],
         email: json['email'],
@@ -29,7 +37,9 @@ class XUser extends BaseModel {
         urlAvatar: json['urlAvatar'],
         birthDay: json['birthDay'],
         accountType: json['accountType'],
-        shippingAddresses: json['shippingAddresses']);
+        shippingAddresses: (json['shippingAddresses'] as List)
+            .map((e) => XShippingAddress.fromJson(e))
+            .toList());
   }
 
   factory XUser.fromFirebaseUser(User user) {
@@ -54,7 +64,8 @@ class XUser extends BaseModel {
     data['urlAvatar'] = urlAvatar;
     data['birthDay'] = birthDay;
     data['accountType'] = accountType;
-    data['shippingAddresses'] = shippingAddresses;
+    data['shippingAddresses'] =
+        shippingAddresses!.map((v) => v.toJson()).toList();
 
     return data;
   }

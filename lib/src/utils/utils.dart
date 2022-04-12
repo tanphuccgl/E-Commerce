@@ -34,7 +34,6 @@ class XUtils {
     if (password.isEmpty) {
       message = "Please enter vaild password";
     }
-
     return message;
   }
 
@@ -46,7 +45,6 @@ class XUtils {
     if (name.isEmpty) {
       message = 'Please enter valid name';
     }
-
     return message;
   }
 
@@ -55,7 +53,6 @@ class XUtils {
     if (day.isEmpty) {
       message = 'Please enter valid birth day';
     }
-
     return message;
   }
 
@@ -69,15 +66,11 @@ class XUtils {
     if (name.isEmpty) {
       message = 'Please enter valid name';
     }
-
     return message;
   }
 
   static String isValidAddress(String address) {
     String message = "";
-    if (!address.contains(XRegex.onlyNumberRegex)) {
-      message = "Address cannot contain special characters";
-    }
     if (address.isEmpty) {
       message = 'Please enter valid address';
     }

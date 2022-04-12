@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/shipping_address_model.dart';
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/utils/enum/countries_info.dart';
 import 'package:e_commerce/src/utils/utils.dart';
@@ -45,6 +46,7 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
       var value = await domain.address.addShippingAddress(data);
 
       if (value.isSuccess) {
+        context.read<AccountBloc>().setDataLogin(context, user: value.data);
         XCoordinator.pop(context);
         XSnackBar.show(msg: "Create success");
       } else {
