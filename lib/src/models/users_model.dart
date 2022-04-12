@@ -22,14 +22,6 @@ class XUser extends BaseModel {
       : super(id: id);
 
   factory XUser.fromJson(Map<String, dynamic> json, {String? id}) {
-    //print();
-    // var list = json['shippingAddresses'] as List;
-
-    // List<XShippingAddress>? itemsList =
-    //     list.map((i) => XShippingAddress.fromJson(i)).toList();
-
-    // print("asf ${itemsList.length}");
-    // // print(list.length);
     return XUser(
         name: json['name'],
         email: json['email'],
@@ -64,8 +56,10 @@ class XUser extends BaseModel {
     data['urlAvatar'] = urlAvatar;
     data['birthDay'] = birthDay;
     data['accountType'] = accountType;
-    data['shippingAddresses'] =
-        shippingAddresses!.map((v) => v.toJson()).toList();
+    if (shippingAddresses != null) {
+      data['shippingAddresses'] =
+          shippingAddresses!.map((v) => v.toJson()).toList();
+    }
 
     return data;
   }
