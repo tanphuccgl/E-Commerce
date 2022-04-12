@@ -95,4 +95,21 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
           zipCode: data.zipCode.toString(),
           country: state.country.toCountriesInfo(data.country))));
   void initialState() => emit((const ShippingAddressState()));
+  Future<void> removeAddress(BuildContext context,
+      {required XShippingAddress data}) async {
+    var value = await domain.address.removeShippingAddress(data);
+
+    if (value.isSuccess) {
+      final List<XShippingAddress> items = [...(state.items ?? [])];
+      items.remove(data);
+
+      emit(state.copyWith(items: items));
+
+      context.read<AccountBloc>().setDataLogin(context, user: value.data);
+
+      XSnackBar.show(msg: "Remove success");
+    } else {
+      XSnackBar.show(msg: "Remove failure");
+    }
+  }
 }

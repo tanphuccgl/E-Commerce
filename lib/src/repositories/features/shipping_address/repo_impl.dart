@@ -59,4 +59,33 @@ class ShippingAddressRepositoryImpl implements ShippingAddressRepository {
       return XResult.error(e.toString());
     }
   }
+
+  @override
+  Future<XResult> removeShippingAddress(XShippingAddress data) async {
+    User? currentUser = AuthService().currentUser;
+
+    try {
+      var value =
+          await UserCollectionReference().get(currentUser?.uid ?? "N/A");
+      var user = value.data ?? XUser();
+      List<XShippingAddress> shippingAddresses = (user.shippingAddresses ?? []);
+
+      shippingAddresses.removeWhere(
+        (e) => e.id == data.id,
+      );
+      var dataUser = XUser(
+          email: user.email,
+          name: user.name,
+          id: user.id,
+          urlAvatar: user.urlAvatar,
+          birthDay: user.birthDay,
+          accountType: user.accountType,
+          shippingAddresses: shippingAddresses);
+
+      UserCollectionReference().set(dataUser);
+      return XResult.success(dataUser);
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
 }

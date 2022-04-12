@@ -1,7 +1,9 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/shipping_address_model.dart';
+import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
 import 'package:e_commerce/src/modules/shipping_address/router/shipping_address_router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CardShippingAddresses extends StatelessWidget {
   const CardShippingAddresses({Key? key, required this.data}) : super(key: key);
@@ -37,12 +39,23 @@ class CardShippingAddresses extends StatelessWidget {
                         color: MyColors.colorBlack,
                         fontWeight: FontWeight.w500,
                         height: 1.42)),
+                const Spacer(),
                 TextButton(
                     onPressed: () =>
                         ShippingAddressCoordinator.showEditShippingAddress(
                             context,
                             data: data),
                     child: const Text('Edit',
+                        style: TextStyle(
+                            fontSize: 14,
+                            color: MyColors.colorPrimary,
+                            fontWeight: FontWeight.w500,
+                            height: 1.42))),
+                TextButton(
+                    onPressed: () => context
+                        .read<ShippingAddressBloc>()
+                        .removeAddress(context, data: data),
+                    child: const Text('Remove',
                         style: TextStyle(
                             fontSize: 14,
                             color: MyColors.colorPrimary,
