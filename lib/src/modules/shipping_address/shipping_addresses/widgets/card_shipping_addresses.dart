@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/shipping_address_model.dart';
+import 'package:e_commerce/src/modules/shipping_address/router/shipping_address_router.dart';
 import 'package:flutter/material.dart';
 
 class CardShippingAddresses extends StatelessWidget {
@@ -37,7 +38,10 @@ class CardShippingAddresses extends StatelessWidget {
                         fontWeight: FontWeight.w500,
                         height: 1.42)),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () =>
+                        ShippingAddressCoordinator.showEditShippingAddress(
+                            context,
+                            data: data),
                     child: const Text('Edit',
                         style: TextStyle(
                             fontSize: 14,

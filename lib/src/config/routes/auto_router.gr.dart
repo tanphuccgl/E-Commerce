@@ -11,12 +11,12 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i11;
-import 'package:flutter/material.dart' as _i29;
+import 'package:flutter/material.dart' as _i30;
 
-import '../../models/products_model.dart' as _i30;
-import '../../modules/auth/login/pages/login_page.dart' as _i27;
+import '../../models/products_model.dart' as _i31;
+import '../../modules/auth/login/pages/login_page.dart' as _i28;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
-import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i28;
+import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i29;
 import '../../modules/cart/pages/cart_page.dart' as _i17;
 import '../../modules/checkout/pages/checkout_page.dart' as _i18;
 import '../../modules/dashboard/pages/dashboard_page.dart' as _i4;
@@ -37,6 +37,8 @@ import '../../modules/review/pages/review_page.dart' as _i24;
 import '../../modules/settings/pages/setting_page.dart' as _i22;
 import '../../modules/shipping_address/adding_shipping_address/pages/adding_shipping_address_page.dart'
     as _i26;
+import '../../modules/shipping_address/edit_shipping_address/edit_shipping_address_page.dart'
+    as _i27;
 import '../../modules/shipping_address/router/shipping_address_wrapper_router.dart'
     as _i7;
 import '../../modules/shipping_address/shipping_addresses/pages/shipping_addresses_page.dart'
@@ -48,7 +50,7 @@ import '../../modules/view_all_products/pages/view_all_products_page.dart'
     as _i13;
 
 class XRouter extends _i11.RootStackRouter {
-  XRouter([_i29.GlobalKey<_i29.NavigatorState>? navigatorKey])
+  XRouter([_i30.GlobalKey<_i30.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
@@ -174,13 +176,19 @@ class XRouter extends _i11.RootStackRouter {
       return _i11.MaterialPageX<dynamic>(
           routeData: routeData, child: const _i26.AddShippingAddressPage());
     },
+    EditShippingAddressRoute.name: (routeData) {
+      final args = routeData.argsAs<EditShippingAddressRouteArgs>();
+      return _i11.MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: _i27.EditShippingAddressPage(key: args.key, id: args.id));
+    },
     LoginRoute.name: (routeData) {
       return _i11.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i27.LoginPage());
+          routeData: routeData, child: const _i28.LoginPage());
     },
     SignUpRoute.name: (routeData) {
       return _i11.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i28.SignUpPage());
+          routeData: routeData, child: const _i29.SignUpPage());
     }
   };
 
@@ -301,6 +309,9 @@ class XRouter extends _i11.RootStackRouter {
                         path: '', parent: ShippingAddressesWrapperRoute.name),
                     _i11.RouteConfig(AddShippingAddressRoute.name,
                         path: 'add_shipping_address',
+                        parent: ShippingAddressesWrapperRoute.name),
+                    _i11.RouteConfig(EditShippingAddressRoute.name,
+                        path: 'edit_shipping_address',
                         parent: ShippingAddressesWrapperRoute.name)
                   ]),
               _i11.RouteConfig(SuccessRoute.name,
@@ -375,8 +386,8 @@ class ProductDetailsWrapperRoute
     extends _i11.PageRouteInfo<ProductDetailsWrapperRouteArgs> {
   ProductDetailsWrapperRoute(
       {required String id,
-      _i30.XProduct? data,
-      _i29.Key? key,
+      _i31.XProduct? data,
+      _i30.Key? key,
       List<_i11.PageRouteInfo>? children})
       : super(ProductDetailsWrapperRoute.name,
             path: 'product/:id',
@@ -392,9 +403,9 @@ class ProductDetailsWrapperRouteArgs {
 
   final String id;
 
-  final _i30.XProduct? data;
+  final _i31.XProduct? data;
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
   @override
   String toString() {
@@ -577,7 +588,7 @@ class ProductDetailsRoute extends _i11.PageRouteInfo<void> {
 /// generated route for
 /// [_i24.ReviewPage]
 class ReviewRoute extends _i11.PageRouteInfo<ReviewRouteArgs> {
-  ReviewRoute({_i29.Key? key, required _i30.XProduct data})
+  ReviewRoute({_i30.Key? key, required _i31.XProduct data})
       : super(ReviewRoute.name,
             path: 'review', args: ReviewRouteArgs(key: key, data: data));
 
@@ -587,9 +598,9 @@ class ReviewRoute extends _i11.PageRouteInfo<ReviewRouteArgs> {
 class ReviewRouteArgs {
   const ReviewRouteArgs({this.key, required this.data});
 
-  final _i29.Key? key;
+  final _i30.Key? key;
 
-  final _i30.XProduct data;
+  final _i31.XProduct data;
 
   @override
   String toString() {
@@ -615,7 +626,32 @@ class AddShippingAddressRoute extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i27.LoginPage]
+/// [_i27.EditShippingAddressPage]
+class EditShippingAddressRoute
+    extends _i11.PageRouteInfo<EditShippingAddressRouteArgs> {
+  EditShippingAddressRoute({_i30.Key? key, required String id})
+      : super(EditShippingAddressRoute.name,
+            path: 'edit_shipping_address',
+            args: EditShippingAddressRouteArgs(key: key, id: id));
+
+  static const String name = 'EditShippingAddressRoute';
+}
+
+class EditShippingAddressRouteArgs {
+  const EditShippingAddressRouteArgs({this.key, required this.id});
+
+  final _i30.Key? key;
+
+  final String id;
+
+  @override
+  String toString() {
+    return 'EditShippingAddressRouteArgs{key: $key, id: $id}';
+  }
+}
+
+/// generated route for
+/// [_i28.LoginPage]
 class LoginRoute extends _i11.PageRouteInfo<void> {
   const LoginRoute() : super(LoginRoute.name, path: 'login');
 
@@ -623,7 +659,7 @@ class LoginRoute extends _i11.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i28.SignUpPage]
+/// [_i29.SignUpPage]
 class SignUpRoute extends _i11.PageRouteInfo<void> {
   const SignUpRoute() : super(SignUpRoute.name, path: 'register');
 

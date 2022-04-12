@@ -8,8 +8,9 @@ import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddShippingAddressPage extends StatelessWidget {
-  const AddShippingAddressPage({Key? key}) : super(key: key);
+class EditShippingAddressPage extends StatelessWidget {
+  const EditShippingAddressPage({Key? key, required this.id}) : super(key: key);
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class AddShippingAddressPage extends StatelessWidget {
           appBar: XDefaultAppBar(
               backgroundColor: MyColors.colorBackground,
               elevation: 1,
-              title: 'Adding Shipping Address',
+              title: 'Editing Shipping Address',
               style: XStyle.textTheme().headlineSmall),
           body: SingleChildScrollView(
             child: Padding(
@@ -82,12 +83,12 @@ class AddShippingAddressPage extends StatelessWidget {
                     isShowPopUp: true,
                   ),
                   XButton(
-                    label: 'SAVE ADDRESS',
+                    label: 'SAVE CHANGES',
                     height: 48,
                     onPressed: state.isValidSaveAddress
                         ? () => context
                             .read<ShippingAddressBloc>()
-                            .addAddress(context)
+                            .updateAddress(context, id: id)
                         : null,
                     width: double.infinity,
                   )

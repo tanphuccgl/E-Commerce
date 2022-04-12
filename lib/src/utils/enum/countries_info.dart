@@ -37,4 +37,28 @@ extension CountriesInfoExt on CountriesInfo {
   bool selectedCountry(CountriesInfo value) {
     return value == this ? true : false;
   }
+
+  CountriesInfo toCountriesInfo(String name) {
+    switch (name) {
+      case 'Russia':
+        return CountriesInfo.russia;
+      case 'Antarctica':
+        return CountriesInfo.antarctica;
+      case 'Canada':
+        return CountriesInfo.canada;
+      case 'China':
+        return CountriesInfo.china;
+      case 'United States':
+        return CountriesInfo.unitedStates;
+      case 'Brazil':
+        return CountriesInfo.brazil;
+      case 'Australia':
+        return CountriesInfo.australia;
+      case 'India':
+        return CountriesInfo.india;
+
+      default:
+        return CountriesInfo.unitedStates;
+    }
+  }
 }

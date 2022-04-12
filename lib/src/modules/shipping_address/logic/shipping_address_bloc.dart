@@ -31,7 +31,7 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
   void changeCountry(CountriesInfo countriesInfo) =>
       emit(state.copyWith(country: countriesInfo, pureCountry: true));
 
-  Future<void> saveAddress(BuildContext context) async {
+  Future<void> addAddress(BuildContext context) async {
     if (state.isValidSaveAddress) {
       var id = XUtils.getRandomString(10);
       final data = XShippingAddress(
@@ -59,5 +59,40 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
     }
   }
 
+  Future<void> updateAddress(BuildContext context, {required String id}) async {
+    if (state.isValidSaveAddress) {
+      final data = XShippingAddress(
+          name: state.name,
+          address: state.address,
+          city: state.city,
+          id: id,
+          country: state.nameCountry,
+          province: state.province,
+          zipCode: int.parse(state.zipCode));
+
+      var value = await domain.address.updateShippingAddress(data);
+
+      if (value.isSuccess) {
+        final List<XShippingAddress> items = [...(state.items ?? [])];
+
+        emit(state.copyWith(items: items));
+
+        context.read<AccountBloc>().setDataLogin(context, user: value.data);
+        XCoordinator.pop(context);
+        XSnackBar.show(msg: "Update success");
+      } else {
+        XSnackBar.show(msg: "Update failure");
+      }
+    }
+  }
+
+  void getDetailShippingAddress({required XShippingAddress data}) =>
+      emit((ShippingAddressState(
+          address: data.address,
+          name: data.name,
+          city: data.city,
+          province: data.province,
+          zipCode: data.zipCode.toString(),
+          country: state.country.toCountriesInfo(data.country))));
   void initialState() => emit((const ShippingAddressState()));
 }
