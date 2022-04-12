@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:e_commerce/src/utils/regex/regex.dart';
 import 'package:intl/intl.dart';
 
@@ -60,5 +62,72 @@ class XUtils {
   static String dateTimeReview() {
     var date = DateTime.now();
     return DateFormat("MMMM d,yyyy").format(date);
+  }
+
+  static String isValidNamePaymentMethod(String name) {
+    String message = "";
+    if (name.isEmpty) {
+      message = 'Please enter valid name';
+    }
+    return message;
+  }
+
+  static String isValidAddress(String address) {
+    String message = "";
+    if (address.isEmpty) {
+      message = 'Please enter valid address';
+    }
+
+    return message;
+  }
+
+  static String isValidCardNumber(String number) {
+    String message = "";
+    if (!number.contains(XRegex.onlyNumberRegex)) {
+      message = "Card Numebr can only contain numbers";
+    }
+    if (number.isEmpty) {
+      message = 'Please enter valid card number';
+    }
+    if (number.length != 16) {
+      message = 'Invalid card number';
+    }
+
+    return message;
+  }
+
+  static String isValidCVV(String cvv) {
+    String message = "";
+    if (!cvv.contains(XRegex.onlyNumberRegex)) {
+      message = "CVV can only contain numbers";
+    }
+    if (cvv.isEmpty) {
+      message = 'Please enter valid cvv';
+    }
+    if (cvv.length != 3) {
+      message = 'Invalid zip cvv';
+    }
+
+    return message;
+  }
+
+  static String isValidCity(String city) {
+    String message = "";
+    if (!city.contains(XRegex.nameVietnameseRegex)) {
+      message = "City cannot contain special characters or number";
+    }
+    if (city.isEmpty) {
+      message = 'Please enter valid city';
+    }
+
+    return message;
+  }
+
+  static String getRandomString(int length) {
+    const _chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    Random _rnd = Random();
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 }

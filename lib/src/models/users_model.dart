@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
+import 'package:e_commerce/src/models/payment_methods_models.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class XUser extends BaseModel {
@@ -8,25 +9,29 @@ class XUser extends BaseModel {
   String? urlAvatar;
   String? birthDay;
   String? accountType;
+  List<XPaymentMethod>? paymentMethods;
 
-  XUser(
-      {this.name,
-      this.email,
-      String id = "",
-      this.urlAvatar,
-      this.birthDay,
-      this.accountType})
-      : super(id: id);
+  XUser({
+    this.name,
+    this.email,
+    String id = "",
+    this.urlAvatar,
+    this.birthDay,
+    this.accountType,
+    this.paymentMethods,
+  }) : super(id: id);
 
   factory XUser.fromJson(Map<String, dynamic> json, {String? id}) {
     return XUser(
-      name: json['name'],
-      email: json['email'],
-      id: id ?? json['id'],
-      urlAvatar: json['urlAvatar'],
-      birthDay: json['birthDay'],
-      accountType: json['accountType'],
-    );
+        name: json['name'],
+        email: json['email'],
+        id: id ?? json['id'],
+        urlAvatar: json['urlAvatar'],
+        birthDay: json['birthDay'],
+        accountType: json['accountType'],
+        paymentMethods: (json['paymentMethods'] as List)
+            .map((e) => XPaymentMethod.fromJson(e))
+            .toList());
   }
 
   factory XUser.fromFirebaseUser(User user) {
@@ -51,6 +56,7 @@ class XUser extends BaseModel {
     data['urlAvatar'] = urlAvatar;
     data['birthDay'] = birthDay;
     data['accountType'] = accountType;
+    data['paymentMethods'] = paymentMethods!.map((v) => v.toJson()).toList();
 
     return data;
   }

@@ -13,11 +13,14 @@ class XTextFieldPayment extends StatefulWidget {
   final bool readOnly;
   final bool isAction;
   final Function()? onTap;
+  final String errorText;
+
   const XTextFieldPayment(
       {Key? key,
       required this.value,
       required this.label,
       required this.onChanged,
+      required this.errorText,
       this.isShowTypeCard = false,
       this.onTap,
       this.isAction = true,
@@ -133,8 +136,9 @@ class _XTextFieldPaymentState extends State<XTextFieldPayment> {
           decoration: InputDecoration(
               labelText: widget.label,
               suffixIcon: _buildAction(),
+              errorText: widget.errorText,
               errorStyle: const TextStyle(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.normal,
               ),
               border: InputBorder.none,
               hintText: widget.label,

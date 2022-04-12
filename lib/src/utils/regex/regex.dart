@@ -21,4 +21,5 @@ class XRegex {
   static final priceRegex = RegExp(r'([.]*0)(?!.*\d)');
   static final emailRegex = RegExp(
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+  static final onlyNumberRegex = RegExp(r'^[0-9]+$');
 }

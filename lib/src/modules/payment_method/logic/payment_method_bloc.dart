@@ -1,0 +1,138 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
+import 'package:e_commerce/src/models/payment_methods_models.dart';
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
+import 'package:e_commerce/src/repositories/domain.dart';
+import 'package:e_commerce/src/utils/utils.dart';
+import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+part 'payment_method_state.dart';
+
+class PaymentMethodBloc extends Cubit<PaymentMethodState> {
+  PaymentMethodBloc() : super(const PaymentMethodState());
+
+  Domain domain = Domain();
+
+  void changeName(String name) =>
+      emit(state.copyWith(name: name, pureName: true));
+  void changeNumberCard(String number) =>
+      emit(state.copyWith(cardNumber: number, pureCardNumber: true));
+  void changeExpireDate(String expireDate) =>
+      emit(state.copyWith(expireDate: expireDate, pureExpireDate: true));
+
+  void changeCVV(String cvv) => emit(state.copyWith(cvv: cvv, pureCVV: true));
+  void changeType(int type) => emit(state.copyWith(type: type));
+
+  Future<void> addPaymentMethod(BuildContext context) async {
+    if (state.isValidAddCard) {
+      var id = XUtils.getRandomString(10);
+      final data = XPaymentMethod(
+        name: state.name,
+        cardNumber: int.parse(state.cardNumber),
+        expireDate: state.expireDate,
+        id: id,
+        setDefault: false,
+        type: state.type,
+        cvv: int.parse(state.cvv),
+      );
+
+      var value = await domain.paymentMethod.addPaymentMethod(data);
+
+      if (value.isSuccess) {
+        final List<XPaymentMethod> items = [...(state.items ?? []), data];
+
+        emit(state.copyWith(items: items));
+
+        context.read<AccountBloc>().setDataLogin(context, user: value.data);
+        XCoordinator.pop(context);
+        XSnackBar.show(msg: "Create success");
+      } else {
+        XSnackBar.show(msg: "Create failure");
+      }
+    }
+  }
+
+  Future<void> updatePaymentMethod(BuildContext context,
+      {required String id, required bool setDefalut}) async {
+    if (state.isValidAddCard) {
+      final data = XPaymentMethod(
+        name: state.name,
+        cardNumber: int.parse(state.cardNumber),
+        expireDate: state.expireDate,
+        id: id,
+        type: state.type,
+        setDefault: setDefalut,
+        cvv: int.parse(state.cvv),
+      );
+
+      var value = await domain.paymentMethod.updatePaymentMethod(data);
+
+      if (value.isSuccess) {
+        final List<XPaymentMethod> items = [...(state.items ?? [])];
+
+        emit(state.copyWith(items: items));
+
+        context.read<AccountBloc>().setDataLogin(context, user: value.data);
+        XCoordinator.pop(context);
+        XSnackBar.show(msg: "Update success");
+      } else {
+        XSnackBar.show(msg: "Update failure");
+      }
+    }
+  }
+
+  void getDetailPaymentMethod({required XPaymentMethod data}) =>
+      emit((PaymentMethodState(
+          name: data.name,
+          cardNumber: data.cardNumber.toString(),
+          expireDate: data.expireDate,
+          type: data.type,
+          cvv: data.cvv.toString())));
+
+  void initialState() => emit((const PaymentMethodState()));
+  Future<void> removeAddress(BuildContext context,
+      {required XPaymentMethod data}) async {
+    var value = await domain.paymentMethod.removePaymentMethod(data);
+
+    if (value.isSuccess) {
+      final List<XPaymentMethod> items = [...(state.items ?? [])];
+      items.remove(data);
+
+      emit(state.copyWith(items: items));
+
+      context.read<AccountBloc>().setDataLogin(context, user: value.data);
+
+      XSnackBar.show(msg: "Remove success");
+    } else {
+      XSnackBar.show(msg: "Remove failure");
+    }
+  }
+
+  // Future<void> changeDefaultAddress(BuildContext context,
+  //     {required String id, required XPaymentMethod data}) async {
+  //   if (state.isValidAddCard) {
+  //     final xPaymentMethod = XPaymentMethod(
+  //       name: data.name,
+  //       cardNumber: data.cardNumber,
+  //       expireDate: data.expireDate,
+  //       id: id,
+  //       setDefault: !data.setDefault,
+  //       cvv: data.cvv,
+  //       type: data.type,
+  //     );
+
+  //     var value =
+  //         await domain.paymentMethod.setDefaultPaymentMethod(xPaymentMethod);
+
+  //     if (value.isSuccess) {
+  //       final List<XPaymentMethod> items = [...(state.items ?? [])];
+
+  //       emit(state.copyWith(items: items));
+
+  //       context.read<AccountBloc>().setDataLogin(context, user: value.data);
+  //     }
+  //   }
+  // }
+}

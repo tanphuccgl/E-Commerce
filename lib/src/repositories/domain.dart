@@ -4,6 +4,8 @@ import 'package:e_commerce/src/repositories/features/cart/repo.dart';
 import 'package:e_commerce/src/repositories/features/cart/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/favorite/repo.dart';
 import 'package:e_commerce/src/repositories/features/favorite/repo_impl.dart';
+import 'package:e_commerce/src/repositories/features/payment_method/repo.dart';
+import 'package:e_commerce/src/repositories/features/payment_method/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/profile/repo.dart';
 import 'package:e_commerce/src/repositories/features/profile/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/categories/repo.dart';
@@ -29,6 +31,7 @@ class Domain {
     cart = CartRepositoryImpl();
     promotion = PromotionRepositoryImpl();
     review = ReviewRepositoryImpl();
+    paymentMethod = PaymentMethodRepositoryImpl();
   }
   factory Domain() {
     _internal ??= Domain._();
@@ -44,4 +47,5 @@ class Domain {
   late final CartRepository cart;
   late final PromotionRepository promotion;
   late final ReviewRepository review;
+  late final PaymentMethodRepository paymentMethod;
 }
