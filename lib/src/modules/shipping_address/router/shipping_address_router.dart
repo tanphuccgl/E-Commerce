@@ -45,6 +45,6 @@ class ShippingAddressCoordinator {
   static showEditShippingAddress(BuildContext context,
       {required XShippingAddress data}) {
     context.read<ShippingAddressBloc>().getDetailShippingAddress(data: data);
-    context.router.push(EditShippingAddressRoute(id: data.id));
+    context.router.push(EditShippingAddressRoute(data: data));
   }
 }

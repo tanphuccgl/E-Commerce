@@ -52,20 +52,21 @@ class ShippingAddressState extends Equatable {
         : false;
   }
 
-  const ShippingAddressState(
-      {this.name = '',
-      this.address = '',
-      this.city = '',
-      this.country = CountriesInfo.unitedStates,
-      this.province = '',
-      this.zipCode = '',
-      this.pureAddress = false,
-      this.pureCity = false,
-      this.pureCountry = false,
-      this.pureName = false,
-      this.pureProvince = false,
-      this.pureZipCode = false,
-      this.items});
+  const ShippingAddressState({
+    this.name = '',
+    this.address = '',
+    this.city = '',
+    this.country = CountriesInfo.unitedStates,
+    this.province = '',
+    this.zipCode = '',
+    this.pureAddress = false,
+    this.pureCity = false,
+    this.pureCountry = false,
+    this.pureName = false,
+    this.pureProvince = false,
+    this.pureZipCode = false,
+    this.items,
+  });
   @override
   List<Object?> get props => [
         name,
@@ -80,7 +81,7 @@ class ShippingAddressState extends Equatable {
         pureName,
         pureProvince,
         pureZipCode,
-        items
+        items,
       ];
 
   ShippingAddressState copyWith({

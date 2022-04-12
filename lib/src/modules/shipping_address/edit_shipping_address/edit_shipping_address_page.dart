@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
+import 'package:e_commerce/src/models/shipping_address_model.dart';
 import 'package:e_commerce/src/modules/shipping_address/adding_shipping_address/widgets/alert_dialog_country.dart';
 import 'package:e_commerce/src/modules/shipping_address/adding_shipping_address/widgets/text_field_shipping_address.dart';
 import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
@@ -9,8 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditShippingAddressPage extends StatelessWidget {
-  const EditShippingAddressPage({Key? key, required this.id}) : super(key: key);
-  final String id;
+  const EditShippingAddressPage({Key? key, required this.data})
+      : super(key: key);
+  final XShippingAddress data;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +90,8 @@ class EditShippingAddressPage extends StatelessWidget {
                     onPressed: state.isValidSaveAddress
                         ? () => context
                             .read<ShippingAddressBloc>()
-                            .updateAddress(context, id: id)
+                            .updateAddress(context,
+                                id: data.id, setDefalut: data.setDefault)
                         : null,
                     width: double.infinity,
                   )

@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/shipping_address_model.dart';
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
 import 'package:e_commerce/src/modules/shipping_address/router/shipping_address_router.dart';
 import 'package:flutter/material.dart';
@@ -84,33 +85,39 @@ class CardShippingAddresses extends StatelessWidget {
           ),
           Padding(
               padding: const EdgeInsets.fromLTRB(15, 0, 0, 0),
-              child: _shippingAddressDefault())
+              child: _shippingAddressDefault(context))
         ],
       ),
     );
   }
-}
 
-Widget _shippingAddressDefault() {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Checkbox(
-        value: true,
-        activeColor: MyColors.colorBlack,
-        onChanged: (value) {},
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
-        ),
-      ),
-      const Text(
-        'Use as the shipping address',
-        style: TextStyle(
-            color: MyColors.colorBlack,
-            height: 1.42,
-            fontSize: 14,
-            fontWeight: FontWeight.normal),
-      )
-    ],
-  );
+  Widget _shippingAddressDefault(BuildContext context) {
+    return BlocBuilder<AccountBloc, AccountState>(
+      builder: (context, state) {
+        return Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Checkbox(
+              value: data.setDefault,
+              activeColor: MyColors.colorBlack,
+              onChanged: (value) => context
+                  .read<ShippingAddressBloc>()
+                  .changeDefaultAddress(context, id: data.id, data: data),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+            ),
+            const Text(
+              'Use as the shipping address',
+              style: TextStyle(
+                  color: MyColors.colorBlack,
+                  height: 1.42,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal),
+            )
+          ],
+        );
+      },
+    );
+  }
 }

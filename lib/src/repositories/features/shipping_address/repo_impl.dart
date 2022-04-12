@@ -8,6 +8,39 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class ShippingAddressRepositoryImpl implements ShippingAddressRepository {
   @override
+  Future<XResult<XUser>> setDefaultShippingAddress(
+      XShippingAddress data) async {
+    User? currentUser = AuthService().currentUser;
+
+    try {
+      var value =
+          await UserCollectionReference().get(currentUser?.uid ?? "N/A");
+      var user = value.data ?? XUser();
+      List<XShippingAddress> shippingAddresses = (user.shippingAddresses ?? []);
+
+      for (int i = 0; i < shippingAddresses.length; i++) {
+        shippingAddresses[i].setDefault = false;
+      }
+      shippingAddresses[shippingAddresses.indexWhere((e) => e.id == data.id)] =
+          data;
+
+      var dataUser = XUser(
+          email: user.email,
+          name: user.name,
+          id: user.id,
+          urlAvatar: user.urlAvatar,
+          birthDay: user.birthDay,
+          accountType: user.accountType,
+          shippingAddresses: shippingAddresses);
+
+      UserCollectionReference().set(dataUser);
+      return XResult.success(dataUser);
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
+
+  @override
   Future<XResult<XUser>> addShippingAddress(XShippingAddress data) async {
     User? currentUser = AuthService().currentUser;
 

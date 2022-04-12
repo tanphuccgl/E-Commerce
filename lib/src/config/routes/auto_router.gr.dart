@@ -11,9 +11,11 @@
 // ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i11;
+import 'package:flutter/cupertino.dart' as _i32;
 import 'package:flutter/material.dart' as _i30;
 
 import '../../models/products_model.dart' as _i31;
+import '../../models/shipping_address_model.dart' as _i33;
 import '../../modules/auth/login/pages/login_page.dart' as _i28;
 import '../../modules/auth/login/router/sign_wrapper_router.dart' as _i2;
 import '../../modules/auth/sign_up/pages/sign_up_page.dart' as _i29;
@@ -180,7 +182,7 @@ class XRouter extends _i11.RootStackRouter {
       final args = routeData.argsAs<EditShippingAddressRouteArgs>();
       return _i11.MaterialPageX<dynamic>(
           routeData: routeData,
-          child: _i27.EditShippingAddressPage(key: args.key, id: args.id));
+          child: _i27.EditShippingAddressPage(key: args.key, data: args.data));
     },
     LoginRoute.name: (routeData) {
       return _i11.MaterialPageX<dynamic>(
@@ -387,7 +389,7 @@ class ProductDetailsWrapperRoute
   ProductDetailsWrapperRoute(
       {required String id,
       _i31.XProduct? data,
-      _i30.Key? key,
+      _i32.Key? key,
       List<_i11.PageRouteInfo>? children})
       : super(ProductDetailsWrapperRoute.name,
             path: 'product/:id',
@@ -405,7 +407,7 @@ class ProductDetailsWrapperRouteArgs {
 
   final _i31.XProduct? data;
 
-  final _i30.Key? key;
+  final _i32.Key? key;
 
   @override
   String toString() {
@@ -588,7 +590,7 @@ class ProductDetailsRoute extends _i11.PageRouteInfo<void> {
 /// generated route for
 /// [_i24.ReviewPage]
 class ReviewRoute extends _i11.PageRouteInfo<ReviewRouteArgs> {
-  ReviewRoute({_i30.Key? key, required _i31.XProduct data})
+  ReviewRoute({_i32.Key? key, required _i31.XProduct data})
       : super(ReviewRoute.name,
             path: 'review', args: ReviewRouteArgs(key: key, data: data));
 
@@ -598,7 +600,7 @@ class ReviewRoute extends _i11.PageRouteInfo<ReviewRouteArgs> {
 class ReviewRouteArgs {
   const ReviewRouteArgs({this.key, required this.data});
 
-  final _i30.Key? key;
+  final _i32.Key? key;
 
   final _i31.XProduct data;
 
@@ -629,24 +631,24 @@ class AddShippingAddressRoute extends _i11.PageRouteInfo<void> {
 /// [_i27.EditShippingAddressPage]
 class EditShippingAddressRoute
     extends _i11.PageRouteInfo<EditShippingAddressRouteArgs> {
-  EditShippingAddressRoute({_i30.Key? key, required String id})
+  EditShippingAddressRoute({_i32.Key? key, required _i33.XShippingAddress data})
       : super(EditShippingAddressRoute.name,
             path: 'edit_shipping_address',
-            args: EditShippingAddressRouteArgs(key: key, id: id));
+            args: EditShippingAddressRouteArgs(key: key, data: data));
 
   static const String name = 'EditShippingAddressRoute';
 }
 
 class EditShippingAddressRouteArgs {
-  const EditShippingAddressRouteArgs({this.key, required this.id});
+  const EditShippingAddressRouteArgs({this.key, required this.data});
 
-  final _i30.Key? key;
+  final _i32.Key? key;
 
-  final String id;
+  final _i33.XShippingAddress data;
 
   @override
   String toString() {
-    return 'EditShippingAddressRouteArgs{key: $key, id: $id}';
+    return 'EditShippingAddressRouteArgs{key: $key, data: $data}';
   }
 }
 

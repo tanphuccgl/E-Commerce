@@ -8,6 +8,7 @@ class XShippingAddress extends BaseModel {
   String province;
   int zipCode;
   String country;
+  bool setDefault;
 
   XShippingAddress({
     this.name = '',
@@ -17,18 +18,19 @@ class XShippingAddress extends BaseModel {
     this.province = '',
     this.zipCode = 0,
     this.country = '',
+    this.setDefault = false,
   }) : super(id: id);
 
   factory XShippingAddress.fromJson(Map<String, dynamic> json) {
     return XShippingAddress(
-      name: json['name'],
-      address: json['address'],
-      id: json['id'],
-      city: json['city'],
-      province: json['province'],
-      zipCode: json['zipCode'],
-      country: json['country'],
-    );
+        name: json['name'],
+        address: json['address'],
+        id: json['id'],
+        city: json['city'],
+        province: json['province'],
+        zipCode: json['zipCode'],
+        country: json['country'],
+        setDefault: json['setDefault']);
   }
 
   factory XShippingAddress.empty() {
@@ -47,6 +49,7 @@ class XShippingAddress extends BaseModel {
     data['province'] = province;
     data['zipCode'] = zipCode;
     data['country'] = country;
+    data['setDefault'] = setDefault;
 
     return data;
   }

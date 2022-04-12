@@ -39,6 +39,7 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
           address: state.address,
           city: state.city,
           id: id,
+          setDefault: false,
           country: state.nameCountry,
           province: state.province,
           zipCode: int.parse(state.zipCode));
@@ -59,13 +60,15 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
     }
   }
 
-  Future<void> updateAddress(BuildContext context, {required String id}) async {
+  Future<void> updateAddress(BuildContext context,
+      {required String id, required bool setDefalut}) async {
     if (state.isValidSaveAddress) {
       final data = XShippingAddress(
           name: state.name,
           address: state.address,
           city: state.city,
           id: id,
+          setDefault: setDefalut,
           country: state.nameCountry,
           province: state.province,
           zipCode: int.parse(state.zipCode));
@@ -110,6 +113,32 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
       XSnackBar.show(msg: "Remove success");
     } else {
       XSnackBar.show(msg: "Remove failure");
+    }
+  }
+
+  Future<void> changeDefaultAddress(BuildContext context,
+      {required String id, required XShippingAddress data}) async {
+    if (state.isValidSaveAddress) {
+      final xShippingAddress = XShippingAddress(
+          name: data.name,
+          address: data.address,
+          city: data.city,
+          id: id,
+          setDefault: !data.setDefault,
+          country: data.country,
+          province: data.province,
+          zipCode: int.parse(state.zipCode));
+
+      var value =
+          await domain.address.setDefaultShippingAddress(xShippingAddress);
+
+      if (value.isSuccess) {
+        final List<XShippingAddress> items = [...(state.items ?? [])];
+
+        emit(state.copyWith(items: items));
+
+        context.read<AccountBloc>().setDataLogin(context, user: value.data);
+      }
     }
   }
 }
