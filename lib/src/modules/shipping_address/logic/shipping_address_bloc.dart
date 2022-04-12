@@ -46,6 +46,10 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
       var value = await domain.address.addShippingAddress(data);
 
       if (value.isSuccess) {
+        final List<XShippingAddress> items = [...(state.items ?? []), data];
+
+        emit(state.copyWith(items: items));
+
         context.read<AccountBloc>().setDataLogin(context, user: value.data);
         XCoordinator.pop(context);
         XSnackBar.show(msg: "Create success");

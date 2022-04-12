@@ -13,6 +13,8 @@ class ShippingAddressState extends Equatable {
   final bool pureZipCode;
   final CountriesInfo country;
   final bool pureCountry;
+  final List<XShippingAddress>? items;
+
   String get nameCountry => country.value();
 
   String get isValidName {
@@ -62,7 +64,8 @@ class ShippingAddressState extends Equatable {
       this.pureCountry = false,
       this.pureName = false,
       this.pureProvince = false,
-      this.pureZipCode = false});
+      this.pureZipCode = false,
+      this.items});
   @override
   List<Object?> get props => [
         name,
@@ -77,6 +80,7 @@ class ShippingAddressState extends Equatable {
         pureName,
         pureProvince,
         pureZipCode,
+        items
       ];
 
   ShippingAddressState copyWith({
@@ -92,19 +96,22 @@ class ShippingAddressState extends Equatable {
     bool? pureProvince,
     bool? pureZipCode,
     bool? pureCountry,
+    List<XShippingAddress>? items,
   }) {
     return ShippingAddressState(
-        name: name ?? this.name,
-        address: address ?? this.address,
-        city: city ?? this.city,
-        province: province ?? this.province,
-        zipCode: zipCode ?? this.zipCode,
-        country: country ?? this.country,
-        pureAddress: pureAddress ?? this.pureAddress,
-        pureCity: pureCity ?? this.pureCity,
-        pureCountry: pureCountry ?? this.pureCountry,
-        pureName: pureName ?? this.pureName,
-        pureProvince: pureProvince ?? this.pureProvince,
-        pureZipCode: pureZipCode ?? this.pureZipCode);
+      name: name ?? this.name,
+      address: address ?? this.address,
+      city: city ?? this.city,
+      province: province ?? this.province,
+      zipCode: zipCode ?? this.zipCode,
+      country: country ?? this.country,
+      pureAddress: pureAddress ?? this.pureAddress,
+      pureCity: pureCity ?? this.pureCity,
+      pureCountry: pureCountry ?? this.pureCountry,
+      pureName: pureName ?? this.pureName,
+      pureProvince: pureProvince ?? this.pureProvince,
+      pureZipCode: pureZipCode ?? this.pureZipCode,
+      items: items ?? this.items,
+    );
   }
 }

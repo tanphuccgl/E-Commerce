@@ -1,8 +1,10 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/models/shipping_address_model.dart';
 import 'package:flutter/material.dart';
 
 class CardShippingAddresses extends StatelessWidget {
-  const CardShippingAddresses({Key? key}) : super(key: key);
+  const CardShippingAddresses({Key? key, required this.data}) : super(key: key);
+  final XShippingAddress data;
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,8 @@ class CardShippingAddresses extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const Text('Jane Doe',
-                    style: TextStyle(
+                Text(data.name,
+                    style: const TextStyle(
                         fontSize: 14,
                         color: MyColors.colorBlack,
                         fontWeight: FontWeight.w500,
@@ -48,16 +50,16 @@ class CardShippingAddresses extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(28, 0, 0, 0),
             child: RichText(
-              text: const TextSpan(
-                text: '3 Newbridge Court\n',
-                style: TextStyle(
+              text: TextSpan(
+                text: '${data.address}\n',
+                style: const TextStyle(
                     fontSize: 14,
                     height: 1.5,
                     fontWeight: FontWeight.normal,
                     color: MyColors.colorBlack),
                 children: <TextSpan>[
                   TextSpan(
-                    text: 'Chino Hills, CA 91709, United States',
+                    text: '${data.city}, ${data.province}, ${data.country}',
                   ),
                 ],
               ),
