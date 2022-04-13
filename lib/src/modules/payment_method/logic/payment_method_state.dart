@@ -10,6 +10,7 @@ class PaymentMethodState extends Equatable {
   final String cvv;
   final bool pureCVV;
   final int type;
+  final bool setDefault;
 
   final List<XPaymentMethod>? items;
 
@@ -44,6 +45,7 @@ class PaymentMethodState extends Equatable {
     this.pureName = false,
     this.items,
     this.type = 0,
+    this.setDefault=false,
   });
   @override
   List<Object?> get props => [
@@ -57,6 +59,7 @@ class PaymentMethodState extends Equatable {
         pureCVV,
         items,
         type,
+        setDefault,
       ];
 
   PaymentMethodState copyWith({
@@ -69,6 +72,7 @@ class PaymentMethodState extends Equatable {
     bool? pureExpireDate,
     bool? pureCVV,
     int? type,
+    bool? setDefault,
     List<XPaymentMethod>? items,
   }) {
     return PaymentMethodState(
@@ -81,7 +85,7 @@ class PaymentMethodState extends Equatable {
       pureExpireDate: pureExpireDate ?? this.pureExpireDate,
       pureName: pureName ?? this.pureName,
       items: items ?? this.items,
-      type: type ?? this.type,
+      type: type ?? this.type,setDefault: setDefault ?? this.setDefault,
     );
   }
 }

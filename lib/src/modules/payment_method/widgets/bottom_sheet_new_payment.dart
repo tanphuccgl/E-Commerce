@@ -110,25 +110,31 @@ class XBottomSheetNewPayment extends StatelessWidget {
 }
 
 Widget _setDefaultWidget() {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      Checkbox(
-        value: true,
-        activeColor: MyColors.colorBlack,
-        onChanged: (value) {},
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4.0),
-        ),
-      ),
-      const Text(
-        'Set as default payment method',
-        style: TextStyle(
-            color: MyColors.colorBlack,
-            height: 1,
-            fontSize: 14,
-            fontWeight: FontWeight.normal),
-      )
-    ],
+  return BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
+    builder: (context, state) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Checkbox(
+            value: state.setDefault,
+            activeColor: MyColors.colorBlack,
+            onChanged: (value) => context
+                .read<PaymentMethodBloc>()
+                .changeDefault(!state.setDefault),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4.0),
+            ),
+          ),
+          const Text(
+            'Set as default payment method',
+            style: TextStyle(
+                color: MyColors.colorBlack,
+                height: 1,
+                fontSize: 14,
+                fontWeight: FontWeight.normal),
+          )
+        ],
+      );
+    },
   );
 }

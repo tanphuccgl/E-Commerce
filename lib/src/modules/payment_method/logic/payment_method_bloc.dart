@@ -24,6 +24,8 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
 
   void changeCVV(String cvv) => emit(state.copyWith(cvv: cvv, pureCVV: true));
   void changeType(int type) => emit(state.copyWith(type: type));
+    void changeDefault(bool setDefault) => emit(state.copyWith(setDefault: setDefault));
+
 
   Future<void> addPaymentMethod(BuildContext context) async {
     if (state.isValidAddCard) {
@@ -33,7 +35,7 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
         cardNumber: int.parse(state.cardNumber),
         expireDate: state.expireDate,
         id: id,
-        setDefault: false,
+        setDefault: state.setDefault,
         type: state.type,
         cvv: int.parse(state.cvv),
       );
