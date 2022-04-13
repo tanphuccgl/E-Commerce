@@ -60,44 +60,6 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
     }
   }
 
-  Future<void> updatePaymentMethod(BuildContext context,
-      {required String id, required bool setDefalut}) async {
-    if (state.isValidAddCard) {
-      final data = XPaymentMethod(
-        name: state.name,
-        cardNumber: int.parse(state.cardNumber),
-        expireDate: state.expireDate,
-        id: id,
-        type: state.paymentType == PaymentType.mastercard ? 0 : 1,
-        setDefault: setDefalut,
-        cvv: int.parse(state.cvv),
-      );
-
-      var value = await domain.paymentMethod.updatePaymentMethod(data);
-
-      if (value.isSuccess) {
-        final List<XPaymentMethod> items = [...(state.items ?? [])];
-
-        emit(state.copyWith(items: items));
-
-        context.read<AccountBloc>().setDataLogin(context, user: value.data);
-        XCoordinator.pop(context);
-        XSnackBar.show(msg: "Update success");
-      } else {
-        XSnackBar.show(msg: "Update failure");
-      }
-    }
-  }
-
-  void getDetailPaymentMethod({required XPaymentMethod data}) =>
-      emit((PaymentMethodState(
-          name: data.name,
-          cardNumber: data.cardNumber.toString(),
-          expireDate: data.expireDate,
-          paymentType:
-              data.type == 0 ? PaymentType.mastercard : PaymentType.visa,
-          cvv: data.cvv.toString())));
-
   void initialState() => emit((const PaymentMethodState()));
   Future<void> removePayment(BuildContext context,
       {required XPaymentMethod data}) async {
