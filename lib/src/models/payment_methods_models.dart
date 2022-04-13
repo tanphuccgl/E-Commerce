@@ -43,7 +43,6 @@ class XPaymentMethod extends BaseModel {
     data['cardNumber'] = cardNumber;
     data['cvv'] = cvv;
     data['type'] = type;
-
     data['setDefault'] = setDefault;
 
     return data;

@@ -16,7 +16,7 @@ class PaymentMethodCoordinator {
       page: PaymentMethodPage,
       name: "PaymentMethodRoute");
   static showBottomSheetNewPayment(BuildContext context) {
-    //   context.read<PaymentMethodBloc>().initialState();
+    context.read<PaymentMethodBloc>().initialState();
     XBottomSheet.show(context, widget: const XBottomSheetNewPayment());
   }
 }
