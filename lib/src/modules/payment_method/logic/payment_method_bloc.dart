@@ -2,6 +2,7 @@ import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/payment_methods_models.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
+import 'package:e_commerce/src/utils/enum/payment_type.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:equatable/equatable.dart';
@@ -23,9 +24,9 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
       emit(state.copyWith(expireDate: expireDate, pureExpireDate: true));
 
   void changeCVV(String cvv) => emit(state.copyWith(cvv: cvv, pureCVV: true));
-  void changeType(int type) => emit(state.copyWith(type: type));
-    void changeDefault(bool setDefault) => emit(state.copyWith(setDefault: setDefault));
-
+  void changeType(PaymentType type) => emit(state.copyWith(paymentType: type));
+  void changeDefault(bool setDefault) =>
+      emit(state.copyWith(setDefault: setDefault));
 
   Future<void> addPaymentMethod(BuildContext context) async {
     if (state.isValidAddCard) {
@@ -36,18 +37,21 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
         expireDate: state.expireDate,
         id: id,
         setDefault: state.setDefault,
-        type: state.type,
+        type: state.paymentType == PaymentType.mastercard ? 0 : 1,
         cvv: int.parse(state.cvv),
       );
 
       var value = await domain.paymentMethod.addPaymentMethod(data);
+      var valueUpdate = await domain.paymentMethod.updatePaymentMethod(data);
 
-      if (value.isSuccess) {
+      if (value.isSuccess && valueUpdate.isSuccess) {
         final List<XPaymentMethod> items = [...(state.items ?? []), data];
 
         emit(state.copyWith(items: items));
 
-        context.read<AccountBloc>().setDataLogin(context, user: value.data);
+        context
+            .read<AccountBloc>()
+            .setDataLogin(context, user: valueUpdate.data);
         XCoordinator.pop(context);
         XSnackBar.show(msg: "Create success");
       } else {
@@ -64,7 +68,7 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
         cardNumber: int.parse(state.cardNumber),
         expireDate: state.expireDate,
         id: id,
-        type: state.type,
+        type: state.paymentType == PaymentType.mastercard ? 0 : 1,
         setDefault: setDefalut,
         cvv: int.parse(state.cvv),
       );
@@ -90,11 +94,12 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
           name: data.name,
           cardNumber: data.cardNumber.toString(),
           expireDate: data.expireDate,
-          type: data.type,
+          paymentType:
+              data.type == 0 ? PaymentType.mastercard : PaymentType.visa,
           cvv: data.cvv.toString())));
 
   void initialState() => emit((const PaymentMethodState()));
-  Future<void> removeAddress(BuildContext context,
+  Future<void> removePayment(BuildContext context,
       {required XPaymentMethod data}) async {
     var value = await domain.paymentMethod.removePaymentMethod(data);
 
@@ -112,29 +117,26 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
     }
   }
 
-  // Future<void> changeDefaultAddress(BuildContext context,
-  //     {required String id, required XPaymentMethod data}) async {
-  //   if (state.isValidAddCard) {
-  //     final xPaymentMethod = XPaymentMethod(
-  //       name: data.name,
-  //       cardNumber: data.cardNumber,
-  //       expireDate: data.expireDate,
-  //       id: id,
-  //       setDefault: !data.setDefault,
-  //       cvv: data.cvv,
-  //       type: data.type,
-  //     );
+  Future<void> changeDefaultPayment(BuildContext context,
+      {required String id, required XPaymentMethod data}) async {
+    final xPaymentMethod = XPaymentMethod(
+      name: data.name,
+      cardNumber: data.cardNumber,
+      expireDate: data.expireDate,
+      id: id,
+      setDefault: !data.setDefault,
+      cvv: data.cvv,
+      type: data.type,
+    );
 
-  //     var value =
-  //         await domain.paymentMethod.setDefaultPaymentMethod(xPaymentMethod);
+    var value = await domain.paymentMethod.updatePaymentMethod(xPaymentMethod);
 
-  //     if (value.isSuccess) {
-  //       final List<XPaymentMethod> items = [...(state.items ?? [])];
+    if (value.isSuccess) {
+      final List<XPaymentMethod> items = [...(state.items ?? [])];
 
-  //       emit(state.copyWith(items: items));
+      emit(state.copyWith(items: items));
 
-  //       context.read<AccountBloc>().setDataLogin(context, user: value.data);
-  //     }
-  //   }
-  // }
+      context.read<AccountBloc>().setDataLogin(context, user: value.data);
+    }
+  }
 }

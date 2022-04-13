@@ -1,9 +1,12 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_images.dart';
+import 'package:e_commerce/src/models/payment_methods_models.dart';
 import 'package:flutter/material.dart';
+import 'package:e_commerce/src/utils/enum/extension.dart';
 
 class PaymentCardMaster extends StatelessWidget {
-  const PaymentCardMaster({Key? key}) : super(key: key);
+  const PaymentCardMaster({Key? key, required this.data}) : super(key: key);
+  final XPaymentMethod data;
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +31,9 @@ class PaymentCardMaster extends StatelessWidget {
             MyImages.chipCardPayment,
             fit: BoxFit.cover,
           ),
-          const Text(
-            '* * * *  * * * *  * * * *  3947',
-            style: TextStyle(
+          Text(
+            '* * * *  * * * *  * * * *  ${data.cardNumber.toString().lastChars(4)}',
+            style: const TextStyle(
                 fontSize: 22,
                 color: MyColors.colorWhite,
                 fontWeight: FontWeight.bold,
@@ -41,34 +44,34 @@ class PaymentCardMaster extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RichText(
-                text: const TextSpan(
+                text: TextSpan(
                   text: 'Card Holder Name\n',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 10,
                       height: 1.42,
                       fontWeight: FontWeight.w600,
                       color: MyColors.colorWhite),
                   children: <TextSpan>[
                     TextSpan(
-                        text: 'Jennyfer Doe',
-                        style: TextStyle(
+                        text: data.name,
+                        style: const TextStyle(
                           fontSize: 14,
                         )),
                   ],
                 ),
               ),
               RichText(
-                text: const TextSpan(
+                text: TextSpan(
                   text: 'Expiry Date\n',
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 10,
                       height: 1.42,
                       fontWeight: FontWeight.w600,
                       color: MyColors.colorWhite),
                   children: <TextSpan>[
                     TextSpan(
-                        text: '05/23',
-                        style: TextStyle(
+                        text: data.expireDate,
+                        style: const TextStyle(
                           fontSize: 14,
                         )),
                   ],

@@ -9,7 +9,7 @@ class PaymentMethodState extends Equatable {
   final bool pureExpireDate;
   final String cvv;
   final bool pureCVV;
-  final int type;
+  final PaymentType paymentType;
   final bool setDefault;
 
   final List<XPaymentMethod>? items;
@@ -44,8 +44,8 @@ class PaymentMethodState extends Equatable {
     this.pureExpireDate = false,
     this.pureName = false,
     this.items,
-    this.type = 0,
-    this.setDefault=false,
+    this.paymentType = PaymentType.mastercard,
+    this.setDefault = false,
   });
   @override
   List<Object?> get props => [
@@ -58,7 +58,7 @@ class PaymentMethodState extends Equatable {
         pureExpireDate,
         pureCVV,
         items,
-        type,
+        paymentType,
         setDefault,
       ];
 
@@ -71,21 +71,21 @@ class PaymentMethodState extends Equatable {
     bool? pureCardNumber,
     bool? pureExpireDate,
     bool? pureCVV,
-    int? type,
+    PaymentType? paymentType,
     bool? setDefault,
     List<XPaymentMethod>? items,
   }) {
     return PaymentMethodState(
-      name: name ?? this.name,
-      cardNumber: cardNumber ?? this.cardNumber,
-      cvv: cvv ?? this.cvv,
-      expireDate: expireDate ?? this.expireDate,
-      pureCVV: pureCVV ?? this.pureCVV,
-      pureCardNumber: pureCardNumber ?? this.pureCardNumber,
-      pureExpireDate: pureExpireDate ?? this.pureExpireDate,
-      pureName: pureName ?? this.pureName,
-      items: items ?? this.items,
-      type: type ?? this.type,setDefault: setDefault ?? this.setDefault,
-    );
+        name: name ?? this.name,
+        cardNumber: cardNumber ?? this.cardNumber,
+        cvv: cvv ?? this.cvv,
+        expireDate: expireDate ?? this.expireDate,
+        pureCVV: pureCVV ?? this.pureCVV,
+        pureCardNumber: pureCardNumber ?? this.pureCardNumber,
+        pureExpireDate: pureExpireDate ?? this.pureExpireDate,
+        pureName: pureName ?? this.pureName,
+        items: items ?? this.items,
+        paymentType: paymentType ?? this.paymentType,
+        setDefault: setDefault ?? this.setDefault);
   }
 }
