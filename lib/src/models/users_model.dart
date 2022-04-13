@@ -59,6 +59,8 @@ class XUser extends BaseModel {
     if (shippingAddresses != null) {
       data['shippingAddresses'] =
           shippingAddresses!.map((v) => v.toJson()).toList();
+    } else {
+      data['shippingAddresses'] = [];
     }
 
     return data;

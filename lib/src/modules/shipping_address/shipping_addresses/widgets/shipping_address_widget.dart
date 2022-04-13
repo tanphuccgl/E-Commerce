@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/models/shipping_address_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +13,8 @@ class ShippingAddressWidget extends StatelessWidget {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
         var shippingAddressDefault = (state.data.shippingAddresses ?? [])
-            .where((e) => e.setDefault == true)
-            .first;
+            .singleWhere((e) => e.setDefault == true,
+                orElse: () => XShippingAddress(id: 'N/A'));
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -41,53 +42,77 @@ class ShippingAddressWidget extends StatelessWidget {
                         spreadRadius: 1)
                   ],
                   borderRadius: const BorderRadius.all(Radius.circular(8))),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(shippingAddressDefault.name,
-                          style: const TextStyle(
-                              fontSize: 14,
-                              color: MyColors.colorBlack,
-                              fontWeight: FontWeight.w500,
-                              height: 1.42)),
-                      TextButton(
-                          onPressed: () =>
-                              DashboardCoordinator.showShippingAddresses(
-                                  context),
-                          child: const Text('Change',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: MyColors.colorPrimary,
-                                  fontWeight: FontWeight.w500,
-                                  height: 1.42)))
-                    ],
-                  ),
-                  RichText(
-                    text: TextSpan(
-                      text: '${shippingAddressDefault.address}\n',
-                      style: const TextStyle(
-                          fontSize: 14,
-                          height: 1.5,
-                          fontWeight: FontWeight.normal,
-                          color: MyColors.colorBlack),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text:
-                              '${shippingAddressDefault.city}, ${shippingAddressDefault.province}, ${shippingAddressDefault.country}',
+              child: shippingAddressDefault.id == 'N/A'
+                  ? _emptyShippingAddress(context)
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(shippingAddressDefault.name,
+                                style: const TextStyle(
+                                    fontSize: 14,
+                                    color: MyColors.colorBlack,
+                                    fontWeight: FontWeight.w500,
+                                    height: 1.42)),
+                            _changeButton(context)
+                          ],
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: '${shippingAddressDefault.address}\n',
+                            style: const TextStyle(
+                                fontSize: 14,
+                                height: 1.5,
+                                fontWeight: FontWeight.normal,
+                                color: MyColors.colorBlack),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text:
+                                    '${shippingAddressDefault.city}, ${shippingAddressDefault.province}, ${shippingAddressDefault.country}',
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
             )
           ],
         );
       },
     );
+  }
+
+  Widget _emptyShippingAddress(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const Text(
+              'No shipping address yet',
+              style: TextStyle(color: Colors.black),
+            ),
+            _changeButton(context)
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _changeButton(BuildContext context) {
+    return TextButton(
+        onPressed: () => DashboardCoordinator.showShippingAddresses(context),
+        child: const Text('Change',
+            style: TextStyle(
+                fontSize: 14,
+                color: MyColors.colorPrimary,
+                fontWeight: FontWeight.w500,
+                height: 1.42)));
   }
 }

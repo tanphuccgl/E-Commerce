@@ -28,20 +28,24 @@ class ShippingAddressesPage extends StatelessWidget {
               style: XStyle.textTheme().headlineSmall),
           body: Stack(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: ListView.builder(
-                  itemBuilder: (context, index) {
-                    return Padding(
-                        padding: const EdgeInsets.only(bottom: 24),
-                        child: CardShippingAddresses(
-                          data: _items[index],
-                        ));
-                  },
-                  itemCount: _items.length,
-                  padding: const EdgeInsets.only(top: 36),
-                ),
-              ),
+              _items.isEmpty
+                  ? const Center(
+                      child: Text('Empty'),
+                    )
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: ListView.builder(
+                        itemBuilder: (context, index) {
+                          return Padding(
+                              padding: const EdgeInsets.only(bottom: 24),
+                              child: CardShippingAddresses(
+                                data: _items[index],
+                              ));
+                        },
+                        itemCount: _items.length,
+                        padding: const EdgeInsets.only(top: 36),
+                      ),
+                    ),
               Positioned(
                   bottom: 0,
                   right: 0,
