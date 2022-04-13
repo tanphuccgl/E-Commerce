@@ -15,7 +15,6 @@ class XRegex {
     RegExp(r'ỳ|ý|ỵ|ỷ|ỹ'),
     RegExp(r'Ỳ|Ý|Ỵ|Ỷ|Ỹ'),
   ];
-  // RegExp(r'^[a-z A-Z,.\-]+$')
   static final nameVietnameseRegex = RegExp(
       r'^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s]+$');
   static final priceRegex = RegExp(r'([.]*0)(?!.*\d)');
