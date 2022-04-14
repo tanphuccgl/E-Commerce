@@ -3,6 +3,7 @@ import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/logic/bottom_bar_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/logic/paginate_favorites_bloc.dart';
+import 'package:e_commerce/src/modules/order/logic/order_bloc.dart';
 import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
 import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
@@ -31,6 +32,7 @@ class DashboardWrapperPage extends StatelessWidget {
           BlocProvider(create: (_) => CategoriesBloc()),
           BlocProvider(create: (_) => PromotionBloc()),
           BlocProvider(create: (_) => ViewAllProductsBloc()),
+          BlocProvider(create: (_) => OrderBloc()),
         ],
         child: WillPopScope(
             onWillPop: () async => false,

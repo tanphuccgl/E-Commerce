@@ -97,7 +97,7 @@ class PromotionCard extends StatelessWidget {
                         height: 36,
                         onPressed: () => context
                             .read<PromotionBloc>()
-                            .changedPromoCode(data.code),
+                            .changedPromoCode(context, code: data.code),
                         width: 93,
                       )
                     ],

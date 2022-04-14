@@ -1,12 +1,15 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
+import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/checkout/widgets/delivery_method_widget.dart';
-import 'package:e_commerce/src/modules/payment_method/widgets/payment_widget.dart';
-import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
-import 'package:e_commerce/src/modules/shipping_address/shipping_addresses/widgets/shipping_address_widget.dart';
 import 'package:e_commerce/src/modules/checkout/widgets/sums_widget.dart';
+import 'package:e_commerce/src/modules/order/logic/order_bloc.dart';
+import 'package:e_commerce/src/modules/payment_method/widgets/payment_widget.dart';
+import 'package:e_commerce/src/modules/shipping_address/shipping_addresses/widgets/shipping_address_widget.dart';
 import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CheckoutPage extends StatelessWidget {
   const CheckoutPage({Key? key}) : super(key: key);
@@ -46,11 +49,35 @@ class CheckoutPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              XButton(
-                label: 'SUBMIT ORDER',
-                height: 48,
-                width: 343,
-                onPressed: () => DashboardCoordinator.showSuccess(context),
+              BlocBuilder<AccountBloc, AccountState>(
+                builder: (context, state) {
+                  return BlocBuilder<CartBloc, CartState>(
+                    builder: (context, cartState) {
+                      final items = cartState.productsOfCart.data ?? [];
+
+                      return BlocBuilder<OrderBloc, OrderState>(
+                        builder: (context, orderState) {
+                          return XButton(
+                            label: 'SUBMIT ORDER',
+                            height: 48,
+                            width: 343,
+                            onPressed: () => context
+                                .read<OrderBloc>()
+                                .submitOrder(context,
+                                    paymentMethod: state.paymentMethodDefault,
+                                    shippingAddress:
+                                        state.shippingAddressDefault,
+                                    listProducts: items,
+                                    total: cartState.totalPrice(
+                                            promoCode: orderState
+                                                .promotionData.discount) +
+                                        15.0),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
               )
             ],
           ),

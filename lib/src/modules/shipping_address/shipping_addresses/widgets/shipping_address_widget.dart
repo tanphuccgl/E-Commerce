@@ -1,5 +1,4 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:e_commerce/src/models/shipping_address_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +11,8 @@ class ShippingAddressWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        var shippingAddressDefault = (state.data.shippingAddresses ?? [])
-            .singleWhere((e) => e.setDefault == true,
-                orElse: () => XShippingAddress(id: 'N/A'));
+        var shippingAddressDefault = state.shippingAddressDefault;
+
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -27,8 +27,9 @@ class XBottomSheetPromotion extends StatelessWidget {
             child: Column(
               children: <Widget>[
                 PromoCodeWidget(
-                  onChanged: (value) =>
-                      context.read<PromotionBloc>().changedPromoCode(value),
+                  onChanged: (value) => context
+                      .read<PromotionBloc>()
+                      .changedPromoCode(context, code: value),
                   onPressedArrowIcon: () => XCoordinator.pop(context),
                   value: state.promoCode,
                 ),
