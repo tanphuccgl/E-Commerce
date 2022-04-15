@@ -4,7 +4,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
-        android:label="E- Commerce"
+        android:label="E-Commerce"
         android:icon="@mipmap/launcher_icon"
         android:requestLegacyExternalStorage="true"
 >
@@ -32,6 +32,7 @@
               android:name="io.flutter.embedding.android.SplashScreenDrawable"
               android:resource="@drawable/launch_background"
               />
+              
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

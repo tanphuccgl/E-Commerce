@@ -37,11 +37,17 @@ class ListTileProfile extends StatelessWidget {
           title: 'Promocodes',
           onTap: () {}),
       XFunctionProfile(
-          subtitle: 'Reviews for 4 items', title: 'My reviews', onTap: () {}),
+          subtitle: 'Reviews for 4 items',
+          title: 'My reviews',
+          onTap: () => ProfileCoordinator.showNotification(context)),
       XFunctionProfile(
-          subtitle: 'Notifications, password',
+          subtitle: 'Infomation, password',
           title: 'Settings',
           onTap: () => ProfileCoordinator.showSetting(context)),
+      XFunctionProfile(
+          subtitle: 'Notifications',
+          title: 'Notification',
+          onTap: () => ProfileCoordinator.showNotification(context)),
     ];
     return Column(
         children: ListTile.divideTiles(

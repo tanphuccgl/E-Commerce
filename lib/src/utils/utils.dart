@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:e_commerce/src/utils/regex/regex.dart';
 import 'package:intl/intl.dart';
 
@@ -60,5 +62,17 @@ class XUtils {
   static String dateTimeReview() {
     var date = DateTime.now();
     return DateFormat("MMMM d,yyyy").format(date);
+  }
+
+  static String dateTimeNotification(DateTime date) {
+    return DateFormat("MMMM d,yyyy").format(date);
+  }
+
+  static String getRandomString(int length) {
+    const _chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    Random _rnd = Random();
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 }
