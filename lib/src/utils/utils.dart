@@ -61,6 +61,14 @@ class XUtils {
     return DateFormat("MMMM d,yyyy").format(date);
   }
 
+  static String isValidNamePaymentMethod(String name) {
+    String message = "";
+    if (name.isEmpty) {
+      message = 'Please enter valid name';
+    }
+    return message;
+  }
+
   static String isValidNameShippingAddress(String name) {
     String message = "";
     if (name.isEmpty) {
@@ -75,6 +83,20 @@ class XUtils {
       message = 'Please enter valid address';
     }
 
+    return message;
+  }
+
+  static String isValidCardNumber(String number) {
+    String message = "";
+    if (!number.contains(XRegex.onlyNumberRegex)) {
+      message = "Card Numebr can only contain numbers";
+    }
+    if (number.isEmpty) {
+      message = 'Please enter valid card number';
+    }
+    if (number.length != 16) {
+      message = 'Invalid card number';
+    }
     return message;
   }
 
@@ -100,6 +122,20 @@ class XUtils {
       message = 'Please enter valid province';
     }
 
+    return message;
+  }
+
+  static String isValidCVV(String cvv) {
+    String message = "";
+    if (!cvv.contains(XRegex.onlyNumberRegex)) {
+      message = "CVV can only contain numbers";
+    }
+    if (cvv.isEmpty) {
+      message = 'Please enter valid cvv';
+    }
+    if (cvv.length != 3) {
+      message = 'Invalid zip cvv';
+    }
     return message;
   }
 

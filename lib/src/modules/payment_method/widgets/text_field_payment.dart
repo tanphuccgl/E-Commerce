@@ -1,7 +1,9 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/config/themes/style.dart';
+import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
 import 'package:e_commerce/src/utils/enum/payment_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XTextFieldPayment extends StatefulWidget {
   final String label;
@@ -13,11 +15,15 @@ class XTextFieldPayment extends StatefulWidget {
   final bool readOnly;
   final bool isAction;
   final Function()? onTap;
+
+  final String errorText;
+
   const XTextFieldPayment(
       {Key? key,
       required this.value,
       required this.label,
       required this.onChanged,
+      required this.errorText,
       this.isShowTypeCard = false,
       this.onTap,
       this.isAction = true,
@@ -35,7 +41,7 @@ class _XTextFieldPaymentState extends State<XTextFieldPayment> {
   String get value => widget.value;
   bool isShowHelp = false;
   bool isShowTypeCard = false;
-  bool switchCard = true;
+  bool masterCard = true;
   @override
   void initState() {
     _controller = TextEditingController(text: widget.value);
@@ -73,21 +79,26 @@ class _XTextFieldPaymentState extends State<XTextFieldPayment> {
       ));
     }
     if (widget.isShowTypeCard && widget.isAction) {
-      actions.add(
-        IconButton(
-          icon: Image.asset(
-            switchCard
-                ? PaymentType.mastercard.logoOf()
-                : PaymentType.visa.logoOf(),
-            color: switchCard ? null : Colors.blue,
-          ),
-          onPressed: () {
-            setState(() {
-              switchCard = !switchCard;
-            });
-          },
-        ),
-      );
+      actions.add(BlocBuilder<PaymentMethodBloc, PaymentMethodState>(
+        builder: (context, state) {
+          return IconButton(
+            icon: Image.asset(
+              masterCard
+                  ? PaymentType.mastercard.logoOf()
+                  : PaymentType.visa.logoOf(),
+              color: masterCard ? null : Colors.blue,
+            ),
+            onPressed: () {
+              setState(() {
+                masterCard = !masterCard;
+              });
+              PaymentType paymentType =
+                  masterCard ? PaymentType.mastercard : PaymentType.visa;
+              context.read<PaymentMethodBloc>().changeType(paymentType);
+            },
+          );
+        },
+      ));
     }
     if (widget.isShowHelp && widget.isAction) {
       actions.add(
@@ -133,8 +144,9 @@ class _XTextFieldPaymentState extends State<XTextFieldPayment> {
           decoration: InputDecoration(
               labelText: widget.label,
               suffixIcon: _buildAction(),
+              errorText: widget.errorText,
               errorStyle: const TextStyle(
-                fontWeight: FontWeight.w500,
+                fontWeight: FontWeight.normal,
               ),
               border: InputBorder.none,
               hintText: widget.label,
