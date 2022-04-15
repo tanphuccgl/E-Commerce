@@ -128,6 +128,10 @@ class XUtils {
     return message;
   }
 
+  static String dateTimeNotification(DateTime date) {
+    return DateFormat("MMMM d,yyyy").format(date);
+  }
+
   static String getRandomString(int length) {
     const _chars =
         'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
