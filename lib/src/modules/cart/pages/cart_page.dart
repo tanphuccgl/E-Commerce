@@ -81,8 +81,9 @@ class CartPage extends StatelessWidget {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(16, 25, 16, 28),
                     child: PromoCodeWidget(
-                      onChanged: (value) =>
-                          context.read<PromotionBloc>().changedPromoCode(value),
+                      onChanged: (value) => context
+                          .read<PromotionBloc>()
+                          .changedPromoCode(context, code: value),
                       onPressedArrowIcon: () => XBottomSheet.show(context,
                           backgroundColor: MyColors.colorBackground,
                           widget: const XBottomSheetPromotion()),

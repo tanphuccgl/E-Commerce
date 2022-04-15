@@ -18,7 +18,7 @@ class PaymentMethodPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        final List<XPaymentMethod> _items = state.data.paymentMethods ?? [];
+        final _items = state.data.paymentMethods ?? [];
         return Scaffold(
           appBar: XDefaultAppBar(
               backgroundColor: MyColors.colorBackground,

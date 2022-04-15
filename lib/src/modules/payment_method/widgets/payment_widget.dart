@@ -1,6 +1,5 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_images.dart';
-import 'package:e_commerce/src/models/payment_methods_models.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/utils/enum/extension.dart';
@@ -14,9 +13,7 @@ class PaymentWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        var paymentMethodDefault = (state.data.paymentMethods ?? [])
-            .singleWhere((e) => e.setDefault == true,
-                orElse: () => XPaymentMethod(id: 'N/A'));
+        var paymentMethodDefault = state.paymentMethodDefault;
         return Column(
           children: [
             Padding(

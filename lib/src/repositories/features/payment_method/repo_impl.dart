@@ -15,7 +15,7 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
       var value =
           await UserCollectionReference().get(currentUser?.uid ?? "N/A");
       var user = value.data ?? XUser();
-      List<XPaymentMethod> paymentMethods = (user.paymentMethods ?? []);
+      final paymentMethods = (user.paymentMethods ?? []);
       paymentMethods.add(data);
       var dataUser = XUser(
           email: user.email,
@@ -24,6 +24,7 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
           urlAvatar: user.urlAvatar,
           birthDay: user.birthDay,
           accountType: user.accountType,
+          shippingAddresses: user.shippingAddresses,
           paymentMethods: paymentMethods);
       UserCollectionReference().set(dataUser);
       return XResult.success(dataUser);
@@ -40,7 +41,7 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
       var value =
           await UserCollectionReference().get(currentUser?.uid ?? "N/A");
       var user = value.data ?? XUser();
-      List<XPaymentMethod> paymentMethods = (user.paymentMethods ?? []);
+      final paymentMethods = (user.paymentMethods ?? []);
       for (int i = 0; i < paymentMethods.length; i++) {
         paymentMethods[i].setDefault = false;
       }
@@ -53,6 +54,7 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
           urlAvatar: user.urlAvatar,
           birthDay: user.birthDay,
           accountType: user.accountType,
+          shippingAddresses: user.shippingAddresses,
           paymentMethods: paymentMethods);
 
       UserCollectionReference().set(dataUser);
@@ -70,7 +72,7 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
       var value =
           await UserCollectionReference().get(currentUser?.uid ?? "N/A");
       var user = value.data ?? XUser();
-      List<XPaymentMethod> paymentMethods = (user.paymentMethods ?? []);
+      final paymentMethods = (user.paymentMethods ?? []);
 
       paymentMethods.removeWhere(
         (e) => e.id == data.id,
@@ -82,6 +84,7 @@ class PaymentMethodRepositoryImpl implements PaymentMethodRepository {
           urlAvatar: user.urlAvatar,
           birthDay: user.birthDay,
           accountType: user.accountType,
+          shippingAddresses: user.shippingAddresses,
           paymentMethods: paymentMethods);
 
       UserCollectionReference().set(dataUser);

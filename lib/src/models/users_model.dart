@@ -17,16 +17,16 @@ class XUser extends BaseModel {
   List<XPaymentMethod>? paymentMethods;
   List<XShippingAddress>? shippingAddresses;
 
-  XUser({
-    this.name,
-    this.email,
-    String id = "",
-    this.urlAvatar,
-    this.birthDay,
-    this.accountType,
-    this.paymentMethods,
-    this.shippingAddresses,
-  }) : super(id: id);
+  XUser(
+      {this.name,
+      this.email,
+      String id = "",
+      this.urlAvatar,
+      this.birthDay,
+      this.accountType,
+      this.paymentMethods,
+      this.shippingAddresses})
+      : super(id: id);
 
   factory XUser.fromJson(Map<String, dynamic> json, {String? id}) {
     return XUser(
