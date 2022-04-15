@@ -4,8 +4,13 @@ import 'package:e_commerce/src/repositories/features/cart/repo.dart';
 import 'package:e_commerce/src/repositories/features/cart/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/favorite/repo.dart';
 import 'package:e_commerce/src/repositories/features/favorite/repo_impl.dart';
+
 import 'package:e_commerce/src/repositories/features/payment_method/repo.dart';
 import 'package:e_commerce/src/repositories/features/payment_method/repo_impl.dart';
+
+import 'package:e_commerce/src/repositories/features/notification/repo.dart';
+import 'package:e_commerce/src/repositories/features/notification/repo_impl.dart';
+
 import 'package:e_commerce/src/repositories/features/profile/repo.dart';
 import 'package:e_commerce/src/repositories/features/profile/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/categories/repo.dart';
@@ -16,6 +21,8 @@ import 'package:e_commerce/src/repositories/features/promotions/repo.dart';
 import 'package:e_commerce/src/repositories/features/promotions/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/review/repo.dart';
 import 'package:e_commerce/src/repositories/features/review/repo_impl.dart';
+import 'package:e_commerce/src/repositories/features/shipping_address/repo.dart';
+import 'package:e_commerce/src/repositories/features/shipping_address/repo_impl.dart';
 import 'package:e_commerce/src/repositories/features/sign/repo.dart';
 import 'package:e_commerce/src/repositories/features/sign/repo_impl.dart';
 
@@ -31,7 +38,12 @@ class Domain {
     cart = CartRepositoryImpl();
     promotion = PromotionRepositoryImpl();
     review = ReviewRepositoryImpl();
+
     paymentMethod = PaymentMethodRepositoryImpl();
+
+    address = ShippingAddressRepositoryImpl();
+
+    notification = NotificationRepositoryImpl();
   }
   factory Domain() {
     _internal ??= Domain._();
@@ -47,5 +59,10 @@ class Domain {
   late final CartRepository cart;
   late final PromotionRepository promotion;
   late final ReviewRepository review;
+
   late final PaymentMethodRepository paymentMethod;
+
+  late final ShippingAddressRepository address;
+
+  late final NotificationRepository notification;
 }

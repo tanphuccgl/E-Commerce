@@ -26,30 +26,32 @@ class ProfilePage extends StatelessWidget {
             onPressed: () {},
           ),
         ]),
-        body: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: padding),
-              child: const XHeader(
-                title: "My Profile",
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: padding),
+                child: const XHeader(
+                  title: "My Profile",
+                ),
               ),
-            ),
-            SizedBox(
-              height: size.height * 0.010,
-            ),
-            BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
-              var email = state.data.email ?? 'N/A';
-              var name = state.data.name ?? 'N/A';
-              var urlImage = state.data.urlAvatar ?? 'N/A';
+              SizedBox(
+                height: size.height * 0.010,
+              ),
+              BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
+                var email = state.data.email ?? 'N/A';
+                var name = state.data.name ?? 'N/A';
+                var urlImage = state.data.urlAvatar ?? 'N/A';
 
-              return InfoProfile(
-                email: email,
-                imageUrl: urlImage,
-                name: name,
-              );
-            }),
-            const Expanded(child: ListTileProfile()),
-          ],
+                return InfoProfile(
+                  email: email,
+                  imageUrl: urlImage,
+                  name: name,
+                );
+              }),
+              const ListTileProfile(),
+            ],
+          ),
         ),
       ),
     );
