@@ -5,17 +5,10 @@ import 'package:e_commerce/src/config/themes/themes.dart';
 import 'package:e_commerce/src/models/message_model.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
-
-import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
-import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
-
-import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
-
-import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
-
 import 'package:e_commerce/src/modules/notification/logic/notification_bloc.dart';
+import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
+import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
 import 'package:e_commerce/src/utils/utils.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
