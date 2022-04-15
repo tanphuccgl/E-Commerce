@@ -35,7 +35,9 @@ class _DashboardWrapperPageState extends State<DashboardWrapperPage> {
     FirebaseMessaging.instance
         .getInitialMessage()
         .then((RemoteMessage? message) {
-      if (message != null) {}
+      if (message != null) {
+        context.router.pushWidget(const NotificationPage());
+      }
     });
     FirebaseMessaging.instance.getToken().then((value) {
       log('Token device firebase : ${value ?? 'N.A'}');
