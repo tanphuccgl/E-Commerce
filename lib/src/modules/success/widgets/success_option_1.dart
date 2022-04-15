@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_images.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 
@@ -52,7 +53,7 @@ class SuccessOption1 extends StatelessWidget {
               XButton(
                 label: 'Continue shopping',
                 height: 36,
-                onPressed: () {},
+                onPressed: () => DashboardCoordinator.showYourCart(context),
               )
             ],
           ),

@@ -61,9 +61,10 @@ class CheckoutPage extends StatelessWidget {
                             label: 'SUBMIT ORDER',
                             height: 48,
                             width: 343,
-                            onPressed: () => context
-                                .read<OrderBloc>()
-                                .submitOrder(context,
+                            onPressed: state.paymentMethodDefault.id != 'N/A' &&
+                                    state.shippingAddressDefault.id != 'N/A'
+                                ? () => context.read<OrderBloc>().submitOrder(
+                                    context,
                                     paymentMethod: state.paymentMethodDefault,
                                     shippingAddress:
                                         state.shippingAddressDefault,
@@ -71,7 +72,8 @@ class CheckoutPage extends StatelessWidget {
                                     total: cartState.totalPrice(
                                             promoCode: orderState
                                                 .promotionData.discount) +
-                                        15.0),
+                                        15.0)
+                                : null,
                           );
                         },
                       );

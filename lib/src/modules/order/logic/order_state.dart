@@ -10,9 +10,11 @@ class OrderState extends Equatable {
   final XPromotion promotionData;
   final double total;
   final List<XProduct> listProducts;
+  final List<XOrder> listOrder;
 
   const OrderState(
       {required this.paymentMethodData,
+      required this.listOrder,
       this.trackingNumber = '',
       this.date = '',
       this.status = '',
@@ -33,6 +35,7 @@ class OrderState extends Equatable {
         promotionData,
         total,
         listProducts,
+        listOrder,
       ];
 
   OrderState copyWith({
@@ -45,17 +48,18 @@ class OrderState extends Equatable {
     XPromotion? promotionData,
     double? total,
     List<XProduct>? listProducts,
+    List<XOrder>? listOrder,
   }) {
     return OrderState(
-      paymentMethodData: paymentMethodData ?? this.paymentMethodData,
-      trackingNumber: trackingNumber ?? this.trackingNumber,
-      date: date ?? this.date,
-      status: status ?? this.status,
-      shippingAddressData: shippingAddressData ?? this.shippingAddressData,
-      deliveryMethod: deliveryMethod ?? this.deliveryMethod,
-      promotionData: promotionData ?? this.promotionData,
-      total: total ?? this.total,
-      listProducts: listProducts ?? this.listProducts,
-    );
+        paymentMethodData: paymentMethodData ?? this.paymentMethodData,
+        trackingNumber: trackingNumber ?? this.trackingNumber,
+        date: date ?? this.date,
+        status: status ?? this.status,
+        shippingAddressData: shippingAddressData ?? this.shippingAddressData,
+        deliveryMethod: deliveryMethod ?? this.deliveryMethod,
+        promotionData: promotionData ?? this.promotionData,
+        total: total ?? this.total,
+        listProducts: listProducts ?? this.listProducts,
+        listOrder: listOrder ?? this.listOrder);
   }
 }

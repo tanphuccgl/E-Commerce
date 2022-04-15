@@ -5,6 +5,7 @@ import 'package:e_commerce/src/models/payment_methods_models.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/promotions_model.dart';
 import 'package:e_commerce/src/models/shipping_address_model.dart';
+import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
@@ -19,14 +20,26 @@ class OrderBloc extends Cubit<OrderState> {
   OrderBloc()
       : super(OrderState(
             listProducts: const [],
+            listOrder: const [],
             paymentMethodData: XPaymentMethod.empty(),
             promotionData: XPromotion.empty(),
-            shippingAddressData: XShippingAddress.empty()));
+            shippingAddressData: XShippingAddress.empty())) {
+    getMyOrder();
+  }
 
   final Domain _domain = Domain();
 
   void changePromo(XPromotion promotion) =>
       emit(state.copyWith(promotionData: promotion));
+
+  Future<void> getMyOrder() async {
+    final value = await _domain.order.getYourOrder();
+    if (value.isSuccess) {
+      List<XOrder> items = [...(state.listOrder)];
+      items = (value.data ?? []).toList();
+      emit(state.copyWith(listOrder: items));
+    } else {}
+  }
 
   Future<void> submitOrder(BuildContext context,
       {required XPaymentMethod paymentMethod,
@@ -52,6 +65,12 @@ class OrderBloc extends Cubit<OrderState> {
 
     final value = await _domain.order.addOrder(xOrder);
     if (value.isSuccess) {
+      final List<XOrder> items = [...(state.listOrder), xOrder];
+      emit(state.copyWith(listOrder: items));
+
+      context
+          .read<CartBloc>()
+          .removeYourCard(context, listProducts: listProducts);
       DashboardCoordinator.showSuccess(context);
       XSnackBar.show(msg: 'Add order success');
     } else {

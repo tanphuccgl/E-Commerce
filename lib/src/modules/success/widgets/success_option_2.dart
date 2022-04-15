@@ -1,5 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_images.dart';
+import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +64,7 @@ class SuccessOption2 extends StatelessWidget {
                     label: 'CONTINUE SHOPPING',
                     height: 48,
                     width: double.infinity,
-                    onPressed: () {},
+                    onPressed: () => DashboardCoordinator.showYourCart(context),
                   )),
             ),
           ],

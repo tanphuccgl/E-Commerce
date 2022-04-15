@@ -4,6 +4,7 @@ import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.
 import 'package:e_commerce/src/modules/payment_method/widgets/text_field_payment.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -48,6 +49,9 @@ class XBottomSheetNewPayment extends StatelessWidget {
                             .changeNumberCard(value),
                         label: 'Card number',
                         value: state.cardNumber,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(16),
+                        ],
                         textInputType: TextInputType.number,
                         isShowTypeCard: true),
                     XTextFieldPayment(

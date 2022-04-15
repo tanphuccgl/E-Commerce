@@ -122,6 +122,20 @@ class CartBloc extends ListProductsFilterBloc<CartState> {
     }
   }
 
+  Future<void> removeYourCard(BuildContext context,
+      {required List<XProduct> listProducts}) async {
+    final value = await domain.cart.removeYourCart(listProducts);
+    if (value.isSuccess) {
+      emit(state.copyWithItem(productsOfCart: XHandle.completed([])));
+      for (int i = 0; i < listProducts.length; i++) {
+        setItemToFavorites(context, product: listProducts[i], amount: 0);
+      }
+      XSnackBar.show(msg: 'Remove product to cart success');
+    } else {
+      XSnackBar.show(msg: 'Remove product to cart failure');
+    }
+  }
+
   @override
   Future<void> searchProduct(String query) async {
     late List<XProduct> items;

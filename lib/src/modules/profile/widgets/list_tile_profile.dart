@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
+import 'package:e_commerce/src/modules/order/logic/order_bloc.dart';
 import 'package:e_commerce/src/modules/profile/router/profile_router.dart';
 import 'package:e_commerce/src/utils/enum/extension.dart';
 import 'package:flutter/material.dart';
@@ -26,72 +27,78 @@ class ListTileProfile extends StatelessWidget {
 
     return BlocBuilder<AccountBloc, AccountState>(
       builder: (context, state) {
-        final String subtitlePayment;
-        if (state.paymentMethodDefault.id != 'N/A') {
-          subtitlePayment =
-              '${state.paymentMethodDefault.type == 1 ? "Mater Card" : 'Visa'} **${state.paymentMethodDefault.cardNumber.toString().lastChars(2)}';
-        } else {
-          subtitlePayment = 'No card';
-        }
-        final List<XFunctionProfile> _items = [
-          XFunctionProfile(
-              subtitle: 'Already have 12 orders',
-              title: 'My orders',
-              onTap: () {}),
-          XFunctionProfile(
-              subtitle:
-                  '${(state.data.shippingAddresses ?? []).length} addresses',
-              title: 'Shipping addresses',
-              onTap: () => DashboardCoordinator.showShippingAddresses(context)),
-          XFunctionProfile(
-              subtitle: subtitlePayment,
-              title: 'Payment methods',
-              onTap: () => DashboardCoordinator.showPaymentMethod(context)),
-          XFunctionProfile(
-              subtitle: 'You have special promocodes',
-              title: 'Promocodes',
-              onTap: () {}),
-          XFunctionProfile(
-              subtitle: 'Reviews for 4 items',
-              title: 'My reviews',
-              onTap: () => ProfileCoordinator.showNotification(context)),
-          XFunctionProfile(
-              subtitle: 'Infomation, password',
-              title: 'Settings',
-              onTap: () => ProfileCoordinator.showSetting(context)),
-          XFunctionProfile(
-              subtitle: 'List Notifications',
-              title: 'Notification',
-              onTap: () => ProfileCoordinator.showNotification(context)),
-          XFunctionProfile(
-              subtitle: 'Log out account',
-              title: 'Logout',
-              onTap: () => context.read<AccountBloc>().logout(context)),
-        ];
-        return Column(
-            children: ListTile.divideTiles(
-                color: MyColors.colorGray,
-                tiles: _items.map((item) => ListTile(
-                      dense: true,
-                      contentPadding: paddingContent,
-                      onTap: () => item.onTap!(),
-                      title: Text(item.title,
-                          style: const TextStyle(
-                              fontSize: 16,
-                              height: 1,
-                              color: MyColors.colorBlack,
-                              fontWeight: FontWeight.w600)),
-                      subtitle: Text(item.subtitle,
-                          style: const TextStyle(
-                              fontSize: 11,
-                              height: 1,
-                              color: MyColors.colorGray,
-                              fontWeight: FontWeight.normal)),
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios_outlined,
-                        color: MyColors.colorGray,
-                      ),
-                    ))).toList());
+        return BlocBuilder<OrderBloc, OrderState>(
+          builder: (context, orderState) {
+            final String subtitlePayment;
+            if (state.paymentMethodDefault.id != 'N/A') {
+              subtitlePayment =
+                  '${state.paymentMethodDefault.type == 1 ? "Mater Card" : 'Visa'} **${state.paymentMethodDefault.cardNumber.toString().lastChars(2)}';
+            } else {
+              subtitlePayment = 'No card';
+            }
+            final List<XFunctionProfile> _items = [
+              XFunctionProfile(
+                  subtitle:
+                      'Already have ${orderState.listOrder.length} orders',
+                  title: 'My orders',
+                  onTap: () {}),
+              XFunctionProfile(
+                  subtitle:
+                      '${(state.data.shippingAddresses ?? []).length} addresses',
+                  title: 'Shipping addresses',
+                  onTap: () =>
+                      DashboardCoordinator.showShippingAddresses(context)),
+              XFunctionProfile(
+                  subtitle: subtitlePayment,
+                  title: 'Payment methods',
+                  onTap: () => DashboardCoordinator.showPaymentMethod(context)),
+              XFunctionProfile(
+                  subtitle: 'You have special promocodes',
+                  title: 'Promocodes',
+                  onTap: () {}),
+              XFunctionProfile(
+                  subtitle: 'Reviews for 4 items',
+                  title: 'My reviews',
+                  onTap: () => ProfileCoordinator.showNotification(context)),
+              XFunctionProfile(
+                  subtitle: 'Infomation, password',
+                  title: 'Settings',
+                  onTap: () => ProfileCoordinator.showSetting(context)),
+              XFunctionProfile(
+                  subtitle: 'List Notifications',
+                  title: 'Notification',
+                  onTap: () => ProfileCoordinator.showNotification(context)),
+              XFunctionProfile(
+                  subtitle: 'Log out account',
+                  title: 'Logout',
+                  onTap: () => context.read<AccountBloc>().logout(context)),
+            ];
+            return Column(
+                children: ListTile.divideTiles(
+                    color: MyColors.colorGray,
+                    tiles: _items.map((item) => ListTile(
+                          dense: true,
+                          contentPadding: paddingContent,
+                          onTap: () => item.onTap!(),
+                          title: Text(item.title,
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  height: 1,
+                                  color: MyColors.colorBlack,
+                                  fontWeight: FontWeight.w600)),
+                          subtitle: Text(item.subtitle,
+                              style: const TextStyle(
+                                  fontSize: 11,
+                                  height: 1,
+                                  color: MyColors.colorGray,
+                                  fontWeight: FontWeight.normal)),
+                          trailing: const Icon(
+                            Icons.arrow_forward_ios_outlined,
+                            color: MyColors.colorGray,
+                          ),
+                        ))).toList());
+          },
+        );
       },
     );
   }

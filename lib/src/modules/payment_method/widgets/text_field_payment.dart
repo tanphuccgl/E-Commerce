@@ -3,6 +3,7 @@ import 'package:e_commerce/src/config/themes/style.dart';
 import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
 import 'package:e_commerce/src/utils/enum/payment_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class XTextFieldPayment extends StatefulWidget {
@@ -15,13 +16,14 @@ class XTextFieldPayment extends StatefulWidget {
   final bool readOnly;
   final bool isAction;
   final Function()? onTap;
-
+  final List<TextInputFormatter>? inputFormatters;
   final String errorText;
 
   const XTextFieldPayment(
       {Key? key,
       required this.value,
       required this.label,
+      this.inputFormatters,
       required this.onChanged,
       required this.errorText,
       this.isShowTypeCard = false,
@@ -137,6 +139,7 @@ class _XTextFieldPaymentState extends State<XTextFieldPayment> {
               blurRadius: 8)
         ]),
         child: TextField(
+          inputFormatters: widget.inputFormatters,
           style: XStyle.textTheme().titleSmall,
           readOnly: widget.readOnly,
           controller: _controller,

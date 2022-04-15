@@ -64,6 +64,25 @@ class CartCollectionReference extends BaseCollectionReference<XProduct> {
     }
   }
 
+  Future<XResult<List<XProduct>>> deleteYourCart(
+      List<XProduct> listProducts) async {
+    try {
+      final User? user = AuthService().currentUser;
+      if (user != null) {
+        for (int i = 0; i < listProducts.length; i++) {
+          String idDocs = listProducts[i].id + user.uid;
+          remove(idDocs);
+        }
+
+        return XResult.success(listProducts);
+      } else {
+        return XResult.error('Not login yet');
+      }
+    } catch (e) {
+      return XResult.exception(e);
+    }
+  }
+
   Future<XResult<List<XProduct>>> getProductOfCart() async {
     try {
       final User? user = AuthService().currentUser;

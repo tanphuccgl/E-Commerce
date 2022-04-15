@@ -53,4 +53,14 @@ class CartRepositoryImpl implements CartRepository {
       return XResult.error(e.toString());
     }
   }
+
+  @override
+  Future<XResult> removeYourCart(List<XProduct> lisProducts) async {
+    try {
+      CartCollectionReference().deleteYourCart(lisProducts);
+      return XResult.success('susccess');
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
 }

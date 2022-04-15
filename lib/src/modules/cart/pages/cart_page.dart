@@ -130,8 +130,9 @@ class CartPage extends StatelessWidget {
                       label: 'CHECK OUT',
                       height: 48,
                       width: 343,
-                      onPressed: () =>
-                          CartCoordinator.showCheckoutScreen(context),
+                      onPressed: items.isEmpty
+                          ? null
+                          : () => CartCoordinator.showCheckoutScreen(context),
                     ),
                   ),
                 )

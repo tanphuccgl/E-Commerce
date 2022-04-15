@@ -17,4 +17,15 @@ class OrderRepositoryImpl extends OrderRepository {
       return XResult.error(e.toString());
     }
   }
+
+  @override
+  Future<XResult<List<XOrder>>> getYourOrder() async {
+    try {
+      final User? user = AuthService().currentUser;
+      var data = OrderCollectionReference(id: user?.uid ?? 'N/A').getAllOrder();
+      return data;
+    } catch (e) {
+      return XResult.error(e.toString());
+    }
+  }
 }
