@@ -34,7 +34,6 @@ class XUtils {
     if (password.isEmpty) {
       message = "Please enter vaild password";
     }
-
     return message;
   }
 
@@ -46,7 +45,6 @@ class XUtils {
     if (name.isEmpty) {
       message = 'Please enter valid name';
     }
-
     return message;
   }
 
@@ -55,13 +53,79 @@ class XUtils {
     if (day.isEmpty) {
       message = 'Please enter valid birth day';
     }
-
     return message;
   }
 
   static String dateTimeReview() {
     var date = DateTime.now();
     return DateFormat("MMMM d,yyyy").format(date);
+  }
+
+  static String isValidNameShippingAddress(String name) {
+    String message = "";
+    if (name.isEmpty) {
+      message = 'Please enter valid name';
+    }
+    return message;
+  }
+
+  static String isValidAddress(String address) {
+    String message = "";
+    if (address.isEmpty) {
+      message = 'Please enter valid address';
+    }
+
+    return message;
+  }
+
+  static String isValidCity(String city) {
+    String message = "";
+    if (!city.contains(XRegex.nameVietnameseRegex)) {
+      message = "City cannot contain special characters or number";
+    }
+    if (city.isEmpty) {
+      message = 'Please enter valid city';
+    }
+
+    return message;
+  }
+
+  static String isValidProvince(String province) {
+    String message = "";
+    if (!province.contains(XRegex.nameVietnameseRegex)) {
+      message =
+          "State/Province/Region cannot contain special characters or number";
+    }
+    if (province.isEmpty) {
+      message = 'Please enter valid province';
+    }
+
+    return message;
+  }
+
+  static String isValidZipCode(String zipCode) {
+    String message = "";
+    if (!zipCode.contains(XRegex.onlyNumberRegex)) {
+      message = "Zip Code can only contain numbers";
+    }
+    if (zipCode.isEmpty) {
+      message = 'Please enter valid zip code';
+    }
+    if (zipCode.length < 4) {
+      message = 'Invalid zip code';
+    }
+
+    return message;
+  }
+
+  static String isValidCountry(String country) {
+    String message = "";
+
+    if (country.isEmpty) {
+      message = 'Please enter valid country';
+    }
+
+    return message;
   }
 
   static String dateTimeNotification(DateTime date) {
