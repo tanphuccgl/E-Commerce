@@ -1,5 +1,9 @@
+import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/modules/order/widgets/tag_chip_status_order.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
+import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
+import 'package:e_commerce/src/utils/enum/order_status.dart';
 import 'package:e_commerce/src/widgets/chip/tag_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,22 +11,24 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class XHeaderDelegate extends SliverPersistentHeaderDelegate {
   final String title;
   final Function()? onPressedSearch;
-  final bool isShowTagChip;
+  final bool isShowTagChipCategories;
   final bool isShowFilterBar;
-  final bool unSelectTagChip;
   final Widget? filterBarWidget;
   final Color backgroundColor;
   final double elevation;
+  final bool isShowTagChipStatusOrder;
+  final bool? leading;
 
   const XHeaderDelegate(
       {required this.title,
       this.onPressedSearch,
       this.filterBarWidget,
       this.elevation = 0,
+      this.isShowTagChipStatusOrder = false,
       this.backgroundColor = MyColors.colorWhite,
       this.isShowFilterBar = false,
-      this.unSelectTagChip = false,
-      this.isShowTagChip = false});
+      this.leading = false,
+      this.isShowTagChipCategories = false});
 
   @override
   Widget build(
@@ -45,6 +51,11 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
               ),
             ),
             AppBar(
+              leading: leading == true
+                  ? BackButton(
+                      onPressed: () => XCoordinator.pop(context),
+                    )
+                  : null,
               backgroundColor: backgroundColor,
               actions: [
                 IconButton(
@@ -94,7 +105,7 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    isShowTagChip
+                    isShowTagChipCategories
                         ? BlocBuilder<CategoriesBloc, CategoriesState>(
                             builder: (context, state) {
                             var items = state.items.data ?? [];
@@ -109,12 +120,57 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 itemBuilder: (context, index) {
                                   return TagChip(
                                     label: items[index].name ?? 'N/A',
-                                    unSelectTagChip: unSelectTagChip,
+                                    onPressed: () =>
+                                        ShopCoordinator.switchCategory(
+                                            context,
+                                            nameCategory:
+                                                items[index].name ?? 'N/A'),
                                   );
                                 },
                               ),
                             );
                           })
+                        : const SizedBox.shrink(),
+                    isShowTagChipStatusOrder
+                        ? Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 30, 30, 0),
+                            child: SizedBox(
+                                height: 40,
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(
+                                          child: TagChipStatusOrder(
+                                              onPressed: () {},
+                                              label: OrderStatus.delivered
+                                                  .value())),
+                                      Center(
+                                        child: Text(
+                                          OrderStatus.processing.value(),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                          style: const TextStyle(
+                                              color: MyColors.colorBlack,
+                                              fontSize: 14,
+                                              height: 1,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                      Center(
+                                        child: Text(
+                                          OrderStatus.cancelled.value(),
+                                          textAlign: TextAlign.center,
+                                          maxLines: 2,
+                                          style: const TextStyle(
+                                              color: MyColors.colorBlack,
+                                              fontSize: 14,
+                                              height: 1,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                      ),
+                                    ])),
+                          )
                         : const SizedBox.shrink(),
                     isShowFilterBar
                         ? Padding(
@@ -134,11 +190,11 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   double get maxExtent {
     double extent = 130;
-    if (isShowTagChip && isShowFilterBar) {
+    if ((isShowTagChipCategories || isShowTagChipStatusOrder) &&
+        isShowFilterBar) {
       extent = 200;
-    }
-    if (isShowFilterBar && isShowTagChip == false) {
-      extent = 160;
+    } else {
+      extent = 170;
     }
 
     return extent;
@@ -147,10 +203,10 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   double get minExtent {
     double extent = 70;
-    if (isShowTagChip && isShowFilterBar) {
+    if ((isShowTagChipStatusOrder || isShowTagChipCategories) &&
+        isShowFilterBar) {
       extent = 151;
-    }
-    if (isShowFilterBar && isShowTagChip == false) {
+    } else {
       extent = 110;
     }
 

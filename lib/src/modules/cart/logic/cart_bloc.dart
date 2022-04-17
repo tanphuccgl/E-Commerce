@@ -130,9 +130,6 @@ class CartBloc extends ListProductsFilterBloc<CartState> {
       for (int i = 0; i < listProducts.length; i++) {
         setItemToFavorites(context, product: listProducts[i], amount: 0);
       }
-      XSnackBar.show(msg: 'Remove product to cart success');
-    } else {
-      XSnackBar.show(msg: 'Remove product to cart failure');
     }
   }
 

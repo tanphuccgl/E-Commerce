@@ -1,10 +1,10 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:flutter/material.dart';
 
-class TagChip extends StatelessWidget {
+class TagChipStatusOrder extends StatelessWidget {
   final String label;
   final Function()? onPressed;
-  const TagChip({Key? key, required this.label, this.onPressed})
+  const TagChipStatusOrder({Key? key, required this.label, this.onPressed})
       : super(key: key);
 
   @override

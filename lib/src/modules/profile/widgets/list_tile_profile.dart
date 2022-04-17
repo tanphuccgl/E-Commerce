@@ -2,6 +2,7 @@ import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/order/logic/order_bloc.dart';
+import 'package:e_commerce/src/modules/order/router/order_router.dart';
 import 'package:e_commerce/src/modules/profile/router/profile_router.dart';
 import 'package:e_commerce/src/utils/enum/extension.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,7 @@ class ListTileProfile extends StatelessWidget {
                   subtitle:
                       'Already have ${orderState.listOrder.length} orders',
                   title: 'My orders',
-                  onTap: () {}),
+                  onTap: () => OrderCoordinator.showMyOrder(context)),
               XFunctionProfile(
                   subtitle:
                       '${(state.data.shippingAddresses ?? []).length} addresses',
@@ -59,7 +60,7 @@ class ListTileProfile extends StatelessWidget {
               XFunctionProfile(
                   subtitle: 'Reviews for 4 items',
                   title: 'My reviews',
-                  onTap: () => ProfileCoordinator.showNotification(context)),
+                  onTap: () {}),
               XFunctionProfile(
                   subtitle: 'Infomation, password',
                   title: 'Settings',

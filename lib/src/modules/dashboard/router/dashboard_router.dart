@@ -10,10 +10,12 @@ import 'package:e_commerce/src/modules/home/router/home_router.dart';
 import 'package:e_commerce/src/modules/payment_method/router/payment_method_router.dart';
 import 'package:e_commerce/src/modules/product_details/router/product_details_router.dart';
 import 'package:e_commerce/src/modules/profile/router/profile_router.dart';
+import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
 import 'package:e_commerce/src/modules/shipping_address/router/shipping_address_router.dart';
 import 'package:e_commerce/src/modules/shop/router/shop_router.dart';
 import 'package:e_commerce/src/modules/success/pages/success_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DashboardTaps {
   static const String homeTab = 'home';
@@ -57,8 +59,10 @@ class DashboardCoordinator {
     ],
   );
 
-  static showYourCart(BuildContext context) =>
-      context.router.navigate(const DashboardRoute(children: [CartTab()]));
+  static showYourCart(BuildContext context) {
+    context.read<PromotionBloc>().changedPromoCode(context, code: '');
+    context.router.navigate(const DashboardRoute(children: [CartTab()]));
+  }
 
   static showDetailsProduct(BuildContext context,
       {XProduct? data, required String id}) {
