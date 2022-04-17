@@ -1,7 +1,8 @@
 import 'dart:math';
 
+import 'package:e_commerce/src/models/delivery_method_model.dart';
 import 'package:e_commerce/src/models/order_model.dart';
-import 'package:e_commerce/src/models/payment_methods_models.dart';
+import 'package:e_commerce/src/models/payment_methods_model.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/promotions_model.dart';
 import 'package:e_commerce/src/models/shipping_address_model.dart';
@@ -44,6 +45,7 @@ class OrderBloc extends Cubit<OrderState> {
   Future<void> submitOrder(BuildContext context,
       {required XPaymentMethod paymentMethod,
       required XShippingAddress shippingAddress,
+      required XDeliveryMethod deliveryMethod,
       required List<XProduct> listProducts,
       required double total}) async {
     var formatter = DateFormat('dd-MM-yyyy');
@@ -57,7 +59,7 @@ class OrderBloc extends Cubit<OrderState> {
       listProducts: listProducts,
       date: date,
       id: _getRandomIdOrder(),
-      deliveryMethod: 'FedEx, 3 days, 15\$',
+      deliveryMethodData: deliveryMethod,
       status: 'Delivered',
       total: total,
       trackingNumber: _getRandomTracking(),

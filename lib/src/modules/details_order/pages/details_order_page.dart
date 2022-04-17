@@ -3,6 +3,7 @@ import 'package:e_commerce/src/constants/my_images.dart';
 import 'package:e_commerce/src/models/order_model.dart';
 import 'package:e_commerce/src/modules/details_order/widgets/card_products_order.dart';
 import 'package:e_commerce/src/utils/enum/extension.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:e_commerce/src/widgets/app_bar/default_app_bar.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:flutter/material.dart';
@@ -203,7 +204,7 @@ class DetailsOrderPage extends StatelessWidget {
                   Expanded(
                     flex: 6,
                     child: Text(
-                      data.deliveryMethod,
+                      '${data.deliveryMethodData.name}, ${data.deliveryMethodData.shippingToDate} days, ${XUtils.formatPrice(data.deliveryMethodData.price)}\$',
                       style: const TextStyle(
                         height: 1,
                         fontSize: 14,

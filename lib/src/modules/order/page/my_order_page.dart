@@ -13,7 +13,7 @@ class MyOrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OrderBloc, OrderState>(
       builder: (context, state) {
-        final List<XOrder> _items = state.listOrder;
+        final List<XOrder> _items = state.listOrder.reversed.toList();
         return Scaffold(
           backgroundColor: MyColors.colorBackground,
           body: CustomScrollView(

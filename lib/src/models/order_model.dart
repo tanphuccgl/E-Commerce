@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:e_commerce/src/models/delivery_method_model.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
-import 'package:e_commerce/src/models/payment_methods_models.dart';
+import 'package:e_commerce/src/models/payment_methods_model.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/promotions_model.dart';
 import 'package:e_commerce/src/models/shipping_address_model.dart';
@@ -11,7 +12,7 @@ class XOrder extends BaseModel {
   String status;
   XShippingAddress shippingAddressData;
   XPaymentMethod paymentMethodData;
-  String deliveryMethod;
+  XDeliveryMethod deliveryMethodData;
   XPromotion promotionData;
   double total;
   List<XProduct> listProducts;
@@ -23,7 +24,7 @@ class XOrder extends BaseModel {
     this.status = '',
     required this.shippingAddressData,
     required this.paymentMethodData,
-    this.deliveryMethod = '',
+    required this.deliveryMethodData,
     required this.promotionData,
     this.total = 0.0,
     required this.listProducts,
@@ -39,7 +40,7 @@ class XOrder extends BaseModel {
           .map((e) => XProduct.fromJson(e))
           .toList(),
       date: json['date'],
-      deliveryMethod: json['deliveryMethod'],
+      deliveryMethodData: XDeliveryMethod.fromJson(json['deliveryMethodData']),
       id: json['id'],
       status: json['status'],
       total: json['total'].toDouble(),
@@ -49,6 +50,7 @@ class XOrder extends BaseModel {
 
   factory XOrder.empty() {
     return XOrder(
+        deliveryMethodData: XDeliveryMethod.empty(),
         shippingAddressData: XShippingAddress.empty(),
         paymentMethodData: XPaymentMethod.empty(),
         promotionData: XPromotion.empty(),
@@ -61,7 +63,7 @@ class XOrder extends BaseModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['date'] = date;
-    data['deliveryMethod'] = deliveryMethod;
+    data['deliveryMethodData'] = deliveryMethodData.toJson();
     data['id'] = id;
     data['listProducts'] = listProducts.map((e) => e.toJson()).toList();
     data['paymentMethodData'] = paymentMethodData.toJson();

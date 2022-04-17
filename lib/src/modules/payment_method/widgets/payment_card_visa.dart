@@ -1,6 +1,6 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/constants/my_images.dart';
-import 'package:e_commerce/src/models/payment_methods_models.dart';
+import 'package:e_commerce/src/models/payment_methods_model.dart';
 import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
 import 'package:e_commerce/src/utils/enum/extension.dart';
 import 'package:flutter/material.dart';

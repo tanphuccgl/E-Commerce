@@ -1,4 +1,4 @@
-import 'package:e_commerce/src/models/payment_methods_models.dart';
+import 'package:e_commerce/src/models/payment_methods_model.dart';
 import 'package:e_commerce/src/models/result.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 
