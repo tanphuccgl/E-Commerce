@@ -66,11 +66,14 @@ class OrderBloc extends Cubit<OrderState> {
     final value = await _domain.order.addOrder(xOrder);
     if (value.isSuccess) {
       final List<XOrder> items = [...(state.listOrder), xOrder];
-      emit(state.copyWith(listOrder: items));
+      emit(state.copyWith(
+        listOrder: items,
+      ));
 
       context
           .read<CartBloc>()
           .removeYourCard(context, listProducts: listProducts);
+
       DashboardCoordinator.showSuccess(context);
       XSnackBar.show(msg: 'Add order success');
     } else {
@@ -78,14 +81,14 @@ class OrderBloc extends Cubit<OrderState> {
     }
   }
 
-  String _getRandomTracking() {
+  String _getRandomIdOrder() {
     const _chars = '1234567890';
     Random _rnd = Random();
     return String.fromCharCodes(Iterable.generate(
         7, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
   }
 
-  String _getRandomIdOrder() {
+  String _getRandomTracking() {
     const _charsPrefix = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     const _charsNumber = '1234567890';
     Random _rnd = Random();

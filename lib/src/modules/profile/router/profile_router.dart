@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/modules/dashboard/router/dashboard_router.dart';
 import 'package:e_commerce/src/modules/notification/pages/notification_page.dart';
+import 'package:e_commerce/src/modules/order/router/order_router.dart';
 import 'package:e_commerce/src/modules/profile/pages/profile_page.dart';
 import 'package:e_commerce/src/modules/settings/pages/setting_page.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class ProfileCoordinator {
             path: ProfileRouters.notification,
             page: NotificationPage,
             name: "NotificationRoute"),
+        OrderCoordinator.autoRoute,
         RedirectRoute(path: '*', redirectTo: ''),
       ]);
 

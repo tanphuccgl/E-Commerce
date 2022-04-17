@@ -89,7 +89,7 @@ class DetailCategoryPage extends StatelessWidget {
         floating: true,
         delegate: XHeaderDelegate(
             title: productType.title(),
-            isShowTagChip: true,
+            isShowTagChipCategories: true,
             elevation: 3,
             isShowFilterBar: true,
             onPressedSearch: () =>

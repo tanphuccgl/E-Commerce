@@ -91,13 +91,13 @@ class FavoritesPage extends StatelessWidget {
         pinned: true,
         floating: true,
         delegate: XHeaderDelegate(
-            title: 'Favorites',
-            elevation: 3,
-            isShowFilterBar: true,
-            filterBarWidget: _filterBarWidget(),
-            onPressedSearch: () =>
-                FavoritesCoordinator.showSearchProductByFavorite(context),
-            unSelectTagChip: true),
+          title: 'Favorites',
+          elevation: 3,
+          isShowFilterBar: true,
+          filterBarWidget: _filterBarWidget(),
+          onPressedSearch: () =>
+              FavoritesCoordinator.showSearchProductByFavorite(context),
+        ),
       ),
     );
   }

@@ -29,7 +29,6 @@ class DeliveryMethodWidget extends StatelessWidget {
         SizedBox(
           height: 72,
           child: ListView(
-            physics: const NeverScrollableScrollPhysics(),
             scrollDirection: Axis.horizontal,
             children: deliveryList
                 .map((e) => Padding(
