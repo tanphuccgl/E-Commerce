@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PromotionCard extends StatelessWidget {
   final XPromotion data;
-  const PromotionCard({Key? key, required this.data}) : super(key: key);
+  final bool isShowApply;
+  const PromotionCard({Key? key, required this.data, this.isShowApply = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,14 +94,16 @@ class PromotionCard extends StatelessWidget {
                             color: MyColors.colorGray,
                             fontWeight: FontWeight.normal),
                       ),
-                      XButton(
-                        label: 'Apply',
-                        height: 36,
-                        onPressed: () => context
-                            .read<PromotionBloc>()
-                            .changedPromoCode(context, code: data.code),
-                        width: 93,
-                      )
+                      isShowApply
+                          ? XButton(
+                              label: 'Apply',
+                              height: 36,
+                              onPressed: () => context
+                                  .read<PromotionBloc>()
+                                  .changedPromoCode(context, code: data.code),
+                              width: 93,
+                            )
+                          : const SizedBox.shrink()
                     ],
                   ),
                 ],
