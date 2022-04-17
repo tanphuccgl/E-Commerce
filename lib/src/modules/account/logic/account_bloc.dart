@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:e_commerce/src/models/payment_methods_models.dart';
+import 'package:e_commerce/src/models/payment_methods_model.dart';
 import 'package:e_commerce/src/models/shipping_address_model.dart';
 import 'package:e_commerce/src/models/users_model.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';

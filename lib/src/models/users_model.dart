@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
 
-import 'package:e_commerce/src/models/payment_methods_models.dart';
+import 'package:e_commerce/src/models/payment_methods_model.dart';
 
 import 'package:e_commerce/src/models/shipping_address_model.dart';
 

@@ -6,6 +6,7 @@ import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/message_model.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
 import 'package:e_commerce/src/modules/dashboard/logic/bottom_bar_bloc.dart';
+import 'package:e_commerce/src/modules/delivery/logic/delivery_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/favorites/logic/paginate_favorites_bloc.dart';
 
@@ -102,6 +103,7 @@ class _DashboardWrapperPageState extends State<DashboardWrapperPage> {
                   items: XHandle.completed([])))),
           BlocProvider(create: (_) => CategoriesBloc()),
           BlocProvider(create: (_) => PromotionBloc()),
+          BlocProvider(create: (_) => DeliveryBloc()),
           BlocProvider(create: (_) => ViewAllProductsBloc()),
           BlocProvider(create: (_) => OrderBloc()),
         ],

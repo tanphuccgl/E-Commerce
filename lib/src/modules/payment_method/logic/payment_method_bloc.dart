@@ -1,5 +1,5 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
-import 'package:e_commerce/src/models/payment_methods_models.dart';
+import 'package:e_commerce/src/models/payment_methods_model.dart';
 import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/repositories/domain.dart';
 import 'package:e_commerce/src/utils/enum/payment_type.dart';

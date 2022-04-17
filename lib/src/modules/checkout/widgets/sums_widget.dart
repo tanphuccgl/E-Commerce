@@ -1,5 +1,7 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
+import 'package:e_commerce/src/models/delivery_method_model.dart';
 import 'package:e_commerce/src/modules/cart/logic/cart_bloc.dart';
+import 'package:e_commerce/src/modules/delivery/logic/delivery_bloc.dart';
 import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -55,52 +57,60 @@ Widget _orderWidget() {
 }
 
 Widget _deliveryWidget() {
-  return Row(
-    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: [
-      const Text(
-        'Delivery:',
-        style: TextStyle(
-            color: MyColors.colorGray,
-            height: 1.42,
-            fontSize: 14,
-            fontWeight: FontWeight.w500),
-      ),
-      Text(
-        '15\$',
-        style: _priceStyle(),
-      )
-    ],
+  return BlocBuilder<DeliveryBloc, DeliveryState>(
+    builder: (context, state) {
+      return Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const Text(
+            'Delivery:',
+            style: TextStyle(
+                color: MyColors.colorGray,
+                height: 1.42,
+                fontSize: 14,
+                fontWeight: FontWeight.w500),
+          ),
+          Text(
+            '${XUtils.formatPrice((state.deliveryMethodData ?? XDeliveryMethod()).price)}\$',
+            style: _priceStyle(),
+          )
+        ],
+      );
+    },
   );
 }
 
 Widget _summaryWidget() {
-  return BlocBuilder<PromotionBloc, PromotionState>(
-      builder: (context, promotionState) {
-    return BlocBuilder<CartBloc, CartState>(
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Summary:',
-              style: TextStyle(
-                  color: MyColors.colorGray,
-                  height: 1,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600),
-            ),
-            Text(
-              "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion) + 15.0)}\$",
-              style: _priceStyle(),
-            )
-          ],
+  return BlocBuilder<DeliveryBloc, DeliveryState>(
+    builder: (context, delivertState) {
+      return BlocBuilder<PromotionBloc, PromotionState>(
+          builder: (context, promotionState) {
+        return BlocBuilder<CartBloc, CartState>(
+          builder: (context, state) {
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  'Summary:',
+                  style: TextStyle(
+                      color: MyColors.colorGray,
+                      height: 1,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+                Text(
+                  "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion) + (delivertState.deliveryMethodData ?? XDeliveryMethod()).price)}\$",
+                  style: _priceStyle(),
+                )
+              ],
+            );
+          },
         );
-      },
-    );
-  });
+      });
+    },
+  );
 }
 
 TextStyle _priceStyle() {

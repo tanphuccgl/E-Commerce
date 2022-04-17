@@ -1,4 +1,5 @@
 import 'package:e_commerce/src/models/categories_model.dart';
+import 'package:e_commerce/src/models/delivery_method_model.dart';
 import 'package:e_commerce/src/models/products_model.dart';
 import 'package:e_commerce/src/models/promotions_model.dart';
 import 'package:e_commerce/src/models/review_model.dart';
@@ -399,4 +400,33 @@ final List<XReview> listReviews = [
           'I loved this dress so much as soon as I tried it on I knew I had to buy it in another color. I am 5\'3 about 155lbs and I carry all my weight in my upper body. When I put it on I felt like it thinned me put and I got so many compliments.',
       star: 4,
       time: 'August 14, 2019')
+];
+final List<XDeliveryMethod> listDeliveryMethod = [
+  XDeliveryMethod(
+    id: '1',
+    image:
+        'https://firebasestorage.googleapis.com/v0/b/e-conmmerce.appspot.com/o/delivery%2Ffedex.png?alt=media&token=9a15de93-a6da-404c-8889-6cda68b3404b',
+    shippingFromDate: 2,
+    shippingToDate: 3,
+    name: 'FedEx',
+    price: 15,
+  ),
+  XDeliveryMethod(
+    id: '2',
+    image:
+        'https://firebasestorage.googleapis.com/v0/b/e-conmmerce.appspot.com/o/delivery%2Fusps.png?alt=media&token=a84c75e9-897e-4be4-9e37-71d244d8d2ec',
+    shippingFromDate: 2,
+    shippingToDate: 3,
+    name: 'USPS',
+    price: 20,
+  ),
+  XDeliveryMethod(
+    id: '3',
+    image:
+        'https://firebasestorage.googleapis.com/v0/b/e-conmmerce.appspot.com/o/delivery%2Fdhl.png?alt=media&token=1e3ef0c1-773c-4a08-8c05-42dfbb817be8',
+    shippingFromDate: 2,
+    shippingToDate: 4,
+    name: 'DHL',
+    price: 17,
+  ),
 ];

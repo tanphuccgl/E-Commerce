@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/models/order_model.dart';
 import 'package:e_commerce/src/modules/order/router/order_router.dart';
+import 'package:e_commerce/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 
 class CardOrder extends StatelessWidget {
@@ -71,53 +72,59 @@ class CardOrder extends StatelessWidget {
             ],
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Row(
-                children: [
-                  const Text(
-                    'Quantity:',
-                    style: TextStyle(
-                        height: 1,
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        color: MyColors.colorGray),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    '${data.listProducts.length}',
-                    style: const TextStyle(
-                        height: 1,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: MyColors.colorBlack),
-                  ),
-                ],
+              Expanded(
+                flex: 9,
+                child: Row(
+                  children: [
+                    const Text(
+                      'Quantity:',
+                      style: TextStyle(
+                          height: 1,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: MyColors.colorGray),
+                    ),
+                    const SizedBox(
+                      width: 23,
+                    ),
+                    Text(
+                      '${data.listProducts.length}',
+                      style: const TextStyle(
+                          height: 1,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: MyColors.colorBlack),
+                    ),
+                  ],
+                ),
               ),
-              Row(
-                children: [
-                  const Text(
-                    'Total Amount:',
-                    style: TextStyle(
-                        height: 1,
-                        fontSize: 14,
-                        fontWeight: FontWeight.normal,
-                        color: MyColors.colorGray),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    '${data.total}',
-                    style: const TextStyle(
-                        height: 1,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: MyColors.colorBlack),
-                  ),
-                ],
+              Expanded(
+                flex: 11,
+                child: Row(
+                  children: [
+                    const Text(
+                      'Total Amount:',
+                      style: TextStyle(
+                          height: 1,
+                          fontSize: 14,
+                          fontWeight: FontWeight.normal,
+                          color: MyColors.colorGray),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(
+                      '${XUtils.formatPrice(data.total)}\$',
+                      style: const TextStyle(
+                          height: 1,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: MyColors.colorBlack),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
