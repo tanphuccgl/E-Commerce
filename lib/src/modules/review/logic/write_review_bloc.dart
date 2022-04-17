@@ -24,6 +24,8 @@ class WriteReviewBloc extends Cubit<WriteReviewState> {
     required XProduct product,
     required XUser user,
   }) async {
+    XSnackBar.showLoading();
+
     var valueImage = await domain.review
         .uploadImageReview(list: state.imageReviewList ?? []);
     if (valueImage.isSuccess) {
@@ -48,6 +50,7 @@ class WriteReviewBloc extends Cubit<WriteReviewState> {
     } else {
       XSnackBar.show(msg: 'Add your review failure');
     }
+    XSnackBar.hideLoading();
   }
 
   void chooseStar(int value) {

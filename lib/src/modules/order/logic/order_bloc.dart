@@ -48,6 +48,8 @@ class OrderBloc extends Cubit<OrderState> {
       required XDeliveryMethod deliveryMethod,
       required List<XProduct> listProducts,
       required double total}) async {
+    XSnackBar.showLoading();
+
     var formatter = DateFormat('dd-MM-yyyy');
 
     String date = formatter.format(DateTime.now());
@@ -81,6 +83,7 @@ class OrderBloc extends Cubit<OrderState> {
     } else {
       XSnackBar.show(msg: 'Add order failure');
     }
+    XSnackBar.hideLoading();
   }
 
   String _getRandomIdOrder() {

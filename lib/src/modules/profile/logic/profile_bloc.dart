@@ -13,13 +13,15 @@ class ProfileBloc extends Cubit<ProfileState> {
   ProfileBloc() : super(ProfileState(data: XUser.empty()));
   final Domain domain = Domain();
   void uploadAvatar(BuildContext context, XFile image) async {
+    XSnackBar.showLoading();
     var value = await domain.profile.uploadAvatar(image);
-    context.read<AccountBloc>().setDataLogin(context, user: value.data);
-    emit(state.copyWith(data: value.data));
     if (value.isSuccess) {
+      context.read<AccountBloc>().setDataLogin(context, user: value.data);
+      emit(state.copyWith(data: value.data));
       XSnackBar.show(msg: "Upload photo successfully");
     } else {
       XSnackBar.show(msg: "Photo upload failed");
     }
+    XSnackBar.hideLoading();
   }
 }

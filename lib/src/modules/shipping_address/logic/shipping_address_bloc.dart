@@ -32,6 +32,8 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
       emit(state.copyWith(country: countriesInfo, pureCountry: true));
 
   Future<void> addAddress(BuildContext context) async {
+    XSnackBar.showLoading();
+
     if (state.isValidSaveAddress) {
       var id = XUtils.getRandomString(10);
       final data = XShippingAddress(
@@ -58,10 +60,13 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
         XSnackBar.show(msg: "Create failure");
       }
     }
+    XSnackBar.hideLoading();
   }
 
   Future<void> updateAddress(BuildContext context,
       {required String id, required bool setDefalut}) async {
+    XSnackBar.showLoading();
+
     if (state.isValidSaveAddress) {
       final data = XShippingAddress(
           name: state.name,
@@ -87,6 +92,7 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
         XSnackBar.show(msg: "Update failure");
       }
     }
+    XSnackBar.hideLoading();
   }
 
   void getDetailShippingAddress({required XShippingAddress data}) =>
@@ -100,6 +106,8 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
   void initialState() => emit((const ShippingAddressState()));
   Future<void> removeAddress(BuildContext context,
       {required XShippingAddress data}) async {
+    XSnackBar.showLoading();
+
     var value = await domain.address.removeShippingAddress(data);
 
     if (value.isSuccess) {
@@ -114,6 +122,7 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
     } else {
       XSnackBar.show(msg: "Remove failure");
     }
+    XSnackBar.hideLoading();
   }
 
   Future<void> changeDefaultAddress(BuildContext context,

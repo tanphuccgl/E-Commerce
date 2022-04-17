@@ -29,6 +29,8 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
       emit(state.copyWith(setDefault: setDefault));
 
   Future<void> addPaymentMethod(BuildContext context) async {
+    XSnackBar.showLoading();
+
     if (state.isValidAddCard) {
       var id = XUtils.getRandomString(10);
       final data = XPaymentMethod(
@@ -58,11 +60,14 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
         XSnackBar.show(msg: "Create failure");
       }
     }
+    XSnackBar.hideLoading();
   }
 
   void initialState() => emit((const PaymentMethodState()));
   Future<void> removePayment(BuildContext context,
       {required XPaymentMethod data}) async {
+    XSnackBar.showLoading();
+
     var value = await domain.paymentMethod.removePaymentMethod(data);
 
     if (value.isSuccess) {
@@ -77,6 +82,7 @@ class PaymentMethodBloc extends Cubit<PaymentMethodState> {
     } else {
       XSnackBar.show(msg: "Remove failure");
     }
+    XSnackBar.hideLoading();
   }
 
   Future<void> changeDefaultPayment(BuildContext context,
