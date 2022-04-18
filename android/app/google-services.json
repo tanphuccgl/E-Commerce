@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1021259785772-2653lv9obdhq5b5csaugelgv6jhe0t77.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.goldenowl.ecommerce",
+            "certificate_hash": "bb5cca881e9562122acb504bf553f24ee6b0ab56"
+          }
+        },
+        {
           "client_id": "1021259785772-pjeqi5c2oho7ptdmab3t4g333tfumn1s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
