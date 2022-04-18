@@ -25,19 +25,7 @@ class ReviewCollectionReference extends BaseCollectionReference<XReview> {
   }
 
   Future<XResult<List<XReview>>> setReviews() async {
-    try {
-      var batch = ref.firestore.batch();
-      for (int i = 0; i < listReviews.length; i++) {
-        {
-          batch.set(
-              ref.doc(i.toString()), listReviews[i], SetOptions(merge: false));
-        }
-      }
-      batch.commit();
-      return XResult.success(listReviews);
-    } catch (e) {
-      return XResult.exception(e);
-    }
+    return commit(listReviews, merge: false);
   }
 
   Future<XResult<XReview>> addYourReview({required XReview review}) async {

@@ -25,9 +25,7 @@ class UserCollectionReference extends BaseCollectionReference<XUser> {
         var url = result.data?.urlAvatar;
         var birthDay = result.data?.birthDay;
         var type = result.data?.accountType ?? 'N/A';
-
         var paymentMethods = result.data?.paymentMethods;
-
         var shippingAddresses = result.data?.shippingAddresses;
 
         data = XUser(

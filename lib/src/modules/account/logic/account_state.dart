@@ -11,6 +11,8 @@ class AccountState extends Equatable {
   XPaymentMethod get paymentMethodDefault =>
       (data.paymentMethods ?? []).singleWhere((e) => e.setDefault == true,
           orElse: () => XPaymentMethod(id: 'N/A'));
+  bool get canShippingAndPayment =>
+      paymentMethodDefault.id != 'N/A' && shippingAddressDefault.id != 'N/A';
 
   const AccountState({this.isLoading = true, required this.data});
 

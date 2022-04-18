@@ -52,19 +52,7 @@ class ProductCollectionReference extends BaseCollectionReference<XProduct> {
   }
 
   Future<XResult<List<XProduct>>> updateProduct() async {
-    try {
-      var batch = ref.firestore.batch();
-      for (int i = 0; i < listProduct.length; i++) {
-        {
-          batch.set(ref.doc(listProduct[i].id), listProduct[i],
-              SetOptions(merge: true));
-        }
-      }
-      batch.commit();
-      return XResult.success(listProduct);
-    } catch (e) {
-      return XResult.exception(e);
-    }
+    return commit(listProduct);
   }
 
   Future<XResult<List<DocumentSnapshot<XProduct>>>> getNextProductsSearch(

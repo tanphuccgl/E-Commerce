@@ -28,8 +28,6 @@ class DeliveryBloc extends Cubit<DeliveryState> {
   }
 
   void changedDeliveryMethod(BuildContext context,
-      {required XDeliveryMethod data}) {
-    emit(state.copyWith(deliveryMethodData: data));
-    //   context.read<OrderBloc>().changePromo(state.promotion);
-  }
+          {required XDeliveryMethod data}) =>
+      emit(state.copyWith(deliveryMethodData: data));
 }

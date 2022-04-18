@@ -12,111 +12,91 @@ class SumsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _orderWidget(),
-        const SizedBox(
-          height: 14,
-        ),
-        _deliveryWidget(),
-        const SizedBox(
-          height: 14,
-        ),
-        _summaryWidget()
-      ],
-    );
+    const _sizeBox = SizedBox(height: 14);
+    return SliverToBoxAdapter(child: BlocBuilder<DeliveryBloc, DeliveryState>(
+        builder: (context, delivertState) {
+      return BlocBuilder<PromotionBloc, PromotionState>(
+          builder: (context, promotionState) {
+        return BlocBuilder<CartBloc, CartState>(builder: (context, cartState) {
+          final _priceOrder =
+              cartState.totalPrice(promoCode: promotionState.discountPromotion);
+          final _priceDelivery =
+              (delivertState.deliveryMethodData ?? XDeliveryMethod()).price;
+          final _priceSummary = _priceOrder + _priceDelivery;
+          return Column(
+            children: [
+              _orderWidget(_priceOrder),
+              _sizeBox,
+              _deliveryWidget(_priceDelivery),
+              _sizeBox,
+              _summaryWidget(_priceSummary)
+            ],
+          );
+        });
+      });
+    }));
   }
 }
 
-Widget _orderWidget() {
-  return BlocBuilder<PromotionBloc, PromotionState>(
-      builder: (context, promotionState) {
-    return BlocBuilder<CartBloc, CartState>(
-      builder: (context, state) {
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text(
-              'Order:',
-              style: TextStyle(
-                  color: MyColors.colorGray,
-                  height: 1.42,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500),
-            ),
-            Text(
-              "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion))}\$",
-              style: _priceStyle(),
-            )
-          ],
-        );
-      },
-    );
-  });
-}
-
-Widget _deliveryWidget() {
-  return BlocBuilder<DeliveryBloc, DeliveryState>(
-    builder: (context, state) {
-      return Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Text(
-            'Delivery:',
-            style: TextStyle(
-                color: MyColors.colorGray,
-                height: 1.42,
-                fontSize: 14,
-                fontWeight: FontWeight.w500),
-          ),
-          Text(
-            '${XUtils.formatPrice((state.deliveryMethodData ?? XDeliveryMethod()).price)}\$',
-            style: _priceStyle(),
-          )
-        ],
-      );
-    },
+Widget _orderWidget(double price) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      const Text(
+        'Order:',
+        style: TextStyle(
+            color: MyColors.colorGray,
+            height: 1.42,
+            fontSize: 14,
+            fontWeight: FontWeight.w500),
+      ),
+      _priceText(price)
+    ],
   );
 }
 
-Widget _summaryWidget() {
-  return BlocBuilder<DeliveryBloc, DeliveryState>(
-    builder: (context, delivertState) {
-      return BlocBuilder<PromotionBloc, PromotionState>(
-          builder: (context, promotionState) {
-        return BlocBuilder<CartBloc, CartState>(
-          builder: (context, state) {
-            return Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Summary:',
-                  style: TextStyle(
-                      color: MyColors.colorGray,
-                      height: 1,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600),
-                ),
-                Text(
-                  "${XUtils.formatPrice(state.totalPrice(promoCode: promotionState.discountPromotion) + (delivertState.deliveryMethodData ?? XDeliveryMethod()).price)}\$",
-                  style: _priceStyle(),
-                )
-              ],
-            );
-          },
-        );
-      });
-    },
+Widget _deliveryWidget(double price) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      const Text(
+        'Delivery:',
+        style: TextStyle(
+            color: MyColors.colorGray,
+            height: 1.42,
+            fontSize: 14,
+            fontWeight: FontWeight.w500),
+      ),
+      _priceText(price)
+    ],
   );
 }
 
-TextStyle _priceStyle() {
-  return const TextStyle(
-      color: MyColors.colorBlack,
-      height: 1,
-      fontSize: 16,
-      fontWeight: FontWeight.w600);
+Widget _summaryWidget(double price) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      const Text(
+        'Summary:',
+        style: TextStyle(
+            color: MyColors.colorGray,
+            height: 1,
+            fontSize: 16,
+            fontWeight: FontWeight.w600),
+      ),
+      _priceText(price)
+    ],
+  );
+}
+
+Text _priceText(double price) {
+  return Text('${XUtils.formatPrice(price)}\$',
+      style: const TextStyle(
+          color: MyColors.colorBlack,
+          height: 1,
+          fontSize: 16,
+          fontWeight: FontWeight.w600));
 }

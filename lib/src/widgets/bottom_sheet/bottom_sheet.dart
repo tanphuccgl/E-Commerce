@@ -29,8 +29,8 @@ Widget _lineOnTopBottomSheet() {
     child: Container(
       height: 6,
       width: 60,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(3)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3),
         color: MyColors.colorGray,
       ),
     ),

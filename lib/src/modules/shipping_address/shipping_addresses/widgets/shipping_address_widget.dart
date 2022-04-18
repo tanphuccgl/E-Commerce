@@ -9,77 +9,82 @@ class ShippingAddressWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AccountBloc, AccountState>(
-      builder: (context, state) {
-        var shippingAddressDefault = state.shippingAddressDefault;
+    return SliverToBoxAdapter(
+      child: BlocBuilder<AccountBloc, AccountState>(
+        builder: (context, state) {
+          var shippingAddressDefault = state.shippingAddressDefault;
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Shipping address',
-              style: TextStyle(
-                  height: 1,
-                  fontSize: 16,
-                  color: MyColors.colorBlack,
-                  fontWeight: FontWeight.w600),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Container(
-              padding: const EdgeInsets.fromLTRB(12, 0, 23, 0),
-              height: 108,
-              decoration: BoxDecoration(
-                  color: MyColors.colorWhite,
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 25,
-                        offset: const Offset(0, 1),
-                        color: MyColors.colorWhite.withOpacity(0.08),
-                        spreadRadius: 1)
-                  ],
-                  borderRadius: const BorderRadius.all(Radius.circular(8))),
-              child: shippingAddressDefault.id == 'N/A'
-                  ? _emptyShippingAddress(context)
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Shipping address',
+                  style: TextStyle(
+                      height: 1,
+                      fontSize: 16,
+                      color: MyColors.colorBlack,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(12, 0, 23, 0),
+                  height: 108,
+                  decoration: BoxDecoration(
+                      color: MyColors.colorWhite,
+                      boxShadow: [
+                        BoxShadow(
+                            blurRadius: 25,
+                            offset: const Offset(0, 1),
+                            color: MyColors.colorWhite.withOpacity(0.08),
+                            spreadRadius: 1)
+                      ],
+                      borderRadius: BorderRadius.circular(8)),
+                  child: shippingAddressDefault.id == 'N/A'
+                      ? _emptyShippingAddress(context)
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(shippingAddressDefault.name,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(shippingAddressDefault.name,
+                                    style: const TextStyle(
+                                        fontSize: 14,
+                                        color: MyColors.colorBlack,
+                                        fontWeight: FontWeight.w500,
+                                        height: 1.42)),
+                                _changeButton(context)
+                              ],
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                text: '${shippingAddressDefault.address}\n',
                                 style: const TextStyle(
                                     fontSize: 14,
-                                    color: MyColors.colorBlack,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.42)),
-                            _changeButton(context)
+                                    height: 1.5,
+                                    fontWeight: FontWeight.normal,
+                                    color: MyColors.colorBlack),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                    text:
+                                        '${shippingAddressDefault.city}, ${shippingAddressDefault.province}, ${shippingAddressDefault.country}',
+                                  ),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                        RichText(
-                          text: TextSpan(
-                            text: '${shippingAddressDefault.address}\n',
-                            style: const TextStyle(
-                                fontSize: 14,
-                                height: 1.5,
-                                fontWeight: FontWeight.normal,
-                                color: MyColors.colorBlack),
-                            children: <TextSpan>[
-                              TextSpan(
-                                text:
-                                    '${shippingAddressDefault.city}, ${shippingAddressDefault.province}, ${shippingAddressDefault.country}',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-            )
-          ],
-        );
-      },
+                )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 

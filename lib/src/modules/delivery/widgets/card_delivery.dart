@@ -12,8 +12,6 @@ class CardDeliveryMethod extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<DeliveryBloc, DeliveryState>(
       builder: (context, state) {
-        bool isSelected =
-            (state.deliveryMethodData ?? XDeliveryMethod()).id == data.id;
         return GestureDetector(
           onTap: () => context
               .read<DeliveryBloc>()
@@ -22,7 +20,7 @@ class CardDeliveryMethod extends StatelessWidget {
             height: 72,
             width: 100,
             decoration: BoxDecoration(
-                border: isSelected
+                border: state.isSelected(data.id)
                     ? Border.all(color: MyColors.colorPrimary)
                     : null,
                 color: MyColors.colorWhite,
@@ -33,7 +31,7 @@ class CardDeliveryMethod extends StatelessWidget {
                       color: MyColors.colorWhite.withOpacity(0.08),
                       spreadRadius: 1)
                 ],
-                borderRadius: const BorderRadius.all(Radius.circular(8))),
+                borderRadius: BorderRadius.circular(8)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,

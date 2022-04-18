@@ -4,6 +4,14 @@ class DeliveryState extends Equatable {
   final List<XDeliveryMethod> items;
   final XDeliveryMethod? deliveryMethodData;
   const DeliveryState({required this.items, this.deliveryMethodData});
+
+  bool get isDeliveryMethodData =>
+      deliveryMethodData != null &&
+      (deliveryMethodData ?? XDeliveryMethod()).id != '';
+
+  bool isSelected(String id) =>
+      (deliveryMethodData ?? XDeliveryMethod()).id == id;
+
   @override
   List<Object?> get props => [items, deliveryMethodData];
 

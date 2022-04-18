@@ -16,14 +16,14 @@ class XDropdownSize extends StatelessWidget {
       return Container(
         width: 138,
         height: 40,
-        decoration: const ShapeDecoration(
+        decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
-            side: BorderSide(
+            side: const BorderSide(
               width: 1.0,
               style: BorderStyle.solid,
               color: MyColors.colorGray,
             ),
-            borderRadius: BorderRadius.all(Radius.circular(8.0)),
+            borderRadius: BorderRadius.circular(8),
           ),
         ),
         child: DropdownButtonHideUnderline(
@@ -44,7 +44,7 @@ class XDropdownSize extends StatelessWidget {
               ),
               elevation: 1,
               isExpanded: true,
-              borderRadius: const BorderRadius.all(Radius.circular(5)),
+              borderRadius: BorderRadius.circular(8),
               style: const TextStyle(color: MyColors.colorPrimary),
               underline: const SizedBox.shrink(),
               onChanged: (String? newValue) {},

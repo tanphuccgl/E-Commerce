@@ -67,7 +67,7 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
             ),
             Container(
               padding: EdgeInsets.lerp(
-                const EdgeInsets.fromLTRB(16, paddingAppbar, 0, 0),
+                const EdgeInsets.fromLTRB(0, paddingAppbar, 0, 0),
                 const EdgeInsets.only(top: 15, bottom: 10),
                 progress,
               ),

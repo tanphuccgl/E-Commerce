@@ -26,12 +26,12 @@ class FavoritesPage extends StatelessWidget {
       builder: (context, paginateState) {
         return BlocBuilder<FavoriteBloc, FavoriteState>(
             builder: (context, state) {
-          final List<XProduct> items =
+          final List<XProduct> _items =
               ((paginateState.docs.data as List<DocumentSnapshot>?) ?? [])
                   .map((e) => e.data() as XProduct)
                   .toList();
 
-          state.sortBy.sortList(items: items);
+          state.sortBy.sortList(items: _items);
           return Scaffold(
               backgroundColor: state.viewType.backgroundColor(),
               body: CustomPaginate(
@@ -53,9 +53,9 @@ class FavoritesPage extends StatelessWidget {
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 8, horizontal: 16),
                                   child: XProductCardFavoriteHorizontal(
-                                      data: items[index])),
+                                      data: _items[index])),
                             );
-                          }, childCount: items.length),
+                          }, childCount: _items.length),
                         )
                       : SliverGrid(
                           gridDelegate:
@@ -70,9 +70,9 @@ class FavoritesPage extends StatelessWidget {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
                               child: XProductCardFavoriteVertical(
-                                  data: items[index]),
+                                  data: _items[index]),
                             );
-                          }, childCount: items.length),
+                          }, childCount: _items.length),
                         ))));
         });
       },

@@ -19,18 +19,6 @@ class PromotionsCollectionReference
   }
 
   Future<XResult<List<XPromotion>>> addPromotions() async {
-    try {
-      var batch = ref.firestore.batch();
-      for (int i = 0; i < listPromotions.length; i++) {
-        {
-          batch.set(ref.doc(listPromotions[i].id), listPromotions[i],
-              SetOptions(merge: true));
-        }
-      }
-      batch.commit();
-      return XResult.success(listPromotions);
-    } catch (e) {
-      return XResult.exception(e);
-    }
+    return commit(listPromotions);
   }
 }
