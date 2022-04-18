@@ -16,10 +16,15 @@ class SignUpState extends SignState {
         : false;
   }
 
+  Function()? onPressedSignUp(BuildContext context) {
+    return isValidSignUp
+        ? () => context.read<SignUpBloc>().createAccount(context)
+        : null;
+  }
+
   const SignUpState({
     this.name = "",
     this.pureName = false,
-    bool isLoading = false,
     String email = "",
     String password = "",
     String messageError = "",
@@ -28,7 +33,6 @@ class SignUpState extends SignState {
   }) : super(
           email: email,
           password: password,
-          isLoading: isLoading,
           messageError: messageError,
           pureEmail: pureEmail,
           purePassword: purePassword,
@@ -38,7 +42,6 @@ class SignUpState extends SignState {
   List<Object?> get props => [
         name,
         pureName,
-        isLoading,
         messageError,
         email,
         password,
@@ -50,7 +53,6 @@ class SignUpState extends SignState {
   SignUpState copyWith({
     String? name,
     bool? pureName,
-    bool? isLoading,
     String? email,
     String? password,
     String? messageError,
@@ -64,7 +66,6 @@ class SignUpState extends SignState {
       pureName: pureName ?? this.pureName,
       pureEmail: pureEmail ?? this.pureEmail,
       purePassword: purePassword ?? this.purePassword,
-      isLoading: isLoading ?? this.isLoading,
       messageError: messageError ?? this.messageError,
     );
   }

@@ -1,9 +1,9 @@
-import 'package:e_commerce/src/config/themes/my_colors.dart';
 import 'package:e_commerce/src/modules/auth/login/router/sign_router.dart';
 import 'package:e_commerce/src/modules/auth/sign_up/logic/sign_up_bloc.dart';
 import 'package:e_commerce/src/modules/auth/widgets/app_bar_sign.dart';
 import 'package:e_commerce/src/modules/auth/widgets/bottom_sign.dart';
 import 'package:e_commerce/src/modules/auth/widgets/header_sign.dart';
+import 'package:e_commerce/src/modules/auth/widgets/message_error_sign.dart';
 import 'package:e_commerce/src/widgets/button/button_primary.dart';
 import 'package:e_commerce/src/widgets/text_button/text_button_custom.dart';
 import 'package:e_commerce/src/widgets/text_field/base_text_field.dart';
@@ -29,7 +29,7 @@ class SignUpPage extends StatelessWidget {
                 body: SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.fromLTRB(
-                        paddingHori, paddingAppbar, paddingHori, 0),
+                        paddingHori, paddingAppbar, paddingHori, 15),
                     child: Column(
                       children: [
                         const HeaderSign(
@@ -59,50 +59,38 @@ class SignUpPage extends StatelessWidget {
                           onChanged: (value) =>
                               context.read<SignUpBloc>().changedPassword(value),
                         ),
-                        Align(
-                          alignment: Alignment.centerRight,
-                          child: XTextButtonCus(
-                            title: "Already have an account?",
-                            onPressed: () {
-                              SignCoordinator.showLogin(context);
-                            },
-                          ),
+                        _haveAnAccount(context),
+                        XButton(
+                          width: size.width,
+                          label: "SIGN UP",
+                          onPressed: state.onPressedSignUp(context),
+                          height: 48,
                         ),
-                        state.isLoading
-                            ? const CircularProgressIndicator()
-                            : XButton(
-                                width: size.width,
-                                label: "SIGN UP",
-                                onPressed: state.isValidSignUp
-                                    ? () => context
-                                        .read<SignUpBloc>()
-                                        .createAccount(context)
-                                    : null,
-                                height: 48,
-                              ),
-                        state.messageError.isEmpty
-                            ? const SizedBox.shrink()
-                            : Center(
-                                child: Text(
-                                state.messageError,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                    color: MyColors.colorPrimary,
-                                    fontWeight: FontWeight.w500),
-                              )),
+                        MessageErrorSign(
+                            isError: state.messageError.isNotEmpty,
+                            message: state.messageError),
                         BottomSign(
                           title: "Or sign up with social account",
                           onClickGoogle: () =>
                               context.read<SignUpBloc>().withGoogle(context),
                         ),
-                        const SizedBox(
-                          height: 15,
-                        )
                       ],
                     ),
                   ),
                 ));
           },
         ));
+  }
+
+  Widget _haveAnAccount(BuildContext context) {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: XTextButtonCus(
+        title: "Already have an account?",
+        onPressed: () {
+          SignCoordinator.showLogin(context);
+        },
+      ),
+    );
   }
 }

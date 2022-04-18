@@ -32,9 +32,11 @@ class XReview extends BaseModel {
         idUser: json['idUser'],
         imageAvatar: json['imageAvatar']);
   }
+
   factory XReview.empty() {
     return XReview();
   }
+
   factory XReview.formDocument(DocumentSnapshot doc) {
     return XReview.fromJson(doc.data() as Map<String, dynamic>);
   }
@@ -47,7 +49,6 @@ class XReview extends BaseModel {
     data['content'] = content;
     data['star'] = star;
     data['idUser'] = idUser;
-
     data['time'] = time;
     data['imageAvatar'] = imageAvatar;
 

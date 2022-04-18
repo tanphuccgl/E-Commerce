@@ -20,6 +20,7 @@ class XHandle<T> {
   XHandle.initial() {
     _status = Status.initial;
   }
+
   XHandle.loading({this.message}) {
     _status = Status.loading;
   }

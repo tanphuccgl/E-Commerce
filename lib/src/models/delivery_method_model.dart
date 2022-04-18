@@ -5,7 +5,6 @@ class XDeliveryMethod extends BaseModel {
   String name;
   int shippingFromDate;
   int shippingToDate;
-
   double price;
   String image;
 
@@ -17,6 +16,7 @@ class XDeliveryMethod extends BaseModel {
       this.image = '',
       String id = ''})
       : super(id: id);
+
   factory XDeliveryMethod.fromJson(Map<String, dynamic> json) {
     return XDeliveryMethod(
       name: json['name'],
@@ -40,7 +40,6 @@ class XDeliveryMethod extends BaseModel {
     data['name'] = name;
     data['shippingToDate'] = shippingToDate;
     data['shippingFromDate'] = shippingFromDate;
-
     data['id'] = id;
     data['price'] = price;
     data['image'] = image;

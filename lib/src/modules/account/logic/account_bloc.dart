@@ -21,7 +21,6 @@ class AccountBloc<T extends AccountState> extends Cubit<T> {
 
   final Domain domain = Domain();
 
-  // user change
   StreamController<XUser?> streamUser = StreamController.broadcast();
 
   Future<void> getUser() async {

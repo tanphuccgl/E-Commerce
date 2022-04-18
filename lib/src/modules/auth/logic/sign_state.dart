@@ -1,12 +1,12 @@
 part of 'sign_bloc.dart';
 
 class SignState extends Equatable {
-  final bool isLoading;
   final String messageError;
   final String email;
   final String password;
   final bool pureEmail;
   final bool purePassword;
+
   String get isValidEmail {
     return pureEmail ? XUtils.isValidEmail(email) : "";
   }
@@ -16,7 +16,6 @@ class SignState extends Equatable {
   }
 
   const SignState({
-    this.isLoading = false,
     this.messageError = '',
     this.email = "",
     this.password = "",
@@ -26,7 +25,6 @@ class SignState extends Equatable {
 
   @override
   List<Object?> get props => [
-        isLoading,
         messageError,
         email,
         password,
@@ -39,7 +37,6 @@ class SignState extends Equatable {
     String? password,
     bool? pureEmail,
     bool? purePassword,
-    bool? isLoading,
     String? messageError,
   }) {
     return SignState(
@@ -47,7 +44,6 @@ class SignState extends Equatable {
       password: password ?? this.password,
       pureEmail: pureEmail ?? this.pureEmail,
       purePassword: purePassword ?? this.purePassword,
-      isLoading: isLoading ?? this.isLoading,
       messageError: messageError ?? this.messageError,
     );
   }

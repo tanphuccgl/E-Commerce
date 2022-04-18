@@ -76,7 +76,7 @@ class _NotificationsSettingState extends State<NotificationsSetting> {
         Switch(
           onChanged: onChanged,
           value: isSwitched,
-          activeColor: MyColors.colorSwitch,
+          activeColor: MyColors.colorGreen,
           activeTrackColor: MyColors.colorGray.withOpacity(0.2),
           inactiveThumbColor: MyColors.colorWhite,
           inactiveTrackColor: MyColors.colorGray.withOpacity(0.2),

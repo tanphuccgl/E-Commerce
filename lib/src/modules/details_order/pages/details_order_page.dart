@@ -91,7 +91,7 @@ class DetailsOrderPage extends StatelessWidget {
                         height: 1,
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
-                        color: MyColors.colorSuccess),
+                        color: MyColors.colorGreen),
                   ),
                 ],
               ),

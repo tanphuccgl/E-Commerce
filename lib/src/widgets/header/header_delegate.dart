@@ -119,12 +119,10 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return TagChip(
-                                    label: items[index].name ?? 'N/A',
+                                    label: items[index].name,
                                     onPressed: () =>
-                                        ShopCoordinator.switchCategory(
-                                            context,
-                                            nameCategory:
-                                                items[index].name ?? 'N/A'),
+                                        ShopCoordinator.switchCategory(context,
+                                            nameCategory: items[index].name),
                                   );
                                 },
                               ),

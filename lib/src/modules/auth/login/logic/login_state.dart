@@ -8,8 +8,15 @@ class LoginState extends SignState {
         : false;
   }
 
+  Function()? onPressedLogin(BuildContext context) {
+    return isValidLogin
+        ? () => context.read<LoginBloc>().loginWithEmailAndPassword(
+              context,
+            )
+        : null;
+  }
+
   const LoginState({
-    bool isLoading = false,
     String email = "",
     String password = "",
     String messageError = "",
@@ -18,14 +25,12 @@ class LoginState extends SignState {
   }) : super(
             email: email,
             password: password,
-            isLoading: isLoading,
             messageError: messageError,
             pureEmail: pureEmail,
             purePassword: purePassword);
 
   @override
   List<Object?> get props => [
-        isLoading,
         messageError,
         email,
         password,
@@ -39,7 +44,6 @@ class LoginState extends SignState {
     String? password,
     bool? pureEmail,
     bool? purePassword,
-    bool? isLoading,
     String? messageError,
   }) {
     return LoginState(
@@ -47,7 +51,6 @@ class LoginState extends SignState {
       password: password ?? this.password,
       pureEmail: pureEmail ?? this.pureEmail,
       purePassword: purePassword ?? this.purePassword,
-      isLoading: isLoading ?? this.isLoading,
       messageError: messageError ?? this.messageError,
     );
   }

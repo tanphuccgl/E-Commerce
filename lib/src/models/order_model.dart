@@ -56,6 +56,7 @@ class XOrder extends BaseModel {
         promotionData: XPromotion.empty(),
         listProducts: []);
   }
+
   factory XOrder.formDocument(DocumentSnapshot doc) {
     return XOrder.fromJson(doc.data() as Map<String, dynamic>);
   }

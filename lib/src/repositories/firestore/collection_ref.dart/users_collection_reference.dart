@@ -24,16 +24,16 @@ class UserCollectionReference extends BaseCollectionReference<XUser> {
         var name = result.data?.name;
         var url = result.data?.urlAvatar;
         var birthDay = result.data?.birthDay;
-        var type = result.data?.accountType;
+        var type = result.data?.accountType ?? 'N/A';
 
         var paymentMethods = result.data?.paymentMethods;
 
         var shippingAddresses = result.data?.shippingAddresses;
 
         data = XUser(
-            email: user.email,
+            email: user.email ?? 'N/A',
             shippingAddresses: shippingAddresses,
-            name: name ?? user.displayName,
+            name: name ?? (user.displayName ?? 'N/A'),
             birthDay: birthDay,
             id: user.uid,
             accountType: type,

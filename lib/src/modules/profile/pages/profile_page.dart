@@ -39,8 +39,8 @@ class ProfilePage extends StatelessWidget {
                 height: size.height * 0.010,
               ),
               BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
-                var email = state.data.email ?? 'N/A';
-                var name = state.data.name ?? 'N/A';
+                var email = state.data.email;
+                var name = state.data.name;
                 var urlImage = state.data.urlAvatar ?? 'N/A';
 
                 return InfoProfile(

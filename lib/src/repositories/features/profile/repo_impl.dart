@@ -19,8 +19,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
     try {
       var value =
           await UserCollectionReference().get(currentUser?.uid ?? "N/A");
-      var name = value.data?.name;
-      var email = value.data?.email;
+      var name = value.data?.name ?? 'N/A';
+      var email = value.data?.email ?? 'N/A';
       var id = value.data?.id ?? "N/A";
       var birthDay = value.data?.birthDay;
       var result = await firebase_storage.FirebaseStorage.instance
@@ -45,7 +45,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       var value =
           await UserCollectionReference().get(currentUser?.uid ?? "N/A");
       var newName = name;
-      var email = value.data?.email;
+      var email = value.data?.email ?? 'N/A';
       var id = value.data?.id ?? "N/A";
       var url = value.data?.urlAvatar;
       var newBirthDay = birthDay;
