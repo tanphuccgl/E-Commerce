@@ -8,9 +8,9 @@ class DisCountLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           color: MyColors.colorPrimary,
-          borderRadius: BorderRadius.all(Radius.circular(29))),
+          borderRadius: BorderRadius.circular(29)),
       height: 24,
       width: 40,
       child: Center(

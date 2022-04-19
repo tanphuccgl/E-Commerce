@@ -47,83 +47,69 @@ class CardOrder extends StatelessWidget {
               )
             ],
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              const Text(
-                'Tracking number:',
-                style: TextStyle(
-                    height: 1,
+          Align(
+            alignment: Alignment.centerLeft,
+            child: RichText(
+              text: TextSpan(
+                text: 'Tracking number:',
+                style: const TextStyle(
                     fontSize: 14,
+                    height: 1,
                     fontWeight: FontWeight.normal,
                     color: MyColors.colorGray),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: data.trackingNumber,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: MyColors.colorBlack)),
+                ],
               ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                data.trackingNumber,
-                style: const TextStyle(
-                    height: 1,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                    color: MyColors.colorBlack),
-              )
-            ],
+            ),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 flex: 9,
-                child: Row(
-                  children: [
-                    const Text(
-                      'Quantity:',
-                      style: TextStyle(
-                          height: 1,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: MyColors.colorGray),
-                    ),
-                    const SizedBox(
-                      width: 23,
-                    ),
-                    Text(
-                      '${data.listProducts.length}',
-                      style: const TextStyle(
-                          height: 1,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: MyColors.colorBlack),
-                    ),
-                  ],
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Quantity:',
+                    style: const TextStyle(
+                        fontSize: 14,
+                        height: 1,
+                        fontWeight: FontWeight.normal,
+                        color: MyColors.colorGray),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: '${data.listProducts.length}',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: MyColors.colorBlack)),
+                    ],
+                  ),
                 ),
               ),
               Expanded(
                 flex: 11,
-                child: Row(
-                  children: [
-                    const Text(
-                      'Total Amount:',
-                      style: TextStyle(
-                          height: 1,
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                          color: MyColors.colorGray),
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(
-                      '${XUtils.formatPrice(data.total)}\$',
-                      style: const TextStyle(
-                          height: 1,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: MyColors.colorBlack),
-                    ),
-                  ],
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Total Amount:',
+                    style: const TextStyle(
+                        fontSize: 14,
+                        height: 1,
+                        fontWeight: FontWeight.normal,
+                        color: MyColors.colorGray),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: '${XUtils.formatPrice(data.total)}\$',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: MyColors.colorBlack)),
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -138,7 +124,7 @@ class CardOrder extends StatelessWidget {
                     height: 1,
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
-                    color: MyColors.colorSuccess),
+                    color: MyColors.colorGreen),
               ),
             ],
           )

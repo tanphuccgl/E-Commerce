@@ -14,10 +14,12 @@ class XBottomSheet {
             borderRadius: BorderRadius.only(topLeft: radius, topRight: radius)),
         backgroundColor: backgroundColor,
         builder: (BuildContext context) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [_lineOnTopBottomSheet(), widget],
+          return SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [_lineOnTopBottomSheet(), widget],
+            ),
           );
         });
   }
@@ -29,8 +31,8 @@ Widget _lineOnTopBottomSheet() {
     child: Container(
       height: 6,
       width: 60,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(3)),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(3),
         color: MyColors.colorGray,
       ),
     ),

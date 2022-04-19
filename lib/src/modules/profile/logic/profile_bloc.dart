@@ -11,8 +11,10 @@ part 'profile_state.dart';
 
 class ProfileBloc extends Cubit<ProfileState> {
   ProfileBloc() : super(ProfileState(data: XUser.empty()));
+
   final Domain domain = Domain();
-  void uploadAvatar(BuildContext context, XFile image) async {
+
+  Future<void> uploadAvatar(BuildContext context, XFile image) async {
     XSnackBar.showLoading();
     var value = await domain.profile.uploadAvatar(image);
     if (value.isSuccess) {

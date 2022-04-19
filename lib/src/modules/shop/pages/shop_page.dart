@@ -10,6 +10,9 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const sizedBox = SizedBox(
+      height: 16,
+    );
     return Scaffold(
       appBar: XDefaultAppBar(
         elevation: 3,
@@ -47,9 +50,7 @@ class ShopPage extends StatelessWidget {
                         onPressed: () {},
                       ),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
+                    sizedBox,
                     const Text(
                       "Choose category",
                       style: TextStyle(
@@ -61,9 +62,7 @@ class ShopPage extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 17,
-              ),
+              sizedBox,
               const CategoryListTile()
             ],
           ),

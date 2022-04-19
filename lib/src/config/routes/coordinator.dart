@@ -8,6 +8,7 @@ class XCoordinator {
 
   static BuildContext get context =>
       rootRouter.navigatorKey.currentState!.context;
+
   static pop(BuildContext context) => context.router.pop();
 
   static showDashboard() => rootRouter.replace(const DashboardWrapperRoute());

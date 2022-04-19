@@ -2,6 +2,9 @@ part of 'cart_bloc.dart';
 
 class CartState extends ListProductsFilterState {
   final XHandle<List<XProduct>> productsOfCart;
+
+  List<XProduct> get listProducts => productsOfCart.data ?? [];
+
   String priceProduct(XProduct data) => data.discount == 0.0
       ? XUtils.formatPrice(data.originalPrice)
       : XUtils.formatPrice(data.currentPrice ?? -1);
@@ -13,6 +16,12 @@ class CartState extends ListProductsFilterState {
       total = total + items[i].amount * double.parse(priceProduct(items[i]));
     }
     return total - total * promoCode / 100;
+  }
+
+  Function()? onPressedCheckout(BuildContext context) {
+    return listProducts.isNotEmpty
+        ? () => CartCoordinator.showCheckoutScreen(context)
+        : null;
   }
 
   bool hadCart(XProduct product) {

@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:e_commerce/src/models/firestore_model.dart';
 
 class XCategories extends BaseModel {
-  String? name;
+  String name;
 
   XCategories({
     String id = '',
-    this.name,
+    this.name = '',
   }) : super(id: id);
 
   factory XCategories.fromJson(Map<String, dynamic> json) {

@@ -18,12 +18,14 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
   final double elevation;
   final bool isShowTagChipStatusOrder;
   final bool? leading;
+  final double paddingHori;
 
   const XHeaderDelegate(
       {required this.title,
       this.onPressedSearch,
       this.filterBarWidget,
       this.elevation = 0,
+      this.paddingHori = 16,
       this.isShowTagChipStatusOrder = false,
       this.backgroundColor = MyColors.colorWhite,
       this.isShowFilterBar = false,
@@ -67,7 +69,7 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
             ),
             Container(
               padding: EdgeInsets.lerp(
-                const EdgeInsets.fromLTRB(16, paddingAppbar, 0, 0),
+                EdgeInsets.fromLTRB(paddingHori, paddingAppbar, paddingHori, 0),
                 const EdgeInsets.only(top: 15, bottom: 10),
                 progress,
               ),
@@ -119,12 +121,10 @@ class XHeaderDelegate extends SliverPersistentHeaderDelegate {
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return TagChip(
-                                    label: items[index].name ?? 'N/A',
+                                    label: items[index].name,
                                     onPressed: () =>
-                                        ShopCoordinator.switchCategory(
-                                            context,
-                                            nameCategory:
-                                                items[index].name ?? 'N/A'),
+                                        ShopCoordinator.switchCategory(context,
+                                            nameCategory: items[index].name),
                                   );
                                 },
                               ),

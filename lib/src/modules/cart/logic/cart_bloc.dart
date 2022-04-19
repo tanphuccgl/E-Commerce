@@ -1,6 +1,7 @@
 import 'package:e_commerce/src/config/routes/coordinator.dart';
 import 'package:e_commerce/src/models/handle.dart';
 import 'package:e_commerce/src/models/products_model.dart';
+import 'package:e_commerce/src/modules/cart/router/cart_router.dart';
 import 'package:e_commerce/src/modules/favorites/logic/favorites_bloc.dart';
 import 'package:e_commerce/src/modules/product/logic/list_products_filter_bloc.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
@@ -35,7 +36,7 @@ class CartBloc extends ListProductsFilterBloc<CartState> {
           .where((e) => e.idUser == currentUser?.uid)
           .toList();
       emit(state.copyWithItem(productsOfCart: XHandle.completed(items)));
-    } else {}
+    }
   }
 
   Future<void> setItemToFavorites(BuildContext context,

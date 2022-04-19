@@ -8,6 +8,7 @@ class XPaymentMethod extends BaseModel {
   int cvv;
   bool setDefault;
   int type;
+
   XPaymentMethod(
       {this.name = '',
       this.cardNumber = 0,
@@ -17,6 +18,7 @@ class XPaymentMethod extends BaseModel {
       this.setDefault = false,
       String id = ''})
       : super(id: id);
+
   factory XPaymentMethod.fromJson(Map<String, dynamic> json) {
     return XPaymentMethod(
         name: json['name'],
@@ -31,6 +33,7 @@ class XPaymentMethod extends BaseModel {
   factory XPaymentMethod.empty() {
     return XPaymentMethod();
   }
+
   factory XPaymentMethod.formDocument(DocumentSnapshot doc) {
     return XPaymentMethod.fromJson(doc.data() as Map<String, dynamic>);
   }

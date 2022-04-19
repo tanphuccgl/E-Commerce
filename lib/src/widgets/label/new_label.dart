@@ -10,9 +10,8 @@ class NewLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Container(
-      decoration: const BoxDecoration(
-          color: MyColors.colorBlack,
-          borderRadius: BorderRadius.all(Radius.circular(29))),
+      decoration: BoxDecoration(
+          color: MyColors.colorBlack, borderRadius: BorderRadius.circular(29)),
       height: size.height * 0.029,
       width: size.height * 0.049,
       child: const Center(

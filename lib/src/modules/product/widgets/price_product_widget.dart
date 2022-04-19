@@ -33,7 +33,7 @@ class XPriceProductWidget extends StatelessWidget {
                 TextSpan(
                     text: "${XUtils.formatPrice(data.currentPrice ?? -1)}\$",
                     style: const TextStyle(
-                      color: MyColors.colorSaleHot,
+                      color: MyColors.colorPrimary,
                       decoration: TextDecoration.none,
                     )),
               ],

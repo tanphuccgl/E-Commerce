@@ -17,16 +17,16 @@ class PromotionCard extends StatelessWidget {
     return Container(
       height: 80,
       width: 343,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           color: MyColors.colorWhite,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 blurRadius: 25,
                 offset: Offset(0, 1),
                 color: MyColors.colorWhite,
                 spreadRadius: 1)
           ],
-          borderRadius: BorderRadius.all(Radius.circular(8))),
+          borderRadius: BorderRadius.circular(8)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

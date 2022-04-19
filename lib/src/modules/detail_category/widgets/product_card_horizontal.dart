@@ -46,18 +46,19 @@ class XProductCardHorizontal extends StatelessWidget {
   }
 
   Widget _belowCard() {
+    const radius = Radius.circular(8);
     return Container(
       height: 104,
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
           color: MyColors.colorWhite,
-          boxShadow: [
+          boxShadow: const [
             BoxShadow(
                 blurRadius: 25,
                 offset: Offset(0, 1),
                 color: MyColors.colorWhite,
                 spreadRadius: 1)
           ],
-          borderRadius: BorderRadius.all(Radius.circular(8))),
+          borderRadius: BorderRadius.circular(8)),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -65,8 +66,8 @@ class XProductCardHorizontal extends StatelessWidget {
             height: 104,
             width: 104,
             child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(8), bottomLeft: Radius.circular(8)),
+              borderRadius:
+                  const BorderRadius.only(topLeft: radius, bottomLeft: radius),
               child: Image(
                 fit: BoxFit.fill,
                 image: NetworkImage(data.image ?? "N/A"),

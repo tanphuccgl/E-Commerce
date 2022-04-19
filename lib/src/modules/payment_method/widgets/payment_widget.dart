@@ -11,61 +11,66 @@ class PaymentWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AccountBloc, AccountState>(
-      builder: (context, state) {
-        var paymentMethodDefault = state.paymentMethodDefault;
-        return Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const Text(
-                    'Payment',
-                    style: TextStyle(
-                        height: 1,
-                        fontSize: 16,
-                        color: MyColors.colorBlack,
-                        fontWeight: FontWeight.w600),
-                  ),
-                  TextButton(
-                      onPressed: () =>
-                          DashboardCoordinator.showPaymentMethod(context),
-                      child: const Text('Change',
-                          style: TextStyle(
-                              fontSize: 14,
-                              color: MyColors.colorPrimary,
-                              fontWeight: FontWeight.w500,
-                              height: 1.42)))
-                ],
-              ),
-            ),
-            paymentMethodDefault.id == 'N/A'
-                ? _emptyPaymentMethod(context)
-                : Row(
+    return SliverToBoxAdapter(
+      child: BlocBuilder<AccountBloc, AccountState>(
+        builder: (context, state) {
+          var paymentMethodDefault = state.paymentMethodDefault;
+          return Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      paymentMethodDefault.type == 0
-                          ? _logoMaterCard()
-                          : _logoVisa(),
-                      const SizedBox(
-                        width: 17,
-                      ),
-                      Text(
-                        '**** **** **** ${paymentMethodDefault.cardNumber.toString().lastChars(4)}',
-                        style: const TextStyle(
+                      const Text(
+                        'Payment',
+                        style: TextStyle(
+                            height: 1,
+                            fontSize: 16,
                             color: MyColors.colorBlack,
-                            height: 1.5,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal),
-                      )
+                            fontWeight: FontWeight.w600),
+                      ),
+                      TextButton(
+                          onPressed: () =>
+                              DashboardCoordinator.showPaymentMethod(context),
+                          child: const Text('Change',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: MyColors.colorPrimary,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.42)))
                     ],
-                  )
-          ],
-        );
-      },
+                  ),
+                ),
+                paymentMethodDefault.id == 'N/A'
+                    ? _emptyPaymentMethod(context)
+                    : Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          paymentMethodDefault.type == 0
+                              ? _logoMaterCard()
+                              : _logoVisa(),
+                          const SizedBox(
+                            width: 17,
+                          ),
+                          Text(
+                            '**** **** **** ${paymentMethodDefault.cardNumber.toString().lastChars(4)}',
+                            style: const TextStyle(
+                                color: MyColors.colorBlack,
+                                height: 1.5,
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal),
+                          )
+                        ],
+                      )
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -89,7 +94,7 @@ class PaymentWidget extends StatelessWidget {
                   color: MyColors.colorWhite.withOpacity(0.08),
                   spreadRadius: 1)
             ],
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
+            borderRadius: BorderRadius.circular(8)),
         child: Center(
           child: Image.asset(MyImages.masterCardPayment, fit: BoxFit.cover),
         ));
@@ -109,7 +114,7 @@ class PaymentWidget extends StatelessWidget {
                   color: MyColors.colorWhite.withOpacity(0.08),
                   spreadRadius: 1)
             ],
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
+            borderRadius: BorderRadius.circular(8)),
         child: Center(
           child: Image.asset(MyImages.visaCardPayment,
               color: Colors.blue, fit: BoxFit.cover),

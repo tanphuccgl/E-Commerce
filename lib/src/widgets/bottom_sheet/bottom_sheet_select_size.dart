@@ -21,6 +21,9 @@ class XBottomSheetSelectSize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const sizedBox = SizedBox(
+      height: 5,
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
       child: Center(
@@ -31,9 +34,7 @@ class XBottomSheetSelectSize extends StatelessWidget {
               'Select size',
               style: XStyle.textTheme().headlineSmall,
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            sizedBox,
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: SizedBox(
@@ -78,9 +79,7 @@ class XBottomSheetSelectSize extends StatelessWidget {
               onTap: () {},
               trailing: const Icon(Icons.keyboard_arrow_right),
             ),
-            const SizedBox(
-              height: 5,
-            ),
+            sizedBox,
             _buttonBottom()
           ],
         ),

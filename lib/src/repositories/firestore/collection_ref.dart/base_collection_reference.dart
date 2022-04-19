@@ -68,4 +68,21 @@ class BaseCollectionReference<T extends BaseModel> {
       return XResult.exception(e);
     }
   }
+
+  Future<XResult<List<T>>> commit(List<T> items, {bool merge = true}) async {
+    try {
+      var batch = ref.firestore.batch();
+      for (int i = 0; i < items.length; i++) {
+        {
+          batch.set(ref.doc(items[i].id), items[i], SetOptions(merge: merge));
+        }
+      }
+
+      batch.commit().timeout(const Duration(seconds: 5));
+
+      return XResult.success(items);
+    } catch (e) {
+      return XResult.exception(e);
+    }
+  }
 }

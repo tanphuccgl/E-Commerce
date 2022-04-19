@@ -12,6 +12,7 @@ class CardShippingAddresses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _address = '${data.city}, ${data.province}, ${data.country}';
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 0, 23, 0),
       height: 140,
@@ -24,7 +25,7 @@ class CardShippingAddresses extends StatelessWidget {
                 color: MyColors.colorWhite.withOpacity(0.08),
                 spreadRadius: 1)
           ],
-          borderRadius: const BorderRadius.all(Radius.circular(8))),
+          borderRadius: BorderRadius.circular(8)),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -77,7 +78,7 @@ class CardShippingAddresses extends StatelessWidget {
                     color: MyColors.colorBlack),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '${data.city}, ${data.province}, ${data.country}',
+                    text: _address,
                   ),
                 ],
               ),

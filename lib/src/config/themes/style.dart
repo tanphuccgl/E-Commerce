@@ -32,12 +32,6 @@ class XStyle {
             color: MyColors.colorBlack,
             fontWeight: FontWeight.w500),
         //16px
-        //16px regular
-        // bodyLarge: TextStyle(
-        //     fontSize: 16,
-        //     height: 1,
-        //     color: MyColors.colorBlack,
-        //     fontWeight: FontWeight.normal),
         //description
         bodyMedium: TextStyle(
             fontSize: 14,

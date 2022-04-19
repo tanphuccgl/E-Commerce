@@ -14,6 +14,7 @@ class XMessage extends BaseModel {
     this.image,
     this.body = '',
   }) : super(id: id);
+
   factory XMessage.fromJson(Map<String, dynamic> json, {String? id}) {
     return XMessage(
       title: json['title'],

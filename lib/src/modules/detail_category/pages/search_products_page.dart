@@ -20,7 +20,7 @@ class SearchProductsByCategoryPage extends StatelessWidget {
         builder: (context, paginateState) {
           return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
               builder: (context, state) {
-            final List<XProduct> items =
+            final List<XProduct> _items =
                 ((paginateState.docs.data as List<DocumentSnapshot>?) ?? [])
                     .map((e) => e.data() as XProduct)
                     .toList();
@@ -37,19 +37,19 @@ class SearchProductsByCategoryPage extends StatelessWidget {
                         delegate: SliverChildBuilderDelegate((context, index) {
                       return ListTile(
                         leading: Image.network(
-                          items[index].image ?? '',
+                          _items[index].image ?? '',
                           fit: BoxFit.fill,
                           width: 50,
                           height: 50,
                         ),
                         onTap: () => DashboardCoordinator.showDetailsProduct(
                             context,
-                            data: items[index],
-                            id: items[index].id),
-                        title: Text(items[index].name),
-                        subtitle: Text(items[index].type),
+                            data: _items[index],
+                            id: _items[index].id),
+                        title: Text(_items[index].name),
+                        subtitle: Text(_items[index].type),
                       );
-                    }, childCount: items.length)),
+                    }, childCount: _items.length)),
                     header: _header(context)));
           });
         },

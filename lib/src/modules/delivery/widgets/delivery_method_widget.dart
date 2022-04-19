@@ -9,38 +9,43 @@ class DeliveryMethodWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DeliveryBloc, DeliveryState>(
-      builder: (context, state) {
-        final _items = state.items;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text(
-              'Delivery method',
-              style: TextStyle(
-                  height: 1,
-                  fontSize: 16,
-                  color: MyColors.colorBlack,
-                  fontWeight: FontWeight.w600),
+    return SliverToBoxAdapter(
+      child: BlocBuilder<DeliveryBloc, DeliveryState>(
+        builder: (context, state) {
+          final _items = state.items;
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  'Delivery method',
+                  style: TextStyle(
+                      height: 1,
+                      fontSize: 16,
+                      color: MyColors.colorBlack,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                SizedBox(
+                  height: 72,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: _items
+                        .map((e) => Padding(
+                              padding: const EdgeInsets.only(right: 22),
+                              child: CardDeliveryMethod(data: e),
+                            ))
+                        .toList(),
+                  ),
+                )
+              ],
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 72,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: _items
-                    .map((e) => Padding(
-                          padding: const EdgeInsets.only(right: 22),
-                          child: CardDeliveryMethod(data: e),
-                        ))
-                    .toList(),
-              ),
-            )
-          ],
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

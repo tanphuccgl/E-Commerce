@@ -14,8 +14,8 @@ class SearchFavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FavoriteBloc, FavoriteState>(builder: (context, state) {
-      var items = state.searchList.data ?? [];
-      XHandle handle = XHandle.result(XResult.success(items));
+      var _items = state.searchList.data ?? [];
+      XHandle handle = XHandle.result(XResult.success(_items));
       if (handle.isCompleted) {
         return Scaffold(
             appBar: XSearchAppBar(
@@ -25,22 +25,22 @@ class SearchFavoritePage extends StatelessWidget {
             ),
             body: ListView.builder(
               itemBuilder: (context, index) {
-                final item = items[index];
+                final _item = _items[index];
 
                 return ListTile(
                   onTap: () => DashboardCoordinator.showDetailsProduct(context,
-                      data: item, id: item.id),
+                      data: _item, id: _item.id),
                   leading: Image.network(
-                    item.image ?? '',
+                    _item.image ?? '',
                     fit: BoxFit.fill,
                     width: 50,
                     height: 50,
                   ),
-                  title: Text(item.name),
-                  subtitle: Text(item.type),
+                  title: Text(_item.name),
+                  subtitle: Text(_item.type),
                 );
               },
-              itemCount: items.length,
+              itemCount: _items.length,
             ));
       } else if (handle.isLoading) {
         return const XStateLoadingWidget();

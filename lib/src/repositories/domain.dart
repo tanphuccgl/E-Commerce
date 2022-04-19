@@ -43,13 +43,9 @@ class Domain {
     cart = CartRepositoryImpl();
     promotion = PromotionRepositoryImpl();
     review = ReviewRepositoryImpl();
-
     paymentMethod = PaymentMethodRepositoryImpl();
-
     address = ShippingAddressRepositoryImpl();
-
     order = OrderRepositoryImpl();
-
     notification = NotificationRepositoryImpl();
     delivery = DeliveryRepositoryImpl();
   }
@@ -67,13 +63,9 @@ class Domain {
   late final CartRepository cart;
   late final PromotionRepository promotion;
   late final ReviewRepository review;
-
   late final PaymentMethodRepository paymentMethod;
-
   late final ShippingAddressRepository address;
-
   late final OrderRepository order;
-
   late final NotificationRepository notification;
   late final DeliveryRepository delivery;
 }

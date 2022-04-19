@@ -23,37 +23,36 @@ class ListTileProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final padding = size.width * 0.037;
-    final paddingContent = EdgeInsets.fromLTRB(padding, 0, padding, 0);
-
     return BlocBuilder<AccountBloc, AccountState>(
-      builder: (context, state) {
+      builder: (context, accountState) {
         return BlocBuilder<OrderBloc, OrderState>(
           builder: (context, orderState) {
             return BlocBuilder<PromotionBloc, PromotionState>(
               builder: (context, promotionState) {
-                final String subtitlePayment;
-                if (state.paymentMethodDefault.id != 'N/A') {
-                  subtitlePayment =
-                      '${state.paymentMethodDefault.type == 1 ? "Mater Card" : 'Visa'} **${state.paymentMethodDefault.cardNumber.toString().lastChars(2)}';
-                } else {
-                  subtitlePayment = 'No card';
-                }
+                final _subTitleMyOrders = orderState.listOrder.isEmpty
+                    ? 'Pay now'
+                    : 'Already have ${orderState.listOrder.length} orders';
+                final _nameCard = accountState.paymentMethodDefault.type == 1
+                    ? "Mater Card"
+                    : 'Visa';
+                final _subtitlePayment = accountState.paymentMethodDefault.id !=
+                        'N/A'
+                    ? '$_nameCard **${accountState.paymentMethodDefault.cardNumber.toString().lastChars(2)}'
+                    : 'No Card';
+
                 final List<XFunctionProfile> _items = [
                   XFunctionProfile(
-                      subtitle:
-                          'Already have ${orderState.listOrder.length} orders',
+                      subtitle: _subTitleMyOrders,
                       title: 'My orders',
                       onTap: () => OrderCoordinator.showMyOrder(context)),
                   XFunctionProfile(
                       subtitle:
-                          '${(state.data.shippingAddresses ?? []).length} addresses',
+                          '${(accountState.data.shippingAddresses ?? []).length} addresses',
                       title: 'Shipping addresses',
                       onTap: () =>
                           DashboardCoordinator.showShippingAddresses(context)),
                   XFunctionProfile(
-                      subtitle: subtitlePayment,
+                      subtitle: _subtitlePayment,
                       title: 'Payment methods',
                       onTap: () =>
                           DashboardCoordinator.showPaymentMethod(context)),
@@ -80,35 +79,43 @@ class ListTileProfile extends StatelessWidget {
                       title: 'Logout',
                       onTap: () => context.read<AccountBloc>().logout(context)),
                 ];
-                return Column(
-                    children: ListTile.divideTiles(
-                        color: MyColors.colorGray,
-                        tiles: _items.map((item) => ListTile(
-                              dense: true,
-                              contentPadding: paddingContent,
-                              onTap: () => item.onTap!(),
-                              title: Text(item.title,
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      height: 1,
-                                      color: MyColors.colorBlack,
-                                      fontWeight: FontWeight.w600)),
-                              subtitle: Text(item.subtitle,
-                                  style: const TextStyle(
-                                      fontSize: 11,
-                                      height: 1,
-                                      color: MyColors.colorGray,
-                                      fontWeight: FontWeight.normal)),
-                              trailing: const Icon(
-                                Icons.arrow_forward_ios_outlined,
-                                color: MyColors.colorGray,
-                              ),
-                            ))).toList());
+                return _buildScreen(context, items: _items);
               },
             );
           },
         );
       },
     );
+  }
+
+  Widget _buildScreen(BuildContext context,
+      {required List<XFunctionProfile> items}) {
+    final size = MediaQuery.of(context).size;
+    final padding = size.width * 0.037;
+    final paddingContent = EdgeInsets.fromLTRB(padding, 0, padding, 0);
+    return Column(
+        children: ListTile.divideTiles(
+            color: MyColors.colorGray,
+            tiles: items.map((e) => ListTile(
+                  dense: true,
+                  contentPadding: paddingContent,
+                  onTap: () => e.onTap!(),
+                  title: Text(e.title,
+                      style: const TextStyle(
+                          fontSize: 16,
+                          height: 1,
+                          color: MyColors.colorBlack,
+                          fontWeight: FontWeight.w600)),
+                  subtitle: Text(e.subtitle,
+                      style: const TextStyle(
+                          fontSize: 11,
+                          height: 1,
+                          color: MyColors.colorGray,
+                          fontWeight: FontWeight.normal)),
+                  trailing: const Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    color: MyColors.colorGray,
+                  ),
+                ))).toList());
   }
 }

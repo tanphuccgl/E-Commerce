@@ -20,18 +20,6 @@ class DeliveryCollectionReference
   }
 
   Future<XResult<List<XDeliveryMethod>>> addDeliveryMethod() async {
-    try {
-      var batch = ref.firestore.batch();
-      for (int i = 0; i < listDeliveryMethod.length; i++) {
-        {
-          batch.set(ref.doc(listDeliveryMethod[i].id), listDeliveryMethod[i],
-              SetOptions(merge: true));
-        }
-      }
-      batch.commit();
-      return XResult.success(listDeliveryMethod);
-    } catch (e) {
-      return XResult.exception(e);
-    }
+    return commit(listDeliveryMethod);
   }
 }

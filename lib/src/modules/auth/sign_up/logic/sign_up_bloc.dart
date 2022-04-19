@@ -18,11 +18,10 @@ class SignUpBloc extends SignBloc<SignUpState> {
   }
 
   void createAccount(BuildContext context) async {
-    if (state.isLoading) {
-      return;
-    }
+    XSnackBar.showLoading();
     String messageError = "";
     FocusScope.of(context).requestFocus(FocusNode());
+
     emit(state.copyWith(
       pureEmail: true,
       pureName: true,
@@ -30,8 +29,7 @@ class SignUpBloc extends SignBloc<SignUpState> {
     ));
 
     if (state.isValidSignUp) {
-      emit(state.copyWith(isLoading: true, messageError: messageError));
-
+      emit(state.copyWith(messageError: messageError));
       var value = await domain.sign.signUp(
           email: state.email, password: state.password, name: state.name);
       if (value.isSuccess) {
@@ -41,8 +39,7 @@ class SignUpBloc extends SignBloc<SignUpState> {
       } else {
         emit(state.copyWith(messageError: value.error));
       }
-
-      emit(state.copyWith(isLoading: false));
     }
+    XSnackBar.hideLoading();
   }
 }

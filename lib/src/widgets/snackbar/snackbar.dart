@@ -4,8 +4,17 @@ class XSnackBar {
   static CancelFunc? cancel;
 
   static show({required String msg}) => BotToast.showText(text: msg);
-  static showLoading() =>
-      cancel == null ? cancel = BotToast.showLoading() : null;
+  static showLoading() {
+    if (cancel != null) {
+      cancel = null;
+    }
 
-  static hideLoading() => cancel != null ? (cancel ?? () {})() : null;
+    cancel ??= BotToast.showLoading();
+  }
+
+  static hideLoading() {
+    if (cancel != null) {
+      cancel!();
+    }
+  }
 }

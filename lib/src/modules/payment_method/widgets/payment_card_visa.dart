@@ -26,7 +26,7 @@ class PaymentCardVisa extends StatelessWidget {
                   color: MyColors.colorWhite.withOpacity(0.08),
                   spreadRadius: 1)
             ],
-            borderRadius: const BorderRadius.all(Radius.circular(8))),
+            borderRadius: BorderRadius.circular(8)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

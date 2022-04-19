@@ -34,7 +34,7 @@ class WriteReviewBloc extends Cubit<WriteReviewState> {
           id: product.id,
           imageAvatar: user.urlAvatar,
           images: valueImage.data,
-          name: user.name ?? 'N/A',
+          name: user.name,
           star: state.yourRating,
           time: XUtils.dateTimeReview(),
           idUser: user.id);

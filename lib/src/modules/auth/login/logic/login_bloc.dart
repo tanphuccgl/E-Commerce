@@ -12,13 +12,13 @@ class LoginBloc extends SignBloc<LoginState> {
   LoginBloc() : super(const LoginState());
 
   void loginWithEmailAndPassword(BuildContext context) async {
+    XSnackBar.showLoading();
     FocusScope.of(context).requestFocus(FocusNode());
 
     String messageError = "";
 
-    emit(state.copyWith(isLoading: true, messageError: messageError));
-
-    emit(state.copyWith(pureEmail: true, purePassword: true));
+    emit(state.copyWith(
+        messageError: messageError, purePassword: true, pureEmail: true));
 
     if (state.isValidLogin) {
       var value = await domain.sign
@@ -31,6 +31,7 @@ class LoginBloc extends SignBloc<LoginState> {
         emit(state.copyWith(messageError: value.error));
       }
     }
-    emit(state.copyWith(isLoading: false));
+
+    XSnackBar.hideLoading();
   }
 }

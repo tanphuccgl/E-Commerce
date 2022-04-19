@@ -127,27 +127,25 @@ class ShippingAddressBloc extends Cubit<ShippingAddressState> {
 
   Future<void> changeDefaultAddress(BuildContext context,
       {required String id, required XShippingAddress data}) async {
-    if (state.isValidSaveAddress) {
-      final xShippingAddress = XShippingAddress(
-          name: data.name,
-          address: data.address,
-          city: data.city,
-          id: id,
-          setDefault: !data.setDefault,
-          country: data.country,
-          province: data.province,
-          zipCode: int.parse(state.zipCode));
+    final xShippingAddress = XShippingAddress(
+        name: data.name,
+        address: data.address,
+        city: data.city,
+        id: id,
+        setDefault: !data.setDefault,
+        country: data.country,
+        province: data.province,
+        zipCode: data.zipCode);
 
-      var value =
-          await domain.address.setDefaultShippingAddress(xShippingAddress);
+    var value =
+        await domain.address.setDefaultShippingAddress(xShippingAddress);
 
-      if (value.isSuccess) {
-        final List<XShippingAddress> items = [...(state.items ?? [])];
+    if (value.isSuccess) {
+      final List<XShippingAddress> items = [...(state.items ?? [])];
 
-        emit(state.copyWith(items: items));
+      emit(state.copyWith(items: items));
 
-        context.read<AccountBloc>().setDataLogin(context, user: value.data);
-      }
+      context.read<AccountBloc>().setDataLogin(context, user: value.data);
     }
   }
 }

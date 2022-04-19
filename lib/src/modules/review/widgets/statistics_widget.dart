@@ -116,8 +116,8 @@ Widget _ratingLine(int numberRatings) {
   return Container(
     height: 8,
     width: (8 * (numberRatings + 1).toDouble()),
-    decoration: const BoxDecoration(
-      borderRadius: BorderRadius.all(Radius.circular(4)),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(4),
       color: MyColors.colorPrimary,
     ),
   );

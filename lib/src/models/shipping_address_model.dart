@@ -36,6 +36,7 @@ class XShippingAddress extends BaseModel {
   factory XShippingAddress.empty() {
     return XShippingAddress();
   }
+
   factory XShippingAddress.formDocument(DocumentSnapshot doc) {
     return XShippingAddress.fromJson(doc.data() as Map<String, dynamic>);
   }

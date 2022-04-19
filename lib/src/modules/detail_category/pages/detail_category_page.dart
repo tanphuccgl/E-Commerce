@@ -29,11 +29,11 @@ class DetailCategoryPage extends StatelessWidget {
       builder: (context, paginateState) {
         return BlocBuilder<ListProductsFilterBloc, ListProductsFilterState>(
             builder: (context, state) {
-          final List<XProduct> items =
+          final List<XProduct> _items =
               ((paginateState.docs.data as List<DocumentSnapshot>?) ?? [])
                   .map((e) => e.data() as XProduct)
                   .toList();
-          state.sortBy.sortList(items: items);
+          state.sortBy.sortList(items: _items);
           return Scaffold(
               backgroundColor: state.viewType.backgroundColor(),
               body: CustomPaginate(
@@ -51,10 +51,10 @@ class DetailCategoryPage extends StatelessWidget {
                             child: Padding(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 16),
-                                child:
-                                    XProductCardHorizontal(data: items[index])),
+                                child: XProductCardHorizontal(
+                                    data: _items[index])),
                           );
-                        }, childCount: items.length),
+                        }, childCount: _items.length),
                       )
                     : SliverGrid(
                         gridDelegate:
@@ -66,9 +66,9 @@ class DetailCategoryPage extends StatelessWidget {
                         delegate: SliverChildBuilderDelegate((context, index) {
                           return Padding(
                             padding: const EdgeInsets.fromLTRB(16, 10, 16, 0),
-                            child: XProductCardVertical(data: items[index]),
+                            child: XProductCardVertical(data: _items[index]),
                           );
-                        }, childCount: items.length),
+                        }, childCount: _items.length),
                       ),
               ));
         });

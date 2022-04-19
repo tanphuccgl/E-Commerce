@@ -27,9 +27,11 @@ class XPromotion extends BaseModel {
       id: json['id'],
     );
   }
+
   factory XPromotion.empty() {
     return XPromotion();
   }
+
   factory XPromotion.formDocument(DocumentSnapshot doc) {
     return XPromotion.fromJson(doc.data() as Map<String, dynamic>);
   }
@@ -41,7 +43,6 @@ class XPromotion extends BaseModel {
     data['image'] = image;
     data['timeRemaining'] = timeRemaining;
     data['code'] = code;
-
     data['discount'] = discount;
 
     return data;
