@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 class XTextButtonCus extends StatelessWidget {
   final String title;
-  final Function() onPressed;
+  final Function()? onPressed;
   const XTextButtonCus({Key? key, required this.title, required this.onPressed})
       : super(key: key);
 

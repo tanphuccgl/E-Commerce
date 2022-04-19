@@ -13,6 +13,8 @@ class ShippingAddressWidget extends StatelessWidget {
       child: BlocBuilder<AccountBloc, AccountState>(
         builder: (context, state) {
           var shippingAddressDefault = state.shippingAddressDefault;
+          final _address =
+              '${shippingAddressDefault.city}, ${shippingAddressDefault.province}, ${shippingAddressDefault.country}';
 
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -70,10 +72,7 @@ class ShippingAddressWidget extends StatelessWidget {
                                     fontWeight: FontWeight.normal,
                                     color: MyColors.colorBlack),
                                 children: <TextSpan>[
-                                  TextSpan(
-                                    text:
-                                        '${shippingAddressDefault.city}, ${shippingAddressDefault.province}, ${shippingAddressDefault.country}',
-                                  ),
+                                  TextSpan(text: _address),
                                 ],
                               ),
                             ),

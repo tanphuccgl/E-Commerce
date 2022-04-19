@@ -12,6 +12,9 @@ class XBottomSheetResetPassword extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final padding = size.width * 0.037;
+    const sizeBox = SizedBox(
+      height: 5,
+    );
     return BlocProvider(
       create: (_) => SettingBloc(SettingState()),
       child: BlocBuilder<SettingBloc, SettingState>(builder: (context, state) {
@@ -27,9 +30,7 @@ class XBottomSheetResetPassword extends StatelessWidget {
                     'Reset Password',
                     style: XStyle.textTheme().headlineSmall,
                   ),
-                  const SizedBox(
-                    height: 5,
-                  ),
+                  sizeBox,
                   XTextField(
                       label: "New Password",
                       value: state.newPassword,
@@ -48,9 +49,7 @@ class XBottomSheetResetPassword extends StatelessWidget {
                       onChanged: (value) => context
                           .read<SettingBloc>()
                           .changedRepeatNewPassword(value)),
-                  const SizedBox(
-                    height: 5,
-                  ),
+                  sizeBox,
                   XButton(
                     label: 'RESET PASSWORD',
                     width: size.width,

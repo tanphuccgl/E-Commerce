@@ -21,6 +21,9 @@ class XDetails extends StatelessWidget {
         'Short dress in soft cotton jersey with decorative buttons down the front'
         ' and a wide, frill-trimmed square neckline with concealed elastication.'
         'Elasticated seam under the bust and short puff sleeves with a small frill trim.';
+    const sizeBox = SizedBox(
+      height: 15,
+    );
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
       return SizedBox(
         width: double.infinity,
@@ -63,9 +66,7 @@ class XDetails extends StatelessWidget {
                 XDisplayLabel(data: data)
               ],
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            sizeBox,
             const Text(
               contentText,
               style: TextStyle(
@@ -74,9 +75,7 @@ class XDetails extends StatelessWidget {
                   color: MyColors.colorBlack,
                   fontWeight: FontWeight.normal),
             ),
-            const SizedBox(
-              height: 15,
-            ),
+            sizeBox,
             state.hadCart(data)
                 ? const XButton(
                     label: 'PRODUCT IN CART',

@@ -14,10 +14,12 @@ class XBottomSheet {
             borderRadius: BorderRadius.only(topLeft: radius, topRight: radius)),
         backgroundColor: backgroundColor,
         builder: (BuildContext context) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            mainAxisSize: MainAxisSize.min,
-            children: [_lineOnTopBottomSheet(), widget],
+          return SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [_lineOnTopBottomSheet(), widget],
+            ),
           );
         });
   }

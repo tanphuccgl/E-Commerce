@@ -3,6 +3,7 @@ part of 'promotion_bloc.dart';
 class PromotionState extends Equatable {
   final XHandle<List<XPromotion>> items;
   final String promoCode;
+
   double get discountPromotion => (items.data ?? [])
       .firstWhere((e) => e.code == promoCode, orElse: () => XPromotion.empty())
       .discount;

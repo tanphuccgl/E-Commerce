@@ -52,6 +52,7 @@ class CartPage extends StatelessWidget {
                           floating: true,
                           delegate: XHeaderDelegate(
                               title: 'My Bag',
+                              paddingHori: 0,
                               backgroundColor: MyColors.colorBackground),
                         ),
                       ),

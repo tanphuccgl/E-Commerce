@@ -12,6 +12,7 @@ class CardShippingAddresses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _address = '${data.city}, ${data.province}, ${data.country}';
     return Container(
       padding: const EdgeInsets.fromLTRB(0, 0, 23, 0),
       height: 140,
@@ -77,7 +78,7 @@ class CardShippingAddresses extends StatelessWidget {
                     color: MyColors.colorBlack),
                 children: <TextSpan>[
                   TextSpan(
-                    text: '${data.city}, ${data.province}, ${data.country}',
+                    text: _address,
                   ),
                 ],
               ),

@@ -16,6 +16,9 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final padding = size.width * 0.037;
+    final sizeBox = SizedBox(
+      height: size.height * 0.02,
+    );
     return BlocBuilder<AccountBloc, AccountState>(builder: (context, state) {
       return BlocProvider(
           create: ((_) => SettingBloc(SettingState(
@@ -43,17 +46,11 @@ class SettingPage extends StatelessWidget {
                     child: Column(
                       children: [
                         const XHeader(title: "Settings"),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
+                        sizeBox,
                         const PersonalInfoForm(),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
+                        sizeBox,
                         const PasswordForm(),
-                        SizedBox(
-                          height: size.height * 0.04,
-                        ),
+                        sizeBox,
                         const NotificationsSetting(),
                       ],
                     ),

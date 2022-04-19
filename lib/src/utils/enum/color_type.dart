@@ -13,7 +13,6 @@ extension ColorTypeExt on ColorType {
         return "Blue";
       case ColorType.yellow:
         return "Yellow";
-
       default:
         return "N/A";
     }

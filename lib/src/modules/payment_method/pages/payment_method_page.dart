@@ -25,69 +25,55 @@ class PaymentMethodPage extends StatelessWidget {
               elevation: 1,
               title: 'Payment methods',
               style: XStyle.textTheme().headlineSmall),
-          body: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.only(top: 30, bottom: 20),
-                      child: Text(
-                        'Your payment cards',
-                        style: TextStyle(
-                            color: MyColors.colorBlack,
-                            fontSize: 16,
-                            height: 1,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    _items.isEmpty
-                        ? const Center(
-                            child: Text('Empty'),
-                          )
-                        : Expanded(
-                            child: ListView.builder(
-                              padding: const EdgeInsets.symmetric(vertical: 20),
-                              itemBuilder: (context, index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 10),
-                                  child: Column(
-                                    children: [
-                                      _items[index].type == 0
-                                          ? PaymentCardMaster(
-                                              data: _items[index])
-                                          : PaymentCardVisa(
-                                              data: _items[index]),
-                                      _paymentMethodDefault(context,
-                                          data: _items[index]),
-                                    ],
-                                  ),
-                                );
-                              },
-                              itemCount: _items.length,
-                            ),
-                          ),
-                  ],
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(top: 30, bottom: 20),
+                  child: Text(
+                    'Your payment cards',
+                    style: TextStyle(
+                        color: MyColors.colorBlack,
+                        fontSize: 16,
+                        height: 1,
+                        fontWeight: FontWeight.w600),
+                  ),
                 ),
-              ),
-              Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: IconCircleButton(
-                      icon: const Icon(Icons.add, color: MyColors.colorWhite),
-                      primary: MyColors.colorBlack,
-                      onPressed: () =>
-                          PaymentMethodCoordinator.showBottomSheetNewPayment(
-                              context),
-                      onPrimary: MyColors.colorWhite,
-                    ),
-                  ))
-            ],
+                _items.isEmpty
+                    ? const Center(
+                        child: Text('Empty'),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              child: Column(
+                                children: [
+                                  _items[index].type == 0
+                                      ? PaymentCardMaster(data: _items[index])
+                                      : PaymentCardVisa(data: _items[index]),
+                                  _paymentMethodDefault(context,
+                                      data: _items[index]),
+                                ],
+                              ),
+                            );
+                          },
+                          itemCount: _items.length,
+                        ),
+                      ),
+              ],
+            ),
+          ),
+          floatingActionButton: IconCircleButton(
+            icon: const Icon(Icons.add, color: MyColors.colorWhite),
+            primary: MyColors.colorBlack,
+            onPressed: () =>
+                PaymentMethodCoordinator.showBottomSheetNewPayment(context),
+            onPrimary: MyColors.colorWhite,
           ),
         );
       },

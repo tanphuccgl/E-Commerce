@@ -30,6 +30,4 @@ class SignCoordinator {
   static showSignUp(BuildContext context) {
     context.router.replace(const SignRouter());
   }
-
-  static showForgotPassword() {}
 }
