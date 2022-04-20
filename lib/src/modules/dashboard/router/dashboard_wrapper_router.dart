@@ -20,6 +20,7 @@ import 'package:e_commerce/src/modules/promotion/logic/promotion_bloc.dart';
 import 'package:e_commerce/src/modules/shop/logic/categories_bloc.dart';
 import 'package:e_commerce/src/modules/view_all_products/logic/view_all_products_bloc.dart';
 import 'package:e_commerce/src/utils/utils.dart';
+import 'package:e_commerce/src/widgets/snackbar/snackbar.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,9 +45,7 @@ class _DashboardWrapperPageState extends State<DashboardWrapperPage> {
         context.router.pushWidget(const NotificationPage());
       }
     });
-    FirebaseMessaging.instance.getToken().then((value) {
-      log('Token device firebase : ${value ?? 'N.A'}');
-    });
+    FirebaseMessaging.instance.getToken().then((value) {});
 
     var initialzationSettingsAndroid =
         const AndroidInitializationSettings('@mipmap/launcher_icon');
@@ -56,23 +55,31 @@ class _DashboardWrapperPageState extends State<DashboardWrapperPage> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (payload) async =>
             context.router.pushWidget(const NotificationPage()));
+
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? android = message.notification?.android;
+      if (notification != null) {
+        if (android != null) {
+          flutterLocalNotificationsPlugin.show(
+              notification.hashCode,
+              notification.title,
+              notification.body,
+              NotificationDetails(
+                android: AndroidNotificationDetails(
+                  channel.id,
+                  channel.name,
+                  channelDescription: channel.description,
+                  icon: android.smallIcon,
+                ),
+              ));
+        } else {
+          XSnackBar.show(
+              msg: 'title: ${notification.title}'
+                  '\n'
+                  'body: ${notification.body}');
+        }
 
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-            notification.hashCode,
-            notification.title,
-            notification.body,
-            NotificationDetails(
-              android: AndroidNotificationDetails(
-                channel.id,
-                channel.name,
-                channelDescription: channel.description,
-                icon: android.smallIcon,
-              ),
-            ));
         context.read<NotificationBloc>().addNotification(XMessage(
             id: XUtils.getRandomString(10),
             body: notification.body ?? 'N/A',

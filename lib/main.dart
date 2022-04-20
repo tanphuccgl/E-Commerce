@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
 import 'package:e_commerce/src/models/message_model.dart';
@@ -41,7 +42,12 @@ late AndroidNotificationChannel channel;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+  await Firebase.initializeApp(
+    name: kIsWeb ? null : 'E-conmmerce',
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   GetIt.I.registerLazySingleton(() => XRouter());
 
@@ -53,8 +59,6 @@ Future<void> main() async {
       description: 'This channel is used for important notifications.',
       importance: Importance.high,
     );
-
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
