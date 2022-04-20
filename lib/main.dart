@@ -9,12 +9,14 @@ import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/notification/logic/notification_bloc.dart';
 import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
 import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
+import 'package:e_commerce/src/utils/helpers/environment.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -43,6 +45,7 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  await dotenv.load(fileName: Environment.fileName);
 
   await Firebase.initializeApp(
     name: kIsWeb ? null : 'E-conmmerce',

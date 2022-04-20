@@ -2,11 +2,11 @@ importScripts("https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js");
 importScripts("https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js");
 importScripts("https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js");
-
+require('dotenv').config();
 
 
 firebase.initializeApp({
-  apiKey: "AIzaSyBnMkIiziYTEqM6a5qaoRZXZScTGo30958",
+  apiKey: process.env.GOOGLE_API_KEY,
   authDomain: "e-conmmerce.firebaseapp.com",
   projectId: "e-conmmerce",
   measurementId: "G-NGE5MEG7LL",

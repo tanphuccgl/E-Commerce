@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.17.0
   firebase_messaging: ^11.2.13
   flutter_local_notifications: ^9.4.0
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,9 @@ flutter:
     - assets/images/2.0x/
     - assets/images/3.0x/
     - assets/fonts/
+    - .env
+    - .env.development
+    - .env.production
 
   fonts:
     - family: Metropolis
