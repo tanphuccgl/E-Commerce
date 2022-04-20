@@ -27,6 +27,8 @@ jobs:
 
       - name: Install dependencies
         run: flutter pub get
+      - name: Setup Go environment
+        uses: actions/setup-go@v3.0.0  
 
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
