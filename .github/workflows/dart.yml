@@ -35,10 +35,7 @@ jobs:
           GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
           EXEC_ENV: 'github_actions'
       - name: Write .env
-        run: 
-      touch .env
-      echo $GOOGLE_API_KEY >> .env
-      cat  .env
+        run: echo '{{ secrets.GOOGLE_API_KEY }}' > .env
       - name: Setup Go environment
         uses: actions/setup-go@v3.0.0  
 
