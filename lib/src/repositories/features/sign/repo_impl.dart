@@ -6,6 +6,7 @@ import 'package:e_commerce/src/repositories/features/sign/repo.dart';
 import 'package:e_commerce/src/repositories/firestore/collection_ref.dart/users_collection_reference.dart';
 import 'package:e_commerce/src/repositories/firestore/services/auth_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 enum AccountType { google, emailAndPassword }
@@ -28,24 +29,40 @@ class SignRepositoryImpl implements SignRepository {
 
   @override
   Future<XResult<XUser>> loginWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth =
-          await googleUser?.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-      var userCredential = await AuthService().userCredential(credential);
-      var data = UserCollectionReference().getUserOrAddNew(
-        userCredential.user!,
-      );
+    if (kIsWeb) {
+      GoogleAuthProvider authProvider = GoogleAuthProvider();
+      try {
+        final UserCredential userCredential =
+            await AuthService().userCredentialWeb(authProvider);
 
-      return data;
-    } on FirebaseAuthException catch (error) {
-      String message = handleError(codeError: error.code);
+        var data = UserCollectionReference().getUserOrAddNew(
+          userCredential.user!,
+        );
+        return data;
+      } on FirebaseAuthException catch (error) {
+        String message = handleError(codeError: error.code);
+        return XResult.error(message);
+      }
+    } else {
+      try {
+        final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-      return XResult.error(message);
+        final GoogleSignInAuthentication? googleAuth =
+            await googleUser?.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth?.accessToken,
+          idToken: googleAuth?.idToken,
+        );
+        var userCredential = await AuthService().userCredential(credential);
+        var data = UserCollectionReference().getUserOrAddNew(
+          userCredential.user!,
+        );
+
+        return data;
+      } on FirebaseAuthException catch (error) {
+        String message = handleError(codeError: error.code);
+        return XResult.error(message);
+      }
     }
   }
 
