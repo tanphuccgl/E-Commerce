@@ -19,7 +19,6 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
-  <meta name="google-signin-client_id" content="1021259785772-ms16afqvh6tje4bv53a19qi95ule4k9e.apps.googleusercontent.com">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -48,11 +47,9 @@
       document.body.append(scriptTag);
     }
 
-  if ('serviceWorker' in navigator) {
+    if ('serviceWorker' in navigator) {
       // Service workers are supported. Use them.
       window.addEventListener('load', function () {
-        navigator.serviceWorker.register("/firebase-messaging-sw.js");
-
         // Wait for registration to finish before dropping the <script> tag.
         // Otherwise, the browser will load the script multiple times,
         // potentially different versions.

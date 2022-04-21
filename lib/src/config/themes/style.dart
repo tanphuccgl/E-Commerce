@@ -1,5 +1,4 @@
 import 'package:e_commerce/src/config/themes/my_colors.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class XStyle {
@@ -19,12 +18,12 @@ class XStyle {
         //14px
         labelLarge: TextStyle(
             fontSize: 14,
-            height: kIsWeb ? 0.7 : 0.1,
+            height: 0.1,
             color: MyColors.colorGray,
             fontWeight: FontWeight.w500),
         titleSmall: TextStyle(
             fontSize: 14,
-            height: kIsWeb ? 0.7 : 0.1,
+            height: 0.1,
             color: MyColors.colorInputTextFormField,
             fontWeight: FontWeight.w500),
         titleMedium: TextStyle(

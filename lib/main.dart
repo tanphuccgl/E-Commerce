@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bot_toast/bot_toast.dart';
-import 'package:e_commerce/firebase_options.dart';
 import 'package:e_commerce/src/config/routes/auto_router.gr.dart';
 import 'package:e_commerce/src/config/themes/themes.dart';
 import 'package:e_commerce/src/models/message_model.dart';
@@ -9,14 +8,12 @@ import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/notification/logic/notification_bloc.dart';
 import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
 import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
-import 'package:e_commerce/src/utils/helpers/environment.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get_it/get_it.dart';
@@ -44,13 +41,7 @@ late AndroidNotificationChannel channel;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-  await dotenv.load(fileName: Environment.fileName);
-
-  await Firebase.initializeApp(
-    name: kIsWeb ? null : 'E-conmmerce',
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp();
 
   GetIt.I.registerLazySingleton(() => XRouter());
 
@@ -62,6 +53,8 @@ Future<void> main() async {
       description: 'This channel is used for important notifications.',
       importance: Importance.high,
     );
+
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
