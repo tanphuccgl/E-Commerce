@@ -1,4 +1,3 @@
-import 'package:e_commerce/src/utils/helpers/environment.dart';
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
     show defaultTargetPlatform, kIsWeb, TargetPlatform;
@@ -28,16 +27,16 @@ class DefaultFirebaseOptions {
     );
   }
 
-  static FirebaseOptions web = FirebaseOptions(
-      apiKey: Environment.googleApiKey,
+  static const FirebaseOptions web = FirebaseOptions(
+      apiKey: "AIzaSyBnMkIiziYTEqM6a5qaoRZXZScTGo30958",
       authDomain: "e-conmmerce.firebaseapp.com",
       projectId: "e-conmmerce",
       storageBucket: "e-conmmerce.appspot.com",
       messagingSenderId: "1021259785772",
       appId: "1:1021259785772:web:df780fb105b5275aac9389",
       measurementId: "G-NGE5MEG7LL");
-  static FirebaseOptions android = FirebaseOptions(
-    apiKey: Environment.googleApiKey,
+  static const FirebaseOptions android = FirebaseOptions(
+    apiKey: 'AIzaSyBnMkIiziYTEqM6a5qaoRZXZScTGo30958',
     appId: '1:1021259785772:android:d63fc996266bc720ac9389',
     messagingSenderId: '1021259785772',
     projectId: 'e-conmmerce',
