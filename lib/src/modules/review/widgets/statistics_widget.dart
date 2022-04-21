@@ -34,7 +34,7 @@ Widget _ratingScore(XProduct data) {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
-          state.ratingScore(data: data).toString().substring(0, 3),
+          state.ratingScore(data: data),
           style: const TextStyle(
               fontSize: 44,
               height: 1.1,

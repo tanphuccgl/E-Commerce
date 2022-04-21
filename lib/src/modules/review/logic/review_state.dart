@@ -8,16 +8,16 @@ class ReviewState extends Equatable {
     required this.items,
     this.checkBoxWithPhoto = false,
   });
-  double ratingScore({required XProduct data}) {
+  String ratingScore({required XProduct data}) {
     var list = items.data ?? [];
     if (list.isNotEmpty) {
       var totalStar = 0;
       for (int i = 0; i < list.length; i++) {
         totalStar = totalStar + list[i].star;
       }
-      return totalStar / list.length;
+      return (totalStar / list.length).toString().substring(0, 3);
     } else {
-      return 0.0;
+      return '0.0';
     }
   }
 

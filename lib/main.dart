@@ -47,8 +47,7 @@ late AndroidNotificationChannel channel;
 late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   await dotenv.load(fileName: Environment.fileName);
 
@@ -67,8 +66,6 @@ Future<void> main() async {
       description: 'This channel is used for important notifications.',
       importance: Importance.high,
     );
-
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
