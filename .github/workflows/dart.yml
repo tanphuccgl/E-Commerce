@@ -30,11 +30,11 @@ jobs:
 
       - name: Write .env
         run: echo 'GOOGLE_API_KEY={{ secrets.GOOGLE_API_KEY }}' > .env
-       - name: Write .env.development
+      - name: Write .env.development
         run: echo 'GOOGLE_API_KEY={{ secrets.GOOGLE_API_KEY }}' > .env.development
-       - name: Write .env.production
+      - name: Write .env.production
         run: echo 'GOOGLE_API_KEY={{ secrets.GOOGLE_API_KEY }}' > .env.production
-        
+
       - name: Test package
         run: flutter test
         env:
