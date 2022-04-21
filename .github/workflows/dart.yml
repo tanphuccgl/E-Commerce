@@ -28,23 +28,6 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Write .env
-        run: echo 'GOOGLE_API_KEY={{ secrets.GOOGLE_API_KEY }}' > .env
-      - name: Write .env.development
-        run: echo 'GOOGLE_API_KEY={{ secrets.GOOGLE_API_KEY }}' > .env.development
-      - name: Write .env.production
-        run: echo 'GOOGLE_API_KEY={{ secrets.GOOGLE_API_KEY }}' > .env.production
-
-      - name: Test package
-        run: flutter test
-        env:
-          FIREBASE_SERVICE_ACCOUNT_E_CONMMERCE: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_E_CONMMERCE }}
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          EXEC_ENV: 'github_actions'
-      
-      - name: Setup Go environment
-        uses: actions/setup-go@v3.0.0  
-
       # Uncomment this step to verify the use of 'dart format' on each commit.
       # - name: Verify formatting
       #   run: dart format --output=none --set-exit-if-changed .
