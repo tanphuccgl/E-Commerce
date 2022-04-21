@@ -9,9 +9,11 @@ import 'package:e_commerce/src/modules/account/logic/account_bloc.dart';
 import 'package:e_commerce/src/modules/notification/logic/notification_bloc.dart';
 import 'package:e_commerce/src/modules/payment_method/logic/payment_method_bloc.dart';
 import 'package:e_commerce/src/modules/shipping_address/logic/shipping_address_bloc.dart';
+import 'package:e_commerce/src/repositories/firestore/services/dynamic_link_service.dart';
 import 'package:e_commerce/src/utils/helpers/environment.dart';
 import 'package:e_commerce/src/utils/utils.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +47,7 @@ late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
   await dotenv.load(fileName: Environment.fileName);
 
   await Firebase.initializeApp(
@@ -82,8 +85,21 @@ Future<void> main() async {
   );
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  FirebaseDynamicLinks dynamicLinks = FirebaseDynamicLinks.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    FirebaseDynamicLinkService.initDynamicLink(context);
+  }
 
   @override
   Widget build(BuildContext context) {
