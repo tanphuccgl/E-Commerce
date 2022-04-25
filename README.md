@@ -8,13 +8,15 @@
   <h3 align="center">E-Commerce Mobile Application</h3>
 
   <p align="center">
-   E-Commerce is an application built to provide users with an easy, secure and fast experience when shopping online through a strong operating and payment support system. Application support on  <a href="https://play.google.com/store/apps/details?id=com.goldenowl.ecommerce">Mobile</a> and  <a href="https://e-conmmerce.web.app/">Website</a>.
+   E-Commerce is an application built to provide users with an easy, secure and fast experience when shopping online through a strong operating and payment support system. Application support on  <a href="https://play.google.com/store/apps/details?id=com.goldenowl.ecommerce">Mobile</a> and  <a href="https://e-conmmerce.web.app/">Website</a>. Design: <a href="https://www.figma.com/file/arYXBvjg4dgjeS3cdFwSKO/E-commerce-Application-by-Fively-%2F-Light-Version-(Copy)?node-id=552%3A0">Figma E-Commerce</a> 
     <br>
     <br>
     <a href="https://github.com/levi-pham-goldenowl/E-Commerce/issues/new">Report bug</a>
     ·
     <a href="https://github.com/levi-pham-goldenowl/E-Commerce/issues/new">Request feature</a>
-  
+
+
+   <img src="https://firebasestorage.googleapis.com/v0/b/e-conmmerce.appspot.com/o/light%20hi.png?alt=media&token=40d423ca-4489-4e35-899e-187d38fb13c6" > 
 </p>
 
 # Table of contents
