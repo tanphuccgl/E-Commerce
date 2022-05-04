@@ -103,7 +103,9 @@ class _CustomPaginateState extends State<CustomPaginate> {
   }
 
   void _scrollListener() {
-    if (controller.position.pixels == controller.position.maxScrollExtent) {
+    var triggerFetchMoreSize = 0.9 * controller.position.maxScrollExtent;
+
+    if (controller.position.pixels > triggerFetchMoreSize) {
       widget.fetchNextData();
     }
   }
